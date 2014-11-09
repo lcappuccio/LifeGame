@@ -21,7 +21,6 @@ public class Grid extends JComponent {
 		this.cellSize = cellSize;
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
-		this.board = new Board(gridRows, gridCols);
 	}
 	
 	public void setCellValue(int x) {
@@ -34,6 +33,7 @@ public class Grid extends JComponent {
 
 	public void paintComponent(Graphics g) {
 		System.out.println("Grid paintComponent: " + cellSize + "\t" + gridRows + "\t" + gridCols);
+		this.board = new Board(gridRows, gridCols);
 		for (int i = 0; i < board.getBoardRows(); i++) {
 			for (int j = 0; j < board.getBoardCols(); j++) {
 				g.setColor(board.getCellAt(i, j).isAlive() ? Color.DARK_GRAY : Color.WHITE);
