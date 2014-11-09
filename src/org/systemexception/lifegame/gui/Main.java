@@ -18,14 +18,18 @@
 
 package org.systemexception.lifegame.gui;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
-import java.awt.Rectangle;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -37,6 +41,10 @@ public class Main {
 
 	private JFrame mainAppWindow;
 	private String platform = System.getProperty("os.name").toLowerCase();
+	private JMenuBar menuBar;
+	private JPanel centerPanel, lowerPanel;
+	private Grid grid;
+	private Preferences prefs;
 
 	/**
 	 * Launch the application.
@@ -67,32 +75,46 @@ public class Main {
 	private void initialize() {
 		mainAppWindow = new JFrame();
 		mainAppWindow.setTitle("LifeGame" + " - " + platform);
-		mainAppWindow.setBounds(100, 100, 450, 300);
+		mainAppWindow.setBounds(100, 100, 800, 600);
 		mainAppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JMenuBar menuBar = new JMenuBar();
+		mainAppWindow.getContentPane().setLayout(null);
+		mainAppWindow.setResizable(false);
+		menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, mainAppWindow.getWidth(), 20);
+		mainAppWindow.getContentPane().add(menuBar);
 		menuBar.setBorderPainted(false);
-		mainAppWindow.setJMenuBar(menuBar);
 		JMenu menuBarFile = new JMenu("File");
 		menuBar.add(menuBarFile);
-		Preferences prefs = new Preferences();
+		menuBarFile.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 
 		// ABOUT menu
 		JMenuItem menuFileAbout = new JMenuItem("About");
-		menuFileAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,
-				InputEvent.META_MASK));
 		menuFileAbout.addActionListener(new ActionListener() {
 			// Quit application
 			public void actionPerformed(ActionEvent e) {
 				About about = new About();
-				about.setBounds(mainAppWindow.getX() + 50,
-						mainAppWindow.getY() + 50, about.getWidth(),
+				about.setBounds(mainAppWindow.getX() + 50, mainAppWindow.getY() + 50, about.getWidth(),
 						about.getHeight());
 				about.setVisible(true);
 			}
 		});
+		menuFileAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.META_MASK));
+		menuBarFile.add(menuFileAbout);
+
+		// PREFERENCES menu
+		prefs = new Preferences();
+		JMenuItem menuFilePrefs = new JMenuItem("Preferences");
+		menuFilePrefs.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				prefs.setVisible(true);
+				prefs.setBounds(mainAppWindow.getX() + 40, mainAppWindow.getY() + 40, prefs.getWidth(),
+						prefs.getHeight());
+			}
+		});
+		menuFilePrefs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, InputEvent.META_MASK));
+		menuBarFile.add(menuFilePrefs);
 
 		// QUIT menu
-		menuBarFile.add(menuFileAbout);
 		JMenuItem menuFileQuit = new JMenuItem("Quit");
 		menuFileQuit.addActionListener(new ActionListener() {
 			// Quit application
@@ -100,34 +122,42 @@ public class Main {
 				System.exit(0);
 			}
 		});
-
-		// PREFERENCES menu
-		JMenuItem mntmPreferences = new JMenuItem("Preferences");
-		mntmPreferences.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				prefs.setVisible(true);
-				prefs.setBounds(mainAppWindow.getX() + 40,
-						mainAppWindow.getY() + 40, prefs.getWidth(),
-						prefs.getHeight());
-			}
-		});
-		mntmPreferences.setAccelerator(KeyStroke.getKeyStroke(
-				KeyEvent.VK_COMMA, InputEvent.META_MASK));
-		menuBarFile.add(mntmPreferences);
-		menuFileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q,
-				InputEvent.META_MASK));
+		menuFileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.META_MASK));
 		menuBarFile.add(menuFileQuit);
-		mainAppWindow.getContentPane().setLayout(null);
 
 		// CENTER panel
-		JPanel centerPanel = new JPanel();
-		centerPanel.setBounds(6, 6, 438, 244);
+		centerPanel = new JPanel();
+//		centerPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		centerPanel.setBounds(6, 25, 788, 495);
 		mainAppWindow.getContentPane().add(centerPanel);
-		centerPanel.setLayout(new FlowLayout(FlowLayout.LEFT, 0, 0));
-		Grid grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(),
-				centerPanel.getHeight());
-//		grid.setBounds(centerPanel.getX(), centerPanel.getY(),
-//				centerPanel.getWidth(), centerPanel.getHeight());
-		centerPanel.add(grid);
+		centerPanel.setLayout(new BorderLayout(0, 0));
+		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
+		centerPanel.add(grid, BorderLayout.NORTH);
+		
+		// LOWER panel
+		lowerPanel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
+		flowLayout.setHgap(0);
+		flowLayout.setVgap(0);
+		lowerPanel.setBounds(6, 533, 788, 39);
+		mainAppWindow.getContentPane().add(lowerPanel);
+		// Redraw button
+		JButton btnRedraw = new JButton("Redraw");
+		btnRedraw.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
+				centerPanel.add(grid, BorderLayout.NORTH);
+				centerPanel.repaint();
+			}
+		});
+		lowerPanel.add(btnRedraw);		
+		// Start button
+		JButton btnStart = new JButton("Start");
+		lowerPanel.add(btnStart);
+		// Stop button
+		JButton btnStop = new JButton("Stop");
+		lowerPanel.add(btnStop);
+		
 	}
 }
