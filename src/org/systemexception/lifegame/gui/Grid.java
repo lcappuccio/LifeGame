@@ -21,26 +21,24 @@ public class Grid extends JComponent {
 		this.cellSize = cellSize;
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
+		this.board = new Board(gridRows, gridCols);
 	}
 	
 	public void setCellValue(int x) {
 		cellSize = x;
 	}
+	
+	public Board getBoard() {
+		return board;
+	}
 
-	@Override
 	public void paintComponent(Graphics g) {
-		System.out.println("Grid paint: " + cellSize + "\t" + gridRows + "\t" + gridCols);
-		this.board = new Board(gridRows, gridCols);
-		this.setBounds(this.getParent().getBounds());
+		System.out.println("Grid paintComponent: " + cellSize + "\t" + gridRows + "\t" + gridCols);
 		for (int i = 0; i < board.getBoardRows(); i++) {
 			for (int j = 0; j < board.getBoardCols(); j++) {
 				g.setColor(board.getCellAt(i, j).isAlive() ? Color.DARK_GRAY : Color.WHITE);
 				g.fillRect(cellSize * i, cellSize * j, cellSize, cellSize);
 			}
 		}
-	}
-
-	public Board getBoard() {
-		return board;
 	}
 }

@@ -15,6 +15,7 @@ public class TestGrid {
 	Grid sut = new Grid(cellSize, gridRows, gridCols);
 	
 	@Test
+	@Ignore
 	public void testGridExists() {
 		assertNotNull(sut);
 	}
