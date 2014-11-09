@@ -5,7 +5,6 @@
 package org.systemexception.lifegame.gui;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
@@ -23,10 +22,14 @@ public class Grid extends JPanel {
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
 		this.board = new Board(gridRows,gridCols);
+		System.out.println("Grid Constructor: " + cellSize + "\t" + gridRows + "\t" + gridCols);
+		super.repaint();
 	}
 	
 	@Override
 	public void paint(Graphics g) {
+		System.out.println("Paint: " + cellSize + "\t" + gridRows + "\t" + gridCols);
+		this.board = new Board(gridRows,gridCols);
 		this.setSize(gridRows, gridCols);
 		for (int i = 0; i < board.getBoardRows(); i++) {
 			for (int j = 0; j < board.getBoardCols(); j++) {

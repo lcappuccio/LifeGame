@@ -5,7 +5,7 @@
 package org.systemexception.lifegame.board;
 
 public class Board {
-	
+
 	private Cell[][] board;
 	private int boardRows, boardCols;
 
@@ -16,19 +16,19 @@ public class Board {
 	public void setBoard(Cell[][] board) {
 		this.board = board;
 	}
-	
+
 	public int getBoardRows() {
 		return boardRows;
 	}
-	
+
 	public int getBoardCols() {
 		return boardCols;
 	}
-	
+
 	public boolean getCellIsAlive(int i, int j) {
 		return board[i][j].isAlive();
 	}
-	
+
 	public Cell getCellAt(int i, int j) {
 		return board[i][j];
 	}
@@ -43,5 +43,5 @@ public class Board {
 				board[i][j] = cell;
 			}
 		}
- 	}
+	}
 }

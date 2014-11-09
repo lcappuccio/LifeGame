@@ -11,7 +11,7 @@ import org.systemexception.lifegame.gui.Grid;
 public class TestGrid {
 
 	private int cellSize = 10, gridRows = 10, gridCols = 5;
-	Grid sut = new Grid(cellSize,gridRows,gridCols);
+	Grid sut = new Grid(cellSize, gridRows, gridCols);
 	
 	@Test
 	public void testGridExists() {
