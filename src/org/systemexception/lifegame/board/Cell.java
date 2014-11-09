@@ -4,12 +4,15 @@
  */
 package org.systemexception.lifegame.board;
 
+import java.util.Random;
+
 public class Cell {
 	
 	private boolean isAlive;
 	
 	public Cell() {
-		isAlive = false;
+		Random rnd = new Random();
+		isAlive = rnd.nextBoolean();
 	}
 	
 	public boolean isAlive() {

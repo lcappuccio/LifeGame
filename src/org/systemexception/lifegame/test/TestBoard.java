@@ -4,11 +4,11 @@
  */
 package org.systemexception.lifegame.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 import org.systemexception.lifegame.board.Board;
-import org.systemexception.lifegame.board.Cell;
 
 public class TestBoard {
 
@@ -27,11 +27,10 @@ public class TestBoard {
 	}
 	
 	@Test
-	public void newBoardIsZeroed() {
-		Cell[][] board = sut.getBoard();
+	public void newBoardHasValues() {
 		for (int i = 0; i < sut.getBoardRows(); i++) {
 			for (int j = 0; j < sut.getBoardCols(); j++) {
-				assertTrue(!board[i][j].isAlive());
+				assertNotNull(sut.getCellAt(i, j));
 			}
 		}
 	}

@@ -7,7 +7,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class Rectangle extends JPanel {
+public class TestDrawRect extends JPanel {
 
 	private int x, y, sizeX, sizeY;
 	
@@ -29,7 +29,7 @@ public class Rectangle extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Rectangle(int x, int y) {
+	public TestDrawRect(int x, int y) {
 		this.x = x;
 		this.y = y;
 		sizeX = this.getPreferredSize().width;
