@@ -1,15 +1,17 @@
+/**
+ * @author leo
+ * Nov 9, 2014 1:27:42 PM
+ */
 package org.systemexception.lifegame.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import org.junit.Test;
 import org.systemexception.lifegame.board.Board;
 import org.systemexception.lifegame.board.Cell;
 
-public class BoardTests {
-	
+public class TestBoard {
+
 	private int boardSizeX = 10, boardSizeY = 5;
 	Board sut = new Board(boardSizeX, boardSizeY);
 
