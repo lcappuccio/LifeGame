@@ -132,24 +132,23 @@ public class Main {
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
-		centerPanel.add(grid, BorderLayout.NORTH);
+		centerPanel.add(grid);
 		
 		// LOWER panel
 		lowerPanel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
 		flowLayout.setHgap(0);
 		flowLayout.setVgap(0);
-		lowerPanel.setBounds(6, 533, 788, 39);
+		lowerPanel.setBounds(6, 533, 788, 30);
 		mainAppWindow.getContentPane().add(lowerPanel);
 		// Redraw button
 		JButton btnRedraw = new JButton("Redraw");
 		btnRedraw.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
-				centerPanel.add(grid, BorderLayout.NORTH);
-				centerPanel.repaint();
+				drawGrid();
 			}
+
 		});
 		lowerPanel.add(btnRedraw);		
 		// Start button
@@ -158,6 +157,11 @@ public class Main {
 		// Stop button
 		JButton btnStop = new JButton("Stop");
 		lowerPanel.add(btnStop);
-		
+	}
+	
+	private void drawGrid() {
+		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
+		centerPanel.add(grid, BorderLayout.NORTH);
+		centerPanel.repaint();
 	}
 }
