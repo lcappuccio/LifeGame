@@ -22,7 +22,6 @@ public class Grid extends JPanel {
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
 		this.board = new Board(gridRows,gridCols);
-		System.out.println("Grid Constructor: " + cellSize + "\t" + gridRows + "\t" + gridCols);
 		super.repaint();
 	}
 	

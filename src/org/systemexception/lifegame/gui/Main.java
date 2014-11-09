@@ -36,13 +36,16 @@ import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 import javax.swing.border.LineBorder;
 import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import java.awt.FlowLayout;
 
 public class Main {
 
 	private JFrame mainAppWindow;
 	private String platform = System.getProperty("os.name").toLowerCase();
 	private JMenuBar menuBar;
-	private JPanel centerPanel;
+	private JPanel centerPanel, lowerPanel;
 	private Grid grid;
 	private Preferences prefs;
 
@@ -75,9 +78,10 @@ public class Main {
 	private void initialize() {
 		mainAppWindow = new JFrame();
 		mainAppWindow.setTitle("LifeGame" + " - " + platform);
-		mainAppWindow.setBounds(100, 100, 640, 480);
+		mainAppWindow.setBounds(100, 100, 800, 600);
 		mainAppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
+		mainAppWindow.setResizable(false);
 		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, mainAppWindow.getWidth(), 20);
 		mainAppWindow.getContentPane().add(menuBar);
@@ -126,29 +130,25 @@ public class Main {
 
 		// CENTER panel
 		centerPanel = new JPanel();
-		centerPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		centerPanel.setBounds(6, 25, mainAppWindow.getWidth() - 10, mainAppWindow.getHeight() - menuBar.getHeight()
-				- 50);
+//		centerPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		centerPanel.setBounds(6, 25, 788, 496);
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
 		centerPanel.add(grid, BorderLayout.NORTH);
-
-		// All initialized, add listener to resize
-		mainAppWindow.addComponentListener(new ComponentAdapter() {
-			public void componentResized(ComponentEvent e) {
-				// This is only called when the user releases the mouse button.
-				redrawOnResize(prefs, centerPanel);
-			}
-		});
-	}
-
-	private void redrawOnResize(Preferences prefs, JPanel centerPanel) {
-		menuBar.setBounds(0, 0, mainAppWindow.getWidth(), 20);
-		centerPanel.setBounds(6, 25, mainAppWindow.getWidth() - 10, mainAppWindow.getHeight() - menuBar.getHeight()
-				- 50);
-		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
-		System.out.println("Main: " + centerPanel.getWidth() + "\t" + centerPanel.getHeight() + "\t"
-				+ prefs.getCellSize());
+		
+		// LOWER panel
+		JPanel lowerPanel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
+		flowLayout.setHgap(0);
+		flowLayout.setVgap(0);
+		lowerPanel.setBounds(6, 533, 788, 39);
+		mainAppWindow.getContentPane().add(lowerPanel);
+		JButton btnRedraw = new JButton("Redraw");
+		lowerPanel.add(btnRedraw);
+		JButton btnStart = new JButton("Start");
+		lowerPanel.add(btnStart);
+		JButton btnStop = new JButton("Stop");
+		lowerPanel.add(btnStop);
 	}
 }
