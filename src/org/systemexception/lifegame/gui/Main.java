@@ -20,25 +20,22 @@ package org.systemexception.lifegame.gui;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import javax.swing.border.LineBorder;
-import java.awt.Color;
-import javax.swing.JButton;
-import javax.swing.SwingConstants;
-import java.awt.FlowLayout;
 
 public class Main {
 
@@ -131,24 +128,36 @@ public class Main {
 		// CENTER panel
 		centerPanel = new JPanel();
 //		centerPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		centerPanel.setBounds(6, 25, 788, 496);
+		centerPanel.setBounds(6, 25, 788, 495);
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
 		centerPanel.add(grid, BorderLayout.NORTH);
 		
 		// LOWER panel
-		JPanel lowerPanel = new JPanel();
+		lowerPanel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
 		flowLayout.setHgap(0);
 		flowLayout.setVgap(0);
 		lowerPanel.setBounds(6, 533, 788, 39);
 		mainAppWindow.getContentPane().add(lowerPanel);
+		// Redraw button
 		JButton btnRedraw = new JButton("Redraw");
-		lowerPanel.add(btnRedraw);
+		btnRedraw.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
+				centerPanel.add(grid, BorderLayout.NORTH);
+				centerPanel.repaint();
+			}
+		});
+		lowerPanel.add(btnRedraw);		
+		// Start button
 		JButton btnStart = new JButton("Start");
 		lowerPanel.add(btnStart);
+		// Stop button
 		JButton btnStop = new JButton("Stop");
 		lowerPanel.add(btnStop);
+		
 	}
 }
