@@ -18,7 +18,7 @@ import javax.swing.border.EmptyBorder;
 public class Preferences extends JFrame {
 
 	private JPanel prefsWindow;
-	private int cellSize = 5, minCellSize = 5, maxCellSize = 30, windowWidth, windowHeight;
+	private int cellSize = 5, minCellSize = 1, maxCellSize = 10, windowWidth, windowHeight;
 	private JSpinner prefsCellSpinner;
 	
 	public int getWindowWidth() {
