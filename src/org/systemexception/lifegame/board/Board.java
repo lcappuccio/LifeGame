@@ -43,5 +43,5 @@ public class Board {
 				board[i][j] = cell;
 			}
 		}
-	}
+ 	}
 }
