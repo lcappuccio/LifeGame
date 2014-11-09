@@ -21,13 +21,10 @@ public class Grid extends JComponent {
 		this.cellSize = cellSize;
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
-<<<<<<< HEAD
 	}
 	
 	public void setCellValue(int x) {
 		cellSize = x;
-=======
->>>>>>> master
 	}
 
 	public Board getBoard() {
