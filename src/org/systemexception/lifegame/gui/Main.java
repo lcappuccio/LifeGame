@@ -159,7 +159,7 @@ public class Main {
 		lowerPanel.add(btnStop);
 	}
 	
-	private void drawGrid() {
+	public void drawGrid() {
 		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
 		centerPanel.add(grid, BorderLayout.NORTH);
 		centerPanel.repaint();
