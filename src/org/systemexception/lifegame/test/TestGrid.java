@@ -46,5 +46,14 @@ public class TestGrid {
 		}
 	}
 	
+	@Test
+	public void testChangeCellSize() {
+		Board board = sut.getBoard();
+		int cellSize = sut.getCellSize();
+		Grid sut = new Grid(5, gridRows, gridCols);
+		int cellSizeNew = sut.getCellSize();
+		assertTrue(cellSize != cellSizeNew);
+	}
+	
 	
 }

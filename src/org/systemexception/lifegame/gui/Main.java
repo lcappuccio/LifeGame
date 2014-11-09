@@ -127,13 +127,13 @@ public class Main {
 
 		// CENTER panel
 		centerPanel = new JPanel();
-//		centerPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		// centerPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
 		centerPanel.setBounds(6, 25, 788, 495);
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
 		centerPanel.add(grid);
-		
+
 		// LOWER panel
 		lowerPanel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
@@ -150,7 +150,7 @@ public class Main {
 			}
 
 		});
-		lowerPanel.add(btnRedraw);		
+		lowerPanel.add(btnRedraw);
 		// Start button
 		JButton btnStart = new JButton("Start");
 		lowerPanel.add(btnStart);
@@ -158,7 +158,7 @@ public class Main {
 		JButton btnStop = new JButton("Stop");
 		lowerPanel.add(btnStop);
 	}
-	
+
 	public void drawGrid() {
 		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
 		centerPanel.add(grid, BorderLayout.NORTH);
