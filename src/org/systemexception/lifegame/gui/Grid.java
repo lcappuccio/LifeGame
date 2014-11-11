@@ -22,6 +22,10 @@ public class Grid extends JComponent {
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
 	}
+	
+	public void setCellValue(int x) {
+		cellSize = x;
+	}
 
 	public Board getBoard() {
 		return board;
