@@ -7,7 +7,7 @@ package org.systemexception.lifegame.model;
 public class Board {
 
 	private Cell[][] board;
-	private int rows, cols;
+	private int rows, cols, countLiveCells = 0;;
 
 	public Cell[][] getBoard() {
 		return board;
@@ -46,42 +46,40 @@ public class Board {
 			j = cols - 1;
 		}
 		// If out of bounds above
-		if (i > rows) {
+		if (i >= rows) {
 			i = 0;
 		}
-		if (j > cols) {
+		if (j >= cols) {
 			j = 0;
 		}
 		return board[i][j];
 	}
 
 	public int countSurroungingLiveCells(int i, int j) {
-		int countLiveCells = 0;
-		// Row above cell level
-		if (getCellAt(i - 1, j + 1).isAlive()) {
+		countLiveCells = 0;
+		// Rotating clockwise
+		if (getCellAt(i + 1, j + 1).isAlive()) {
 			countLiveCells++;
 		}
-		if (getCellAt(i, j + 1).isAlive()) {
+		if (getCellAt(i + 1, j).isAlive()) {
 			countLiveCells++;
 		}
 		if (getCellAt(i + 1, j + 1).isAlive()) {
 			countLiveCells++;
 		}
-		// Row at cell level
-		if (getCellAt(i, j - 1).isAlive()) {
-			countLiveCells++;
-		}
 		if (getCellAt(i, j + 1).isAlive()) {
 			countLiveCells++;
 		}
-		// Row below cell level
+		if (getCellAt(i - 1, j + 1).isAlive()) {
+			countLiveCells++;
+		}
+		if (getCellAt(i - 1, j).isAlive()) {
+			countLiveCells++;
+		}
 		if (getCellAt(i - 1, j - 1).isAlive()) {
 			countLiveCells++;
 		}
 		if (getCellAt(i, j - 1).isAlive()) {
-			countLiveCells++;
-		}
-		if (getCellAt(i + 1, j - 1).isAlive()) {
 			countLiveCells++;
 		}
 		return countLiveCells;

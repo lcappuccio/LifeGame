@@ -19,13 +19,13 @@ public class TestBoard {
 	public void testBordExists() {
 		assertNotNull(sut);
 	}
-	
+
 	@Test
 	public void boardHasCorrectSize() {
 		assertEquals(sut.getBoardRows(), boardSizeX);
 		assertEquals(sut.getBoardCols(), boardSizeY);
 	}
-	
+
 	@Test
 	public void newBoardHasCells() {
 		for (int i = 0; i < sut.getBoardRows(); i++) {
@@ -34,23 +34,24 @@ public class TestBoard {
 			}
 		}
 	}
-	
+
 	@Test
 	public void boardIsRoundHorizontally() {
 		Cell myCell = sut.getCellAt(2, 0);
 		assertSame(myCell, sut.getCellAt(-1, 0));
 	}
-	
+
 	@Test
 	public void boardIsRoundVertically() {
 		Cell myCell = sut.getCellAt(2, 2);
 		assertSame(myCell, sut.getCellAt(2, -1));
 	}
-	
+
 	@Test
 	public void verifySurroundingAliveCellsCount() {
-		int aliveCellCount = sut.countSurroungingLiveCells(1, 1);
+		int i = 1, j = 1;
+		int aliveCellCount = sut.countSurroungingLiveCells(i,j);
 		sut.printBoard();
-		System.out.println("Live cells around 1,1:" + aliveCellCount);
+		System.out.println("Live cells around (" + i + "," + j + "): " + aliveCellCount);
 	}
 }
