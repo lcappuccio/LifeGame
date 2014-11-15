@@ -4,25 +4,21 @@
  */
 package org.systemexception.lifegame.test;
 
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
+import org.systemexception.lifegame.game.BoardIterator;
 import org.systemexception.lifegame.model.Board;
 
 public class TestBoardIterator {
-	
-	Board board;
+
+	BoardIterator sut;
 
 	@Before
 	public void setUp() throws Exception {
-		board = new Board(3, 3);
-	}
-	
-	@Test
-	public void cellWithLessThanTwoCellsDies() {
-		// Find cell with less than two alive cells around
-		for (int i = 0; i < board.getBoardRows(); i++) {
-			for (int j = 0; j < board.getBoardCols(); j++) {
-			}
-		}
+		Board board = new Board(3, 3);
+		sut = new BoardIterator(board);
+		board.printBoard();
 	}
 }

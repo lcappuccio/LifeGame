@@ -14,4 +14,8 @@ public class BoardIterator {
 		this.oldBoard = oldBoard;
 	}
 
+	public int FateOfCellAt(int i, int j) {
+		return oldBoard.countSurroungingLiveCells(i, j);
+	}
+
 }

@@ -57,7 +57,43 @@ public class Board {
 
 	public int countSurroungingLiveCells(int i, int j) {
 		int countLiveCells = 0;
+		// Row above cell level
+		if (getCellAt(i - 1, j + 1).isAlive()) {
+			countLiveCells++;
+		}
+		if (getCellAt(i, j + 1).isAlive()) {
+			countLiveCells++;
+		}
+		if (getCellAt(i + 1, j + 1).isAlive()) {
+			countLiveCells++;
+		}
+		// Row at cell level
+		if (getCellAt(i, j - 1).isAlive()) {
+			countLiveCells++;
+		}
+		if (getCellAt(i, j + 1).isAlive()) {
+			countLiveCells++;
+		}
+		// Row below cell level
+		if (getCellAt(i - 1, j - 1).isAlive()) {
+			countLiveCells++;
+		}
+		if (getCellAt(i, j - 1).isAlive()) {
+			countLiveCells++;
+		}
+		if (getCellAt(i + 1, j - 1).isAlive()) {
+			countLiveCells++;
+		}
 		return countLiveCells;
+	}
+
+	public void printBoard() {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				System.out.print("(" + i + "," + j + "): " + getCellAt(i, j).isAlive() + "\t");
+			}
+			System.out.print("\n");
+		}
 	}
 
 	public Board(int rows, int cols) {

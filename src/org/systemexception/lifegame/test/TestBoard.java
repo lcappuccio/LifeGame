@@ -46,4 +46,11 @@ public class TestBoard {
 		Cell myCell = sut.getCellAt(2, 2);
 		assertSame(myCell, sut.getCellAt(2, -1));
 	}
+	
+	@Test
+	public void verifySurroundingAliveCellsCount() {
+		int aliveCellCount = sut.countSurroungingLiveCells(1, 1);
+		sut.printBoard();
+		System.out.println("Live cells around 1,1:" + aliveCellCount);
+	}
 }
