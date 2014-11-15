@@ -2,7 +2,7 @@
  * @author leo
  * Nov 9, 2014 12:39:50 PM
  */
-package org.systemexception.lifegame.board;
+package org.systemexception.lifegame.model;
 
 import java.util.Random;
 

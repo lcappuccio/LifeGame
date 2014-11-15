@@ -5,9 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.systemexception.lifegame.board.Board;
-import org.systemexception.lifegame.board.Cell;
 import org.systemexception.lifegame.gui.Grid;
+import org.systemexception.lifegame.model.Board;
+import org.systemexception.lifegame.model.Cell;
 
 public class TestGrid {
 

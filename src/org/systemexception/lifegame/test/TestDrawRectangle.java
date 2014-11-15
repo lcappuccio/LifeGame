@@ -1,4 +1,4 @@
-package org.systemexception.lifegame.gui;
+package org.systemexception.lifegame.test;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,7 +7,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class TestDrawRect extends JPanel {
+public class TestDrawRectangle extends JPanel {
 
 	private int x, y, sizeX, sizeY;
 	
@@ -29,7 +29,7 @@ public class TestDrawRect extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public TestDrawRect(int x, int y) {
+	public TestDrawRectangle(int x, int y) {
 		this.x = x;
 		this.y = y;
 		sizeX = this.getPreferredSize().width;
