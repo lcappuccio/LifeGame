@@ -38,18 +38,19 @@ public class Board {
 	 * @return
 	 */
 	public Cell getCellAt(int i, int j) {
+		// TODO check this piece of code, it's not rotating ok
 		// If out of bounds below
-		if (i < 0) {
+		if (i == -1) {
 			i = rows - 1;
 		}
-		if (j < 0) {
+		if (j == -1) {
 			j = cols - 1;
 		}
 		// If out of bounds above
-		if (i >= rows) {
+		if (i == rows) {
 			i = 0;
 		}
-		if (j >= cols) {
+		if (j == cols) {
 			j = 0;
 		}
 		return board[i][j];

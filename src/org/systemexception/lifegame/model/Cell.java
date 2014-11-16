@@ -23,7 +23,11 @@ public class Cell {
 		return !isAlive;
 	}
 
-	public void setCellAlive(boolean cellState) {
-		isAlive = cellState;
+	public void setCellAlive() {
+		isAlive = true;
+	}
+	
+	public void setCellDead() {
+		isAlive = false;
 	}
 }
