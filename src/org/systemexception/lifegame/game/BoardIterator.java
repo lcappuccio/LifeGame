@@ -13,5 +13,4 @@ public class BoardIterator {
 	public BoardIterator(Board oldBoard) {
 		this.oldBoard = oldBoard;
 	}
-
 }
