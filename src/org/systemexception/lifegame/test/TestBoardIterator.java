@@ -4,10 +4,7 @@
  */
 package org.systemexception.lifegame.test;
 
-import static org.junit.Assert.*;
-
 import org.junit.Before;
-import org.junit.Test;
 import org.systemexception.lifegame.game.BoardIterator;
 import org.systemexception.lifegame.model.Board;
 
