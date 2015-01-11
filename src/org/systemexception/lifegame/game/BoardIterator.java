@@ -13,12 +13,8 @@ public class BoardIterator {
 	public BoardIterator(Board oldBoard) {
 		this.oldBoard = oldBoard;
 	}
-<<<<<<< HEAD
-=======
 
 	public int FateOfCellAt(int i, int j) {
 		return oldBoard.countSurroungingLiveCells(i, j);
 	}
-
->>>>>>> develop
 }
