@@ -54,7 +54,7 @@ public class TestBoard {
 
 	@Test
 	public void verifySurroundingAliveCellsCount() {
-		int i = 1, j = 0;
+		int i = 0, j = 2;
 		int aliveCellCount = sut.countSurroungingLiveCells(i,j);
 		sut.printBoard();
 		System.out.println("Live cells around (" + i + "," + j + "): " + aliveCellCount);

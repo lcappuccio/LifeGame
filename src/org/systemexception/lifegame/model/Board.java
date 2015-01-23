@@ -59,7 +59,7 @@ public class Board {
 	public int countSurroungingLiveCells(int i, int j) {
 		countLiveCells = 0;
 		// Rotating clockwise
-		if (getCellAt(i + 1, j + 1).isAlive()) {
+		if (getCellAt(i + 1, j - 1).isAlive()) {
 			countLiveCells++;
 		}
 		if (getCellAt(i + 1, j).isAlive()) {
