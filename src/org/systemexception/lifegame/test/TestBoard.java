@@ -16,7 +16,7 @@ import org.systemexception.lifegame.model.Cell;
 public class TestBoard {
 
 	private int boardSizeX = 3, boardSizeY = 3;
-	Board sut = new Board(boardSizeX, boardSizeY);
+	private Board sut = new Board(boardSizeX, boardSizeY);
 
 	@Test
 	public void testBordExists() {

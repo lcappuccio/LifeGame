@@ -12,7 +12,7 @@ import org.systemexception.lifegame.model.Cell;
 public class TestGrid {
 
 	private int cellSize = 10, gridRows = 10, gridCols = 5;
-	Grid sut = new Grid(cellSize, gridRows, gridCols);
+	private Grid sut = new Grid(cellSize, gridRows, gridCols);
 	
 	@Test
 	@Ignore
