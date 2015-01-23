@@ -16,7 +16,7 @@ public class BoardIterator {
 	
 	public Board iterateBoard(Board oldBoard) {
 		this.oldBoard = oldBoard;
-		newBoard = new Board(oldBoard.getBoardRows(), oldBoard.getBoardCols());
+		newBoard = oldBoard;
 		for (int i = 0; i < oldBoard.getBoardCols(); i ++) {
 			for (int j = 0; j < oldBoard.getBoardRows(); j++) {
 				if (oldBoard.getCellAt(i, j).isAlive()) {
@@ -34,11 +34,20 @@ public class BoardIterator {
 				} else {
 					// Cell becomes alive
 					if (oldBoard.countSurroungingLiveCells(i, j) == 3) {
+						System.out.println("BANG");
 						newBoard.getCellAt(i, j).setCellAlive();
 					}
 				}
 			}
 		}
 		return newBoard;
+	}
+	
+	private void resetBoard() {
+		for (int i = 0; i < newBoard.getBoardRows(); i++) {
+			for (int j = 0; j < newBoard.getBoardCols(); j++) {
+				newBoard.getCellAt(i, j).setCellDead();
+			}
+		}
 	}
 }
