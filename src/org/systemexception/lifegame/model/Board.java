@@ -38,7 +38,6 @@ public class Board {
 	 * @return
 	 */
 	public Cell getCellAt(int i, int j) {
-		// TODO check this piece of code, it's not rotating ok
 		// If out of bounds below
 		if (i == -1) {
 			i = rows - 1;
