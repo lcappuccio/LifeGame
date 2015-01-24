@@ -37,7 +37,7 @@ public class TestGrid {
 		for (int i = 0; i < board.getBoardRows(); i++) {
 			for (int j = 0; j < board.getBoardCols(); j++) {
 				Cell cell = board.getCellAt(i, j);
-				assertNotNull(cell.isAlive());
+				assertNotNull(cell.getCellState());
 			}
 		}
 	}

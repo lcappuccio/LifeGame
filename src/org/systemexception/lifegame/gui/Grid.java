@@ -47,7 +47,7 @@ public class Grid extends JComponent {
 	public void paintComponent(Graphics g) {
 		for (int i = 0; i < board.getBoardRows(); i++) {
 			for (int j = 0; j < board.getBoardCols(); j++) {
-				g.setColor(board.getCellAt(i, j).isAlive() ? Color.DARK_GRAY : Color.WHITE);
+				g.setColor(board.getCellAt(i, j).getCellState() ? Color.DARK_GRAY : Color.WHITE);
 				g.fillRect(cellSize * i, cellSize * j, cellSize, cellSize);
 				g.setColor(Color.LIGHT_GRAY);
 				g.drawRect(cellSize * i, cellSize * j, cellSize, cellSize);

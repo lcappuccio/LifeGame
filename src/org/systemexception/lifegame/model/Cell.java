@@ -12,19 +12,20 @@ public class Cell {
 
 	public Cell() {
 		Random rnd = new Random();
-		if (rnd.nextInt(10) > 8) {
+		if (rnd.nextInt(100) > 94) {
 			isAlive = true;
 		} else {
 			isAlive = false;
 		}
+//		isAlive = rnd.nextBoolean();
+	}
+	
+	public Cell(Boolean state) {
+		this.isAlive = state;
 	}
 
-	public boolean isAlive() {
+	public boolean getCellState() {
 		return isAlive;
-	}
-
-	public boolean isDead() {
-		return !isAlive;
 	}
 
 	public void setCellAlive() {
