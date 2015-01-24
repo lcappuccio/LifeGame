@@ -112,9 +112,10 @@ public class Preferences extends JFrame {
 		prefsWindow.setLayout(gl_prefsWindow);
 	}
 	
-	private void saveCellSize() {
+	private int saveCellSize() {
 		getCellValue();
 		super.setVisible(false);
+		return cellSize;
 	}
 	
 	private void closeWindow() {

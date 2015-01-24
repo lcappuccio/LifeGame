@@ -32,6 +32,7 @@ public class Grid extends JComponent {
 	}
 	
 	public void resetBoard() {
+		System.out.println(cellSize);
 		this.board = new Board(gridRows, gridCols);
 	}
 

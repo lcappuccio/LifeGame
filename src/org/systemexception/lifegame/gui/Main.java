@@ -172,6 +172,7 @@ public class Main {
 //		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
 //		grid.resetBoard();
 //		centerPanel.add(grid, BorderLayout.NORTH);
+		grid.setCellValue(prefs.getCellSize());
 		grid.resetBoard();
 		centerPanel.repaint();
 	}
