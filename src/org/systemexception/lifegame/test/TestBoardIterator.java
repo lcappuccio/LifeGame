@@ -17,7 +17,7 @@ public class TestBoardIterator {
 
 	@Before
 	public void setUp() throws Exception {
-		board = new Board(3, 3);
+		board = new Board(3,3);
 		sut = new BoardIterator();
 		System.out.println("Board at start");
 		board.printBoard();
@@ -33,9 +33,9 @@ public class TestBoardIterator {
 	
 	@Test
 	public void test10Iterations() {
-		for (int i = 0; i < 10; i++) {
-			System.out.println("Board at iteration " + i);
+		for (int i = 0; i < 50; i++) {
 			board = sut.iterateBoard(board);
+			System.out.println("Board at iteration " + i);
 			board.printBoard();
 		}
 	}

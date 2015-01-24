@@ -133,7 +133,6 @@ public class Main {
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
 		centerPanel.add(grid);
-
 		// LOWER panel
 		lowerPanel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
@@ -141,27 +140,40 @@ public class Main {
 		flowLayout.setVgap(0);
 		lowerPanel.setBounds(6, 533, 788, 30);
 		mainAppWindow.getContentPane().add(lowerPanel);
-		// Redraw button
-		JButton btnRedraw = new JButton("Redraw");
-		btnRedraw.addMouseListener(new MouseAdapter() {
+		// Iterate button
+		JButton btnIterate = new JButton("Iterate");
+		btnIterate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				drawGrid();
+				iterateGrid();
 			}
-
 		});
-		lowerPanel.add(btnRedraw);
-		// Start button
-		JButton btnStart = new JButton("Start");
-		lowerPanel.add(btnStart);
+		lowerPanel.add(btnIterate);
 		// Stop button
 		JButton btnStop = new JButton("Stop");
 		lowerPanel.add(btnStop);
+		// Stop button
+		JButton btnReset = new JButton("Reset");
+		btnReset.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				resetGrid();
+			}
+		});
+		lowerPanel.add(btnReset);
 	}
 
-	public void drawGrid() {
-		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
-		centerPanel.add(grid, BorderLayout.NORTH);
+	public void iterateGrid() {
+		grid.iterateBoard();
 		centerPanel.repaint();
 	}
+	
+	public void resetGrid() {
+//		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
+//		grid.resetBoard();
+//		centerPanel.add(grid, BorderLayout.NORTH);
+		grid.resetBoard();
+		centerPanel.repaint();
+	}
+	
 }

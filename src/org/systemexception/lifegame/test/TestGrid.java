@@ -15,19 +15,16 @@ public class TestGrid {
 	private Grid sut = new Grid(cellSize, gridRows, gridCols);
 	
 	@Test
-	@Ignore
 	public void testGridExists() {
 		assertNotNull(sut);
 	}
 	
 	@Test
-	@Ignore
 	public void testGridHasBoard() {
 		assertNotNull(sut.getBoard());
 	}
 	
 	@Test
-	@Ignore
 	public void testGridBoardHasAttributes() {
 		Board board = sut.getBoard();
 		assertTrue(board.getBoardCols() > 0);
@@ -35,7 +32,6 @@ public class TestGrid {
 	}
 	
 	@Test
-	@Ignore
 	public void testGridBoardHasCells() {
 		Board board = sut.getBoard();
 		for (int i = 0; i < board.getBoardRows(); i++) {

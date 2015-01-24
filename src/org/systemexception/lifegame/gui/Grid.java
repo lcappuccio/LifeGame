@@ -9,22 +9,30 @@ import java.awt.Graphics;
 
 import javax.swing.JComponent;
 
+import org.systemexception.lifegame.game.BoardIterator;
 import org.systemexception.lifegame.model.Board;
 
-@SuppressWarnings("serial")
 public class Grid extends JComponent {
 
+	private static final long serialVersionUID = 7546830315256844429L;
 	private Board board;
+	private BoardIterator boardIterator;
 	private int cellSize, gridRows, gridCols;
 
 	public Grid(int cellSize, int gridRows, int gridCols) {
+		boardIterator = new BoardIterator();
 		this.cellSize = cellSize;
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
+		this.board = new Board(gridRows, gridCols);
 	}
 	
 	public void setCellValue(int x) {
 		cellSize = x;
+	}
+	
+	public void resetBoard() {
+		this.board = new Board(gridRows, gridCols);
 	}
 
 	public Board getBoard() {
@@ -34,9 +42,12 @@ public class Grid extends JComponent {
 	public int getCellSize() {
 		return cellSize;
 	}
+	
+	public void iterateBoard() {
+		this.board = boardIterator.iterateBoard(board);
+	}
 
 	public void paintComponent(Graphics g) {
-		this.board = new Board(gridRows, gridCols);
 		for (int i = 0; i < board.getBoardRows(); i++) {
 			for (int j = 0; j < board.getBoardCols(); j++) {
 				g.setColor(board.getCellAt(i, j).isAlive() ? Color.DARK_GRAY : Color.WHITE);

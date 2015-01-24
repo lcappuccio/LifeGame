@@ -30,7 +30,6 @@ public class TestBoard {
 	}
 
 	@Test
-	@Ignore
 	public void newBoardHasCells() {
 		for (int i = 0; i < sut.getBoardRows(); i++) {
 			for (int j = 0; j < sut.getBoardCols(); j++) {
@@ -40,7 +39,6 @@ public class TestBoard {
 	}
 
 	@Test
-	@Ignore
 	public void boardIsRoundHorizontally() {
 		Cell myCell = sut.getCellAt(2, 0);
 		assertSame(myCell, sut.getCellAt(-1, 0));
