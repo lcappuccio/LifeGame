@@ -12,7 +12,11 @@ public class Cell {
 
 	public Cell() {
 		Random rnd = new Random();
-		isAlive = rnd.nextBoolean();
+		if (rnd.nextInt(10) > 8) {
+			isAlive = true;
+		} else {
+			isAlive = false;
+		}
 	}
 
 	public boolean isAlive() {
