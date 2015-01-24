@@ -9,18 +9,15 @@ import java.awt.Graphics;
 
 import javax.swing.JComponent;
 
-import org.systemexception.lifegame.game.BoardIterator;
 import org.systemexception.lifegame.model.Board;
 
 public class Grid extends JComponent {
 
 	private static final long serialVersionUID = 7546830315256844429L;
 	private Board board;
-	private BoardIterator boardIterator;
 	private int cellSize, gridRows, gridCols;
 
 	public Grid(int cellSize, int gridRows, int gridCols) {
-		boardIterator = new BoardIterator();
 		this.cellSize = cellSize;
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
@@ -44,7 +41,7 @@ public class Grid extends JComponent {
 	}
 	
 	public void iterateBoard() {
-		this.board = boardIterator.iterateBoard(board);
+		this.board = board.iterateBoard(board);
 	}
 
 	public void paintComponent(Graphics g) {

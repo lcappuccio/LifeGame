@@ -105,4 +105,24 @@ public class Board {
 			}
 		}
 	}
+	
+	public Board iterateBoard(Board oldBoard) {
+		Board newBoard = oldBoard;
+		for (int i = 0; i < oldBoard.getBoardRows(); i++) {
+			for (int j = 0; j < oldBoard.getBoardCols(); j++) {
+				// Cell dies
+				if ((oldBoard.getCellAt(i, j).isAlive())
+						&& (oldBoard.countSurroungingLiveCells(i, j) == 2 || oldBoard.countSurroungingLiveCells(i, j) == 3)) {
+					newBoard.getCellAt(i, j).setCellAlive();
+				} else  {
+					newBoard.getCellAt(i, j).setCellDead();
+				}
+				if (oldBoard.getCellAt(i, j).isDead() && oldBoard.countSurroungingLiveCells(i, j) == 3) {
+					// Cell becomes alive
+					newBoard.getCellAt(i, j).setCellAlive();
+				}
+			}
+		}
+		return newBoard;
+	}
 }
