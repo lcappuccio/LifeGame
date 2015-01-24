@@ -32,7 +32,6 @@ public class Grid extends JComponent {
 	}
 	
 	public void resetBoard() {
-		System.out.println(cellSize);
 		this.board = new Board(gridRows, gridCols);
 	}
 
@@ -53,6 +52,8 @@ public class Grid extends JComponent {
 			for (int j = 0; j < board.getBoardCols(); j++) {
 				g.setColor(board.getCellAt(i, j).isAlive() ? Color.DARK_GRAY : Color.WHITE);
 				g.fillRect(cellSize * i, cellSize * j, cellSize, cellSize);
+				g.setColor(Color.LIGHT_GRAY);
+				g.drawRect(cellSize * i, cellSize * j, cellSize, cellSize);
 			}
 		}
 	}
