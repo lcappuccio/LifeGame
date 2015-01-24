@@ -39,13 +39,19 @@ public class TestBoard {
 	}
 
 	@Test
+	@Deprecated
+	@Ignore
 	public void boardIsRoundHorizontally() {
+		// Border is no longer "round"
 		Cell myCell = sut.getCellAt(2, 0);
 		assertSame(myCell, sut.getCellAt(-1, 0));
 	}
 
 	@Test
+	@Deprecated
+	@Ignore
 	public void boardIsRoundVertically() {
+		// Border is no longer "round"
 		Cell myCell = sut.getCellAt(2, 2);
 		assertSame(myCell, sut.getCellAt(2, -1));
 	}

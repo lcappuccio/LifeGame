@@ -7,7 +7,7 @@ package org.systemexception.lifegame.model;
 public class Board {
 
 	private Cell[][] board;
-	private int rows, cols, countLiveCells = 0;;
+	private int rows, cols, countSurroundingLiveCells = 0, countBoardLiveCells = 0;
 
 	public Cell[][] getBoard() {
 		return board;
@@ -26,69 +26,61 @@ public class Board {
 	}
 
 	public boolean getCellIsAlive(int i, int j) {
-		return board[i][j].isAlive();
+		return board[i][j].getCellState();
 	}
 
-	/**
-	 * We're representing a borderless board, so the neighbor of the first
-	 * column and row is the other side of the board
-	 * 
-	 * @param i
-	 * @param j
-	 * @return
-	 */
 	public Cell getCellAt(int i, int j) {
 		// If out of bounds below
 		if (i == -1) {
-			i = rows - 1;
+			return new Cell(false);
 		}
 		if (j == -1) {
-			j = cols - 1;
+			return new Cell(false);
 		}
 		// If out of bounds above
 		if (i == rows) {
-			i = 0;
+			return new Cell(false);
 		}
 		if (j == cols) {
-			j = 0;
+			return new Cell(false);
 		}
 		return board[i][j];
 	}
 
 	public int countSurroungingLiveCells(int i, int j) {
-		countLiveCells = 0;
+		countSurroundingLiveCells = 0;
 		// Rotating clockwise
-		if (getCellAt(i + 1, j - 1).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i + 1, j - 1).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		if (getCellAt(i + 1, j).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i + 1, j).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		if (getCellAt(i + 1, j + 1).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i + 1, j + 1).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		if (getCellAt(i, j + 1).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i, j + 1).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		if (getCellAt(i - 1, j + 1).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i - 1, j + 1).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		if (getCellAt(i - 1, j).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i - 1, j).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		if (getCellAt(i - 1, j - 1).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i - 1, j - 1).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		if (getCellAt(i, j - 1).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i, j - 1).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		return countLiveCells;
+		return countSurroundingLiveCells;
 	}
 
 	public void printBoard() {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				System.out.print("(" + i + "," + j + "): " + getCellAt(i, j).isAlive() + "\t");
+				System.out.print("(" + i + "," + j + "): " + getCellAt(i, j).getCellState() + "\t");
 			}
 			System.out.print("\n");
 		}
@@ -111,18 +103,32 @@ public class Board {
 		for (int i = 0; i < oldBoard.getBoardRows(); i++) {
 			for (int j = 0; j < oldBoard.getBoardCols(); j++) {
 				// Cell dies
-				if ((oldBoard.getCellAt(i, j).isAlive())
-						&& (oldBoard.countSurroungingLiveCells(i, j) == 2 || oldBoard.countSurroungingLiveCells(i, j) == 3)) {
-					newBoard.getCellAt(i, j).setCellAlive();
-				} else  {
+				if ((oldBoard.getCellAt(i, j).getCellState())
+						&& (oldBoard.countSurroungingLiveCells(i, j) < 2 || oldBoard.countSurroungingLiveCells(i, j) > 3)) {
 					newBoard.getCellAt(i, j).setCellDead();
 				}
-				if (oldBoard.getCellAt(i, j).isDead() && oldBoard.countSurroungingLiveCells(i, j) == 3) {
-					// Cell becomes alive
+				// Cell becomes alive
+				if (!oldBoard.getCellAt(i, j).getCellState() && oldBoard.countSurroungingLiveCells(i, j) == 3) {
 					newBoard.getCellAt(i, j).setCellAlive();
 				}
 			}
 		}
+		countLiveCells(newBoard);
 		return newBoard;
+	}
+	
+	private void countLiveCells(Board board) {
+		countBoardLiveCells = 0;
+		for (int i = 0; i < board.getBoardRows(); i++) {
+			for (int j = 0; j < board.getBoardCols(); j++) {
+				if (board.getCellAt(i, j).getCellState()) {
+					countBoardLiveCells++;
+				}
+			}
+		}
+	}
+	
+	public int getBoardLiveCells() {
+		return countBoardLiveCells;
 	}
 }
