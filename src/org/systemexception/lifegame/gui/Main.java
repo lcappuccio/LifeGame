@@ -19,6 +19,7 @@
 package org.systemexception.lifegame.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -36,6 +37,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
+import javax.swing.border.LineBorder;
 
 public class Main {
 
@@ -127,8 +129,7 @@ public class Main {
 
 		// CENTER panel
 		centerPanel = new JPanel();
-		// centerPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		centerPanel.setBounds(6, 25, 788, 495);
+		centerPanel.setBounds(5, 25, 790, 495);
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
@@ -167,11 +168,11 @@ public class Main {
 		grid.iterateBoard();
 		centerPanel.repaint();
 	}
-	
+
 	public void resetGrid() {
 		grid.setCellValue(prefs.getCellSize());
 		grid.resetBoard();
 		centerPanel.repaint();
 	}
-	
+
 }
