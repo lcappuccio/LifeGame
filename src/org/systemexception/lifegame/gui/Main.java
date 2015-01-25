@@ -130,7 +130,7 @@ public class Main {
 
 		// CENTER panel
 		centerPanel = new JPanel();
-		centerPanel.setBounds(5, 25, 790, 495);
+		centerPanel.setBounds(5, 25, 791, 496);
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth() / prefs.getCellSize(), centerPanel.getHeight()
