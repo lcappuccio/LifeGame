@@ -12,12 +12,11 @@ public class Cell {
 
 	public Cell() {
 		Random rnd = new Random();
-		if (rnd.nextInt(100) > 80) {
+		if (rnd.nextInt(100) > 50) {
 			isAlive = true;
 		} else {
 			isAlive = false;
 		}
-		// isAlive = rnd.nextBoolean();
 	}
 
 	public Cell(Boolean state) {
