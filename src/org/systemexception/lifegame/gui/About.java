@@ -6,33 +6,22 @@ import javax.swing.JTextPane;
 @SuppressWarnings("serial")
 public class About extends JFrame {
 	
-	private int windowWidth, windowHeight;
-
+	private static int windowWidth = 270, windowHeight = 90;
 	public int getWindowWidth() {
 		return windowWidth;
-	}
-
-	public void setWindowWidth(int windowWidth) {
-		this.windowWidth = windowWidth;
 	}
 
 	public int getWindowHeight() {
 		return windowHeight;
 	}
 
-	public void setWindowHeight(int windowHeight) {
-		this.windowHeight = windowHeight;
-	}
-
 	/**
 	 * Create the frame.
 	 */
 	public About() {
-		setType(Type.POPUP);
+		//setType(Type.POPUP);
 		setTitle("About LifeGame");
 		setResizable(false);
-		this.windowWidth = 270;
-		this.windowHeight = 85;
 		setBounds(100, 100, windowWidth, windowHeight);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);

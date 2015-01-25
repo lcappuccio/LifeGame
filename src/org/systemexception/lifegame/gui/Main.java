@@ -40,11 +40,14 @@ import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.KeyStroke;
 import javax.swing.Timer;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main {
 
 	private JFrame mainAppWindow;
-	private String platform = System.getProperty("os.name").toLowerCase();
+	private static String platform = System.getProperty("os.name").toLowerCase();
 	private JMenuBar menuBar;
 	private JPanel centerPanel, lowerPanel;
 	private Grid grid;
@@ -52,7 +55,7 @@ public class Main {
 	private JLabel lblLiveCells;
 	private JLabel lblCountLiveCells;
 	private Timer gameTimer;
-	private int selectedSpeed;
+	private int metaKey, selectedSpeed;
 	private static final int MAX_SPEED = 10, MIN_SPEED = 500;
 
 	/**
@@ -75,6 +78,23 @@ public class Main {
 	 * Create the application.
 	 */
 	public Main() {
+		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+			// Opt for Nimbus
+	        if ("Nimbus".equals(info.getName())) {
+	            try {
+					UIManager.setLookAndFeel(info.getClassName());
+				} catch (ClassNotFoundException | InstantiationException
+						| IllegalAccessException
+						| UnsupportedLookAndFeelException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+	            break;
+	        }
+	        if (platform.equals("linux")) {
+	        	metaKey = InputEvent.CTRL_MASK;
+	        }
+	    }
 		initialize();
 	}
 
@@ -107,7 +127,7 @@ public class Main {
 				about.setVisible(true);
 			}
 		});
-		menuFileAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.META_MASK));
+		menuFileAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, metaKey));
 		menuBarFile.add(menuFileAbout);
 
 		// PREFERENCES menu

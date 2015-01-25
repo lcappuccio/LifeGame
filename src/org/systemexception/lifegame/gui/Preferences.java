@@ -50,11 +50,9 @@ public class Preferences extends JFrame {
 	 */
 	public Preferences() {
 		setResizable(false);
-		setType(Type.POPUP);
+//		setType(Type.POPUP);
 		setTitle("Preferences");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.windowWidth = 190;
-		this.windowHeight = 110;
 		setBounds(100, 100, windowWidth, windowHeight);
 		prefsWindow = new JPanel();
 		prefsWindow.setBorder(new EmptyBorder(5, 5, 5, 5));

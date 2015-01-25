@@ -32,7 +32,6 @@ public class Grid extends JComponent {
 	public void resetBoard() {
 		this.board = new Board(gridRows, gridCols);
 		totalLiveCells = board.getLiveCellCount();
-		System.out.println(totalLiveCells);
 	}
 
 	public Board getBoard() {
