@@ -23,7 +23,6 @@ public class Grid extends JComponent {
 		this.gridCols = gridCols;
 		this.board = new Board(gridRows, gridCols);
 		totalLiveCells = board.getLiveCellCount();
-		System.out.println(totalLiveCells);
 	}
 
 	public void setCellValue(int x) {
