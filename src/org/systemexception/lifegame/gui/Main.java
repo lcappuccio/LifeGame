@@ -47,7 +47,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Main {
 
 	private JFrame mainAppWindow;
-	private String platform = System.getProperty("os.name").toLowerCase();
+	private static String platform = System.getProperty("os.name").toLowerCase();
 	private JMenuBar menuBar;
 	private JPanel centerPanel, lowerPanel;
 	private Grid grid;
@@ -55,7 +55,7 @@ public class Main {
 	private JLabel lblLiveCells;
 	private JLabel lblCountLiveCells;
 	private Timer gameTimer;
-	private int selectedSpeed;
+	private int metaKey, selectedSpeed;
 	private static final int MAX_SPEED = 10, MIN_SPEED = 500;
 
 	/**
@@ -79,6 +79,7 @@ public class Main {
 	 */
 	public Main() {
 		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+			// Opt for Nimbus
 	        if ("Nimbus".equals(info.getName())) {
 	            try {
 					UIManager.setLookAndFeel(info.getClassName());
@@ -89,6 +90,9 @@ public class Main {
 					e.printStackTrace();
 				}
 	            break;
+	        }
+	        if (platform.equals("linux")) {
+	        	metaKey = InputEvent.CTRL_MASK;
 	        }
 	    }
 		initialize();
@@ -123,7 +127,7 @@ public class Main {
 				about.setVisible(true);
 			}
 		});
-		menuFileAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.META_MASK));
+		menuFileAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, metaKey));
 		menuBarFile.add(menuFileAbout);
 
 		// PREFERENCES menu
