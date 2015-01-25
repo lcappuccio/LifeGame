@@ -58,7 +58,7 @@ public class Main {
 	private Grid grid;
 	private Preferences prefs;
 	private Timer gameTimer;
-	private int metaKey, selectedSpeed;
+	private int metaKey, selectedSpeed, iterationCounter;
 	private static final int MAX_SPEED = 10, MIN_SPEED = 500;
 
 	/**
@@ -277,21 +277,27 @@ public class Main {
 	public void iterateGrid() {
 		grid.iterateBoard();
 		centerPanel.repaint();
+		iterationCounter++;
 		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+		lblCountIteration.setText(String.valueOf(iterationCounter));
 	}
 
 	public void resetGrid() {
 		grid.setCellValue(prefs.getCellSize());
 		grid.resetBoard();
 		centerPanel.repaint();
+		iterationCounter = 0;
 		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+		lblCountIteration.setText(String.valueOf(iterationCounter));
 	}
 
 	ActionListener taskPerformer = new ActionListener() {
 		public void actionPerformed(ActionEvent evt) {
 			grid.iterateBoard();
 			centerPanel.repaint();
+			iterationCounter++;
 			lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+			lblCountIteration.setText(String.valueOf(iterationCounter));
 		}
 	};
 }
