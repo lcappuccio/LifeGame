@@ -1,6 +1,6 @@
 /*
-    Java implementation of Conway's Game of Life
-    Copyright (C) 2014 Leonardo Cappuccio <leo@systemexception.org>
+    LifeGame
+    Copyright (C) 2014 Leonardo Cappuccio
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -28,23 +28,38 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.KeyStroke;
+import javax.swing.Timer;
+import javax.swing.UIManager;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class Main {
 
 	private JFrame mainAppWindow;
-	private String platform = System.getProperty("os.name").toLowerCase();
-	private JMenuBar menuBar;
 	private JPanel centerPanel, lowerPanel;
+	private JMenuBar menuBar;
+	private JMenu menuBarFile;
+	private JMenuItem menuFileAbout, menuFilePrefs, menuFileQuit;
+	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
+	private JSlider sliderSpeed;
+	private JButton btnStart, btnIterate, btnStop, btnReset;
+	private static String platform = System.getProperty("os.name").toLowerCase();
 	private Grid grid;
-	private Preferences prefs;
+	private Preferences preferencesWindow;
+	private Timer gameTimer;
+	private int metaKey, selectedSpeed, iterationCounter;
+	private static final int MAX_SPEED = 10, MIN_SPEED = 500, INITIAL_SPEED = 250;
 
 	/**
 	 * Launch the application.
@@ -66,6 +81,26 @@ public class Main {
 	 * Create the application.
 	 */
 	public Main() {
+		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
+			// Opt for Nimbus
+			if ("Nimbus".equals(info.getName())) {
+				try {
+					UIManager.setLookAndFeel(info.getClassName());
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
+						| UnsupportedLookAndFeelException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				break;
+			}
+			// Set menu accelerator enabler key varies on platform
+			if (platform.contains("linux") || platform.contains("windows")) {
+				metaKey = InputEvent.CTRL_MASK;
+			}
+			if (platform.contains("mac")) {
+				metaKey = InputEvent.META_MASK;
+			}
+		}
 		initialize();
 	}
 
@@ -75,7 +110,7 @@ public class Main {
 	private void initialize() {
 		mainAppWindow = new JFrame();
 		mainAppWindow.setTitle("LifeGame" + " - " + platform);
-		mainAppWindow.setBounds(100, 100, 800, 600);
+		mainAppWindow.setBounds(100, 100, 800, 582);
 		mainAppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
 		mainAppWindow.setResizable(false);
@@ -83,12 +118,11 @@ public class Main {
 		menuBar.setBounds(0, 0, mainAppWindow.getWidth(), 20);
 		mainAppWindow.getContentPane().add(menuBar);
 		menuBar.setBorderPainted(false);
-		JMenu menuBarFile = new JMenu("File");
+		menuBarFile = new JMenu("File");
 		menuBar.add(menuBarFile);
 		menuBarFile.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 
-		// ABOUT menu
-		JMenuItem menuFileAbout = new JMenuItem("About");
+		menuFileAbout = new JMenuItem("About");
 		menuFileAbout.addActionListener(new ActionListener() {
 			// Quit application
 			public void actionPerformed(ActionEvent e) {
@@ -98,70 +132,173 @@ public class Main {
 				about.setVisible(true);
 			}
 		});
-		menuFileAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, InputEvent.META_MASK));
+		menuFileAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, metaKey));
 		menuBarFile.add(menuFileAbout);
 
 		// PREFERENCES menu
-		prefs = new Preferences();
-		JMenuItem menuFilePrefs = new JMenuItem("Preferences");
+		preferencesWindow = new Preferences();
+		menuFilePrefs = new JMenuItem("Preferences");
 		menuFilePrefs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				prefs.setVisible(true);
-				prefs.setBounds(mainAppWindow.getX() + 40, mainAppWindow.getY() + 40, prefs.getWidth(),
-						prefs.getHeight());
+				preferencesWindow.setVisible(true);
+				preferencesWindow.setBounds(mainAppWindow.getX() + 40, mainAppWindow.getY() + 40,
+						preferencesWindow.getWidth(), preferencesWindow.getHeight());
 			}
 		});
-		menuFilePrefs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, InputEvent.META_MASK));
+		menuFilePrefs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, metaKey));
 		menuBarFile.add(menuFilePrefs);
 
-		// QUIT menu
-		JMenuItem menuFileQuit = new JMenuItem("Quit");
+		menuFileQuit = new JMenuItem("Quit");
 		menuFileQuit.addActionListener(new ActionListener() {
 			// Quit application
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		menuFileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.META_MASK));
+		menuFileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, metaKey));
 		menuBarFile.add(menuFileQuit);
 
 		// CENTER panel
 		centerPanel = new JPanel();
-		// centerPanel.setBorder(new LineBorder(new Color(0, 0, 0)));
-		centerPanel.setBounds(6, 25, 788, 495);
+		centerPanel.setBounds(5, 25, 791, 496);
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
-		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
+		grid = new Grid(preferencesWindow.getCellSize(), centerPanel.getWidth() / preferencesWindow.getCellSize(),
+				centerPanel.getHeight() / preferencesWindow.getCellSize(), preferencesWindow.getColorTheme());
 		centerPanel.add(grid);
-
 		// LOWER panel
 		lowerPanel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
 		flowLayout.setHgap(0);
 		flowLayout.setVgap(0);
-		lowerPanel.setBounds(6, 533, 788, 30);
+		lowerPanel.setBounds(6, 525, 540, 29);
 		mainAppWindow.getContentPane().add(lowerPanel);
-		// Redraw button
-		JButton btnRedraw = new JButton("Redraw");
-		btnRedraw.addMouseListener(new MouseAdapter() {
+
+		btnStart = new JButton("Start");
+		btnStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				drawGrid();
+				btnStart.setEnabled(false);
+				if (gameTimer == null) {
+					gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
+					gameTimer.start();
+				} else {
+					selectedSpeed = sliderSpeed.getValue();
+					gameTimer.setDelay(selectedSpeed);
+					gameTimer.restart();
+				}
 			}
-
 		});
-		lowerPanel.add(btnRedraw);
-		// Start button
-		JButton btnStart = new JButton("Start");
 		lowerPanel.add(btnStart);
-		// Stop button
-		JButton btnStop = new JButton("Stop");
+		sliderSpeed = new JSlider(MAX_SPEED, MIN_SPEED, INITIAL_SPEED);
+		sliderSpeed.setMajorTickSpacing(100);
+		sliderSpeed.setMinorTickSpacing(50);
+		sliderSpeed.setSnapToTicks(true);
+		sliderSpeed.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				selectedSpeed = sliderSpeed.getValue();
+				if (gameTimer != null && gameTimer.isRunning()) {
+					gameTimer.setDelay(selectedSpeed);
+				}
+
+			}
+		});
+		sliderSpeed.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				selectedSpeed = sliderSpeed.getValue();
+				if (gameTimer != null && gameTimer.isRunning()) {
+					gameTimer.setDelay(selectedSpeed);
+				}
+			}
+		});
+		lowerPanel.add(sliderSpeed);
+		btnIterate = new JButton("Iterate");
+		btnIterate.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (gameTimer != null && gameTimer.isRunning()) {
+					btnStart.setEnabled(true);
+					gameTimer.stop();
+				}
+				iterateGrid();
+			}
+		});
+		lowerPanel.add(btnIterate);
+		btnStop = new JButton("Stop");
+		btnStop.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (gameTimer != null && gameTimer.isRunning()) {
+					btnStart.setEnabled(true);
+					gameTimer.stop();
+				}
+			}
+		});
 		lowerPanel.add(btnStop);
+		btnReset = new JButton("Reset");
+		btnReset.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				resetGrid();
+				if (gameTimer != null && gameTimer.isRunning()) {
+					btnStart.setEnabled(true);
+					gameTimer.stop();
+				}
+			}
+		});
+		lowerPanel.add(btnReset);
+
+		// Live cells counter
+		lblLiveCells = new JLabel("Live Cells:");
+		lblLiveCells.setBounds(558, 533, 51, 13);
+		mainAppWindow.getContentPane().add(lblLiveCells);
+		lblLiveCells.setFont(new Font("Lucida Grande", Font.BOLD, 10));
+		lblCountLiveCells = new JLabel("0");
+		lblCountLiveCells.setBounds(622, 533, 51, 13);
+		mainAppWindow.getContentPane().add(lblCountLiveCells);
+		lblCountLiveCells.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		// Iteration counter
+		lblIteration = new JLabel("Iteration:");
+		lblIteration.setBounds(685, 533, 46, 13);
+		mainAppWindow.getContentPane().add(lblIteration);
+		lblIteration.setFont(new Font("Lucida Grande", Font.BOLD, 10));
+		lblCountIteration = new JLabel("0");
+		lblCountIteration.setBounds(743, 533, 51, 13);
+		mainAppWindow.getContentPane().add(lblCountIteration);
+		lblCountIteration.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 	}
 
-	public void drawGrid() {
-		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
-		centerPanel.add(grid, BorderLayout.NORTH);
+	public void iterateGrid() {
+		grid.iterateBoard();
 		centerPanel.repaint();
+		iterationCounter++;
+		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+		lblCountIteration.setText(String.valueOf(iterationCounter));
 	}
+
+	public void resetGrid() {
+		centerPanel.remove(grid);
+		grid = new Grid(preferencesWindow.getCellSize(), centerPanel.getWidth() / preferencesWindow.getCellSize(),
+				centerPanel.getHeight() / preferencesWindow.getCellSize(), preferencesWindow.getColorTheme());
+		grid.setCellValue(preferencesWindow.getCellSize());
+		grid.resetBoard();
+		centerPanel.add(grid);
+		centerPanel.repaint();
+		iterationCounter = 0;
+		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+		lblCountIteration.setText(String.valueOf(iterationCounter));
+	}
+
+	ActionListener taskPerformer = new ActionListener() {
+		public void actionPerformed(ActionEvent evt) {
+			grid.iterateBoard();
+			centerPanel.repaint();
+			iterationCounter++;
+			lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+			lblCountIteration.setText(String.valueOf(iterationCounter));
+		}
+	};
+
 }

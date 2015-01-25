@@ -6,8 +6,8 @@ package org.systemexception.lifegame.model;
 
 public class Board {
 
-	private Cell[][] board;
-	private int rows, cols, countLiveCells = 0;;
+	private Cell[][] board, boardIteration;
+	private int rows, cols, countSurroundingLiveCells = 0;
 
 	public Cell[][] getBoard() {
 		return board;
@@ -26,70 +26,62 @@ public class Board {
 	}
 
 	public boolean getCellIsAlive(int i, int j) {
-		return board[i][j].isAlive();
+		return board[i][j].getCellState();
 	}
 
-	/**
-	 * We're representing a borderless board, so the neighbor of the first
-	 * column and row is the other side of the board
-	 * 
-	 * @param i
-	 * @param j
-	 * @return
-	 */
 	public Cell getCellAt(int i, int j) {
-		// TODO check this piece of code, it's not rotating ok
 		// If out of bounds below
-		if (i == -1) {
-			i = rows - 1;
+		if (i <= -1) {
+			return new Cell(false);
 		}
-		if (j == -1) {
-			j = cols - 1;
+		if (j <= -1) {
+			return new Cell(false);
 		}
 		// If out of bounds above
-		if (i == rows) {
-			i = 0;
+		if (i >= rows) {
+			return new Cell(false);
 		}
-		if (j == cols) {
-			j = 0;
+		if (j >= cols) {
+			return new Cell(false);
 		}
 		return board[i][j];
 	}
 
 	public int countSurroungingLiveCells(int i, int j) {
-		countLiveCells = 0;
+		// TODO check if is in border and avoid outofbounds exception
+		countSurroundingLiveCells = 0;
 		// Rotating clockwise
-		if (getCellAt(i + 1, j + 1).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i, j - 1).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		if (getCellAt(i + 1, j).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i + 1, j - 1).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		if (getCellAt(i + 1, j + 1).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i + 1, j).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		if (getCellAt(i, j + 1).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i + 1, j + 1).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		if (getCellAt(i - 1, j + 1).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i, j + 1).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		if (getCellAt(i - 1, j).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i - 1, j + 1).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		if (getCellAt(i - 1, j - 1).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i - 1, j).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		if (getCellAt(i, j - 1).isAlive()) {
-			countLiveCells++;
+		if (getCellAt(i - 1, j - 1).getCellState()) {
+			countSurroundingLiveCells++;
 		}
-		return countLiveCells;
+		return countSurroundingLiveCells;
 	}
 
 	public void printBoard() {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				System.out.print("(" + i + "," + j + "): " + getCellAt(i, j).isAlive() + "\t");
+				System.out.print("(" + i + "," + j + "): " + getCellAt(i, j).getCellState() + "\t");
 			}
 			System.out.print("\n");
 		}
@@ -103,6 +95,47 @@ public class Board {
 			for (int j = 0; j < cols; j++) {
 				Cell cell = new Cell();
 				board[i][j] = cell;
+			}
+		}
+	}
+
+	public void iterateBoard() {
+		copyBoard();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				// Cell dies
+				if ((countSurroungingLiveCells(i, j) < 2 || countSurroungingLiveCells(i, j) > 3)
+						&& board[i][j].getCellState()) {
+					boardIteration[i][j].setCellDead();
+				}
+				// Cell becomes alive
+				if (!board[i][j].getCellState() && countSurroungingLiveCells(i, j) == 3) {
+					boardIteration[i][j].setCellAlive();
+				}
+			}
+		}
+		this.board = boardIteration;
+
+	}
+
+	public int getLiveCellCount() {
+		int liveCellCounter = 0;
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if (board[i][j].getCellState()) {
+					liveCellCounter++;
+				}
+			}
+		}
+		return liveCellCounter;
+	}
+
+	public void copyBoard() {
+		boardIteration = new Cell[board.length][board[0].length];
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				Cell cell = new Cell(board[i][j].getCellState());
+				boardIteration[i][j] = cell;
 			}
 		}
 	}
