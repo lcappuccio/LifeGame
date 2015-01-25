@@ -6,7 +6,7 @@ import javax.swing.JTextPane;
 @SuppressWarnings("serial")
 public class About extends JFrame {
 	
-	private static int windowWidth = 270, windowHeight = 85;
+	private static int windowWidth = 270, windowHeight = 90;
 	public int getWindowWidth() {
 		return windowWidth;
 	}
