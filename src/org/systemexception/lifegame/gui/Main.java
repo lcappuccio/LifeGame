@@ -28,6 +28,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -36,7 +37,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JSlider;
 import javax.swing.KeyStroke;
+import javax.swing.Timer;
 
 public class Main {
 
@@ -48,6 +51,9 @@ public class Main {
 	private Preferences prefs;
 	private JLabel lblLiveCells;
 	private JLabel lblCountLiveCells;
+	private Timer gameTimer;
+	private int selectedSpeed;
+	private static final int MAX_SPEED = 10, MIN_SPEED = 500;
 
 	/**
 	 * Launch the application.
@@ -78,7 +84,7 @@ public class Main {
 	private void initialize() {
 		mainAppWindow = new JFrame();
 		mainAppWindow.setTitle("LifeGame" + " - " + platform);
-		mainAppWindow.setBounds(100, 100, 800, 600);
+		mainAppWindow.setBounds(100, 100, 800, 580);
 		mainAppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
 		mainAppWindow.setResizable(false);
@@ -141,29 +147,84 @@ public class Main {
 		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
 		flowLayout.setHgap(0);
 		flowLayout.setVgap(0);
-		lowerPanel.setBounds(6, 533, 788, 30);
+		lowerPanel.setBounds(6, 525, 788, 29);
 		mainAppWindow.getContentPane().add(lowerPanel);
+
+		// Start button
+		JButton btnStart = new JButton("Start");
+		btnStart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				gameTimer = new Timer(selectedSpeed, taskPerformer);
+				gameTimer.start();
+			}
+		});
+		lowerPanel.add(btnStart);
+		// Speed slider
+		JSlider sliderSpeed = new JSlider();
+		sliderSpeed.setValue(250);
+		sliderSpeed.setMaximum(MIN_SPEED);
+		sliderSpeed.setMinimum(MAX_SPEED);
+		sliderSpeed.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				selectedSpeed = sliderSpeed.getValue();
+				if (gameTimer != null && gameTimer.isRunning()) {
+					gameTimer.setDelay(selectedSpeed);
+				}
+
+			}
+		});
+		sliderSpeed.addMouseMotionListener(new MouseMotionAdapter() {
+			@Override
+			public void mouseDragged(MouseEvent e) {
+				selectedSpeed = sliderSpeed.getValue();
+				if (gameTimer != null && gameTimer.isRunning()) {
+					gameTimer.setDelay(selectedSpeed);
+				}
+			}
+		});
+		sliderSpeed.setPaintTicks(false);
+		sliderSpeed.setMajorTickSpacing(10);
+		sliderSpeed.setSnapToTicks(false);
+		sliderSpeed.setMinorTickSpacing(5);
+		lowerPanel.add(sliderSpeed);
 		// Iterate button
 		JButton btnIterate = new JButton("Iterate");
 		btnIterate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				if (gameTimer != null && gameTimer.isRunning()) {
+					gameTimer.stop();
+				}
 				iterateGrid();
 			}
 		});
 		lowerPanel.add(btnIterate);
 		// Stop button
 		JButton btnStop = new JButton("Stop");
+		btnStop.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (gameTimer != null && gameTimer.isRunning()) {
+					gameTimer.stop();
+				}
+			}
+		});
 		lowerPanel.add(btnStop);
-		// Stop button
+		// Reset button
 		JButton btnReset = new JButton("Reset");
 		btnReset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				resetGrid();
+				if (gameTimer != null && gameTimer.isRunning()) {
+					gameTimer.stop();
+				}
 			}
 		});
 		lowerPanel.add(btnReset);
+		// Live cells counter
 		lblLiveCells = new JLabel("Live Cells:");
 		lowerPanel.add(lblLiveCells);
 		lblCountLiveCells = new JLabel("0");
@@ -182,4 +243,12 @@ public class Main {
 		centerPanel.repaint();
 		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 	}
+
+	ActionListener taskPerformer = new ActionListener() {
+		public void actionPerformed(ActionEvent evt) {
+			grid.iterateBoard();
+			centerPanel.repaint();
+			lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+		}
+	};
 }
