@@ -43,6 +43,8 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
 
 public class Main {
 
@@ -253,6 +255,10 @@ public class Main {
 			}
 		});
 		lowerPanel.add(btnReset);
+		
+		JSeparator jSeparatorLiveCells = new JSeparator();
+		jSeparatorLiveCells.setOrientation(SwingConstants.VERTICAL);
+		lowerPanel.add(jSeparatorLiveCells);
 		// Live cells counter
 		lblLiveCells = new JLabel("Live Cells:");
 		lowerPanel.add(lblLiveCells);
