@@ -78,6 +78,7 @@ public class Main {
 	 * Create the application.
 	 */
 	public Main() {
+		System.out.println(platform);
 		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 			// Opt for Nimbus
 	        if ("Nimbus".equals(info.getName())) {
@@ -91,8 +92,12 @@ public class Main {
 				}
 	            break;
 	        }
+	        // Set menu accelerator enabler key varies on platform
 	        if (platform.equals("linux")) {
 	        	metaKey = InputEvent.CTRL_MASK;
+	        }
+	        if (platform.equals("mac os x")) {
+	        	metaKey = InputEvent.META_MASK;
 	        }
 	    }
 		initialize();
@@ -140,7 +145,7 @@ public class Main {
 						prefs.getHeight());
 			}
 		});
-		menuFilePrefs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, InputEvent.META_MASK));
+		menuFilePrefs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, metaKey));
 		menuBarFile.add(menuFilePrefs);
 
 		// QUIT menu
@@ -151,7 +156,7 @@ public class Main {
 				System.exit(0);
 			}
 		});
-		menuFileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.META_MASK));
+		menuFileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, metaKey));
 		menuBarFile.add(menuFileQuit);
 
 		// CENTER panel
