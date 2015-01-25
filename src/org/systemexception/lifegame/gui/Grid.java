@@ -22,12 +22,14 @@ public class Grid extends JComponent {
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
 		this.board = new Board(gridRows, gridCols);
+		totalLiveCells = board.getLiveCellCount();
+		System.out.println(totalLiveCells);
 	}
-	
+
 	public void setCellValue(int x) {
 		cellSize = x;
 	}
-	
+
 	public void resetBoard() {
 		this.board = new Board(gridRows, gridCols);
 		totalLiveCells = board.getLiveCellCount();
@@ -37,16 +39,16 @@ public class Grid extends JComponent {
 	public Board getBoard() {
 		return board;
 	}
-	
+
 	public int getCellSize() {
 		return cellSize;
 	}
-	
+
 	public void iterateBoard() {
-		this.board = board.iterateBoard(board);
+		board.iterateBoard();
 		totalLiveCells = board.getLiveCellCount();
 	}
-	
+
 	public int getTotalLiveCells() {
 		return totalLiveCells;
 	}

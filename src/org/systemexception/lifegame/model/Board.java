@@ -6,8 +6,8 @@ package org.systemexception.lifegame.model;
 
 public class Board {
 
-	private Cell[][] board;
-	private int rows, cols, countSurroundingLiveCells = 0, countBoardLiveCells = 0;
+	private Cell[][] board, boardIteration;
+	private int rows, cols, countSurroundingLiveCells = 0;
 
 	public Cell[][] getBoard() {
 		return board;
@@ -31,25 +31,29 @@ public class Board {
 
 	public Cell getCellAt(int i, int j) {
 		// If out of bounds below
-		if (i == -1) {
+		if (i <= -1) {
 			return new Cell(false);
 		}
-		if (j == -1) {
+		if (j <= -1) {
 			return new Cell(false);
 		}
 		// If out of bounds above
-		if (i == rows) {
+		if (i >= rows) {
 			return new Cell(false);
 		}
-		if (j == cols) {
+		if (j >= cols) {
 			return new Cell(false);
 		}
 		return board[i][j];
 	}
 
 	public int countSurroungingLiveCells(int i, int j) {
+		// TODO check if is in border and avoid outofbounds exception
 		countSurroundingLiveCells = 0;
 		// Rotating clockwise
+		if (getCellAt(i, j - 1).getCellState()) {
+			countSurroundingLiveCells++;
+		}
 		if (getCellAt(i + 1, j - 1).getCellState()) {
 			countSurroundingLiveCells++;
 		}
@@ -69,9 +73,6 @@ public class Board {
 			countSurroundingLiveCells++;
 		}
 		if (getCellAt(i - 1, j - 1).getCellState()) {
-			countSurroundingLiveCells++;
-		}
-		if (getCellAt(i, j - 1).getCellState()) {
 			countSurroundingLiveCells++;
 		}
 		return countSurroundingLiveCells;
@@ -97,30 +98,47 @@ public class Board {
 			}
 		}
 	}
-	
-	public Board iterateBoard(Board oldBoard) {
-		Board newBoard = oldBoard;
-		countBoardLiveCells = 0;
-		for (int i = 0; i < oldBoard.getBoardRows(); i++) {
-			for (int j = 0; j < oldBoard.getBoardCols(); j++) {
+
+	public void iterateBoard() {
+		copyBoard();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
 				// Cell dies
-				if ((oldBoard.getCellAt(i, j).getCellState())
-						&& (oldBoard.countSurroungingLiveCells(i, j) < 2 || oldBoard.countSurroungingLiveCells(i, j) > 3)) {
-					newBoard.getCellAt(i, j).setCellDead();
+				if ((countSurroungingLiveCells(i, j) < 2 || countSurroungingLiveCells(i, j) > 3)
+						&& board[i][j].getCellState()) {
+					boardIteration[i][j].setCellDead();
 				}
 				// Cell becomes alive
-				if (!oldBoard.getCellAt(i, j).getCellState() && oldBoard.countSurroungingLiveCells(i, j) == 3) {
-					newBoard.getCellAt(i, j).setCellAlive();
+				if (!board[i][j].getCellState() && countSurroungingLiveCells(i, j) == 3) {
+					boardIteration[i][j].setCellAlive();
 				}
-				if (newBoard.getCellAt(i, j).getCellState()) {
-					countBoardLiveCells++;
+				// System.out.println("Cell at " + i + "," + j + " will " +
+				// getCellAt(i, j).getCellState());
+			}
+		}
+		this.board = boardIteration;
+
+	}
+
+	public int getLiveCellCount() {
+		int liveCellCounter = 0;
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if (board[i][j].getCellState()) {
+					liveCellCounter++;
 				}
 			}
 		}
-		return newBoard;
+		return liveCellCounter;
 	}
-	
-	public int getLiveCellCount() {
-		return countBoardLiveCells;
+
+	public void copyBoard() {
+		boardIteration = new Cell[board.length][board[0].length];
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				Cell cell = new Cell(board[i][j].getCellState());
+				boardIteration[i][j] = cell;
+			}
+		}
 	}
 }
