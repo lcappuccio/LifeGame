@@ -16,13 +16,15 @@ public class Grid extends JComponent {
 	private static final long serialVersionUID = 7546830315256844429L;
 	private Board board;
 	private int cellSize, gridRows, gridCols, totalLiveCells;
+	private Color colorDark = Color.DARK_GRAY, colorLight = Color.WHITE, colorRect = Color.LIGHT_GRAY;
 
-	public Grid(int cellSize, int gridRows, int gridCols) {
+	public Grid(int cellSize, int gridRows, int gridCols, String colourTheme) {
 		this.cellSize = cellSize;
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
 		this.board = new Board(gridRows, gridCols);
 		totalLiveCells = board.getLiveCellCount();
+		setColours(colourTheme);
 	}
 
 	public void setCellValue(int x) {
@@ -51,15 +53,54 @@ public class Grid extends JComponent {
 		return totalLiveCells;
 	}
 
+	private void setColours(String colourTheme) {
+		if (colourTheme.equals("B & W")) {
+			colorDark = hex2Rgb("#ECECEC");
+			colorLight = Color.BLACK;
+			colorRect = Color.DARK_GRAY;
+		}
+		if (colourTheme.equals("Inverse")) {
+			colorDark = Color.DARK_GRAY;
+			colorLight = hex2Rgb("#ECECEC");
+			colorRect = Color.LIGHT_GRAY;
+		}
+		if (colourTheme.equals("Blue")) {
+			colorDark = hex2Rgb("#19B5FE");
+			colorLight = hex2Rgb("#336E7B");
+			colorRect = hex2Rgb("#446CB3");
+		}
+		if (colourTheme.equals("Green")) {
+			colorDark = hex2Rgb("#2ECC71");
+			colorLight = hex2Rgb("#1E824C");
+			colorRect = hex2Rgb("#26A65B");
+		}
+		if (colourTheme.equals("Red")) {
+			colorDark = hex2Rgb("#F22613");
+			colorLight = hex2Rgb("#96281B");
+			colorRect = hex2Rgb("#CF000F");
+		}
+	}
+
 	public void paintComponent(Graphics g) {
 		for (int i = 0; i < board.getBoardRows(); i++) {
 			for (int j = 0; j < board.getBoardCols(); j++) {
-				g.setColor(board.getCellAt(i, j).getCellState() ? Color.DARK_GRAY : Color.WHITE);
+				g.setColor(board.getCellAt(i, j).getCellState() ? colorDark : colorLight);
 				g.fillRect(cellSize * i, cellSize * j, cellSize, cellSize);
-				g.setColor(Color.LIGHT_GRAY);
+				g.setColor(colorRect);
 				g.drawRect(cellSize * i, cellSize * j, cellSize, cellSize);
 			}
 		}
 		totalLiveCells = board.getLiveCellCount();
+	}
+
+	/**
+	 * 
+	 * @param colorStr
+	 *            e.g. "#FFFFFF"
+	 * @return
+	 */
+	private static Color hex2Rgb(String colorStr) {
+		return new Color(Integer.valueOf(colorStr.substring(1, 3), 16), Integer.valueOf(colorStr.substring(3, 5), 16),
+				Integer.valueOf(colorStr.substring(5, 7), 16));
 	}
 }

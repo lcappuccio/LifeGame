@@ -164,7 +164,7 @@ public class Main {
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth() / prefs.getCellSize(), centerPanel.getHeight()
-				/ prefs.getCellSize());
+				/ prefs.getCellSize(), prefs.getColorTheme());
 		centerPanel.add(grid);
 		// LOWER panel
 		lowerPanel = new JPanel();
@@ -281,7 +281,7 @@ public class Main {
 	public void resetGrid() {
 		centerPanel.remove(grid);
 		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth() / prefs.getCellSize(), centerPanel.getHeight()
-				/ prefs.getCellSize());
+				/ prefs.getCellSize(), prefs.getColorTheme());
 		grid.setCellValue(prefs.getCellSize());
 		grid.resetBoard();
 		centerPanel.add(grid);
