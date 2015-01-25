@@ -1,6 +1,6 @@
 /*
-    Java implementation of Conway's Game of Life
-    Copyright (C) 2014 Leonardo Cappuccio <leo@systemexception.org>
+    LifeGame
+    Copyright (C) 2014 Leonardo Cappuccio
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -37,10 +37,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.KeyStroke;
-import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -51,12 +49,14 @@ public class Main {
 	private JFrame mainAppWindow;
 	private JPanel centerPanel, lowerPanel;
 	private JMenuBar menuBar;
+	private JMenu menuBarFile;
+	private JMenuItem menuFileAbout, menuFilePrefs, menuFileQuit;
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
 	private JSlider sliderSpeed;
 	private JButton btnStart, btnIterate, btnStop, btnReset;
 	private static String platform = System.getProperty("os.name").toLowerCase();
 	private Grid grid;
-	private Preferences prefs;
+	private Preferences preferencesWindow;
 	private Timer gameTimer;
 	private int metaKey, selectedSpeed, iterationCounter;
 	private static final int MAX_SPEED = 10, MIN_SPEED = 500, INITIAL_SPEED = 250;
@@ -94,10 +94,10 @@ public class Main {
 				break;
 			}
 			// Set menu accelerator enabler key varies on platform
-			if (platform.equals("linux")) {
+			if (platform.contains("linux") || platform.contains("windows")) {
 				metaKey = InputEvent.CTRL_MASK;
 			}
-			if (platform.equals("mac os x")) {
+			if (platform.contains("mac")) {
 				metaKey = InputEvent.META_MASK;
 			}
 		}
@@ -118,12 +118,11 @@ public class Main {
 		menuBar.setBounds(0, 0, mainAppWindow.getWidth(), 20);
 		mainAppWindow.getContentPane().add(menuBar);
 		menuBar.setBorderPainted(false);
-		JMenu menuBarFile = new JMenu("File");
+		menuBarFile = new JMenu("File");
 		menuBar.add(menuBarFile);
 		menuBarFile.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 
-		// ABOUT menu
-		JMenuItem menuFileAbout = new JMenuItem("About");
+		menuFileAbout = new JMenuItem("About");
 		menuFileAbout.addActionListener(new ActionListener() {
 			// Quit application
 			public void actionPerformed(ActionEvent e) {
@@ -137,20 +136,19 @@ public class Main {
 		menuBarFile.add(menuFileAbout);
 
 		// PREFERENCES menu
-		prefs = new Preferences();
-		JMenuItem menuFilePrefs = new JMenuItem("Preferences");
+		preferencesWindow = new Preferences();
+		menuFilePrefs = new JMenuItem("Preferences");
 		menuFilePrefs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				prefs.setVisible(true);
-				prefs.setBounds(mainAppWindow.getX() + 40, mainAppWindow.getY() + 40, prefs.getWidth(),
-						prefs.getHeight());
+				preferencesWindow.setVisible(true);
+				preferencesWindow.setBounds(mainAppWindow.getX() + 40, mainAppWindow.getY() + 40,
+						preferencesWindow.getWidth(), preferencesWindow.getHeight());
 			}
 		});
 		menuFilePrefs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, metaKey));
 		menuBarFile.add(menuFilePrefs);
 
-		// QUIT menu
-		JMenuItem menuFileQuit = new JMenuItem("Quit");
+		menuFileQuit = new JMenuItem("Quit");
 		menuFileQuit.addActionListener(new ActionListener() {
 			// Quit application
 			public void actionPerformed(ActionEvent e) {
@@ -165,8 +163,8 @@ public class Main {
 		centerPanel.setBounds(5, 25, 791, 496);
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
-		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth() / prefs.getCellSize(), centerPanel.getHeight()
-				/ prefs.getCellSize());
+		grid = new Grid(preferencesWindow.getCellSize(), centerPanel.getWidth() / preferencesWindow.getCellSize(),
+				centerPanel.getHeight() / preferencesWindow.getCellSize(), preferencesWindow.getColorTheme());
 		centerPanel.add(grid);
 		// LOWER panel
 		lowerPanel = new JPanel();
@@ -252,13 +250,6 @@ public class Main {
 		});
 		lowerPanel.add(btnReset);
 
-		// Separator
-		JSeparator jSeparator = new JSeparator();
-		jSeparator.setOrientation(SwingConstants.VERTICAL);
-		lowerPanel.add(jSeparator);
-
-		// Separator
-		lowerPanel.add(jSeparator);
 		// Live cells counter
 		lblLiveCells = new JLabel("Live Cells:");
 		lblLiveCells.setBounds(558, 533, 51, 13);
@@ -288,8 +279,12 @@ public class Main {
 	}
 
 	public void resetGrid() {
-		grid.setCellValue(prefs.getCellSize());
+		centerPanel.remove(grid);
+		grid = new Grid(preferencesWindow.getCellSize(), centerPanel.getWidth() / preferencesWindow.getCellSize(),
+				centerPanel.getHeight() / preferencesWindow.getCellSize(), preferencesWindow.getColorTheme());
+		grid.setCellValue(preferencesWindow.getCellSize());
 		grid.resetBoard();
+		centerPanel.add(grid);
 		centerPanel.repaint();
 		iterationCounter = 0;
 		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
@@ -305,4 +300,5 @@ public class Main {
 			lblCountIteration.setText(String.valueOf(iterationCounter));
 		}
 	};
+
 }
