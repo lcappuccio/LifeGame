@@ -18,23 +18,16 @@ import javax.swing.border.EmptyBorder;
 public class Preferences extends JFrame {
 
 	private JPanel prefsWindow;
-	private int cellSize = 5, minCellSize = 1, maxCellSize = 10, windowWidth, windowHeight;
+	private int cellSize = 5, minCellSize = 1, maxCellSize = 10;
+	private static int windowWidth = 190, windowHeight = 110;
 	private JSpinner prefsCellSpinner;
 	
 	public int getWindowWidth() {
 		return windowWidth;
 	}
 
-	public void setWindowWidth(int windowWidth) {
-		this.windowWidth = windowWidth;
-	}
-
 	public int getWindowHeight() {
 		return windowHeight;
-	}
-
-	public void setWindowHeight(int windowHeight) {
-		this.windowHeight = windowHeight;
 	}
 
 	public int getCellSize() {
@@ -50,11 +43,9 @@ public class Preferences extends JFrame {
 	 */
 	public Preferences() {
 		setResizable(false);
-		setType(Type.POPUP);
+//		setType(Type.POPUP);
 		setTitle("Preferences");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		this.windowWidth = 190;
-		this.windowHeight = 110;
 		setBounds(100, 100, windowWidth, windowHeight);
 		prefsWindow = new JPanel();
 		prefsWindow.setBorder(new EmptyBorder(5, 5, 5, 5));
