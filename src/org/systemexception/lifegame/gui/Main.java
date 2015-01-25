@@ -51,8 +51,7 @@ public class Main {
 	private JFrame mainAppWindow;
 	private JPanel centerPanel, lowerPanel;
 	private JMenuBar menuBar;
-	private JLabel lblLiveCells;
-	private JLabel lblCountLiveCells;
+	private JLabel lblLiveCells,lblCountLiveCells, lblIteration, lblCountIteration;
 	private JSlider sliderSpeed;
 	private JButton btnStart, btnIterate, btnStop, btnReset;
 	private static String platform = System.getProperty("os.name").toLowerCase();
@@ -256,14 +255,23 @@ public class Main {
 		});
 		lowerPanel.add(btnReset);
 		
-		JSeparator jSeparatorLiveCells = new JSeparator();
-		jSeparatorLiveCells.setOrientation(SwingConstants.VERTICAL);
-		lowerPanel.add(jSeparatorLiveCells);
+		// Separator
+		JSeparator jSeparator = new JSeparator();
+		jSeparator.setOrientation(SwingConstants.VERTICAL);
+		lowerPanel.add(jSeparator);
 		// Live cells counter
 		lblLiveCells = new JLabel("Live Cells:");
 		lowerPanel.add(lblLiveCells);
 		lblCountLiveCells = new JLabel("0");
 		lowerPanel.add(lblCountLiveCells);
+		
+		// Separator
+		lowerPanel.add(jSeparator);
+		// Iteration counter
+		lblIteration = new JLabel("Iteration:");
+		lowerPanel.add(lblIteration);
+		lblCountIteration = new JLabel("0");
+		lowerPanel.add(lblCountIteration);
 	}
 
 	public void iterateGrid() {
