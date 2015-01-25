@@ -47,13 +47,15 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Main {
 
 	private JFrame mainAppWindow;
-	private static String platform = System.getProperty("os.name").toLowerCase();
-	private JMenuBar menuBar;
 	private JPanel centerPanel, lowerPanel;
-	private Grid grid;
-	private Preferences prefs;
+	private JMenuBar menuBar;
 	private JLabel lblLiveCells;
 	private JLabel lblCountLiveCells;
+	private JSlider sliderSpeed;
+	private JButton btnStart, btnIterate, btnStop, btnReset;
+	private static String platform = System.getProperty("os.name").toLowerCase();
+	private Grid grid;
+	private Preferences prefs;
 	private Timer gameTimer;
 	private int metaKey, selectedSpeed;
 	private static final int MAX_SPEED = 10, MIN_SPEED = 500;
@@ -78,7 +80,6 @@ public class Main {
 	 * Create the application.
 	 */
 	public Main() {
-		System.out.println(platform);
 		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 			// Opt for Nimbus
 	        if ("Nimbus".equals(info.getName())) {
@@ -175,18 +176,21 @@ public class Main {
 		lowerPanel.setBounds(6, 525, 788, 29);
 		mainAppWindow.getContentPane().add(lowerPanel);
 
-		// Start button
-		JButton btnStart = new JButton("Start");
+		btnStart = new JButton("Start");
 		btnStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				gameTimer = new Timer(selectedSpeed, taskPerformer);
-				gameTimer.start();
+				btnStart.setEnabled(false);
+				if (gameTimer == null) {
+					gameTimer = new Timer(selectedSpeed, taskPerformer);
+					gameTimer.start();
+				} else {
+					gameTimer.restart();
+				}
 			}
 		});
 		lowerPanel.add(btnStart);
-		// Speed slider
-		JSlider sliderSpeed = new JSlider();
+		sliderSpeed = new JSlider();
 		sliderSpeed.setValue(250);
 		sliderSpeed.setMaximum(MIN_SPEED);
 		sliderSpeed.setMinimum(MAX_SPEED);
@@ -214,36 +218,36 @@ public class Main {
 		sliderSpeed.setSnapToTicks(false);
 		sliderSpeed.setMinorTickSpacing(5);
 		lowerPanel.add(sliderSpeed);
-		// Iterate button
-		JButton btnIterate = new JButton("Iterate");
+		btnIterate = new JButton("Iterate");
 		btnIterate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (gameTimer != null && gameTimer.isRunning()) {
+					btnStart.setEnabled(true);
 					gameTimer.stop();
 				}
 				iterateGrid();
 			}
 		});
 		lowerPanel.add(btnIterate);
-		// Stop button
-		JButton btnStop = new JButton("Stop");
+		btnStop = new JButton("Stop");
 		btnStop.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (gameTimer != null && gameTimer.isRunning()) {
+					btnStart.setEnabled(true);
 					gameTimer.stop();
 				}
 			}
 		});
 		lowerPanel.add(btnStop);
-		// Reset button
-		JButton btnReset = new JButton("Reset");
+		btnReset = new JButton("Reset");
 		btnReset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				resetGrid();
 				if (gameTimer != null && gameTimer.isRunning()) {
+					btnStart.setEnabled(true);
 					gameTimer.stop();
 				}
 			}
