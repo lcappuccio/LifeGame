@@ -7,19 +7,11 @@ import javax.swing.JTextPane;
 public class About extends JFrame {
 	
 	private static int windowWidth = 270, windowHeight = 90;
-	public int getWindowWidth() {
-		return windowWidth;
-	}
-
-	public int getWindowHeight() {
-		return windowHeight;
-	}
 
 	/**
 	 * Create the frame.
 	 */
 	public About() {
-		//setType(Type.POPUP);
 		setTitle("About LifeGame");
 		setResizable(false);
 		setBounds(100, 100, windowWidth, windowHeight);
