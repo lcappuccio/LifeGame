@@ -148,7 +148,6 @@ public class Main {
 		btnIterate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 				iterateGrid();
 			}
 		});
@@ -161,12 +160,10 @@ public class Main {
 		btnReset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 				resetGrid();
 			}
 		});
 		lowerPanel.add(btnReset);
-
 		lblLiveCells = new JLabel("Live Cells:");
 		lowerPanel.add(lblLiveCells);
 		lblCountLiveCells = new JLabel("0");
@@ -176,11 +173,13 @@ public class Main {
 	public void iterateGrid() {
 		grid.iterateBoard();
 		centerPanel.repaint();
+		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 	}
 
 	public void resetGrid() {
 		grid.setCellValue(prefs.getCellSize());
 		grid.resetBoard();
 		centerPanel.repaint();
+		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 	}
 }
