@@ -279,8 +279,12 @@ public class Main {
 	}
 
 	public void resetGrid() {
+		centerPanel.remove(grid);
+		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth() / prefs.getCellSize(), centerPanel.getHeight()
+				/ prefs.getCellSize());
 		grid.setCellValue(prefs.getCellSize());
 		grid.resetBoard();
+		centerPanel.add(grid);
 		centerPanel.repaint();
 		iterationCounter = 0;
 		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
