@@ -53,6 +53,11 @@ public class Grid extends JComponent {
 		return totalLiveCells;
 	}
 
+	/**
+	 * Colours from: http://www.flatuicolorpicker.com
+	 * 
+	 * @param colourTheme
+	 */
 	private void setColours(String colourTheme) {
 		if (colourTheme.equals("B & W")) {
 			colorDark = hex2Rgb("#ECECEC");
@@ -94,6 +99,9 @@ public class Grid extends JComponent {
 	}
 
 	/**
+	 * As seen on:
+	 * http://stackoverflow.com/questions/4129666/how-to-convert-hex-
+	 * to-rgb-using-java
 	 * 
 	 * @param colorStr
 	 *            e.g. "#FFFFFF"
