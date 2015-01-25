@@ -100,6 +100,7 @@ public class Board {
 	
 	public Board iterateBoard(Board oldBoard) {
 		Board newBoard = oldBoard;
+		countBoardLiveCells = 0;
 		for (int i = 0; i < oldBoard.getBoardRows(); i++) {
 			for (int j = 0; j < oldBoard.getBoardCols(); j++) {
 				// Cell dies
@@ -111,24 +112,15 @@ public class Board {
 				if (!oldBoard.getCellAt(i, j).getCellState() && oldBoard.countSurroungingLiveCells(i, j) == 3) {
 					newBoard.getCellAt(i, j).setCellAlive();
 				}
-			}
-		}
-		countLiveCells(newBoard);
-		return newBoard;
-	}
-	
-	private void countLiveCells(Board board) {
-		countBoardLiveCells = 0;
-		for (int i = 0; i < board.getBoardRows(); i++) {
-			for (int j = 0; j < board.getBoardCols(); j++) {
-				if (board.getCellAt(i, j).getCellState()) {
+				if (newBoard.getCellAt(i, j).getCellState()) {
 					countBoardLiveCells++;
 				}
 			}
 		}
+		return newBoard;
 	}
 	
-	public int getBoardLiveCells() {
+	public int getLiveCellCount() {
 		return countBoardLiveCells;
 	}
 }

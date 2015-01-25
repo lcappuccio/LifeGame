@@ -19,7 +19,6 @@
 package org.systemexception.lifegame.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -32,12 +31,12 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
-import javax.swing.border.LineBorder;
 
 public class Main {
 
@@ -47,6 +46,8 @@ public class Main {
 	private JPanel centerPanel, lowerPanel;
 	private Grid grid;
 	private Preferences prefs;
+	private JLabel lblLiveCells;
+	private JLabel lblCountLiveCells;
 
 	/**
 	 * Launch the application.
@@ -132,7 +133,8 @@ public class Main {
 		centerPanel.setBounds(5, 25, 790, 495);
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
-		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth(), centerPanel.getHeight());
+		grid = new Grid(prefs.getCellSize(), centerPanel.getWidth() / prefs.getCellSize(), centerPanel.getHeight()
+				/ prefs.getCellSize());
 		centerPanel.add(grid);
 		// LOWER panel
 		lowerPanel = new JPanel();
@@ -146,6 +148,7 @@ public class Main {
 		btnIterate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 				iterateGrid();
 			}
 		});
@@ -158,10 +161,16 @@ public class Main {
 		btnReset.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 				resetGrid();
 			}
 		});
 		lowerPanel.add(btnReset);
+
+		lblLiveCells = new JLabel("Live Cells:");
+		lowerPanel.add(lblLiveCells);
+		lblCountLiveCells = new JLabel("0");
+		lowerPanel.add(lblCountLiveCells);
 	}
 
 	public void iterateGrid() {
@@ -174,5 +183,4 @@ public class Main {
 		grid.resetBoard();
 		centerPanel.repaint();
 	}
-
 }

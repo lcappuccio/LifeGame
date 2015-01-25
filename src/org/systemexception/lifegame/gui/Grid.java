@@ -15,7 +15,7 @@ public class Grid extends JComponent {
 
 	private static final long serialVersionUID = 7546830315256844429L;
 	private Board board;
-	private int cellSize, gridRows, gridCols;
+	private int cellSize, gridRows, gridCols, totalLiveCells;
 
 	public Grid(int cellSize, int gridRows, int gridCols) {
 		this.cellSize = cellSize;
@@ -30,6 +30,8 @@ public class Grid extends JComponent {
 	
 	public void resetBoard() {
 		this.board = new Board(gridRows, gridCols);
+		totalLiveCells = board.getLiveCellCount();
+		System.out.println(totalLiveCells);
 	}
 
 	public Board getBoard() {
@@ -42,6 +44,11 @@ public class Grid extends JComponent {
 	
 	public void iterateBoard() {
 		this.board = board.iterateBoard(board);
+		totalLiveCells = board.getLiveCellCount();
+	}
+	
+	public int getTotalLiveCells() {
+		return totalLiveCells;
 	}
 
 	public void paintComponent(Graphics g) {
@@ -53,5 +60,6 @@ public class Grid extends JComponent {
 				g.drawRect(cellSize * i, cellSize * j, cellSize, cellSize);
 			}
 		}
+		totalLiveCells = board.getLiveCellCount();
 	}
 }
