@@ -12,14 +12,14 @@ public class Cell {
 
 	public Cell() {
 		Random rnd = new Random();
-		if (rnd.nextInt(100) > 94) {
+		if (rnd.nextInt(100) > 80) {
 			isAlive = true;
 		} else {
 			isAlive = false;
 		}
-//		isAlive = rnd.nextBoolean();
+		// isAlive = rnd.nextBoolean();
 	}
-	
+
 	public Cell(Boolean state) {
 		this.isAlive = state;
 	}
@@ -31,7 +31,7 @@ public class Cell {
 	public void setCellAlive() {
 		isAlive = true;
 	}
-	
+
 	public void setCellDead() {
 		isAlive = false;
 	}
