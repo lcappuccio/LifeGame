@@ -37,10 +37,8 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.KeyStroke;
-import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -252,13 +250,6 @@ public class Main {
 		});
 		lowerPanel.add(btnReset);
 
-		// Separator
-		JSeparator jSeparator = new JSeparator();
-		jSeparator.setOrientation(SwingConstants.VERTICAL);
-		lowerPanel.add(jSeparator);
-
-		// Separator
-		lowerPanel.add(jSeparator);
 		// Live cells counter
 		lblLiveCells = new JLabel("Live Cells:");
 		lblLiveCells.setBounds(558, 533, 51, 13);
