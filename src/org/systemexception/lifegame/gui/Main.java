@@ -37,21 +37,21 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JSlider;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.JSeparator;
-import javax.swing.SwingConstants;
 
 public class Main {
 
 	private JFrame mainAppWindow;
 	private JPanel centerPanel, lowerPanel;
 	private JMenuBar menuBar;
-	private JLabel lblLiveCells,lblCountLiveCells, lblIteration, lblCountIteration;
+	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
 	private JSlider sliderSpeed;
 	private JButton btnStart, btnIterate, btnStop, btnReset;
 	private static String platform = System.getProperty("os.name").toLowerCase();
@@ -59,7 +59,7 @@ public class Main {
 	private Preferences prefs;
 	private Timer gameTimer;
 	private int metaKey, selectedSpeed, iterationCounter;
-	private static final int MAX_SPEED = 10, MIN_SPEED = 500;
+	private static final int MAX_SPEED = 10, MIN_SPEED = 500, INITIAL_SPEED = 250;
 
 	/**
 	 * Launch the application.
@@ -83,25 +83,24 @@ public class Main {
 	public Main() {
 		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 			// Opt for Nimbus
-	        if ("Nimbus".equals(info.getName())) {
-	            try {
+			if ("Nimbus".equals(info.getName())) {
+				try {
 					UIManager.setLookAndFeel(info.getClassName());
-				} catch (ClassNotFoundException | InstantiationException
-						| IllegalAccessException
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
 						| UnsupportedLookAndFeelException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-	            break;
-	        }
-	        // Set menu accelerator enabler key varies on platform
-	        if (platform.equals("linux")) {
-	        	metaKey = InputEvent.CTRL_MASK;
-	        }
-	        if (platform.equals("mac os x")) {
-	        	metaKey = InputEvent.META_MASK;
-	        }
-	    }
+				break;
+			}
+			// Set menu accelerator enabler key varies on platform
+			if (platform.equals("linux")) {
+				metaKey = InputEvent.CTRL_MASK;
+			}
+			if (platform.equals("mac os x")) {
+				metaKey = InputEvent.META_MASK;
+			}
+		}
 		initialize();
 	}
 
@@ -111,7 +110,7 @@ public class Main {
 	private void initialize() {
 		mainAppWindow = new JFrame();
 		mainAppWindow.setTitle("LifeGame" + " - " + platform);
-		mainAppWindow.setBounds(100, 100, 800, 580);
+		mainAppWindow.setBounds(100, 100, 800, 582);
 		mainAppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
 		mainAppWindow.setResizable(false);
@@ -174,7 +173,7 @@ public class Main {
 		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
 		flowLayout.setHgap(0);
 		flowLayout.setVgap(0);
-		lowerPanel.setBounds(6, 525, 788, 29);
+		lowerPanel.setBounds(6, 525, 540, 29);
 		mainAppWindow.getContentPane().add(lowerPanel);
 
 		btnStart = new JButton("Start");
@@ -183,18 +182,20 @@ public class Main {
 			public void mouseClicked(MouseEvent e) {
 				btnStart.setEnabled(false);
 				if (gameTimer == null) {
-					gameTimer = new Timer(selectedSpeed, taskPerformer);
+					gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
 					gameTimer.start();
 				} else {
+					selectedSpeed = sliderSpeed.getValue();
+					gameTimer.setDelay(selectedSpeed);
 					gameTimer.restart();
 				}
 			}
 		});
 		lowerPanel.add(btnStart);
-		sliderSpeed = new JSlider();
-		sliderSpeed.setValue(250);
-		sliderSpeed.setMaximum(MIN_SPEED);
-		sliderSpeed.setMinimum(MAX_SPEED);
+		sliderSpeed = new JSlider(MAX_SPEED, MIN_SPEED, INITIAL_SPEED);
+		sliderSpeed.setMajorTickSpacing(100);
+		sliderSpeed.setMinorTickSpacing(50);
+		sliderSpeed.setSnapToTicks(true);
 		sliderSpeed.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
@@ -214,10 +215,6 @@ public class Main {
 				}
 			}
 		});
-		sliderSpeed.setPaintTicks(false);
-		sliderSpeed.setMajorTickSpacing(10);
-		sliderSpeed.setSnapToTicks(false);
-		sliderSpeed.setMinorTickSpacing(5);
 		lowerPanel.add(sliderSpeed);
 		btnIterate = new JButton("Iterate");
 		btnIterate.addMouseListener(new MouseAdapter() {
@@ -254,24 +251,32 @@ public class Main {
 			}
 		});
 		lowerPanel.add(btnReset);
-		
+
 		// Separator
 		JSeparator jSeparator = new JSeparator();
 		jSeparator.setOrientation(SwingConstants.VERTICAL);
 		lowerPanel.add(jSeparator);
-		// Live cells counter
-		lblLiveCells = new JLabel("Live Cells:");
-		lowerPanel.add(lblLiveCells);
-		lblCountLiveCells = new JLabel("0");
-		lowerPanel.add(lblCountLiveCells);
-		
+
 		// Separator
 		lowerPanel.add(jSeparator);
+		// Live cells counter
+		lblLiveCells = new JLabel("Live Cells:");
+		lblLiveCells.setBounds(558, 533, 51, 13);
+		mainAppWindow.getContentPane().add(lblLiveCells);
+		lblLiveCells.setFont(new Font("Lucida Grande", Font.BOLD, 10));
+		lblCountLiveCells = new JLabel("0");
+		lblCountLiveCells.setBounds(622, 533, 51, 13);
+		mainAppWindow.getContentPane().add(lblCountLiveCells);
+		lblCountLiveCells.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 		// Iteration counter
 		lblIteration = new JLabel("Iteration:");
-		lowerPanel.add(lblIteration);
+		lblIteration.setBounds(685, 533, 46, 13);
+		mainAppWindow.getContentPane().add(lblIteration);
+		lblIteration.setFont(new Font("Lucida Grande", Font.BOLD, 10));
 		lblCountIteration = new JLabel("0");
-		lowerPanel.add(lblCountIteration);
+		lblCountIteration.setBounds(743, 533, 51, 13);
+		mainAppWindow.getContentPane().add(lblCountIteration);
+		lblCountIteration.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 	}
 
 	public void iterateGrid() {
