@@ -3,7 +3,6 @@ package org.systemexception.lifegame.test;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.systemexception.lifegame.gui.Grid;
 import org.systemexception.lifegame.model.Board;
