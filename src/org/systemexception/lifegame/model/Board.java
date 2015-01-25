@@ -112,8 +112,6 @@ public class Board {
 				if (!board[i][j].getCellState() && countSurroungingLiveCells(i, j) == 3) {
 					boardIteration[i][j].setCellAlive();
 				}
-				// System.out.println("Cell at " + i + "," + j + " will " +
-				// getCellAt(i, j).getCellState());
 			}
 		}
 		this.board = boardIteration;
