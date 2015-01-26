@@ -8,7 +8,7 @@ Download the code and execute with your favourite IDE
 ##Usage
 ###Main Controls
 - Start: starts the game, will run indefinitely
-- Speed slider: sets the speed between each iteration
+- Speed menu: sets the speed between each iteration
 - Iterate: stops the game and performs a single iteration step
 - Stop: stops the game
 - Reset: resets the grid with the specified preferences
