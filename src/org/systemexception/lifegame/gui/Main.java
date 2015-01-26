@@ -52,11 +52,11 @@ public class Main {
 	private JButton btnStart, btnIterate, btnStop, btnReset;
 	private Grid grid;
 	public static Timer gameTimer;
-	private int selectedSpeed, iterationCounter;
+	private int iterationCounter;
 	private static final int INITIAL_SPEED = 210;
-	private static String PLATFORM = System.getProperty("os.name").toLowerCase();
+	private static String platform = System.getProperty("os.name").toLowerCase();
 	public static int metaKey, coordX, coordY;
-	public static Font MENU_FONT = new Font("Lucida Grande", Font.BOLD, 12);
+	public static final Font MENU_FONT = new Font("Lucida Grande", Font.BOLD, 12);
 
 	/**
 	 * Launch the application.
@@ -77,7 +77,7 @@ public class Main {
 	/**
 	 * Create the application.
 	 */
-	public Main() {
+	private Main() {
 		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 			// Opt for Nimbus
 			if ("Nimbus".equals(info.getName())) {
@@ -90,10 +90,10 @@ public class Main {
 				break;
 			}
 			// Set menu accelerator enabler key varies on platform
-			if (PLATFORM.contains("linux") || PLATFORM.contains("windows")) {
+			if (platform.contains("linux") || platform.contains("windows")) {
 				metaKey = InputEvent.CTRL_MASK;
 			}
-			if (PLATFORM.contains("mac")) {
+			if (platform.contains("mac")) {
 				metaKey = InputEvent.META_MASK;
 			}
 		}
@@ -105,7 +105,7 @@ public class Main {
 	 */
 	private void initialize() {
 		mainAppWindow = new JFrame();
-		mainAppWindow.setTitle("LifeGame" + " - " + PLATFORM);
+		mainAppWindow.setTitle("LifeGame" + " - " + platform);
 		mainAppWindow.setBounds(100, 100, 800, 582);
 		mainAppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
@@ -138,7 +138,7 @@ public class Main {
 		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
 		flowLayout.setHgap(0);
 		flowLayout.setVgap(0);
-		lowerPanel.setBounds(6, 525, 540, 29);
+		lowerPanel.setBounds(6, 525, 390, 29);
 		mainAppWindow.getContentPane().add(lowerPanel);
 		btnIterate = new JButton("Iterate");
 		btnIterate.addMouseListener(new MouseAdapter() {
@@ -193,16 +193,16 @@ public class Main {
 
 		// Live cells counter
 		lblLiveCells = new JLabel("Live Cells:");
-		lblLiveCells.setBounds(558, 533, 51, 13);
+		lblLiveCells.setBounds(506, 533, 75, 13);
 		mainAppWindow.getContentPane().add(lblLiveCells);
 		lblLiveCells.setFont(new Font("Lucida Grande", Font.BOLD, 10));
 		lblCountLiveCells = new JLabel("0");
-		lblCountLiveCells.setBounds(622, 533, 51, 13);
+		lblCountLiveCells.setBounds(593, 533, 51, 13);
 		mainAppWindow.getContentPane().add(lblCountLiveCells);
 		lblCountLiveCells.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 		// Iteration counter
 		lblIteration = new JLabel("Iteration:");
-		lblIteration.setBounds(685, 533, 46, 13);
+		lblIteration.setBounds(656, 533, 75, 13);
 		mainAppWindow.getContentPane().add(lblIteration);
 		lblIteration.setFont(new Font("Lucida Grande", Font.BOLD, 10));
 		lblCountIteration = new JLabel("0");
@@ -211,7 +211,7 @@ public class Main {
 		lblCountIteration.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 	}
 
-	public void iterateGrid() {
+	private void iterateGrid() {
 		grid.iterateBoard();
 		centerPanel.repaint();
 		iterationCounter++;
@@ -219,7 +219,7 @@ public class Main {
 		lblCountIteration.setText(String.valueOf(iterationCounter));
 	}
 
-	public void resetGrid() {
+	private void resetGrid() {
 		centerPanel.remove(grid);
 		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
 				centerPanel.getHeight() / Preferences.getCellSize(), Preferences.getColorTheme());
@@ -232,7 +232,7 @@ public class Main {
 		lblCountIteration.setText(String.valueOf(iterationCounter));
 	}
 
-	ActionListener taskPerformer = new ActionListener() {
+	private ActionListener taskPerformer = new ActionListener() {
 		public void actionPerformed(ActionEvent evt) {
 			grid.iterateBoard();
 			centerPanel.repaint();

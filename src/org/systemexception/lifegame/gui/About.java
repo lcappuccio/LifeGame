@@ -9,8 +9,10 @@ import javax.swing.SwingConstants;
 @SuppressWarnings("serial")
 public class About extends JFrame {
 
-	private static int windowWidth = 270, windowHeight = 90;
-	private JLabel labelTitle, lavelCopyright, labelLicense;
+	private static final int WINDOW_WIDTH = 270, WINDOW_HEIGHT = 90;
+	private static final JLabel LABEL_TITLE = new JLabel("LifeGame - Java Conway's Game of Life"),
+			LABEL_COPYRIGHT = new JLabel("Copyright © 2014 - Leonardo Cappuccio"), LABEL_LICENSE = new JLabel(
+					"Released under GNU GPL v3.0 License");
 
 	/**
 	 * Create the frame.
@@ -18,26 +20,23 @@ public class About extends JFrame {
 	public About() {
 		setTitle("About LifeGame");
 		setResizable(false);
-		setBounds(100, 100, windowWidth, windowHeight);
+		setBounds(100, 100, WINDOW_WIDTH, WINDOW_HEIGHT);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 
-		labelTitle = new JLabel("LifeGame - Java Conway's Game of Life");
-		labelTitle.setFont(new Font("Lucida Grande", Font.BOLD, 12));
-		labelTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		labelTitle.setBounds(6, 6, 258, 16);
-		getContentPane().add(labelTitle);
+		LABEL_TITLE.setFont(new Font("Lucida Grande", Font.BOLD, 12));
+		LABEL_TITLE.setHorizontalAlignment(SwingConstants.CENTER);
+		LABEL_TITLE.setBounds(6, 6, 258, 16);
+		getContentPane().add(LABEL_TITLE);
 
-		lavelCopyright = new JLabel("Copyright © 2014 - Leonardo Cappuccio");
-		lavelCopyright.setHorizontalAlignment(SwingConstants.CENTER);
-		lavelCopyright.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
-		lavelCopyright.setBounds(6, 25, 258, 16);
-		getContentPane().add(lavelCopyright);
+		LABEL_COPYRIGHT.setHorizontalAlignment(SwingConstants.CENTER);
+		LABEL_COPYRIGHT.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		LABEL_COPYRIGHT.setBounds(6, 25, 258, 16);
+		getContentPane().add(LABEL_COPYRIGHT);
 
-		labelLicense = new JLabel("Released under GNU GPL v3.0 License");
-		labelLicense.setHorizontalAlignment(SwingConstants.CENTER);
-		labelLicense.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
-		labelLicense.setBounds(6, 46, 258, 16);
-		getContentPane().add(labelLicense);
+		LABEL_LICENSE.setHorizontalAlignment(SwingConstants.CENTER);
+		LABEL_LICENSE.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		LABEL_LICENSE.setBounds(6, 46, 258, 16);
+		getContentPane().add(LABEL_LICENSE);
 	}
 }

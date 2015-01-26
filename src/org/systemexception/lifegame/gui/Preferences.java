@@ -24,9 +24,9 @@ public class Preferences extends JFrame {
 	private JLabel prefsCellSize, lblTheme;
 	private JButton prefsSave, prefsCancel;
 	private JComboBox<String> prefsThemeSelector;
-	private int minCellSize = 2, maxCellSize = 10;
-	private static int windowWidth = 190, windowHeight = 136, cellSize = 5;
-	private static String colorTheme = "B & W";
+	private static int cellSize = 5;
+	private static final int WINDOW_WIDTH = 190, WINDOW_HEIGHT = 136, MIN_CELL_SIZE = 2, MAX_CELL_SIZE = 10;
+	private static String colourTheme = "B & W";
 
 	public static int getCellSize() {
 		return cellSize;
@@ -37,11 +37,11 @@ public class Preferences extends JFrame {
 	}
 
 	public static String getColorTheme() {
-		return colorTheme;
+		return colourTheme;
 	}
 
 	public void setColorTheme() {
-		Preferences.colorTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
+		Preferences.colourTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
 	}
 
 	/**
@@ -51,14 +51,14 @@ public class Preferences extends JFrame {
 		setResizable(false);
 		setTitle("Preferences");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, windowWidth, windowHeight);
+		setBounds(100, 100, WINDOW_WIDTH, WINDOW_HEIGHT);
 		prefsWindow = new JPanel();
 		prefsWindow.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(prefsWindow);
 
 		prefsCellSize = new JLabel("Cell Size");
 
-		SpinnerNumberModel prefsCellSpinnerModel = new SpinnerNumberModel(cellSize, minCellSize, maxCellSize, 1);
+		SpinnerNumberModel prefsCellSpinnerModel = new SpinnerNumberModel(cellSize, MIN_CELL_SIZE, MAX_CELL_SIZE, 1);
 		prefsCellSpinner = new JSpinner(prefsCellSpinnerModel);
 
 		prefsSave = new JButton("Save");
