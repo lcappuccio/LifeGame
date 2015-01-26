@@ -54,7 +54,7 @@ public class Main {
 	private JSlider sliderSpeed;
 	private JButton btnStart, btnIterate, btnStop, btnReset;
 	private Grid grid;
-	private Timer gameTimer;
+	public static Timer gameTimer;
 	private int selectedSpeed, iterationCounter;
 	private static final int MAX_SPEED = 10, MIN_SPEED = 500, INITIAL_SPEED = 210;
 	private static String PLATFORM = System.getProperty("os.name").toLowerCase();
