@@ -6,8 +6,6 @@ package org.systemexception.lifegame.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
 
@@ -27,34 +25,6 @@ public class Grid extends JComponent {
 		this.board = new Board(gridRows, gridCols);
 		totalLiveCells = board.getLiveCellCount();
 		setColours(colourTheme);
-		this.addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				int x = e.getX();
-				int y = e.getY();
-				System.out.println(x + "," + y);
-			}
-
-			@Override
-			public void mousePressed(MouseEvent e) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
-			}
-		});
 	}
 
 	public void setCellValue(int x) {
@@ -110,7 +80,7 @@ public class Grid extends JComponent {
 			colorRect = hex2Rgb("#26A65B");
 		}
 		if (colourTheme.equals("Red")) {
-			colorDark = hex2Rgb("#F22613");
+			colorDark = hex2Rgb("#EF4836");
 			colorLight = hex2Rgb("#96281B");
 			colorRect = hex2Rgb("#CF000F");
 		}
