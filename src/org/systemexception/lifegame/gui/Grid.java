@@ -14,8 +14,8 @@ import org.systemexception.lifegame.model.Board;
 public class Grid extends JComponent {
 
 	private static final long serialVersionUID = 7546830315256844429L;
-	private Board board;
 	private int cellSize, gridRows, gridCols, totalLiveCells;
+	private Board board;
 	private Color colorDark = Color.DARK_GRAY, colorLight = Color.WHITE, colorRect = Color.LIGHT_GRAY;
 
 	public Grid(int cellSize, int gridRows, int gridCols, String colourTheme) {
@@ -80,22 +80,10 @@ public class Grid extends JComponent {
 			colorRect = hex2Rgb("#26A65B");
 		}
 		if (colourTheme.equals("Red")) {
-			colorDark = hex2Rgb("#F22613");
+			colorDark = hex2Rgb("#EF4836");
 			colorLight = hex2Rgb("#96281B");
 			colorRect = hex2Rgb("#CF000F");
 		}
-	}
-
-	public void paintComponent(Graphics g) {
-		for (int i = 0; i < board.getBoardRows(); i++) {
-			for (int j = 0; j < board.getBoardCols(); j++) {
-				g.setColor(board.getCellAt(i, j).getCellState() ? colorDark : colorLight);
-				g.fillRect(cellSize * i, cellSize * j, cellSize, cellSize);
-				g.setColor(colorRect);
-				g.drawRect(cellSize * i, cellSize * j, cellSize, cellSize);
-			}
-		}
-		totalLiveCells = board.getLiveCellCount();
 	}
 
 	/**
@@ -110,5 +98,17 @@ public class Grid extends JComponent {
 	private static Color hex2Rgb(String colorStr) {
 		return new Color(Integer.valueOf(colorStr.substring(1, 3), 16), Integer.valueOf(colorStr.substring(3, 5), 16),
 				Integer.valueOf(colorStr.substring(5, 7), 16));
+	}
+
+	public void paintComponent(Graphics g) {
+		for (int i = 0; i < board.getBoardRows(); i++) {
+			for (int j = 0; j < board.getBoardCols(); j++) {
+				g.setColor(board.getCellAt(i, j).getCellState() ? colorDark : colorLight);
+				g.fillRect(cellSize * i, cellSize * j, cellSize, cellSize);
+				g.setColor(colorRect);
+				g.drawRect(cellSize * i, cellSize * j, cellSize, cellSize);
+			}
+		}
+		totalLiveCells = board.getLiveCellCount();
 	}
 }

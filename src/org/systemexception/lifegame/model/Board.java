@@ -48,7 +48,6 @@ public class Board {
 	}
 
 	public int countSurroungingLiveCells(int i, int j) {
-		// TODO check if is in border and avoid outofbounds exception
 		countSurroundingLiveCells = 0;
 		// Rotating clockwise
 		if (getCellAt(i, j - 1).getCellState()) {
