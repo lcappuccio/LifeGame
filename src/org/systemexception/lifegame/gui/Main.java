@@ -25,7 +25,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
@@ -35,31 +34,30 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
-import javax.swing.KeyStroke;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import org.systemexception.lifegame.menu.FileMenu;
 
 public class Main {
 
 	private JFrame mainAppWindow;
 	private JPanel centerPanel, lowerPanel;
 	private JMenuBar menuBar;
-	private JMenu menuBarFile;
-	private JMenuItem menuFileAbout, menuFilePrefs, menuFileQuit;
+	private JMenu menuFile;
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
 	private JSlider sliderSpeed;
 	private JButton btnStart, btnIterate, btnStop, btnReset;
-	private static String platform = System.getProperty("os.name").toLowerCase();
+	private static String PLATFORM = System.getProperty("os.name").toLowerCase();
 	private Grid grid;
-	private Preferences preferencesWindow;
 	private Timer gameTimer;
 	private int metaKey, selectedSpeed, iterationCounter;
 	private static final int MAX_SPEED = 10, MIN_SPEED = 500, INITIAL_SPEED = 250;
+	private static Font MENU_FONT = new Font("Lucida Grande", Font.BOLD, 12);
 
 	/**
 	 * Launch the application.
@@ -93,10 +91,10 @@ public class Main {
 				break;
 			}
 			// Set menu accelerator enabler key varies on platform
-			if (platform.contains("linux") || platform.contains("windows")) {
+			if (PLATFORM.contains("linux") || PLATFORM.contains("windows")) {
 				metaKey = InputEvent.CTRL_MASK;
 			}
-			if (platform.contains("mac")) {
+			if (PLATFORM.contains("mac")) {
 				metaKey = InputEvent.META_MASK;
 			}
 		}
@@ -108,7 +106,7 @@ public class Main {
 	 */
 	private void initialize() {
 		mainAppWindow = new JFrame();
-		mainAppWindow.setTitle("LifeGame" + " - " + platform);
+		mainAppWindow.setTitle("LifeGame" + " - " + PLATFORM);
 		mainAppWindow.setBounds(100, 100, 800, 582);
 		mainAppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
@@ -119,54 +117,19 @@ public class Main {
 		menuBar.setBorderPainted(false);
 
 		// File Menubar
-		menuBarFile = new JMenu("File");
-		menuBar.add(menuBarFile);
-		menuBarFile.setFont(new Font("Lucida Grande", Font.BOLD, 12));
-		// ABOUT
-		menuFileAbout = new JMenuItem("About");
-		menuFileAbout.addActionListener(new ActionListener() {
-			// About window
-			public void actionPerformed(ActionEvent e) {
-				About about = new About();
-				about.setBounds(mainAppWindow.getX() + 50, mainAppWindow.getY() + 50, about.getWidth(),
-						about.getHeight());
-				about.setVisible(true);
-			}
-		});
-		menuFileAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, metaKey));
-		menuBarFile.add(menuFileAbout);
-		// PREFERENCES
-		preferencesWindow = new Preferences();
-		menuFilePrefs = new JMenuItem("Preferences");
-		menuFilePrefs.addActionListener(new ActionListener() {
-			// Preferences window
-			public void actionPerformed(ActionEvent e) {
-				preferencesWindow.setVisible(true);
-				preferencesWindow.setBounds(mainAppWindow.getX() + 40, mainAppWindow.getY() + 40,
-						preferencesWindow.getWidth(), preferencesWindow.getHeight());
-			}
-		});
-		menuFilePrefs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, metaKey));
-		menuBarFile.add(menuFilePrefs);
-		// QUIT
-		menuFileQuit = new JMenuItem("Quit");
-		menuFileQuit.addActionListener(new ActionListener() {
-			// Quit application
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		menuFileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, metaKey));
-		menuBarFile.add(menuFileQuit);
+		menuFile = new FileMenu(metaKey, mainAppWindow.getX(), mainAppWindow.getY(), MENU_FONT);
+		menuBar.add(menuFile);
 
 		// CENTER panel
 		centerPanel = new JPanel();
 		centerPanel.setBounds(5, 25, 791, 496);
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
-		grid = new Grid(preferencesWindow.getCellSize(), centerPanel.getWidth() / preferencesWindow.getCellSize(),
-				centerPanel.getHeight() / preferencesWindow.getCellSize(), preferencesWindow.getColorTheme());
-		centerPanel.add(grid);
+		// grid = new Grid(preferencesWindow.getCellSize(),
+		// centerPanel.getWidth() / preferencesWindow.getCellSize(),
+		// centerPanel.getHeight() / preferencesWindow.getCellSize(),
+		// preferencesWindow.getColorTheme());
+		// centerPanel.add(grid);
 
 		// LOWER panel
 		lowerPanel = new JPanel();
@@ -282,9 +245,11 @@ public class Main {
 
 	public void resetGrid() {
 		centerPanel.remove(grid);
-		grid = new Grid(preferencesWindow.getCellSize(), centerPanel.getWidth() / preferencesWindow.getCellSize(),
-				centerPanel.getHeight() / preferencesWindow.getCellSize(), preferencesWindow.getColorTheme());
-		grid.setCellValue(preferencesWindow.getCellSize());
+		// grid = new Grid(prepreferencesWindow.getCellSize(),
+		// centerPanel.getWidth() / preferencesWindow.getCellSize(),
+		// centerPanel.getHeight() / preferencesWindow.getCellSize(),
+		// preferencesWindow.getColorTheme());
+		// grid.setCellValue(preferencesWindow.getCellSize());
 		grid.resetBoard();
 		centerPanel.add(grid);
 		centerPanel.repaint();
