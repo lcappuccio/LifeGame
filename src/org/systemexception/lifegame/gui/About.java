@@ -1,12 +1,18 @@
 package org.systemexception.lifegame.gui;
 
+import java.awt.Font;
+
 import javax.swing.JFrame;
-import javax.swing.JTextPane;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings("serial")
 public class About extends JFrame {
-	
-	private static int windowWidth = 270, windowHeight = 90;
+
+	private static final int WINDOW_WIDTH = 270, WINDOW_HEIGHT = 90;
+	private static final JLabel LABEL_TITLE = new JLabel("LifeGame - Java Conway's Game of Life"),
+			LABEL_COPYRIGHT = new JLabel("Copyright © 2014 - Leonardo Cappuccio"), LABEL_LICENSE = new JLabel(
+					"Released under GNU GPL v3.0 License");
 
 	/**
 	 * Create the frame.
@@ -14,16 +20,23 @@ public class About extends JFrame {
 	public About() {
 		setTitle("About LifeGame");
 		setResizable(false);
-		setBounds(100, 100, windowWidth, windowHeight);
+		setBounds(100, 100, WINDOW_WIDTH, WINDOW_HEIGHT);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
-		
-		JTextPane aboutText = new JTextPane();
-		aboutText.setEditable(false);
-		aboutText.setText("LifeGame by Leonardo Cappuccio\n\nReleased under GPL License 3.0 - 2014");
-		aboutText.setBounds(6, 6, 259, 52);
-		aboutText.setOpaque(false);
-		getContentPane().add(aboutText);
 
+		LABEL_TITLE.setFont(new Font("Lucida Grande", Font.BOLD, 12));
+		LABEL_TITLE.setHorizontalAlignment(SwingConstants.CENTER);
+		LABEL_TITLE.setBounds(6, 6, 258, 16);
+		getContentPane().add(LABEL_TITLE);
+
+		LABEL_COPYRIGHT.setHorizontalAlignment(SwingConstants.CENTER);
+		LABEL_COPYRIGHT.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		LABEL_COPYRIGHT.setBounds(6, 25, 258, 16);
+		getContentPane().add(LABEL_COPYRIGHT);
+
+		LABEL_LICENSE.setHorizontalAlignment(SwingConstants.CENTER);
+		LABEL_LICENSE.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		LABEL_LICENSE.setBounds(6, 46, 258, 16);
+		getContentPane().add(LABEL_LICENSE);
 	}
 }

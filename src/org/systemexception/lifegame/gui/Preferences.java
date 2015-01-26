@@ -20,28 +20,28 @@ public class Preferences extends JFrame {
 
 	private GroupLayout gl_prefsWindow;
 	private JPanel prefsWindow;
-	private static int windowWidth = 190, windowHeight = 136;
 	private JSpinner prefsCellSpinner;
 	private JLabel prefsCellSize, lblTheme;
 	private JButton prefsSave, prefsCancel;
 	private JComboBox<String> prefsThemeSelector;
-	private int cellSize = 5, minCellSize = 2, maxCellSize = 10;
-	private String colorTheme = "B & W";
+	private static int cellSize = 5;
+	private static final int WINDOW_WIDTH = 190, WINDOW_HEIGHT = 136, MIN_CELL_SIZE = 2, MAX_CELL_SIZE = 10;
+	private static String colourTheme = "B & W";
 
-	public int getCellSize() {
+	public static int getCellSize() {
 		return cellSize;
 	}
 
 	public void setCellSize() {
-		this.cellSize = Integer.parseInt(prefsCellSpinner.getValue().toString());
+		Preferences.cellSize = Integer.parseInt(prefsCellSpinner.getValue().toString());
 	}
 
-	public String getColorTheme() {
-		return colorTheme;
+	public static String getColorTheme() {
+		return colourTheme;
 	}
 
 	public void setColorTheme() {
-		this.colorTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
+		Preferences.colourTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
 	}
 
 	/**
@@ -51,14 +51,14 @@ public class Preferences extends JFrame {
 		setResizable(false);
 		setTitle("Preferences");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, windowWidth, windowHeight);
+		setBounds(100, 100, WINDOW_WIDTH, WINDOW_HEIGHT);
 		prefsWindow = new JPanel();
 		prefsWindow.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(prefsWindow);
 
 		prefsCellSize = new JLabel("Cell Size");
 
-		SpinnerNumberModel prefsCellSpinnerModel = new SpinnerNumberModel(cellSize, minCellSize, maxCellSize, 1);
+		SpinnerNumberModel prefsCellSpinnerModel = new SpinnerNumberModel(cellSize, MIN_CELL_SIZE, MAX_CELL_SIZE, 1);
 		prefsCellSpinner = new JSpinner(prefsCellSpinnerModel);
 
 		prefsSave = new JButton("Save");

@@ -25,41 +25,38 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
-import javax.swing.KeyStroke;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import org.systemexception.lifegame.menu.FileMenu;
+import org.systemexception.lifegame.menu.SpeedMenu;
 
 public class Main {
 
 	private JFrame mainAppWindow;
 	private JPanel centerPanel, lowerPanel;
 	private JMenuBar menuBar;
-	private JMenu menuBarFile;
-	private JMenuItem menuFileAbout, menuFilePrefs, menuFileQuit;
+	private JMenu menuFile, menuSimulation;
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
-	private JSlider sliderSpeed;
 	private JButton btnStart, btnIterate, btnStop, btnReset;
-	private static String platform = System.getProperty("os.name").toLowerCase();
 	private Grid grid;
-	private Preferences preferencesWindow;
-	private Timer gameTimer;
-	private int metaKey, selectedSpeed, iterationCounter;
-	private static final int MAX_SPEED = 10, MIN_SPEED = 500, INITIAL_SPEED = 250;
+	public static Timer gameTimer;
+	private int iterationCounter;
+	private static final int INITIAL_SPEED = 210;
+	private static String platform = System.getProperty("os.name").toLowerCase();
+	public static int metaKey, coordX, coordY;
+	public static final Font MENU_FONT = new Font("Lucida Grande", Font.BOLD, 12);
 
 	/**
 	 * Launch the application.
@@ -80,7 +77,7 @@ public class Main {
 	/**
 	 * Create the application.
 	 */
-	public Main() {
+	private Main() {
 		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 			// Opt for Nimbus
 			if ("Nimbus".equals(info.getName())) {
@@ -112,107 +109,37 @@ public class Main {
 		mainAppWindow.setBounds(100, 100, 800, 582);
 		mainAppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
+		coordX = mainAppWindow.getX();
+		coordY = mainAppWindow.getY();
 		mainAppWindow.setResizable(false);
 		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, mainAppWindow.getWidth(), 20);
 		mainAppWindow.getContentPane().add(menuBar);
 		menuBar.setBorderPainted(false);
-		menuBarFile = new JMenu("File");
-		menuBar.add(menuBarFile);
-		menuBarFile.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
 
-		menuFileAbout = new JMenuItem("About");
-		menuFileAbout.addActionListener(new ActionListener() {
-			// Quit application
-			public void actionPerformed(ActionEvent e) {
-				About about = new About();
-				about.setBounds(mainAppWindow.getX() + 50, mainAppWindow.getY() + 50, about.getWidth(),
-						about.getHeight());
-				about.setVisible(true);
-			}
-		});
-		menuFileAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, metaKey));
-		menuBarFile.add(menuFileAbout);
-
-		// PREFERENCES menu
-		preferencesWindow = new Preferences();
-		menuFilePrefs = new JMenuItem("Preferences");
-		menuFilePrefs.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				preferencesWindow.setVisible(true);
-				preferencesWindow.setBounds(mainAppWindow.getX() + 40, mainAppWindow.getY() + 40,
-						preferencesWindow.getWidth(), preferencesWindow.getHeight());
-			}
-		});
-		menuFilePrefs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, metaKey));
-		menuBarFile.add(menuFilePrefs);
-
-		menuFileQuit = new JMenuItem("Quit");
-		menuFileQuit.addActionListener(new ActionListener() {
-			// Quit application
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		menuFileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, metaKey));
-		menuBarFile.add(menuFileQuit);
+		// File menu
+		menuFile = new FileMenu();
+		menuBar.add(menuFile);
+		// Speed menu
+		menuSimulation = new SpeedMenu();
+		menuBar.add(menuSimulation);
 
 		// CENTER panel
 		centerPanel = new JPanel();
 		centerPanel.setBounds(5, 25, 791, 496);
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
-		grid = new Grid(preferencesWindow.getCellSize(), centerPanel.getWidth() / preferencesWindow.getCellSize(),
-				centerPanel.getHeight() / preferencesWindow.getCellSize(), preferencesWindow.getColorTheme());
+		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
+				centerPanel.getHeight() / Preferences.getCellSize(), Preferences.getColorTheme());
 		centerPanel.add(grid);
+
 		// LOWER panel
 		lowerPanel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
 		flowLayout.setHgap(0);
 		flowLayout.setVgap(0);
-		lowerPanel.setBounds(6, 525, 540, 29);
+		lowerPanel.setBounds(6, 525, 390, 29);
 		mainAppWindow.getContentPane().add(lowerPanel);
-
-		btnStart = new JButton("Start");
-		btnStart.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				btnStart.setEnabled(false);
-				if (gameTimer == null) {
-					gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
-					gameTimer.start();
-				} else {
-					selectedSpeed = sliderSpeed.getValue();
-					gameTimer.setDelay(selectedSpeed);
-					gameTimer.restart();
-				}
-			}
-		});
-		lowerPanel.add(btnStart);
-		sliderSpeed = new JSlider(MAX_SPEED, MIN_SPEED, INITIAL_SPEED);
-		sliderSpeed.setMajorTickSpacing(100);
-		sliderSpeed.setMinorTickSpacing(50);
-		sliderSpeed.setSnapToTicks(true);
-		sliderSpeed.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				selectedSpeed = sliderSpeed.getValue();
-				if (gameTimer != null && gameTimer.isRunning()) {
-					gameTimer.setDelay(selectedSpeed);
-				}
-
-			}
-		});
-		sliderSpeed.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				selectedSpeed = sliderSpeed.getValue();
-				if (gameTimer != null && gameTimer.isRunning()) {
-					gameTimer.setDelay(selectedSpeed);
-				}
-			}
-		});
-		lowerPanel.add(sliderSpeed);
 		btnIterate = new JButton("Iterate");
 		btnIterate.addMouseListener(new MouseAdapter() {
 			@Override
@@ -224,6 +151,21 @@ public class Main {
 				iterateGrid();
 			}
 		});
+
+		btnStart = new JButton("Start");
+		btnStart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnStart.setEnabled(false);
+				if (gameTimer == null) {
+					gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
+					gameTimer.start();
+				} else {
+					gameTimer.restart();
+				}
+			}
+		});
+		lowerPanel.add(btnStart);
 		lowerPanel.add(btnIterate);
 		btnStop = new JButton("Stop");
 		btnStop.addMouseListener(new MouseAdapter() {
@@ -251,16 +193,16 @@ public class Main {
 
 		// Live cells counter
 		lblLiveCells = new JLabel("Live Cells:");
-		lblLiveCells.setBounds(558, 533, 51, 13);
+		lblLiveCells.setBounds(506, 533, 75, 13);
 		mainAppWindow.getContentPane().add(lblLiveCells);
 		lblLiveCells.setFont(new Font("Lucida Grande", Font.BOLD, 10));
 		lblCountLiveCells = new JLabel("0");
-		lblCountLiveCells.setBounds(622, 533, 51, 13);
+		lblCountLiveCells.setBounds(593, 533, 51, 13);
 		mainAppWindow.getContentPane().add(lblCountLiveCells);
 		lblCountLiveCells.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 		// Iteration counter
 		lblIteration = new JLabel("Iteration:");
-		lblIteration.setBounds(685, 533, 46, 13);
+		lblIteration.setBounds(656, 533, 75, 13);
 		mainAppWindow.getContentPane().add(lblIteration);
 		lblIteration.setFont(new Font("Lucida Grande", Font.BOLD, 10));
 		lblCountIteration = new JLabel("0");
@@ -269,7 +211,7 @@ public class Main {
 		lblCountIteration.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
 	}
 
-	public void iterateGrid() {
+	private void iterateGrid() {
 		grid.iterateBoard();
 		centerPanel.repaint();
 		iterationCounter++;
@@ -277,11 +219,11 @@ public class Main {
 		lblCountIteration.setText(String.valueOf(iterationCounter));
 	}
 
-	public void resetGrid() {
+	private void resetGrid() {
 		centerPanel.remove(grid);
-		grid = new Grid(preferencesWindow.getCellSize(), centerPanel.getWidth() / preferencesWindow.getCellSize(),
-				centerPanel.getHeight() / preferencesWindow.getCellSize(), preferencesWindow.getColorTheme());
-		grid.setCellValue(preferencesWindow.getCellSize());
+		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
+				centerPanel.getHeight() / Preferences.getCellSize(), Preferences.getColorTheme());
+		grid.setCellValue(Preferences.getCellSize());
 		grid.resetBoard();
 		centerPanel.add(grid);
 		centerPanel.repaint();
@@ -290,7 +232,7 @@ public class Main {
 		lblCountIteration.setText(String.valueOf(iterationCounter));
 	}
 
-	ActionListener taskPerformer = new ActionListener() {
+	private ActionListener taskPerformer = new ActionListener() {
 		public void actionPerformed(ActionEvent evt) {
 			grid.iterateBoard();
 			centerPanel.repaint();
@@ -299,5 +241,4 @@ public class Main {
 			lblCountIteration.setText(String.valueOf(iterationCounter));
 		}
 	};
-
 }
