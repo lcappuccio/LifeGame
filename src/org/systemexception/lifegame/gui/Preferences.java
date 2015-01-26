@@ -20,28 +20,28 @@ public class Preferences extends JFrame {
 
 	private GroupLayout gl_prefsWindow;
 	private JPanel prefsWindow;
-	private static int windowWidth = 190, windowHeight = 136;
+	private static int windowWidth = 190, windowHeight = 136, cellSize = 5;
 	private JSpinner prefsCellSpinner;
 	private JLabel prefsCellSize, lblTheme;
 	private JButton prefsSave, prefsCancel;
 	private JComboBox<String> prefsThemeSelector;
-	private int cellSize = 5, minCellSize = 2, maxCellSize = 10;
-	private String colorTheme = "B & W";
+	private int minCellSize = 2, maxCellSize = 10;
+	private static String colorTheme = "B & W";
 
-	public int getCellSize() {
+	public static int getCellSize() {
 		return cellSize;
 	}
 
 	public void setCellSize() {
-		this.cellSize = Integer.parseInt(prefsCellSpinner.getValue().toString());
+		Preferences.cellSize = Integer.parseInt(prefsCellSpinner.getValue().toString());
 	}
 
-	public String getColorTheme() {
+	public static String getColorTheme() {
 		return colorTheme;
 	}
 
 	public void setColorTheme() {
-		this.colorTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
+		Preferences.colorTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
 	}
 
 	/**

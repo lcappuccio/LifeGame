@@ -125,11 +125,9 @@ public class Main {
 		centerPanel.setBounds(5, 25, 791, 496);
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
-		// grid = new Grid(preferencesWindow.getCellSize(),
-		// centerPanel.getWidth() / preferencesWindow.getCellSize(),
-		// centerPanel.getHeight() / preferencesWindow.getCellSize(),
-		// preferencesWindow.getColorTheme());
-		// centerPanel.add(grid);
+		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
+				centerPanel.getHeight() / Preferences.getCellSize(), Preferences.getColorTheme());
+		centerPanel.add(grid);
 
 		// LOWER panel
 		lowerPanel = new JPanel();
@@ -245,11 +243,9 @@ public class Main {
 
 	public void resetGrid() {
 		centerPanel.remove(grid);
-		// grid = new Grid(prepreferencesWindow.getCellSize(),
-		// centerPanel.getWidth() / preferencesWindow.getCellSize(),
-		// centerPanel.getHeight() / preferencesWindow.getCellSize(),
-		// preferencesWindow.getColorTheme());
-		// grid.setCellValue(preferencesWindow.getCellSize());
+		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
+				centerPanel.getHeight() / Preferences.getCellSize(), Preferences.getColorTheme());
+		grid.setCellValue(Preferences.getCellSize());
 		grid.resetBoard();
 		centerPanel.add(grid);
 		centerPanel.repaint();
