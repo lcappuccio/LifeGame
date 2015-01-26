@@ -6,6 +6,8 @@ package org.systemexception.lifegame.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
 
@@ -14,8 +16,8 @@ import org.systemexception.lifegame.model.Board;
 public class Grid extends JComponent {
 
 	private static final long serialVersionUID = 7546830315256844429L;
-	private Board board;
 	private int cellSize, gridRows, gridCols, totalLiveCells;
+	private Board board;
 	private Color colorDark = Color.DARK_GRAY, colorLight = Color.WHITE, colorRect = Color.LIGHT_GRAY;
 
 	public Grid(int cellSize, int gridRows, int gridCols, String colourTheme) {
@@ -25,6 +27,34 @@ public class Grid extends JComponent {
 		this.board = new Board(gridRows, gridCols);
 		totalLiveCells = board.getLiveCellCount();
 		setColours(colourTheme);
+		this.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				int x = e.getX();
+				int y = e.getY();
+				System.out.println(x + "," + y);
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				// TODO Auto-generated method stub
+			}
+		});
 	}
 
 	public void setCellValue(int x) {
@@ -86,18 +116,6 @@ public class Grid extends JComponent {
 		}
 	}
 
-	public void paintComponent(Graphics g) {
-		for (int i = 0; i < board.getBoardRows(); i++) {
-			for (int j = 0; j < board.getBoardCols(); j++) {
-				g.setColor(board.getCellAt(i, j).getCellState() ? colorDark : colorLight);
-				g.fillRect(cellSize * i, cellSize * j, cellSize, cellSize);
-				g.setColor(colorRect);
-				g.drawRect(cellSize * i, cellSize * j, cellSize, cellSize);
-			}
-		}
-		totalLiveCells = board.getLiveCellCount();
-	}
-
 	/**
 	 * As seen on:
 	 * http://stackoverflow.com/questions/4129666/how-to-convert-hex-
@@ -110,5 +128,17 @@ public class Grid extends JComponent {
 	private static Color hex2Rgb(String colorStr) {
 		return new Color(Integer.valueOf(colorStr.substring(1, 3), 16), Integer.valueOf(colorStr.substring(3, 5), 16),
 				Integer.valueOf(colorStr.substring(5, 7), 16));
+	}
+
+	public void paintComponent(Graphics g) {
+		for (int i = 0; i < board.getBoardRows(); i++) {
+			for (int j = 0; j < board.getBoardCols(); j++) {
+				g.setColor(board.getCellAt(i, j).getCellState() ? colorDark : colorLight);
+				g.fillRect(cellSize * i, cellSize * j, cellSize, cellSize);
+				g.setColor(colorRect);
+				g.drawRect(cellSize * i, cellSize * j, cellSize, cellSize);
+			}
+		}
+		totalLiveCells = board.getLiveCellCount();
 	}
 }
