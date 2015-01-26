@@ -42,22 +42,23 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.systemexception.lifegame.menu.FileMenu;
+import org.systemexception.lifegame.menu.SpeedMenu;
 
 public class Main {
 
 	private JFrame mainAppWindow;
 	private JPanel centerPanel, lowerPanel;
 	private JMenuBar menuBar;
-	private JMenu menuFile;
+	private JMenu menuFile, menuSimulation;
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
 	private JSlider sliderSpeed;
 	private JButton btnStart, btnIterate, btnStop, btnReset;
 	private Grid grid;
 	private Timer gameTimer;
 	private int selectedSpeed, iterationCounter;
-	private static final int MAX_SPEED = 10, MIN_SPEED = 500, INITIAL_SPEED = 250;
+	private static final int MAX_SPEED = 10, MIN_SPEED = 500, INITIAL_SPEED = 210;
 	private static String PLATFORM = System.getProperty("os.name").toLowerCase();
-	public static int metaKey;
+	public static int metaKey, coordX, coordY;
 	public static Font MENU_FONT = new Font("Lucida Grande", Font.BOLD, 12);
 
 	/**
@@ -111,15 +112,20 @@ public class Main {
 		mainAppWindow.setBounds(100, 100, 800, 582);
 		mainAppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
+		coordX = mainAppWindow.getX();
+		coordY = mainAppWindow.getY();
 		mainAppWindow.setResizable(false);
 		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, mainAppWindow.getWidth(), 20);
 		mainAppWindow.getContentPane().add(menuBar);
 		menuBar.setBorderPainted(false);
 
-		// File Menubar
-		menuFile = new FileMenu(mainAppWindow.getX(), mainAppWindow.getY());
+		// File menu
+		menuFile = new FileMenu();
 		menuBar.add(menuFile);
+		// Speed menu
+		menuSimulation = new SpeedMenu();
+		menuBar.add(menuSimulation);
 
 		// CENTER panel
 		centerPanel = new JPanel();
@@ -146,6 +152,7 @@ public class Main {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				selectedSpeed = sliderSpeed.getValue();
+				System.out.println(selectedSpeed);
 				if (gameTimer != null && gameTimer.isRunning()) {
 					gameTimer.setDelay(selectedSpeed);
 				}

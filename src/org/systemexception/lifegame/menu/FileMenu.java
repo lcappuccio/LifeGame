@@ -21,11 +21,8 @@ public class FileMenu extends JMenu {
 	private static final long serialVersionUID = 7405208334736215552L;
 	private Preferences preferencesWindow;
 	private JMenuItem menuFileAbout, menuFilePrefs, menuFileQuit;
-	private int coordX, coordY;
 
-	public FileMenu(int coordX, int coordY) {
-		this.coordX = coordX;
-		this.coordY = coordY;
+	public FileMenu() {
 		this.setFont(Main.MENU_FONT);
 		this.setText("File");
 		this.add(menuAbout());
@@ -39,7 +36,7 @@ public class FileMenu extends JMenu {
 			// About window
 			public void actionPerformed(ActionEvent e) {
 				About about = new About();
-				about.setBounds(coordX + 50, coordY + 50, about.getWidth(), about.getHeight());
+				about.setBounds(Main.coordX + 50, Main.coordY + 50, about.getWidth(), about.getHeight());
 				about.setVisible(true);
 			}
 		});
@@ -54,7 +51,7 @@ public class FileMenu extends JMenu {
 			// Preferences window
 			public void actionPerformed(ActionEvent e) {
 				preferencesWindow.setVisible(true);
-				preferencesWindow.setBounds(coordX + 40, coordY + 40, preferencesWindow.getWidth(),
+				preferencesWindow.setBounds(Main.coordX + 40, Main.coordY + 40, preferencesWindow.getWidth(),
 						preferencesWindow.getHeight());
 			}
 		});
