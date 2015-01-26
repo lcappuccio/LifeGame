@@ -173,23 +173,6 @@ public class Main {
 		flowLayout.setVgap(0);
 		lowerPanel.setBounds(6, 525, 540, 29);
 		mainAppWindow.getContentPane().add(lowerPanel);
-
-		btnStart = new JButton("Start");
-		btnStart.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				btnStart.setEnabled(false);
-				if (gameTimer == null) {
-					gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
-					gameTimer.start();
-				} else {
-					selectedSpeed = sliderSpeed.getValue();
-					gameTimer.setDelay(selectedSpeed);
-					gameTimer.restart();
-				}
-			}
-		});
-		lowerPanel.add(btnStart);
 		sliderSpeed = new JSlider(MAX_SPEED, MIN_SPEED, INITIAL_SPEED);
 		sliderSpeed.setMajorTickSpacing(100);
 		sliderSpeed.setMinorTickSpacing(50);
@@ -225,6 +208,23 @@ public class Main {
 				iterateGrid();
 			}
 		});
+
+		btnStart = new JButton("Start");
+		btnStart.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				btnStart.setEnabled(false);
+				if (gameTimer == null) {
+					gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
+					gameTimer.start();
+				} else {
+					selectedSpeed = sliderSpeed.getValue();
+					gameTimer.setDelay(selectedSpeed);
+					gameTimer.restart();
+				}
+			}
+		});
+		lowerPanel.add(btnStart);
 		lowerPanel.add(btnIterate);
 		btnStop = new JButton("Stop");
 		btnStop.addMouseListener(new MouseAdapter() {
