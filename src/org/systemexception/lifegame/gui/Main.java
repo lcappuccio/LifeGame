@@ -117,13 +117,15 @@ public class Main {
 		menuBar.setBounds(0, 0, mainAppWindow.getWidth(), 20);
 		mainAppWindow.getContentPane().add(menuBar);
 		menuBar.setBorderPainted(false);
+
+		// File Menubar
 		menuBarFile = new JMenu("File");
 		menuBar.add(menuBarFile);
-		menuBarFile.setFont(new Font("Lucida Grande", Font.PLAIN, 14));
-
+		menuBarFile.setFont(new Font("Lucida Grande", Font.BOLD, 12));
+		// ABOUT
 		menuFileAbout = new JMenuItem("About");
 		menuFileAbout.addActionListener(new ActionListener() {
-			// Quit application
+			// About window
 			public void actionPerformed(ActionEvent e) {
 				About about = new About();
 				about.setBounds(mainAppWindow.getX() + 50, mainAppWindow.getY() + 50, about.getWidth(),
@@ -133,11 +135,11 @@ public class Main {
 		});
 		menuFileAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, metaKey));
 		menuBarFile.add(menuFileAbout);
-
-		// PREFERENCES menu
+		// PREFERENCES
 		preferencesWindow = new Preferences();
 		menuFilePrefs = new JMenuItem("Preferences");
 		menuFilePrefs.addActionListener(new ActionListener() {
+			// Preferences window
 			public void actionPerformed(ActionEvent e) {
 				preferencesWindow.setVisible(true);
 				preferencesWindow.setBounds(mainAppWindow.getX() + 40, mainAppWindow.getY() + 40,
@@ -146,7 +148,7 @@ public class Main {
 		});
 		menuFilePrefs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, metaKey));
 		menuBarFile.add(menuFilePrefs);
-
+		// QUIT
 		menuFileQuit = new JMenuItem("Quit");
 		menuFileQuit.addActionListener(new ActionListener() {
 			// Quit application
@@ -165,6 +167,7 @@ public class Main {
 		grid = new Grid(preferencesWindow.getCellSize(), centerPanel.getWidth() / preferencesWindow.getCellSize(),
 				centerPanel.getHeight() / preferencesWindow.getCellSize(), preferencesWindow.getColorTheme());
 		centerPanel.add(grid);
+
 		// LOWER panel
 		lowerPanel = new JPanel();
 		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
@@ -299,5 +302,4 @@ public class Main {
 			lblCountIteration.setText(String.valueOf(iterationCounter));
 		}
 	};
-
 }
