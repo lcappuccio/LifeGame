@@ -140,6 +140,7 @@ public class Main {
 		sliderSpeed = new JSlider(MAX_SPEED, MIN_SPEED, INITIAL_SPEED);
 		sliderSpeed.setMajorTickSpacing(100);
 		sliderSpeed.setMinorTickSpacing(50);
+		sliderSpeed.setInverted(true);
 		sliderSpeed.setSnapToTicks(true);
 		sliderSpeed.addMouseListener(new MouseAdapter() {
 			@Override
