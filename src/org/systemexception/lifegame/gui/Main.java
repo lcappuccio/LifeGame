@@ -27,7 +27,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -35,7 +34,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JPanel;
-import javax.swing.JSlider;
 import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -51,12 +49,11 @@ public class Main {
 	private JMenuBar menuBar;
 	private JMenu menuFile, menuSimulation;
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
-	private JSlider sliderSpeed;
 	private JButton btnStart, btnIterate, btnStop, btnReset;
 	private Grid grid;
 	public static Timer gameTimer;
 	private int selectedSpeed, iterationCounter;
-	private static final int MAX_SPEED = 10, MIN_SPEED = 500, INITIAL_SPEED = 210;
+	private static final int INITIAL_SPEED = 210;
 	private static String PLATFORM = System.getProperty("os.name").toLowerCase();
 	public static int metaKey, coordX, coordY;
 	public static Font MENU_FONT = new Font("Lucida Grande", Font.BOLD, 12);
@@ -143,32 +140,6 @@ public class Main {
 		flowLayout.setVgap(0);
 		lowerPanel.setBounds(6, 525, 540, 29);
 		mainAppWindow.getContentPane().add(lowerPanel);
-		sliderSpeed = new JSlider(MAX_SPEED, MIN_SPEED, INITIAL_SPEED);
-		sliderSpeed.setMajorTickSpacing(100);
-		sliderSpeed.setMinorTickSpacing(50);
-		sliderSpeed.setInverted(true);
-		sliderSpeed.setSnapToTicks(true);
-		sliderSpeed.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				selectedSpeed = sliderSpeed.getValue();
-				System.out.println(selectedSpeed);
-				if (gameTimer != null && gameTimer.isRunning()) {
-					gameTimer.setDelay(selectedSpeed);
-				}
-
-			}
-		});
-		sliderSpeed.addMouseMotionListener(new MouseMotionAdapter() {
-			@Override
-			public void mouseDragged(MouseEvent e) {
-				selectedSpeed = sliderSpeed.getValue();
-				if (gameTimer != null && gameTimer.isRunning()) {
-					gameTimer.setDelay(selectedSpeed);
-				}
-			}
-		});
-		lowerPanel.add(sliderSpeed);
 		btnIterate = new JButton("Iterate");
 		btnIterate.addMouseListener(new MouseAdapter() {
 			@Override
@@ -190,8 +161,6 @@ public class Main {
 					gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
 					gameTimer.start();
 				} else {
-					selectedSpeed = sliderSpeed.getValue();
-					gameTimer.setDelay(selectedSpeed);
 					gameTimer.restart();
 				}
 			}

@@ -47,7 +47,8 @@ public class SpeedMenu extends JMenu {
 	}
 
 	private void getSpeed(String speedDescription) {
-		// return (speedTable.get(speedDescription));
-		Main.gameTimer.setDelay(speedTable.get(speedDescription));
+		if (Main.gameTimer != null && Main.gameTimer.isRunning()) {
+			Main.gameTimer.setDelay(speedTable.get(speedDescription));
+		}
 	}
 }
