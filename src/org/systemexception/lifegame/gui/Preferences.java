@@ -20,12 +20,12 @@ public class Preferences extends JFrame {
 
 	private GroupLayout gl_prefsWindow;
 	private JPanel prefsWindow;
-	private static int windowWidth = 190, windowHeight = 136, cellSize = 5;
 	private JSpinner prefsCellSpinner;
 	private JLabel prefsCellSize, lblTheme;
 	private JButton prefsSave, prefsCancel;
 	private JComboBox<String> prefsThemeSelector;
 	private int minCellSize = 2, maxCellSize = 10;
+	private static int windowWidth = 190, windowHeight = 136, cellSize = 5;
 	private static String colorTheme = "B & W";
 
 	public static int getCellSize() {

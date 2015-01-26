@@ -52,12 +52,13 @@ public class Main {
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
 	private JSlider sliderSpeed;
 	private JButton btnStart, btnIterate, btnStop, btnReset;
-	private static String PLATFORM = System.getProperty("os.name").toLowerCase();
 	private Grid grid;
 	private Timer gameTimer;
-	private int metaKey, selectedSpeed, iterationCounter;
+	private int selectedSpeed, iterationCounter;
 	private static final int MAX_SPEED = 10, MIN_SPEED = 500, INITIAL_SPEED = 250;
-	private static Font MENU_FONT = new Font("Lucida Grande", Font.BOLD, 12);
+	private static String PLATFORM = System.getProperty("os.name").toLowerCase();
+	public static int metaKey;
+	public static Font MENU_FONT = new Font("Lucida Grande", Font.BOLD, 12);
 
 	/**
 	 * Launch the application.
@@ -117,7 +118,7 @@ public class Main {
 		menuBar.setBorderPainted(false);
 
 		// File Menubar
-		menuFile = new FileMenu(metaKey, mainAppWindow.getX(), mainAppWindow.getY(), MENU_FONT);
+		menuFile = new FileMenu(mainAppWindow.getX(), mainAppWindow.getY());
 		menuBar.add(menuFile);
 
 		// CENTER panel

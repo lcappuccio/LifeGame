@@ -4,7 +4,6 @@
  */
 package org.systemexception.lifegame.menu;
 
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -14,6 +13,7 @@ import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
 import org.systemexception.lifegame.gui.About;
+import org.systemexception.lifegame.gui.Main;
 import org.systemexception.lifegame.gui.Preferences;
 
 public class FileMenu extends JMenu {
@@ -21,13 +21,12 @@ public class FileMenu extends JMenu {
 	private static final long serialVersionUID = 7405208334736215552L;
 	private Preferences preferencesWindow;
 	private JMenuItem menuFileAbout, menuFilePrefs, menuFileQuit;
-	private int coordX, coordY, metaKey;
+	private int coordX, coordY;
 
-	public FileMenu(int metaKey, int coordX, int coordY, Font menuFont) {
+	public FileMenu(int coordX, int coordY) {
 		this.coordX = coordX;
 		this.coordY = coordY;
-		this.metaKey = metaKey;
-		this.setFont(menuFont);
+		this.setFont(Main.MENU_FONT);
 		this.setText("File");
 		this.add(menuAbout());
 		this.add(menuPreferences());
@@ -44,7 +43,7 @@ public class FileMenu extends JMenu {
 				about.setVisible(true);
 			}
 		});
-		menuFileAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, metaKey));
+		menuFileAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Main.metaKey));
 		return (menuFileAbout);
 	}
 
@@ -59,7 +58,7 @@ public class FileMenu extends JMenu {
 						preferencesWindow.getHeight());
 			}
 		});
-		menuFilePrefs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, metaKey));
+		menuFilePrefs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, Main.metaKey));
 		return (menuFilePrefs);
 	}
 
@@ -71,7 +70,7 @@ public class FileMenu extends JMenu {
 				System.exit(0);
 			}
 		});
-		menuFileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, metaKey));
+		menuFileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, Main.metaKey));
 		return (menuFileQuit);
 	}
 }
