@@ -17,22 +17,25 @@ import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class Preferences extends JFrame {
+	// TODO add algorithm selection and cell life probability
 
 	private GroupLayout gl_prefsWindow;
 	private JPanel prefsWindow;
-	private JSpinner prefsCellSpinner;
-	private JLabel prefsCellSize, lblTheme;
+	private JSpinner prefsCellSpinner, prefsCellProbability;
+	private JLabel prefsCellSize, lblTheme, lblCellLifeProbability;
 	private JButton prefsSave, prefsCancel;
 	private JComboBox<String> prefsThemeSelector;
-	private static int cellSize = 5;
-	private static final int WINDOW_WIDTH = 190, WINDOW_HEIGHT = 136, MIN_CELL_SIZE = 2, MAX_CELL_SIZE = 10;
+	private SpinnerNumberModel prefsCellSpinnerModel, prefsLifeSpinnerModel;
+	private static int cellSize = 5, cellLifeProbability = 50;
+	private static final int WINDOW_WIDTH = 265, WINDOW_HEIGHT = 250, MIN_CELL_SIZE = 2, MAX_CELL_SIZE = 10,
+			MIN_LIFE_PROBABILITY = 0, MAX_LIFE_PROBABILITY = 100;
 	private static String colourTheme = "B & W";
 
 	public static int getCellSize() {
 		return cellSize;
 	}
 
-	public void setCellSize() {
+	private void setCellSize() {
 		Preferences.cellSize = Integer.parseInt(prefsCellSpinner.getValue().toString());
 	}
 
@@ -40,8 +43,16 @@ public class Preferences extends JFrame {
 		return colourTheme;
 	}
 
-	public void setColorTheme() {
+	private void setColorTheme() {
 		Preferences.colourTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
+	}
+
+	public static int getCellLifeProbability() {
+		return cellLifeProbability;
+	}
+
+	private void setCellLifeProbability() {
+		Preferences.cellLifeProbability = Integer.parseInt(prefsCellProbability.getValue().toString());
 	}
 
 	/**
@@ -57,8 +68,7 @@ public class Preferences extends JFrame {
 		setContentPane(prefsWindow);
 
 		prefsCellSize = new JLabel("Cell Size");
-
-		SpinnerNumberModel prefsCellSpinnerModel = new SpinnerNumberModel(cellSize, MIN_CELL_SIZE, MAX_CELL_SIZE, 1);
+		prefsCellSpinnerModel = new SpinnerNumberModel(cellSize, MIN_CELL_SIZE, MAX_CELL_SIZE, 1);
 		prefsCellSpinner = new JSpinner(prefsCellSpinnerModel);
 
 		prefsSave = new JButton("Save");
@@ -83,39 +93,38 @@ public class Preferences extends JFrame {
 		prefsThemeSelector.addItem("Red");
 		lblTheme = new JLabel("Theme");
 
+		lblCellLifeProbability = new JLabel("Cell Life Probability");
+		prefsLifeSpinnerModel = new SpinnerNumberModel(cellLifeProbability, MIN_LIFE_PROBABILITY, MAX_LIFE_PROBABILITY,
+				1);
+		prefsCellProbability = new JSpinner(prefsLifeSpinnerModel);
+
 		gl_prefsWindow = new GroupLayout(prefsWindow);
-		gl_prefsWindow.setHorizontalGroup(gl_prefsWindow.createParallelGroup(Alignment.LEADING).addGroup(
-				gl_prefsWindow
-						.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(
-								gl_prefsWindow
-										.createParallelGroup(Alignment.LEADING)
-										.addGroup(
-												gl_prefsWindow
-														.createSequentialGroup()
-														.addGroup(
-																gl_prefsWindow.createParallelGroup(Alignment.LEADING)
-																		.addComponent(lblTheme)
-																		.addComponent(prefsCellSize))
-														.addGap(18)
-														.addGroup(
-																gl_prefsWindow
-																		.createParallelGroup(Alignment.TRAILING)
-																		.addComponent(prefsThemeSelector, 0, 97,
-																				Short.MAX_VALUE)
-																		.addComponent(prefsCellSpinner,
-																				Alignment.LEADING,
-																				GroupLayout.DEFAULT_SIZE, 97,
-																				Short.MAX_VALUE)))
-										.addGroup(
-												gl_prefsWindow
-														.createSequentialGroup()
-														.addComponent(prefsSave, GroupLayout.DEFAULT_SIZE, 76,
-																Short.MAX_VALUE)
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addComponent(prefsCancel, GroupLayout.PREFERRED_SIZE, 86,
-																GroupLayout.PREFERRED_SIZE))).addContainerGap()));
+		gl_prefsWindow.setHorizontalGroup(gl_prefsWindow
+				.createParallelGroup(Alignment.LEADING)
+				.addGroup(
+						gl_prefsWindow.createSequentialGroup().addContainerGap()
+								.addComponent(prefsSave, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+								.addContainerGap())
+				.addGroup(
+						gl_prefsWindow.createSequentialGroup().addContainerGap()
+								.addComponent(prefsCancel, GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+								.addContainerGap())
+				.addGroup(
+						gl_prefsWindow
+								.createSequentialGroup()
+								.addGroup(
+										gl_prefsWindow.createParallelGroup(Alignment.LEADING)
+												.addComponent(prefsCellSize).addComponent(lblCellLifeProbability)
+												.addComponent(lblTheme))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(
+										gl_prefsWindow
+												.createParallelGroup(Alignment.LEADING)
+												.addComponent(prefsCellProbability, GroupLayout.DEFAULT_SIZE, 127,
+														Short.MAX_VALUE)
+												.addComponent(prefsCellSpinner, Alignment.TRAILING,
+														GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
+												.addComponent(prefsThemeSelector, 0, 127, Short.MAX_VALUE))));
 		gl_prefsWindow.setVerticalGroup(gl_prefsWindow.createParallelGroup(Alignment.LEADING).addGroup(
 				gl_prefsWindow
 						.createSequentialGroup()
@@ -123,26 +132,31 @@ public class Preferences extends JFrame {
 						.addGroup(
 								gl_prefsWindow
 										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(prefsCellSize)
 										.addComponent(prefsCellSpinner, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(prefsCellSize))
-						.addPreferredGap(ComponentPlacement.RELATED)
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(
+								gl_prefsWindow
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblCellLifeProbability)
+										.addComponent(prefsCellProbability, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(11)
 						.addGroup(
 								gl_prefsWindow
 										.createParallelGroup(Alignment.BASELINE)
 										.addComponent(prefsThemeSelector, GroupLayout.PREFERRED_SIZE,
 												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblTheme))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(
-								gl_prefsWindow.createParallelGroup(Alignment.BASELINE).addComponent(prefsSave)
-										.addComponent(prefsCancel)).addContainerGap(46, Short.MAX_VALUE)));
+										.addComponent(lblTheme)).addGap(39).addComponent(prefsSave)
+						.addPreferredGap(ComponentPlacement.RELATED).addComponent(prefsCancel).addGap(12)));
 		prefsWindow.setLayout(gl_prefsWindow);
 	}
 
 	private void savePrefs() {
 		setCellSize();
 		setColorTheme();
+		setCellLifeProbability();
 		super.setVisible(false);
 	}
 
