@@ -49,7 +49,8 @@ public class Main {
 	private JMenuBar menuBar;
 	private JMenu menuFile, menuSimulation;
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
-	private JButton btnStart, btnIterate, btnStop, btnReset;
+	private JButton btnStart, btnIterate, btnStop;
+	public static JButton btnReset;
 	private Grid grid;
 	public static Timer gameTimer;
 	private int iterationCounter;
@@ -180,9 +181,9 @@ public class Main {
 		});
 		lowerPanel.add(btnStop);
 		btnReset = new JButton("Reset");
-		btnReset.addMouseListener(new MouseAdapter() {
+		btnReset.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				resetGrid();
 				if (gameTimer != null && gameTimer.isRunning()) {
 					btnStart.setEnabled(true);

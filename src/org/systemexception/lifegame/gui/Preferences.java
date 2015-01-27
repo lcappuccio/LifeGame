@@ -22,7 +22,7 @@ public class Preferences extends JFrame {
 	private JPanel prefsWindow;
 	private JSpinner prefsCellSpinner;
 	private JLabel prefsCellSize, lblTheme;
-	private JButton prefsSave, prefsCancel;
+	private JButton prefsApply, prefsCancel;
 	private JComboBox<String> prefsThemeSelector;
 	private static int cellSize = 5;
 	private static final int WINDOW_WIDTH = 190, WINDOW_HEIGHT = 136, MIN_CELL_SIZE = 2, MAX_CELL_SIZE = 10;
@@ -44,7 +44,7 @@ public class Preferences extends JFrame {
 		Preferences.colourTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
 	}
 
-	private void savePrefs() {
+	private void applyPrefs() {
 		setCellSize();
 		setColorTheme();
 		super.setVisible(false);
@@ -71,12 +71,12 @@ public class Preferences extends JFrame {
 		SpinnerNumberModel prefsCellSpinnerModel = new SpinnerNumberModel(cellSize, MIN_CELL_SIZE, MAX_CELL_SIZE, 1);
 		prefsCellSpinner = new JSpinner(prefsCellSpinnerModel);
 
-		prefsSave = new JButton("Save");
-		prefsSave.addActionListener(new ActionListener() {
-			// Save cell value
+		prefsApply = new JButton("Apply");
+		prefsApply.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				savePrefs();
+				applyPrefs();
+				Main.btnReset.doClick();
 			}
 		});
 		prefsCancel = new JButton("Cancel");
@@ -123,7 +123,7 @@ public class Preferences extends JFrame {
 										.addGroup(
 												gl_prefsWindow
 														.createSequentialGroup()
-														.addComponent(prefsSave, GroupLayout.DEFAULT_SIZE, 76,
+														.addComponent(prefsApply, GroupLayout.DEFAULT_SIZE, 76,
 																Short.MAX_VALUE)
 														.addPreferredGap(ComponentPlacement.RELATED)
 														.addComponent(prefsCancel, GroupLayout.PREFERRED_SIZE, 86,
@@ -147,7 +147,7 @@ public class Preferences extends JFrame {
 										.addComponent(lblTheme))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(
-								gl_prefsWindow.createParallelGroup(Alignment.BASELINE).addComponent(prefsSave)
+								gl_prefsWindow.createParallelGroup(Alignment.BASELINE).addComponent(prefsApply)
 										.addComponent(prefsCancel)).addContainerGap(46, Short.MAX_VALUE)));
 		prefsWindow.setLayout(gl_prefsWindow);
 	}
