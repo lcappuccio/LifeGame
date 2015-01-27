@@ -214,8 +214,6 @@ public class Main {
 
 	private void iterateGrid() {
 		grid.iterateBoard();
-		// grid.repaint();
-		// centerPanel.repaint();
 		iterationCounter++;
 		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 		lblCountIteration.setText(String.valueOf(iterationCounter));
@@ -225,11 +223,8 @@ public class Main {
 		centerPanel.remove(grid);
 		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
 				centerPanel.getHeight() / Preferences.getCellSize(), Preferences.getColorTheme());
-		grid.setCellValue(Preferences.getCellSize());
 		grid.resetBoard();
 		centerPanel.add(grid);
-		centerPanel.repaint();
-		// grid.repaint();
 		iterationCounter = 0;
 		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 		lblCountIteration.setText(String.valueOf(iterationCounter));
@@ -239,8 +234,6 @@ public class Main {
 		@Override
 		public void actionPerformed(ActionEvent evt) {
 			grid.iterateBoard();
-			// grid.repaint();
-			// centerPanel.repaint();
 			iterationCounter++;
 			lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 			lblCountIteration.setText(String.valueOf(iterationCounter));
