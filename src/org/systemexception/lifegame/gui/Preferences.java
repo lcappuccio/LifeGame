@@ -21,12 +21,12 @@ public class Preferences extends JFrame {
 	private GroupLayout gl_prefsWindow;
 	private JPanel prefsWindow;
 	private JSpinner prefsCellSpinner;
-	private JLabel prefsCellSize, lblTheme;
+	private JLabel prefsCellSize, lblTheme, lblRules;
 	private JButton prefsApply, prefsCancel;
-	private JComboBox<String> prefsThemeSelector;
+	private JComboBox<String> prefsThemeSelector, prefsLifeRules;
 	private static int cellSize = 5;
-	private static final int WINDOW_WIDTH = 190, WINDOW_HEIGHT = 136, MIN_CELL_SIZE = 2, MAX_CELL_SIZE = 10;
-	private static String colourTheme = "B & W";
+	private static final int WINDOW_WIDTH = 190, WINDOW_HEIGHT = 170, MIN_CELL_SIZE = 2, MAX_CELL_SIZE = 10;
+	private static String colourTheme = "B & W", lifeRules = "Conway";
 
 	public static int getCellSize() {
 		return cellSize;
@@ -42,6 +42,14 @@ public class Preferences extends JFrame {
 
 	private void setColorTheme() {
 		Preferences.colourTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
+	}
+
+	public static String getLifeRules() {
+		return lifeRules;
+	}
+
+	public void setLifeRules() {
+		Preferences.lifeRules = String.valueOf(prefsLifeRules.getSelectedItem());
 	}
 
 	private void applyPrefs() {
@@ -95,6 +103,15 @@ public class Preferences extends JFrame {
 		prefsThemeSelector.addItem("Red");
 		lblTheme = new JLabel("Theme");
 
+		lblRules = new JLabel("Rules");
+
+		prefsLifeRules = new JComboBox<String>();
+		prefsLifeRules.addItem("DryLife");
+		prefsLifeRules.addItem("Conway's Life");
+		prefsLifeRules.addItem("HighLife");
+		prefsLifeRules.addItem("Life Free or Die");
+		prefsLifeRules.addItem("Maze");
+
 		gl_prefsWindow = new GroupLayout(prefsWindow);
 		gl_prefsWindow.setHorizontalGroup(gl_prefsWindow.createParallelGroup(Alignment.LEADING).addGroup(
 				gl_prefsWindow
@@ -104,30 +121,33 @@ public class Preferences extends JFrame {
 								gl_prefsWindow
 										.createParallelGroup(Alignment.LEADING)
 										.addGroup(
+												Alignment.TRAILING,
+												gl_prefsWindow
+														.createSequentialGroup()
+														.addComponent(prefsApply, GroupLayout.DEFAULT_SIZE,
+																GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+														.addGap(2)
+														.addComponent(prefsCancel, GroupLayout.PREFERRED_SIZE, 86,
+																GroupLayout.PREFERRED_SIZE))
+										.addGroup(
 												gl_prefsWindow
 														.createSequentialGroup()
 														.addGroup(
 																gl_prefsWindow.createParallelGroup(Alignment.LEADING)
 																		.addComponent(lblTheme)
-																		.addComponent(prefsCellSize))
-														.addGap(18)
+																		.addComponent(prefsCellSize)
+																		.addComponent(lblRules))
+														.addPreferredGap(ComponentPlacement.RELATED)
 														.addGroup(
 																gl_prefsWindow
-																		.createParallelGroup(Alignment.TRAILING)
-																		.addComponent(prefsThemeSelector, 0, 97,
+																		.createParallelGroup(Alignment.LEADING)
+																		.addComponent(prefsThemeSelector, 0, 109,
 																				Short.MAX_VALUE)
 																		.addComponent(prefsCellSpinner,
-																				Alignment.LEADING,
-																				GroupLayout.DEFAULT_SIZE, 97,
-																				Short.MAX_VALUE)))
-										.addGroup(
-												gl_prefsWindow
-														.createSequentialGroup()
-														.addComponent(prefsApply, GroupLayout.DEFAULT_SIZE, 76,
-																Short.MAX_VALUE)
-														.addPreferredGap(ComponentPlacement.RELATED)
-														.addComponent(prefsCancel, GroupLayout.PREFERRED_SIZE, 86,
-																GroupLayout.PREFERRED_SIZE))).addContainerGap()));
+																				GroupLayout.DEFAULT_SIZE, 109,
+																				Short.MAX_VALUE)
+																		.addComponent(prefsLifeRules, 0, 109,
+																				Short.MAX_VALUE)))).addContainerGap()));
 		gl_prefsWindow.setVerticalGroup(gl_prefsWindow.createParallelGroup(Alignment.LEADING).addGroup(
 				gl_prefsWindow
 						.createSequentialGroup()
@@ -135,20 +155,27 @@ public class Preferences extends JFrame {
 						.addGroup(
 								gl_prefsWindow
 										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(prefsCellSize)
 										.addComponent(prefsCellSpinner, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(prefsCellSize))
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(
 								gl_prefsWindow
 										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblTheme)
 										.addComponent(prefsThemeSelector, GroupLayout.PREFERRED_SIZE,
-												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblTheme))
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(
+								gl_prefsWindow
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblRules)
+										.addComponent(prefsLifeRules, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addPreferredGap(ComponentPlacement.RELATED)
 						.addGroup(
 								gl_prefsWindow.createParallelGroup(Alignment.BASELINE).addComponent(prefsApply)
-										.addComponent(prefsCancel)).addContainerGap(46, Short.MAX_VALUE)));
+										.addComponent(prefsCancel)).addContainerGap()));
 		prefsWindow.setLayout(gl_prefsWindow);
 	}
 }
