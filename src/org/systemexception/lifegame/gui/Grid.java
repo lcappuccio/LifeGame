@@ -23,7 +23,7 @@ public class Grid extends JComponent {
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
 		this.board = new Board(gridRows, gridCols);
-		totalLiveCells = board.getLiveCellCount();
+		totalLiveCells = board.getCellAliveCount();
 		setColours(colourTheme);
 	}
 
@@ -34,7 +34,7 @@ public class Grid extends JComponent {
 	public void resetBoard() {
 		// TODO Board reset should be a task owned by Board, not Grid
 		this.board = new Board(gridRows, gridCols);
-		totalLiveCells = board.getLiveCellCount();
+		totalLiveCells = board.getCellAliveCount();
 		// this.repaint();
 	}
 
@@ -48,7 +48,7 @@ public class Grid extends JComponent {
 
 	public void iterateBoard() {
 		board.iterateBoardConway();
-		totalLiveCells = board.getLiveCellCount();
+		totalLiveCells = board.getCellAliveCount();
 		this.repaint();
 	}
 
@@ -113,6 +113,6 @@ public class Grid extends JComponent {
 				g.drawRect(cellSize * i, cellSize * j, cellSize, cellSize);
 			}
 		}
-		totalLiveCells = board.getLiveCellCount();
+		totalLiveCells = board.getCellAliveCount();
 	}
 }
