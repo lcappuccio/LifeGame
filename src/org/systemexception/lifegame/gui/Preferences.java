@@ -27,7 +27,7 @@ public class Preferences extends JFrame {
 	private JComboBox<String> prefsThemeSelector, prefsLifeRules;
 	private static int cellSize = 5, cellLifeProbability = 50;
 	private static final int WINDOW_WIDTH = 250, WINDOW_HEIGHT = 210, MIN_CELL_SIZE = 2, MAX_CELL_SIZE = 10,
-			MIN_CELL_LIFE_PROBABILITY = 0, MAX_CELL_LIFE_PROBABILITY = 100;
+			MIN_CELL_LIFE_PROBABILITY = 1, MAX_CELL_LIFE_PROBABILITY = 100;
 	private static String colourTheme = "B & W", lifeRules = "Conway's Life";
 
 	public static int getCellSize() {
@@ -113,11 +113,14 @@ public class Preferences extends JFrame {
 		prefsThemeSelector.addItem("Red");
 
 		prefsLifeRules = new JComboBox<String>();
+		prefsLifeRules.addItem("Coral");
 		prefsLifeRules.addItem("DryLife");
 		prefsLifeRules.addItem("Conway's Life");
 		prefsLifeRules.addItem("HighLife");
 		prefsLifeRules.addItem("Live Free or Die");
 		prefsLifeRules.addItem("Maze");
+		prefsLifeRules.addItem("Serviettes");
+		prefsLifeRules.setSelectedItem("Conway's Life");
 
 		SpinnerNumberModel prefsCellLifeProbabilityModel = new SpinnerNumberModel(cellLifeProbability,
 				MIN_CELL_LIFE_PROBABILITY, MAX_CELL_LIFE_PROBABILITY, 1);

@@ -14,7 +14,7 @@ public class Cell {
 
 	public Cell() {
 		Random rnd = new Random();
-		if (rnd.nextInt(100) > (100 - Preferences.getCellLifeProbability())) {
+		if (rnd.nextInt(101) > (100 - Preferences.getCellLifeProbability())) {
 			isAlive = true;
 		} else {
 			isAlive = false;
