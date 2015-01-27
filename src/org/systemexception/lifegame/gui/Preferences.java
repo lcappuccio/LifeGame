@@ -151,5 +151,4 @@ public class Preferences extends JFrame {
 										.addComponent(prefsCancel)).addContainerGap(46, Short.MAX_VALUE)));
 		prefsWindow.setLayout(gl_prefsWindow);
 	}
-
 }

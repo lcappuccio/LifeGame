@@ -201,6 +201,7 @@ public class Main {
 		lblCountLiveCells.setBounds(593, 533, 51, 13);
 		mainAppWindow.getContentPane().add(lblCountLiveCells);
 		lblCountLiveCells.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+
 		// Iteration counter
 		lblIteration = new JLabel("Iteration:");
 		lblIteration.setBounds(656, 533, 75, 13);
