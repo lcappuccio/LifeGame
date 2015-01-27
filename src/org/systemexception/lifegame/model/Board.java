@@ -109,6 +109,11 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Conway (23/3): Any alive cell with less than 2 and more than 3 alive
+	 * cells around dies. Any dead cell with exactly 3 alive neighbors comes to
+	 * life.
+	 */
 	public void iterateBoardConway() {
 		liveCellCounter = 0;
 		copyBoard();
@@ -129,6 +134,11 @@ public class Board {
 		this.board = boardIteration;
 	}
 
+	/**
+	 * HighLife variation (23/36): Any alive cell with less than 2 and more than
+	 * 3 alive cells around dies. Any cell with exactly 3 or 6 alive neighbors
+	 * becomes alive.
+	 */
 	public void iterateBoardHighLife() {
 		copyBoard();
 		for (int i = 0; i < board.length; i++) {
@@ -148,6 +158,10 @@ public class Board {
 		this.board = boardIteration;
 	}
 
+	/**
+	 * Live Free or Die (0/2): Any alive cells with alive neighbors dies. A dead
+	 * cell is born if it has exactly 2 alive neighbors.
+	 */
 	public void iterateLiveFreeOrDie() {
 		copyBoard();
 		for (int i = 0; i < board.length; i++) {
@@ -158,6 +172,53 @@ public class Board {
 				}
 				// Cell becomes alive
 				if (countSurroungingLiveCells(i, j) == 2 && !board[i][j].getCellState()) {
+					boardIteration[i][j].setCellAlive();
+				}
+			}
+		}
+		this.board = boardIteration;
+	}
+
+	/**
+	 * DryLife (23/37): Any alive cell with less than 2 and more than 3 alive
+	 * cells around dies. Any cell with exactly 3 or 7 alive neighbors becomes
+	 * alive.
+	 */
+	public void iterateDryLife() {
+		copyBoard();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				// Cell dies
+				if ((countSurroungingLiveCells(i, j) < 2 || countSurroungingLiveCells(i, j) > 3)
+						&& board[i][j].getCellState()) {
+					boardIteration[i][j].setCellDead();
+				}
+				// Cell becomes alive
+				if ((countSurroungingLiveCells(i, j) == 3 || countSurroungingLiveCells(i, j) == 7)
+						&& !board[i][j].getCellState()) {
+					boardIteration[i][j].setCellAlive();
+				}
+			}
+		}
+		this.board = boardIteration;
+	}
+
+	/**
+	 * Maze (12345/3): Any alive cell with less than 1 and more than 5 alive
+	 * neighbours dies. Any dead cell with exactly 3 alive neighbors becomes
+	 * alive.
+	 */
+	public void iterateMaze() {
+		copyBoard();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				// Cell dies
+				if ((countSurroungingLiveCells(i, j) < 1 || countSurroungingLiveCells(i, j) > 5)
+						&& board[i][j].getCellState()) {
+					boardIteration[i][j].setCellDead();
+				}
+				// Cell becomes alive
+				if (countSurroungingLiveCells(i, j) == 3 && !board[i][j].getCellState()) {
 					boardIteration[i][j].setCellAlive();
 				}
 			}
