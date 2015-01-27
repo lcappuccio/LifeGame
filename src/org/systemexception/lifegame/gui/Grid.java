@@ -23,7 +23,7 @@ public class Grid extends JComponent {
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
 		this.board = new Board(gridRows, gridCols);
-		totalLiveCells = board.getLiveCellCount();
+		totalLiveCells = board.getCellAliveCount();
 		setColours(colourTheme);
 	}
 
@@ -33,7 +33,7 @@ public class Grid extends JComponent {
 
 	public void resetBoard() {
 		this.board = new Board(gridRows, gridCols);
-		totalLiveCells = board.getLiveCellCount();
+		totalLiveCells = board.getCellAliveCount();
 	}
 
 	public Board getBoard() {
@@ -45,10 +45,8 @@ public class Grid extends JComponent {
 	}
 
 	public void iterateBoard() {
-		board.iterateBoardConway();
-		// board.iterateBoardHighLife();
-		// board.iterateLiveFreeOrDie();
-		totalLiveCells = board.getLiveCellCount();
+		board.iterateBoard();
+		totalLiveCells = board.getCellAliveCount();
 		this.repaint();
 	}
 
@@ -78,7 +76,7 @@ public class Grid extends JComponent {
 			colorRect = hex2Rgb("#446CB3");
 		}
 		if (colourTheme.equals("Green")) {
-			colorDark = hex2Rgb("#2ECC71");
+			colorDark = hex2Rgb("#36D7B7");
 			colorLight = hex2Rgb("#1E824C");
 			colorRect = hex2Rgb("#26A65B");
 		}

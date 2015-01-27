@@ -4,6 +4,8 @@
  */
 package org.systemexception.lifegame.model;
 
+import org.systemexception.lifegame.gui.Preferences;
+
 public class Board {
 
 	private Cell[][] board, boardIteration;
@@ -18,6 +20,30 @@ public class Board {
 		this.rows = rows;
 		this.cols = cols;
 		generateBoard(rows, cols);
+	}
+
+	public void iterateBoard() {
+		if (Preferences.getLifeAutomata().equals("Conway's Life")) {
+			iterateBoardConway();
+		}
+		if (Preferences.getLifeAutomata().equals("DryLife")) {
+			iterateBoardDryLife();
+		}
+		if (Preferences.getLifeAutomata().equals("HighLife")) {
+			iterateBoardHighLife();
+		}
+		if (Preferences.getLifeAutomata().equals("Live Free or Die")) {
+			iterateBoardLiveFreeOrDie();
+		}
+		if (Preferences.getLifeAutomata().equals("Maze")) {
+			iterateBoardMaze();
+		}
+		if (Preferences.getLifeAutomata().equals("Serviettes")) {
+			iterateBoardServiettes();
+		}
+		if (Preferences.getLifeAutomata().equals("Coral")) {
+			iterateBoardCoral();
+		}
 	}
 
 	public Board resetBoard(int rows, int cols) {
@@ -109,6 +135,11 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Conway (23/3): Any alive cell with less than 2 and more than 3 alive
+	 * cells around dies. Any dead cell with exactly 3 alive neighbors comes to
+	 * life.
+	 */
 	public void iterateBoardConway() {
 		liveCellCounter = 0;
 		copyBoard();
@@ -129,7 +160,13 @@ public class Board {
 		this.board = boardIteration;
 	}
 
+	/**
+	 * HighLife variation (23/36): Any alive cell with less than 2 and more than
+	 * 3 alive cells around dies. Any cell with exactly 3 or 6 alive neighbors
+	 * becomes alive.
+	 */
 	public void iterateBoardHighLife() {
+		liveCellCounter = 0;
 		copyBoard();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -143,12 +180,18 @@ public class Board {
 						&& !board[i][j].getCellState()) {
 					boardIteration[i][j].setCellAlive();
 				}
+				updateLiveCellCounter(boardIteration, i, j);
 			}
 		}
 		this.board = boardIteration;
 	}
 
-	public void iterateLiveFreeOrDie() {
+	/**
+	 * Live Free or Die (0/2): Any alive cells with alive neighbors dies. A dead
+	 * cell is born if it has exactly 2 alive neighbors.
+	 */
+	public void iterateBoardLiveFreeOrDie() {
+		liveCellCounter = 0;
 		copyBoard();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -160,6 +203,107 @@ public class Board {
 				if (countSurroungingLiveCells(i, j) == 2 && !board[i][j].getCellState()) {
 					boardIteration[i][j].setCellAlive();
 				}
+				updateLiveCellCounter(boardIteration, i, j);
+			}
+		}
+		this.board = boardIteration;
+	}
+
+	/**
+	 * DryLife (23/37): Any alive cell with less than 2 and more than 3 alive
+	 * cells around dies. Any cell with exactly 3 or 7 alive neighbors becomes
+	 * alive.
+	 */
+	public void iterateBoardDryLife() {
+		liveCellCounter = 0;
+		copyBoard();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				// Cell dies
+				if ((countSurroungingLiveCells(i, j) < 2 || countSurroungingLiveCells(i, j) > 3)
+						&& board[i][j].getCellState()) {
+					boardIteration[i][j].setCellDead();
+				}
+				// Cell becomes alive
+				if ((countSurroungingLiveCells(i, j) == 3 || countSurroungingLiveCells(i, j) == 7)
+						&& !board[i][j].getCellState()) {
+					boardIteration[i][j].setCellAlive();
+				}
+				updateLiveCellCounter(boardIteration, i, j);
+			}
+		}
+		this.board = boardIteration;
+	}
+
+	/**
+	 * Maze (12345/3): Any alive cell with less than 1 and more than 5 alive
+	 * neighbours dies. Any dead cell with exactly 3 alive neighbors becomes
+	 * alive.
+	 */
+	public void iterateBoardMaze() {
+		liveCellCounter = 0;
+		copyBoard();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				// Cell dies
+				if ((countSurroungingLiveCells(i, j) < 1 || countSurroungingLiveCells(i, j) > 5)
+						&& board[i][j].getCellState()) {
+					boardIteration[i][j].setCellDead();
+				}
+				// Cell becomes alive
+				if (countSurroungingLiveCells(i, j) == 3 && !board[i][j].getCellState()) {
+					boardIteration[i][j].setCellAlive();
+				}
+				updateLiveCellCounter(boardIteration, i, j);
+			}
+		}
+		this.board = boardIteration;
+	}
+
+	/**
+	 * Serviettes (/234): Every alive cell dies. Any dead cell with 2,3 or 4
+	 * alive neighbours becomes alive.
+	 */
+	public void iterateBoardServiettes() {
+		liveCellCounter = 0;
+		copyBoard();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				// Cell dies
+				if (board[i][j].getCellState()) {
+					boardIteration[i][j].setCellDead();
+				}
+				// Cell becomes alive
+				if ((countSurroungingLiveCells(i, j) >= 2 && countSurroungingLiveCells(i, j) <= 4)
+						&& (!board[i][j].getCellState())) {
+					boardIteration[i][j].setCellAlive();
+				}
+				updateLiveCellCounter(boardIteration, i, j);
+			}
+		}
+		this.board = boardIteration;
+	}
+
+	/**
+	 * Coral (45678/3): Every alive cell with 4 to 8 alive neighbours dies.
+	 * Every dead cell with exactly 3 neighbours becomes alvie.
+	 */
+	public void iterateBoardCoral() {
+		liveCellCounter = 0;
+		copyBoard();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				// Cell dies
+				if ((countSurroungingLiveCells(i, j) >= 4 && countSurroungingLiveCells(i, j) <= 8)
+						&& board[i][j].getCellState()) {
+					boardIteration[i][j].setCellDead();
+				}
+				// Cell becomes alive
+				if ((countSurroungingLiveCells(i, j) == 3 || countSurroungingLiveCells(i, j) == 6)
+						&& !board[i][j].getCellState()) {
+					boardIteration[i][j].setCellAlive();
+				}
+				updateLiveCellCounter(boardIteration, i, j);
 			}
 		}
 		this.board = boardIteration;
