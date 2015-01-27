@@ -45,9 +45,7 @@ public class Grid extends JComponent {
 	}
 
 	public void iterateBoard() {
-		board.iterateBoardConway();
-		// board.iterateBoardHighLife();
-		// board.iterateLiveFreeOrDie();
+		board.iterateBoard();
 		totalLiveCells = board.getCellAliveCount();
 		this.repaint();
 	}
@@ -78,7 +76,7 @@ public class Grid extends JComponent {
 			colorRect = hex2Rgb("#446CB3");
 		}
 		if (colourTheme.equals("Green")) {
-			colorDark = hex2Rgb("#2ECC71");
+			colorDark = hex2Rgb("#36D7B7");
 			colorLight = hex2Rgb("#1E824C");
 			colorRect = hex2Rgb("#26A65B");
 		}

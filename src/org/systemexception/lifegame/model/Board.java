@@ -4,6 +4,8 @@
  */
 package org.systemexception.lifegame.model;
 
+import org.systemexception.lifegame.gui.Preferences;
+
 public class Board {
 
 	private Cell[][] board, boardIteration;
@@ -18,6 +20,24 @@ public class Board {
 		this.rows = rows;
 		this.cols = cols;
 		generateBoard(rows, cols);
+	}
+
+	public void iterateBoard() {
+		if (Preferences.getLifeRules().equals("Conway's Life")) {
+			iterateBoardConway();
+		}
+		if (Preferences.getLifeRules().equals("DryLife")) {
+			iterateBoardDryLife();
+		}
+		if (Preferences.getLifeRules().equals("HighLife")) {
+			iterateBoardHighLife();
+		}
+		if (Preferences.getLifeRules().equals("Live Free or Die")) {
+			iterateBoardLiveFreeOrDie();
+		}
+		if (Preferences.getLifeRules().equals("Maze")) {
+			iterateBoardMaze();
+		}
 	}
 
 	public Board resetBoard(int rows, int cols) {
@@ -140,6 +160,7 @@ public class Board {
 	 * becomes alive.
 	 */
 	public void iterateBoardHighLife() {
+		liveCellCounter = 0;
 		copyBoard();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -153,6 +174,7 @@ public class Board {
 						&& !board[i][j].getCellState()) {
 					boardIteration[i][j].setCellAlive();
 				}
+				updateLiveCellCounter(boardIteration, i, j);
 			}
 		}
 		this.board = boardIteration;
@@ -162,7 +184,8 @@ public class Board {
 	 * Live Free or Die (0/2): Any alive cells with alive neighbors dies. A dead
 	 * cell is born if it has exactly 2 alive neighbors.
 	 */
-	public void iterateLiveFreeOrDie() {
+	public void iterateBoardLiveFreeOrDie() {
+		liveCellCounter = 0;
 		copyBoard();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -174,6 +197,7 @@ public class Board {
 				if (countSurroungingLiveCells(i, j) == 2 && !board[i][j].getCellState()) {
 					boardIteration[i][j].setCellAlive();
 				}
+				updateLiveCellCounter(boardIteration, i, j);
 			}
 		}
 		this.board = boardIteration;
@@ -184,7 +208,8 @@ public class Board {
 	 * cells around dies. Any cell with exactly 3 or 7 alive neighbors becomes
 	 * alive.
 	 */
-	public void iterateDryLife() {
+	public void iterateBoardDryLife() {
+		liveCellCounter = 0;
 		copyBoard();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -198,6 +223,7 @@ public class Board {
 						&& !board[i][j].getCellState()) {
 					boardIteration[i][j].setCellAlive();
 				}
+				updateLiveCellCounter(boardIteration, i, j);
 			}
 		}
 		this.board = boardIteration;
@@ -208,7 +234,8 @@ public class Board {
 	 * neighbours dies. Any dead cell with exactly 3 alive neighbors becomes
 	 * alive.
 	 */
-	public void iterateMaze() {
+	public void iterateBoardMaze() {
+		liveCellCounter = 0;
 		copyBoard();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -221,6 +248,7 @@ public class Board {
 				if (countSurroungingLiveCells(i, j) == 3 && !board[i][j].getCellState()) {
 					boardIteration[i][j].setCellAlive();
 				}
+				updateLiveCellCounter(boardIteration, i, j);
 			}
 		}
 		this.board = boardIteration;
