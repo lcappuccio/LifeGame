@@ -13,10 +13,6 @@ public class Board {
 		return board;
 	}
 
-	public void setBoard(Cell[][] board) {
-		this.board = board;
-	}
-
 	public int getBoardRows() {
 		return rows;
 	}
@@ -81,6 +77,7 @@ public class Board {
 		return countSurroundingLiveCells;
 	}
 
+	@Deprecated
 	public void printBoard() {
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
