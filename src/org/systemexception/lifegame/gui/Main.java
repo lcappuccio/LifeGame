@@ -57,7 +57,7 @@ public class Main {
 	private static final int INITIAL_SPEED = 210;
 	private static String platform = System.getProperty("os.name").toLowerCase();
 	public static int metaKey, coordX, coordY;
-	public static final Font MENU_FONT = new Font("Lucida Grande", Font.BOLD, 12);
+	public static final Font MENU_FONT = new Font("Lucida Grande", Font.PLAIN, 12);
 
 	/**
 	 * Launch the application.
