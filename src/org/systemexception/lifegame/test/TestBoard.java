@@ -59,6 +59,7 @@ public class TestBoard {
 
 	@Test
 	@Ignore
+	@SuppressWarnings("deprecation")
 	public void verifySurroundingAliveCellsCount() {
 		int i = 1, j = 2;
 		sut = new Board(3, 3);
