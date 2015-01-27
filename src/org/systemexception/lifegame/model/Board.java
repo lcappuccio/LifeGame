@@ -38,6 +38,12 @@ public class Board {
 		if (Preferences.getLifeRules().equals("Maze")) {
 			iterateBoardMaze();
 		}
+		if (Preferences.getLifeRules().equals("Serviettes")) {
+			iterateBoardServiettes();
+		}
+		if (Preferences.getLifeRules().equals("Coral")) {
+			iterateBoardCoral();
+		}
 	}
 
 	public Board resetBoard(int rows, int cols) {
@@ -246,6 +252,55 @@ public class Board {
 				}
 				// Cell becomes alive
 				if (countSurroungingLiveCells(i, j) == 3 && !board[i][j].getCellState()) {
+					boardIteration[i][j].setCellAlive();
+				}
+				updateLiveCellCounter(boardIteration, i, j);
+			}
+		}
+		this.board = boardIteration;
+	}
+
+	/**
+	 * Serviettes (/234): Every alive cell dies. Any dead cell with 2,3 or 4
+	 * alive neighbours becomes alive.
+	 */
+	public void iterateBoardServiettes() {
+		liveCellCounter = 0;
+		copyBoard();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				// Cell dies
+				if (board[i][j].getCellState()) {
+					boardIteration[i][j].setCellDead();
+				}
+				// Cell becomes alive
+				if ((countSurroungingLiveCells(i, j) >= 2 && countSurroungingLiveCells(i, j) <= 4)
+						&& (!board[i][j].getCellState())) {
+					boardIteration[i][j].setCellAlive();
+				}
+				updateLiveCellCounter(boardIteration, i, j);
+			}
+		}
+		this.board = boardIteration;
+	}
+
+	/**
+	 * Coral (45678/3): Every alive cell with 4 to 8 alive neighbours dies.
+	 * Every dead cell with exactly 3 neighbours becomes alvie.
+	 */
+	public void iterateBoardCoral() {
+		liveCellCounter = 0;
+		copyBoard();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				// Cell dies
+				if ((countSurroungingLiveCells(i, j) >= 4 && countSurroungingLiveCells(i, j) <= 8)
+						&& board[i][j].getCellState()) {
+					boardIteration[i][j].setCellDead();
+				}
+				// Cell becomes alive
+				if ((countSurroungingLiveCells(i, j) == 3 || countSurroungingLiveCells(i, j) == 6)
+						&& !board[i][j].getCellState()) {
 					boardIteration[i][j].setCellAlive();
 				}
 				updateLiveCellCounter(boardIteration, i, j);
