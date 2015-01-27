@@ -45,7 +45,9 @@ public class Grid extends JComponent {
 	}
 
 	public void iterateBoard() {
-		board.iterateBoard();
+		board.iterateBoardConway();
+		// board.iterateBoardHighLife();
+		// board.iterateLiveFreeOrDie();
 		totalLiveCells = board.getLiveCellCount();
 	}
 
