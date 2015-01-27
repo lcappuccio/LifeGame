@@ -7,7 +7,7 @@ package org.systemexception.lifegame.model;
 public class Board {
 
 	private Cell[][] board, boardIteration;
-	private int rows, cols, countSurroundingLiveCells = 0;
+	private int rows, cols, countSurroundingLiveCells = 0, liveCellCounter = 0;
 
 	public Cell[][] getBoard() {
 		return board;
@@ -27,6 +27,10 @@ public class Board {
 
 	public boolean getCellIsAlive(int i, int j) {
 		return board[i][j].getCellState();
+	}
+
+	public int getCellAliveCount() {
+		return liveCellCounter;
 	}
 
 	public Cell getCellAt(int i, int j) {
@@ -94,11 +98,13 @@ public class Board {
 			for (int j = 0; j < cols; j++) {
 				Cell cell = new Cell();
 				board[i][j] = cell;
+				updateLiveCellCounter(board, i, j);
 			}
 		}
 	}
 
 	public void iterateBoardConway() {
+		liveCellCounter = 0;
 		copyBoard();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -111,15 +117,21 @@ public class Board {
 				if (!board[i][j].getCellState() && countSurroungingLiveCells(i, j) == 3) {
 					boardIteration[i][j].setCellAlive();
 				}
+				updateLiveCellCounter(boardIteration, i, j);
 			}
 		}
 		this.board = boardIteration;
 
 	}
 
+	private void updateLiveCellCounter(Cell[][] board, int i, int j) {
+		if (board[i][j].getCellState()) {
+			liveCellCounter++;
+		}
+	}
+
+	@Deprecated
 	public int getLiveCellCount() {
-		// TODO could be moved to iterateBoard() and use a class field with
-		// getter
 		int liveCellCounter = 0;
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
