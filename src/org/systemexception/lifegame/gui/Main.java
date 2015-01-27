@@ -197,7 +197,7 @@ public class Main {
 		lblLiveCells.setBounds(506, 533, 75, 13);
 		mainAppWindow.getContentPane().add(lblLiveCells);
 		lblLiveCells.setFont(new Font("Lucida Grande", Font.BOLD, 10));
-		lblCountLiveCells = new JLabel("0");
+		lblCountLiveCells = new JLabel(String.valueOf(grid.getTotalLiveCells()));
 		lblCountLiveCells.setBounds(593, 533, 51, 13);
 		mainAppWindow.getContentPane().add(lblCountLiveCells);
 		lblCountLiveCells.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
