@@ -49,7 +49,7 @@ public class Main {
 	private JMenuBar menuBar;
 	private JMenu menuFile, menuSimulation;
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
-	private JButton btnStart, btnIterate, btnStop;
+	private JButton btnStart, btnTick, btnStop;
 	public static JButton btnReset;
 	private Grid grid;
 	public static Timer gameTimer;
@@ -142,8 +142,8 @@ public class Main {
 		flowLayout.setVgap(0);
 		lowerPanel.setBounds(6, 525, 390, 29);
 		mainAppWindow.getContentPane().add(lowerPanel);
-		btnIterate = new JButton("Iterate");
-		btnIterate.addMouseListener(new MouseAdapter() {
+		btnTick = new JButton("Tick");
+		btnTick.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (gameTimer != null && gameTimer.isRunning()) {
@@ -168,7 +168,7 @@ public class Main {
 			}
 		});
 		lowerPanel.add(btnStart);
-		lowerPanel.add(btnIterate);
+		lowerPanel.add(btnTick);
 		btnStop = new JButton("Stop");
 		btnStop.addMouseListener(new MouseAdapter() {
 			@Override
