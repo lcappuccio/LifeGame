@@ -15,9 +15,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
-@SuppressWarnings("serial")
 public class Preferences extends JFrame {
 
+	private static final long serialVersionUID = 1664253982218939516L;
 	private GroupLayout gl_prefsWindow;
 	private JPanel prefsWindow;
 	private JSpinner prefsCellSpinner;
