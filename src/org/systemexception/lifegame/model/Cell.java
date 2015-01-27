@@ -6,13 +6,15 @@ package org.systemexception.lifegame.model;
 
 import java.util.Random;
 
+import org.systemexception.lifegame.gui.Preferences;
+
 public class Cell {
 
 	private boolean isAlive;
 
 	public Cell() {
 		Random rnd = new Random();
-		if (rnd.nextInt(100) > 50) {
+		if (rnd.nextInt(100) > (100 - Preferences.getCellLifeProbability())) {
 			isAlive = true;
 		} else {
 			isAlive = false;
