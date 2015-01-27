@@ -23,25 +23,25 @@ public class Board {
 	}
 
 	public void iterateBoard() {
-		if (Preferences.getLifeRules().equals("Conway's Life")) {
+		if (Preferences.getLifeAutomata().equals("Conway's Life")) {
 			iterateBoardConway();
 		}
-		if (Preferences.getLifeRules().equals("DryLife")) {
+		if (Preferences.getLifeAutomata().equals("DryLife")) {
 			iterateBoardDryLife();
 		}
-		if (Preferences.getLifeRules().equals("HighLife")) {
+		if (Preferences.getLifeAutomata().equals("HighLife")) {
 			iterateBoardHighLife();
 		}
-		if (Preferences.getLifeRules().equals("Live Free or Die")) {
+		if (Preferences.getLifeAutomata().equals("Live Free or Die")) {
 			iterateBoardLiveFreeOrDie();
 		}
-		if (Preferences.getLifeRules().equals("Maze")) {
+		if (Preferences.getLifeAutomata().equals("Maze")) {
 			iterateBoardMaze();
 		}
-		if (Preferences.getLifeRules().equals("Serviettes")) {
+		if (Preferences.getLifeAutomata().equals("Serviettes")) {
 			iterateBoardServiettes();
 		}
-		if (Preferences.getLifeRules().equals("Coral")) {
+		if (Preferences.getLifeAutomata().equals("Coral")) {
 			iterateBoardCoral();
 		}
 	}
