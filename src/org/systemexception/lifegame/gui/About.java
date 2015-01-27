@@ -9,7 +9,7 @@ import javax.swing.SwingConstants;
 @SuppressWarnings("serial")
 public class About extends JFrame {
 
-	private static final int WINDOW_WIDTH = 270, WINDOW_HEIGHT = 90;
+	private static final int WINDOW_WIDTH = 300, WINDOW_HEIGHT = 100;
 	private static final JLabel LABEL_TITLE = new JLabel("LifeGame - Java Conway's Game of Life"),
 			LABEL_COPYRIGHT = new JLabel("Copyright © 2014 - Leonardo Cappuccio"), LABEL_LICENSE = new JLabel(
 					"Released under GNU GPL v3.0 License");
@@ -26,17 +26,17 @@ public class About extends JFrame {
 
 		LABEL_TITLE.setFont(new Font("Lucida Grande", Font.BOLD, 12));
 		LABEL_TITLE.setHorizontalAlignment(SwingConstants.CENTER);
-		LABEL_TITLE.setBounds(6, 6, 258, 16);
+		LABEL_TITLE.setBounds(6, 6, 286, 16);
 		getContentPane().add(LABEL_TITLE);
 
 		LABEL_COPYRIGHT.setHorizontalAlignment(SwingConstants.CENTER);
 		LABEL_COPYRIGHT.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
-		LABEL_COPYRIGHT.setBounds(6, 25, 258, 16);
+		LABEL_COPYRIGHT.setBounds(6, 25, 286, 16);
 		getContentPane().add(LABEL_COPYRIGHT);
 
 		LABEL_LICENSE.setHorizontalAlignment(SwingConstants.CENTER);
 		LABEL_LICENSE.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
-		LABEL_LICENSE.setBounds(6, 46, 258, 16);
+		LABEL_LICENSE.setBounds(6, 46, 286, 16);
 		getContentPane().add(LABEL_LICENSE);
 	}
 }
