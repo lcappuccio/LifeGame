@@ -95,12 +95,14 @@ public class TestBoard {
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	public void testLiveCellCount() {
 		sut = new Board(100, 100);
 		assertEquals(sut.getLiveCellCount(), sut.getCellAliveCount());
 	}
 
 	@Test
+	@SuppressWarnings("deprecation")
 	public void testLiveCellCountIteration() {
 		sut = new Board(1000, 1000);
 		sut.iterateBoardConway();
