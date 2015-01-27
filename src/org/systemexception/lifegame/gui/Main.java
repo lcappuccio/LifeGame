@@ -49,7 +49,8 @@ public class Main {
 	private JMenuBar menuBar;
 	private JMenu menuFile, menuSimulation;
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
-	private JButton btnStart, btnIterate, btnStop, btnReset;
+	private JButton btnStart, btnIterate, btnStop;
+	public static JButton btnReset;
 	private Grid grid;
 	public static Timer gameTimer;
 	private int iterationCounter;
@@ -63,6 +64,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					Main window = new Main();
@@ -179,9 +181,9 @@ public class Main {
 		});
 		lowerPanel.add(btnStop);
 		btnReset = new JButton("Reset");
-		btnReset.addMouseListener(new MouseAdapter() {
+		btnReset.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				resetGrid();
 				if (gameTimer != null && gameTimer.isRunning()) {
 					btnStart.setEnabled(true);
@@ -196,10 +198,11 @@ public class Main {
 		lblLiveCells.setBounds(506, 533, 75, 13);
 		mainAppWindow.getContentPane().add(lblLiveCells);
 		lblLiveCells.setFont(new Font("Lucida Grande", Font.BOLD, 10));
-		lblCountLiveCells = new JLabel("0");
+		lblCountLiveCells = new JLabel(String.valueOf(grid.getTotalLiveCells()));
 		lblCountLiveCells.setBounds(593, 533, 51, 13);
 		mainAppWindow.getContentPane().add(lblCountLiveCells);
 		lblCountLiveCells.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+
 		// Iteration counter
 		lblIteration = new JLabel("Iteration:");
 		lblIteration.setBounds(656, 533, 75, 13);
@@ -213,7 +216,6 @@ public class Main {
 
 	private void iterateGrid() {
 		grid.iterateBoard();
-		centerPanel.repaint();
 		iterationCounter++;
 		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 		lblCountIteration.setText(String.valueOf(iterationCounter));
@@ -223,19 +225,17 @@ public class Main {
 		centerPanel.remove(grid);
 		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
 				centerPanel.getHeight() / Preferences.getCellSize(), Preferences.getColorTheme());
-		grid.setCellValue(Preferences.getCellSize());
 		grid.resetBoard();
 		centerPanel.add(grid);
-		centerPanel.repaint();
 		iterationCounter = 0;
 		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 		lblCountIteration.setText(String.valueOf(iterationCounter));
 	}
 
 	private ActionListener taskPerformer = new ActionListener() {
+		@Override
 		public void actionPerformed(ActionEvent evt) {
 			grid.iterateBoard();
-			centerPanel.repaint();
 			iterationCounter++;
 			lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 			lblCountIteration.setText(String.valueOf(iterationCounter));

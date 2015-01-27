@@ -19,7 +19,9 @@ import com.sun.glass.events.KeyEvent;
 public class SpeedMenu extends JMenu {
 
 	private static final long serialVersionUID = -7338470638776832322L;
-	private int[] simulationSpeeds = { 500, 360, 210, 60, 10 };
+	private static final int CHEETAH_SPEED = 500, JACKRABBIT_SPEED = 360, HORSE_SPEED = 210, LLAMA_SPEED = 60, TURTLE_SPEED = 10;
+	private static final int[] simulationSpeeds = {CHEETAH_SPEED, JACKRABBIT_SPEED, HORSE_SPEED, LLAMA_SPEED,
+			TURTLE_SPEED };
 	private Hashtable<String, Integer> speedTable = new Hashtable<String, Integer>();
 	private int counter = 0;
 
@@ -38,6 +40,7 @@ public class SpeedMenu extends JMenu {
 		speedTable.put(speedMenu, simulationSpeeds[counter]);
 		speedMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_1 + counter, Main.metaKey));
 		speedMenuItem.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				getSpeed(speedMenuItem.getText());
 			}

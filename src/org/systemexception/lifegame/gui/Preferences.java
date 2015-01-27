@@ -21,9 +21,15 @@ public class Preferences extends JFrame {
 
 	private GroupLayout gl_prefsWindow;
 	private JPanel prefsWindow;
+<<<<<<< HEAD
 	private JSpinner prefsCellSpinner, prefsCellProbability;
 	private JLabel prefsCellSize, lblTheme, lblCellLifeProbability;
 	private JButton prefsSave, prefsCancel;
+=======
+	private JSpinner prefsCellSpinner;
+	private JLabel prefsCellSize, lblTheme;
+	private JButton prefsApply, prefsCancel;
+>>>>>>> 16f6b7bbcc29b06c0a3f6a31e5b2d0d9bb37d2fc
 	private JComboBox<String> prefsThemeSelector;
 	private SpinnerNumberModel prefsCellSpinnerModel, prefsLifeSpinnerModel;
 	private static int cellSize = 5, cellLifeProbability = 50;
@@ -47,12 +53,23 @@ public class Preferences extends JFrame {
 		Preferences.colourTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
 	}
 
+<<<<<<< HEAD
 	public static int getCellLifeProbability() {
 		return cellLifeProbability;
 	}
 
 	private void setCellLifeProbability() {
 		Preferences.cellLifeProbability = Integer.parseInt(prefsCellProbability.getValue().toString());
+=======
+	private void applyPrefs() {
+		setCellSize();
+		setColorTheme();
+		super.setVisible(false);
+	}
+
+	private void closeWindow() {
+		super.setVisible(false);
+>>>>>>> 16f6b7bbcc29b06c0a3f6a31e5b2d0d9bb37d2fc
 	}
 
 	/**
@@ -74,12 +91,18 @@ public class Preferences extends JFrame {
 		prefsSave = new JButton("Save");
 		prefsSave.addActionListener(new ActionListener() {
 			// Save cell value
+		prefsApply = new JButton("Apply");
+		prefsApply.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				savePrefs();
+				applyPrefs();
+				Main.btnReset.doClick();
 			}
 		});
 		prefsCancel = new JButton("Cancel");
 		prefsCancel.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				closeWindow();
 			}
@@ -99,6 +122,7 @@ public class Preferences extends JFrame {
 		prefsCellProbability = new JSpinner(prefsLifeSpinnerModel);
 
 		gl_prefsWindow = new GroupLayout(prefsWindow);
+<<<<<<< HEAD
 		gl_prefsWindow.setHorizontalGroup(gl_prefsWindow
 				.createParallelGroup(Alignment.LEADING)
 				.addGroup(
@@ -125,6 +149,40 @@ public class Preferences extends JFrame {
 												.addComponent(prefsCellSpinner, Alignment.TRAILING,
 														GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
 												.addComponent(prefsThemeSelector, 0, 127, Short.MAX_VALUE))));
+=======
+		gl_prefsWindow.setHorizontalGroup(gl_prefsWindow.createParallelGroup(Alignment.LEADING).addGroup(
+				gl_prefsWindow
+						.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								gl_prefsWindow
+										.createParallelGroup(Alignment.LEADING)
+										.addGroup(
+												gl_prefsWindow
+														.createSequentialGroup()
+														.addGroup(
+																gl_prefsWindow.createParallelGroup(Alignment.LEADING)
+																		.addComponent(lblTheme)
+																		.addComponent(prefsCellSize))
+														.addGap(18)
+														.addGroup(
+																gl_prefsWindow
+																		.createParallelGroup(Alignment.TRAILING)
+																		.addComponent(prefsThemeSelector, 0, 97,
+																				Short.MAX_VALUE)
+																		.addComponent(prefsCellSpinner,
+																				Alignment.LEADING,
+																				GroupLayout.DEFAULT_SIZE, 97,
+																				Short.MAX_VALUE)))
+										.addGroup(
+												gl_prefsWindow
+														.createSequentialGroup()
+														.addComponent(prefsApply, GroupLayout.DEFAULT_SIZE, 76,
+																Short.MAX_VALUE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(prefsCancel, GroupLayout.PREFERRED_SIZE, 86,
+																GroupLayout.PREFERRED_SIZE))).addContainerGap()));
+>>>>>>> 16f6b7bbcc29b06c0a3f6a31e5b2d0d9bb37d2fc
 		gl_prefsWindow.setVerticalGroup(gl_prefsWindow.createParallelGroup(Alignment.LEADING).addGroup(
 				gl_prefsWindow
 						.createSequentialGroup()
@@ -148,6 +206,7 @@ public class Preferences extends JFrame {
 										.createParallelGroup(Alignment.BASELINE)
 										.addComponent(prefsThemeSelector, GroupLayout.PREFERRED_SIZE,
 												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+<<<<<<< HEAD
 										.addComponent(lblTheme)).addGap(39).addComponent(prefsSave)
 						.addPreferredGap(ComponentPlacement.RELATED).addComponent(prefsCancel).addGap(12)));
 		prefsWindow.setLayout(gl_prefsWindow);
@@ -163,4 +222,13 @@ public class Preferences extends JFrame {
 	private void closeWindow() {
 		super.setVisible(false);
 	}
+=======
+										.addComponent(lblTheme))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(
+								gl_prefsWindow.createParallelGroup(Alignment.BASELINE).addComponent(prefsApply)
+										.addComponent(prefsCancel)).addContainerGap(46, Short.MAX_VALUE)));
+		prefsWindow.setLayout(gl_prefsWindow);
+	}
+>>>>>>> 16f6b7bbcc29b06c0a3f6a31e5b2d0d9bb37d2fc
 }
