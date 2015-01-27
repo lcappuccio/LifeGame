@@ -63,6 +63,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
+			@Override
 			public void run() {
 				try {
 					Main window = new Main();
@@ -213,7 +214,8 @@ public class Main {
 
 	private void iterateGrid() {
 		grid.iterateBoard();
-		centerPanel.repaint();
+		// grid.repaint();
+		// centerPanel.repaint();
 		iterationCounter++;
 		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 		lblCountIteration.setText(String.valueOf(iterationCounter));
@@ -227,15 +229,18 @@ public class Main {
 		grid.resetBoard();
 		centerPanel.add(grid);
 		centerPanel.repaint();
+		// grid.repaint();
 		iterationCounter = 0;
 		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 		lblCountIteration.setText(String.valueOf(iterationCounter));
 	}
 
 	private ActionListener taskPerformer = new ActionListener() {
+		@Override
 		public void actionPerformed(ActionEvent evt) {
 			grid.iterateBoard();
-			centerPanel.repaint();
+			// grid.repaint();
+			// centerPanel.repaint();
 			iterationCounter++;
 			lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 			lblCountIteration.setText(String.valueOf(iterationCounter));

@@ -34,6 +34,7 @@ public class Grid extends JComponent {
 	public void resetBoard() {
 		this.board = new Board(gridRows, gridCols);
 		totalLiveCells = board.getLiveCellCount();
+		// this.repaint();
 	}
 
 	public Board getBoard() {
@@ -47,6 +48,7 @@ public class Grid extends JComponent {
 	public void iterateBoard() {
 		board.iterateBoard();
 		totalLiveCells = board.getLiveCellCount();
+		this.repaint();
 	}
 
 	public int getTotalLiveCells() {
@@ -61,8 +63,8 @@ public class Grid extends JComponent {
 	private void setColours(String colourTheme) {
 		if (colourTheme.equals("B & W")) {
 			colorDark = hex2Rgb("#ECECEC");
-			colorLight = Color.BLACK;
-			colorRect = Color.DARK_GRAY;
+			colorLight = Color.DARK_GRAY;
+			colorRect = Color.BLACK;
 		}
 		if (colourTheme.equals("Inverse")) {
 			colorDark = Color.DARK_GRAY;
@@ -100,6 +102,7 @@ public class Grid extends JComponent {
 				Integer.valueOf(colorStr.substring(5, 7), 16));
 	}
 
+	@Override
 	public void paintComponent(Graphics g) {
 		for (int i = 0; i < board.getBoardRows(); i++) {
 			for (int j = 0; j < board.getBoardCols(); j++) {
