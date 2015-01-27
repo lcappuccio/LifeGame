@@ -98,7 +98,7 @@ public class Board {
 		}
 	}
 
-	public void iterateBoard() {
+	public void iterateBoardConway() {
 		copyBoard();
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
@@ -118,6 +118,8 @@ public class Board {
 	}
 
 	public int getLiveCellCount() {
+		// TODO could be moved to iterateBoard() and use a class field with
+		// getter
 		int liveCellCounter = 0;
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {

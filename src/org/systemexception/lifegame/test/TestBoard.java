@@ -88,7 +88,7 @@ public class TestBoard {
 		sut.getCellAt(2, 0).setCellDead();
 		sut.getCellAt(2, 1).setCellAlive();
 		sut.getCellAt(2, 2).setCellDead();
-		sut.iterateBoard();
+		sut.iterateBoardConway();
 		assertTrue(sut.getCellAt(1, 0).getCellState());
 		assertTrue(sut.getCellAt(1, 1).getCellState());
 		assertTrue(sut.getCellAt(1, 2).getCellState());

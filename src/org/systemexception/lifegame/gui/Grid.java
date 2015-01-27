@@ -32,6 +32,7 @@ public class Grid extends JComponent {
 	}
 
 	public void resetBoard() {
+		// TODO Board reset should be a task owned by Board, not Grid
 		this.board = new Board(gridRows, gridCols);
 		totalLiveCells = board.getLiveCellCount();
 		// this.repaint();
@@ -46,7 +47,7 @@ public class Grid extends JComponent {
 	}
 
 	public void iterateBoard() {
-		board.iterateBoard();
+		board.iterateBoardConway();
 		totalLiveCells = board.getLiveCellCount();
 		this.repaint();
 	}
