@@ -13,6 +13,28 @@ public class Board {
 		return board;
 	}
 
+	public Board(int rows, int cols) {
+		board = new Cell[rows][cols];
+		this.rows = rows;
+		this.cols = cols;
+		generateBoard(rows, cols);
+	}
+
+	public Board resetBoard(int rows, int cols) {
+		generateBoard(rows, cols);
+		return this;
+	}
+
+	private void generateBoard(int rows, int cols) {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				Cell cell = new Cell();
+				board[i][j] = cell;
+				updateLiveCellCounter(board, i, j);
+			}
+		}
+	}
+
 	public int getBoardRows() {
 		return rows;
 	}
@@ -87,18 +109,6 @@ public class Board {
 		}
 	}
 
-	public Board(int rows, int cols) {
-		board = new Cell[rows][cols];
-		this.rows = rows;
-		this.cols = cols;
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				Cell cell = new Cell();
-				board[i][j] = cell;
-				updateLiveCellCounter(board, i, j);
-			}
-		}
-	}
 
 	public void iterateBoardConway() {
 		liveCellCounter = 0;
@@ -118,12 +128,21 @@ public class Board {
 			}
 		}
 		this.board = boardIteration;
-
 	}
 
 	private void updateLiveCellCounter(Cell[][] board, int i, int j) {
 		if (board[i][j].getCellState()) {
 			liveCellCounter++;
+		}
+	}
+
+	public void copyBoard() {
+		boardIteration = new Cell[board.length][board[0].length];
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				Cell cell = new Cell(board[i][j].getCellState());
+				boardIteration[i][j] = cell;
+			}
 		}
 	}
 
@@ -138,15 +157,5 @@ public class Board {
 			}
 		}
 		return liveCellCounter;
-	}
-
-	public void copyBoard() {
-		boardIteration = new Cell[board.length][board[0].length];
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				Cell cell = new Cell(board[i][j].getCellState());
-				boardIteration[i][j] = cell;
-			}
-		}
 	}
 }

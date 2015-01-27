@@ -27,15 +27,9 @@ public class Grid extends JComponent {
 		setColours(colourTheme);
 	}
 
-	public void setCellValue(int x) {
-		cellSize = x;
-	}
-
 	public void resetBoard() {
-		// TODO Board reset should be a task owned by Board, not Grid
-		this.board = new Board(gridRows, gridCols);
+		board = board.resetBoard(gridRows, gridCols);
 		totalLiveCells = board.getCellAliveCount();
-		// this.repaint();
 	}
 
 	public Board getBoard() {
