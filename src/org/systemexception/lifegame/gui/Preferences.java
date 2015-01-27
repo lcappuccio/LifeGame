@@ -26,7 +26,8 @@ public class Preferences extends JFrame {
 	private JButton prefsApply, prefsCancel;
 	private JComboBox<String> prefsThemeSelector, prefsLifeRules;
 	private static int cellSize = 5, cellLifeProbability = 50;
-	private static final int WINDOW_WIDTH = 250, WINDOW_HEIGHT = 210, MIN_CELL_SIZE = 2, MAX_CELL_SIZE = 10;
+	private static final int WINDOW_WIDTH = 250, WINDOW_HEIGHT = 210, MIN_CELL_SIZE = 2, MAX_CELL_SIZE = 10,
+			MIN_CELL_LIFE_PROBABILITY = 0, MAX_CELL_LIFE_PROBABILITY = 100;
 	private static String colourTheme = "B & W", lifeRules = "Conway";
 
 	public static int getCellSize() {
@@ -53,9 +54,18 @@ public class Preferences extends JFrame {
 		Preferences.lifeRules = String.valueOf(prefsLifeRules.getSelectedItem());
 	}
 
+	public static int getCellLifeProbability() {
+		return cellLifeProbability;
+	}
+
+	private void setCellLifeProbability() {
+		Preferences.cellLifeProbability = Integer.parseInt(prefsLifeProbabilitySpinner.getValue().toString());
+	}
+
 	private void applyPrefs() {
 		setCellSize();
 		setColorTheme();
+		setCellLifeProbability();
 		super.setVisible(false);
 	}
 
@@ -108,7 +118,9 @@ public class Preferences extends JFrame {
 		prefsLifeRules.addItem("Life Free or Die");
 		prefsLifeRules.addItem("Maze");
 
-		prefsLifeProbabilitySpinner = new JSpinner();
+		SpinnerNumberModel prefsCellLifeProbabilityModel = new SpinnerNumberModel(cellLifeProbability,
+				MIN_CELL_LIFE_PROBABILITY, MAX_CELL_LIFE_PROBABILITY, 1);
+		prefsLifeProbabilitySpinner = new JSpinner(prefsCellLifeProbabilityModel);
 
 		gl_prefsWindow = new GroupLayout(prefsWindow);
 		gl_prefsWindow.setHorizontalGroup(gl_prefsWindow.createParallelGroup(Alignment.LEADING).addGroup(
