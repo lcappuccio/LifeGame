@@ -28,7 +28,7 @@ public class Preferences extends JFrame {
 	private static int cellSize = 5, cellLifeProbability = 50;
 	private static final int WINDOW_WIDTH = 250, WINDOW_HEIGHT = 210, MIN_CELL_SIZE = 2, MAX_CELL_SIZE = 10,
 			MIN_CELL_LIFE_PROBABILITY = 0, MAX_CELL_LIFE_PROBABILITY = 100;
-	private static String colourTheme = "B & W", lifeRules = "Conway";
+	private static String colourTheme = "B & W", lifeRules = "Conway's Life";
 
 	public static int getCellSize() {
 		return cellSize;
@@ -65,6 +65,7 @@ public class Preferences extends JFrame {
 	private void applyPrefs() {
 		setCellSize();
 		setColorTheme();
+		setLifeRules();
 		setCellLifeProbability();
 		super.setVisible(false);
 	}
@@ -115,7 +116,7 @@ public class Preferences extends JFrame {
 		prefsLifeRules.addItem("DryLife");
 		prefsLifeRules.addItem("Conway's Life");
 		prefsLifeRules.addItem("HighLife");
-		prefsLifeRules.addItem("Life Free or Die");
+		prefsLifeRules.addItem("Live Free or Die");
 		prefsLifeRules.addItem("Maze");
 
 		SpinnerNumberModel prefsCellLifeProbabilityModel = new SpinnerNumberModel(cellLifeProbability,
