@@ -32,7 +32,7 @@ public class Preferences extends JFrame {
 		return cellSize;
 	}
 
-	public void setCellSize() {
+	private void setCellSize() {
 		Preferences.cellSize = Integer.parseInt(prefsCellSpinner.getValue().toString());
 	}
 
@@ -40,8 +40,18 @@ public class Preferences extends JFrame {
 		return colourTheme;
 	}
 
-	public void setColorTheme() {
+	private void setColorTheme() {
 		Preferences.colourTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
+	}
+
+	private void savePrefs() {
+		setCellSize();
+		setColorTheme();
+		super.setVisible(false);
+	}
+
+	private void closeWindow() {
+		super.setVisible(false);
 	}
 
 	/**
@@ -64,12 +74,14 @@ public class Preferences extends JFrame {
 		prefsSave = new JButton("Save");
 		prefsSave.addActionListener(new ActionListener() {
 			// Save cell value
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				savePrefs();
 			}
 		});
 		prefsCancel = new JButton("Cancel");
 		prefsCancel.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				closeWindow();
 			}
@@ -140,13 +152,4 @@ public class Preferences extends JFrame {
 		prefsWindow.setLayout(gl_prefsWindow);
 	}
 
-	private void savePrefs() {
-		setCellSize();
-		setColorTheme();
-		super.setVisible(false);
-	}
-
-	private void closeWindow() {
-		super.setVisible(false);
-	}
 }
