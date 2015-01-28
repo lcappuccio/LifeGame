@@ -292,7 +292,7 @@ public class Board {
 	}
 
 	/**
-	 * Coral (45678/3): Every alive cell with 4 to 8 alive neighbours dies.
+	 * Coral (45678/3): Every alive cell with 4 to 8 alive neighbours survives.
 	 * Every dead cell with exactly 3 neighbours becomes alvie.
 	 */
 	public void iterateBoardCoral() {
@@ -301,13 +301,11 @@ public class Board {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				// Cell dies
-				if ((countSurroungingLiveCells(i, j) >= 4 && countSurroungingLiveCells(i, j) <= 8)
-						&& board[i][j].getCellState()) {
+				if (countSurroungingLiveCells(i, j) < 4 && board[i][j].getCellState()) {
 					boardIteration[i][j].setCellDead();
 				}
 				// Cell becomes alive
-				if ((countSurroungingLiveCells(i, j) == 3 || countSurroungingLiveCells(i, j) == 6)
-						&& !board[i][j].getCellState()) {
+				if ((countSurroungingLiveCells(i, j) == 3) && !board[i][j].getCellState()) {
 					boardIteration[i][j].setCellAlive();
 				}
 				updateLiveCellCounter(boardIteration, i, j);
