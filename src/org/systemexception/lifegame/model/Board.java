@@ -48,6 +48,9 @@ public class Board {
 		if (Preferences.getLifeAutomata().equals(Automata.MOVE.toString())) {
 			iterateBoardMove();
 		}
+		if (Preferences.getLifeAutomata().equals(Automata.ASSIMILATION.toString())) {
+			iterateBoardAssimilation();
+		}
 	}
 
 	public Board resetBoard(int rows, int cols) {
@@ -330,6 +333,31 @@ public class Board {
 				// Cell becomes alive
 				if ((countSurroungingLiveCells(i, j) == 3 || countSurroungingLiveCells(i, j) == 6 || countSurroungingLiveCells(
 						i, j) == 8) && !board[i][j].getCellState()) {
+					boardIteration[i][j].setCellAlive();
+				}
+				updateLiveCellCounter(boardIteration, i, j);
+			}
+		}
+		this.board = boardIteration;
+	}
+
+	/**
+	 * Assimilation (4567/345): Any live cell with 4 to 7 alive neighbours
+	 * survives. Any dead cell with 3 to 5 live neighbours comes alive.
+	 */
+	public void iterateBoardAssimilation() {
+		liveCellCounter = 0;
+		copyBoard();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				// Cell dies
+				if (!(countSurroungingLiveCells(i, j) >= 4 && countSurroungingLiveCells(i, j) <= 7)
+						&& board[i][j].getCellState()) {
+					boardIteration[i][j].setCellDead();
+				}
+				// Cell becomes alive
+				if ((countSurroungingLiveCells(i, j) >= 3 && countSurroungingLiveCells(i, j) <= 5)
+						&& !board[i][j].getCellState()) {
 					boardIteration[i][j].setCellAlive();
 				}
 				updateLiveCellCounter(boardIteration, i, j);

@@ -116,6 +116,7 @@ public class Preferences extends JFrame {
 		prefsThemeSelector.addItem(Themes.RED.toString());
 
 		prefsAutomataSelector = new JComboBox<String>();
+		prefsAutomataSelector.addItem(Automata.ASSIMILATION.toString());
 		prefsAutomataSelector.addItem(Automata.CONWAY.toString());
 		prefsAutomataSelector.addItem(Automata.CORAL.toString());
 		prefsAutomataSelector.addItem(Automata.DRYLIFE.toString());
