@@ -37,6 +37,7 @@ import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
+import org.systemexception.lifegame.enums.GameSpeeds;
 import org.systemexception.lifegame.menu.FileMenu;
 import org.systemexception.lifegame.menu.LifeGameMenu;
 import org.systemexception.lifegame.menu.SpeedMenu;
@@ -46,14 +47,15 @@ public class Main {
 	private JFrame mainAppWindow;
 	private JPanel centerPanel, lowerPanel;
 	private JMenuBar menuBar;
-	private JMenu menuLifeGame, menuFile, menuGameSpeed;
+	private JMenu menuLifeGame, menuGameSpeed;
+	private FileMenu menuFile;
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
 	private JButton btnStart, btnTick, btnStop;
 	public static JButton btnReset;
 	private Grid grid;
 	public static Timer gameTimer;
 	private int iterationCounter;
-	private static final int INITIAL_SPEED = 210;
+	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();
 	private static String platform = System.getProperty("os.name").toLowerCase();
 	public static int metaKey, coordX, coordY;
 	public static final Font MENU_FONT = new Font("Lucida Grande", Font.PLAIN, 12);
@@ -135,6 +137,7 @@ public class Main {
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
 				centerPanel.getHeight() / Preferences.getCellSize(), Preferences.getColorTheme());
+		menuFile.setBoard(grid.getBoard());
 		centerPanel.add(grid);
 
 		// LOWER panel
@@ -175,10 +178,7 @@ public class Main {
 		btnStop.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				if (gameTimer != null && gameTimer.isRunning()) {
-					btnStart.setEnabled(true);
-					gameTimer.stop();
-				}
+				stopGame();
 			}
 		});
 		lowerPanel.add(btnStop);
@@ -187,11 +187,9 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				resetGrid();
-				if (gameTimer != null && gameTimer.isRunning()) {
-					btnStart.setEnabled(true);
-					gameTimer.stop();
-				}
+				stopGame();
 			}
+
 		});
 		lowerPanel.add(btnReset);
 
@@ -218,6 +216,7 @@ public class Main {
 
 	private void iterateGrid() {
 		grid.iterateBoard();
+		menuFile.setBoard(grid.getBoard());
 		iterationCounter++;
 		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 		lblCountIteration.setText(String.valueOf(iterationCounter));
@@ -237,10 +236,20 @@ public class Main {
 	private ActionListener taskPerformer = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent evt) {
+			menuFile.menuSave.setEnabled(false);
 			grid.iterateBoard();
 			iterationCounter++;
 			lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 			lblCountIteration.setText(String.valueOf(iterationCounter));
 		}
 	};
+
+	private void stopGame() {
+		menuFile.menuSave.setEnabled(true);
+		menuFile.setBoard(grid.getBoard());
+		if (gameTimer != null && gameTimer.isRunning()) {
+			btnStart.setEnabled(true);
+			gameTimer.stop();
+		}
+	}
 }
