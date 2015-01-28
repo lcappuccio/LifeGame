@@ -142,22 +142,11 @@ public class Main {
 		flowLayout.setVgap(0);
 		lowerPanel.setBounds(6, 525, 390, 29);
 		mainAppWindow.getContentPane().add(lowerPanel);
-		btnTick = new JButton("Tick");
-		btnTick.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (gameTimer != null && gameTimer.isRunning()) {
-					btnStart.setEnabled(true);
-					gameTimer.stop();
-				}
-				iterateGrid();
-			}
-		});
 
 		btnStart = new JButton("Start");
-		btnStart.addMouseListener(new MouseAdapter() {
+		btnStart.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				btnStart.setEnabled(false);
 				if (gameTimer == null) {
 					gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
@@ -168,11 +157,22 @@ public class Main {
 			}
 		});
 		lowerPanel.add(btnStart);
+		btnTick = new JButton("Tick");
+		btnTick.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if (gameTimer != null && gameTimer.isRunning()) {
+					btnStart.setEnabled(true);
+					gameTimer.stop();
+				}
+				iterateGrid();
+			}
+		});
 		lowerPanel.add(btnTick);
 		btnStop = new JButton("Stop");
-		btnStop.addMouseListener(new MouseAdapter() {
+		btnStop.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				if (gameTimer != null && gameTimer.isRunning()) {
 					btnStart.setEnabled(true);
 					gameTimer.stop();
