@@ -15,6 +15,9 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
+import org.systemexception.lifegame.enums.Automata;
+import org.systemexception.lifegame.enums.Themes;
+
 public class Preferences extends JFrame {
 
 	private static final long serialVersionUID = 1664253982218939516L;
@@ -106,21 +109,21 @@ public class Preferences extends JFrame {
 		});
 
 		prefsThemeSelector = new JComboBox<String>();
-		prefsThemeSelector.addItem("B & W");
-		prefsThemeSelector.addItem("Inverse");
-		prefsThemeSelector.addItem("Blue");
-		prefsThemeSelector.addItem("Green");
-		prefsThemeSelector.addItem("Red");
+		prefsThemeSelector.addItem(Themes.BW.toString());
+		prefsThemeSelector.addItem(Themes.INVERSE.toString());
+		prefsThemeSelector.addItem(Themes.BLUE.toString());
+		prefsThemeSelector.addItem(Themes.GREEN.toString());
+		prefsThemeSelector.addItem(Themes.RED.toString());
 
 		prefsAutomataSelector = new JComboBox<String>();
-		prefsAutomataSelector.addItem("Coral");
-		prefsAutomataSelector.addItem("DryLife");
-		prefsAutomataSelector.addItem("Conway's Life");
-		prefsAutomataSelector.addItem("HighLife");
-		prefsAutomataSelector.addItem("Live Free or Die");
-		prefsAutomataSelector.addItem("Maze");
-		prefsAutomataSelector.addItem("Serviettes");
-		prefsAutomataSelector.setSelectedItem("Conway's Life");
+		prefsAutomataSelector.addItem(Automata.CORAL.toString());
+		prefsAutomataSelector.addItem(Automata.DRYLIFE.toString());
+		prefsAutomataSelector.addItem(Automata.CONWAY.toString());
+		prefsAutomataSelector.addItem(Automata.HIGHLIFE.toString());
+		prefsAutomataSelector.addItem(Automata.LIVEFREEORDIE.toString());
+		prefsAutomataSelector.addItem(Automata.MAZE.toString());
+		prefsAutomataSelector.addItem(Automata.SERVIETTES.toString());
+		prefsAutomataSelector.setSelectedItem(Automata.CONWAY.toString());
 
 		SpinnerNumberModel prefsCellLifeProbabilityModel = new SpinnerNumberModel(cellLifeProbability,
 				MIN_CELL_LIFE_PROBABILITY, MAX_CELL_LIFE_PROBABILITY, 1);

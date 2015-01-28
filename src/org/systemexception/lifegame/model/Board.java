@@ -4,6 +4,7 @@
  */
 package org.systemexception.lifegame.model;
 
+import org.systemexception.lifegame.enums.Automata;
 import org.systemexception.lifegame.gui.Preferences;
 
 public class Board {
@@ -23,25 +24,25 @@ public class Board {
 	}
 
 	public void iterateBoard() {
-		if (Preferences.getLifeAutomata().equals("Conway's Life")) {
+		if (Preferences.getLifeAutomata().equals(Automata.CONWAY.toString())) {
 			iterateBoardConway();
 		}
-		if (Preferences.getLifeAutomata().equals("DryLife")) {
+		if (Preferences.getLifeAutomata().equals(Automata.DRYLIFE.toString())) {
 			iterateBoardDryLife();
 		}
-		if (Preferences.getLifeAutomata().equals("HighLife")) {
+		if (Preferences.getLifeAutomata().equals(Automata.HIGHLIFE.toString())) {
 			iterateBoardHighLife();
 		}
-		if (Preferences.getLifeAutomata().equals("Live Free or Die")) {
+		if (Preferences.getLifeAutomata().equals(Automata.LIVEFREEORDIE.toString())) {
 			iterateBoardLiveFreeOrDie();
 		}
-		if (Preferences.getLifeAutomata().equals("Maze")) {
+		if (Preferences.getLifeAutomata().equals(Automata.MAZE.toString())) {
 			iterateBoardMaze();
 		}
-		if (Preferences.getLifeAutomata().equals("Serviettes")) {
+		if (Preferences.getLifeAutomata().equals(Automata.SERVIETTES.toString())) {
 			iterateBoardServiettes();
 		}
-		if (Preferences.getLifeAutomata().equals("Coral")) {
+		if (Preferences.getLifeAutomata().equals(Automata.CORAL.toString())) {
 			iterateBoardCoral();
 		}
 	}
