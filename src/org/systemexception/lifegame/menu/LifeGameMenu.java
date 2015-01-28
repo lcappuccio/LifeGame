@@ -16,23 +16,23 @@ import org.systemexception.lifegame.gui.About;
 import org.systemexception.lifegame.gui.Main;
 import org.systemexception.lifegame.gui.Preferences;
 
-public class FileMenu extends JMenu {
+public class LifeGameMenu extends JMenu {
 
 	private static final long serialVersionUID = 7405208334736215552L;
 	private Preferences preferencesWindow;
-	private JMenuItem menuFileAbout, menuFilePrefs, menuFileQuit;
+	private JMenuItem menuAbout, menuPreferences, menuQuit;
 
-	public FileMenu() {
+	public LifeGameMenu() {
 		this.setFont(Main.MENU_FONT);
-		this.setText("File");
+		this.setText("LifeGame");
 		this.add(menuAbout());
 		this.add(menuPreferences());
 		this.add(menuQuit());
 	}
 
 	private JMenuItem menuAbout() {
-		menuFileAbout = new JMenuItem("About");
-		menuFileAbout.addActionListener(new ActionListener() {
+		menuAbout = new JMenuItem("About");
+		menuAbout.addActionListener(new ActionListener() {
 			// About window
 			public void actionPerformed(ActionEvent e) {
 				About about = new About();
@@ -40,14 +40,14 @@ public class FileMenu extends JMenu {
 				about.setVisible(true);
 			}
 		});
-		menuFileAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Main.metaKey));
-		return (menuFileAbout);
+		menuAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Main.metaKey));
+		return (menuAbout);
 	}
 
 	private JMenuItem menuPreferences() {
 		preferencesWindow = new Preferences();
-		menuFilePrefs = new JMenuItem("Preferences");
-		menuFilePrefs.addActionListener(new ActionListener() {
+		menuPreferences = new JMenuItem("Preferences");
+		menuPreferences.addActionListener(new ActionListener() {
 			// Preferences window
 			public void actionPerformed(ActionEvent e) {
 				preferencesWindow.setVisible(true);
@@ -55,19 +55,19 @@ public class FileMenu extends JMenu {
 						preferencesWindow.getHeight());
 			}
 		});
-		menuFilePrefs.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, Main.metaKey));
-		return (menuFilePrefs);
+		menuPreferences.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, Main.metaKey));
+		return (menuPreferences);
 	}
 
 	private JMenuItem menuQuit() {
-		menuFileQuit = new JMenuItem("Quit");
-		menuFileQuit.addActionListener(new ActionListener() {
+		menuQuit = new JMenuItem("Quit");
+		menuQuit.addActionListener(new ActionListener() {
 			// Quit application
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}
 		});
-		menuFileQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, Main.metaKey));
-		return (menuFileQuit);
+		menuQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, Main.metaKey));
+		return (menuQuit);
 	}
 }

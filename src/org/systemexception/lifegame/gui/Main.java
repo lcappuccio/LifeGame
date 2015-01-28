@@ -25,8 +25,6 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -40,6 +38,7 @@ import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.systemexception.lifegame.menu.FileMenu;
+import org.systemexception.lifegame.menu.LifeGameMenu;
 import org.systemexception.lifegame.menu.SpeedMenu;
 
 public class Main {
@@ -47,7 +46,7 @@ public class Main {
 	private JFrame mainAppWindow;
 	private JPanel centerPanel, lowerPanel;
 	private JMenuBar menuBar;
-	private JMenu menuFile, menuSimulation;
+	private JMenu menuLifeGame, menuFile, menuGameSpeed;
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
 	private JButton btnStart, btnTick, btnStop;
 	public static JButton btnReset;
@@ -119,12 +118,15 @@ public class Main {
 		mainAppWindow.getContentPane().add(menuBar);
 		menuBar.setBorderPainted(false);
 
+		// LifeGame menu
+		menuLifeGame = new LifeGameMenu();
+		menuBar.add(menuLifeGame);
 		// File menu
 		menuFile = new FileMenu();
 		menuBar.add(menuFile);
 		// Speed menu
-		menuSimulation = new SpeedMenu();
-		menuBar.add(menuSimulation);
+		menuGameSpeed = new SpeedMenu();
+		menuBar.add(menuGameSpeed);
 
 		// CENTER panel
 		centerPanel = new JPanel();
