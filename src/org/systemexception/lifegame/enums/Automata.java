@@ -7,7 +7,7 @@ package org.systemexception.lifegame.enums;
 public enum Automata {
 	
 	CONWAY("Conway's Life"), DRYLIFE("DryLife"), HIGHLIFE("HighLife"), LIVEFREEORDIE("Live Free or Die"), 
-	MAZE("Maze"), SERVIETTES("Serviettes"), CORAL("Coral");
+	MAZE("Maze"), SERVIETTES("Serviettes"), CORAL("Coral"), MOVE("Move");
 	
 	private final String automata;
 

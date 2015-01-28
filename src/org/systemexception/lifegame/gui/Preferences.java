@@ -116,12 +116,13 @@ public class Preferences extends JFrame {
 		prefsThemeSelector.addItem(Themes.RED.toString());
 
 		prefsAutomataSelector = new JComboBox<String>();
+		prefsAutomataSelector.addItem(Automata.CONWAY.toString());
 		prefsAutomataSelector.addItem(Automata.CORAL.toString());
 		prefsAutomataSelector.addItem(Automata.DRYLIFE.toString());
-		prefsAutomataSelector.addItem(Automata.CONWAY.toString());
 		prefsAutomataSelector.addItem(Automata.HIGHLIFE.toString());
 		prefsAutomataSelector.addItem(Automata.LIVEFREEORDIE.toString());
 		prefsAutomataSelector.addItem(Automata.MAZE.toString());
+		prefsAutomataSelector.addItem(Automata.MOVE.toString());
 		prefsAutomataSelector.addItem(Automata.SERVIETTES.toString());
 		prefsAutomataSelector.setSelectedItem(Automata.CONWAY.toString());
 
