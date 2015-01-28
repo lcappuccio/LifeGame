@@ -28,13 +28,13 @@ public class SpeedMenu extends JMenu {
 			int gameSpeed = GameSpeeds.values()[i].getGameSpeed();
 			speedMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5 - i, Main.metaKey));
 			speedMenuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (Main.gameTimer != null && Main.gameTimer.isRunning()) {
-					Main.gameTimer.setDelay(gameSpeed);
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (Main.gameTimer != null && Main.gameTimer.isRunning()) {
+						Main.gameTimer.setDelay(gameSpeed);
+					}
 				}
-			}
-		});
+			});
 			this.add(speedMenuItem);
 		}
 	}
