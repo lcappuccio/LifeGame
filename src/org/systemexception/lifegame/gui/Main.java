@@ -302,6 +302,7 @@ public class Main {
 						grid = new Grid(cellSize, gridRows, gridCols, fileContents, automata, theme);
 						centerPanel.add(grid);
 						lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+						Preferences.setLifeAutomata(automata);
 					} catch (Exception fileException) {
 						fileException.printStackTrace();
 					}
