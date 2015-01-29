@@ -7,20 +7,17 @@ package org.systemexception.lifegame.menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
+import javax.swing.UIManager;
 
 import org.systemexception.lifegame.gui.Main;
 import org.systemexception.lifegame.gui.Preferences;
@@ -29,13 +26,12 @@ import org.systemexception.lifegame.model.Board;
 public class FileMenu extends JMenu {
 
 	private static final long serialVersionUID = 2938775479619929623L;
-	private JMenuItem menuOpen;
-	public JMenuItem menuSave;
+	public JMenuItem menuOpen, menuSave;
 	private Board board;
 	private String lineSeparator = System.getProperty("line.separator");
-	private static final String savedFileSeparator = "# BOARD STARTS HERE #";
 
 	public FileMenu() {
+		UIManager.put("FileChooser.readOnly", Boolean.FALSE);
 		this.setText("File");
 		this.add(menuOpen());
 		this.add(menuSave());
@@ -48,30 +44,6 @@ public class FileMenu extends JMenu {
 	private JMenuItem menuOpen() {
 		menuOpen = new JMenuItem("Open");
 		menuOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, Main.metaKey));
-		menuOpen.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				int result = fileChooser.showOpenDialog(getParent().getComponent(1));
-				if (result == JFileChooser.APPROVE_OPTION) {
-					File selectedFile = fileChooser.getSelectedFile();
-					System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-					List<String> fileContents = new ArrayList<String>();
-					try {
-						BufferedReader reader = new BufferedReader(new FileReader(selectedFile));
-						String line;
-						while ((line = reader.readLine()) != null) {
-							fileContents.add(line);
-							System.out.println(line);
-						}
-						reader.close();
-					} catch (Exception fileException) {
-						System.err.format("Exception occurred trying to read '%s'.", selectedFile);
-						fileException.printStackTrace();
-					}
-				}
-			}
-		});
 		return (menuOpen);
 	}
 
@@ -110,15 +82,18 @@ public class FileMenu extends JMenu {
 
 	private void saveFile(File file) {
 		try {
+			String fileName = file.getAbsolutePath();
+			if (!fileName.endsWith(".life")) {
+				file = new File(fileName + ".life");
+			}
 			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
 			PrintWriter fileWriter = new PrintWriter(bufferedWriter);
 			// Save board properties first
-			fileWriter.print("cols=" + board.getBoardCols() + lineSeparator);
-			fileWriter.print("rows=" + board.getBoardRows() + lineSeparator);
-			fileWriter.print("cellSize=" + Preferences.getCellSize() + lineSeparator);
-			fileWriter.print("automata=" + Preferences.getLifeAutomata() + lineSeparator);
-			fileWriter.print("theme=" + Preferences.getColorTheme() + lineSeparator);
-			fileWriter.print(savedFileSeparator + lineSeparator);
+			fileWriter.print("#cols=" + board.getBoardCols() + lineSeparator);
+			fileWriter.print("#rows=" + board.getBoardRows() + lineSeparator);
+			fileWriter.print("#cellSize=" + Preferences.getCellSize() + lineSeparator);
+			fileWriter.print("#automata=" + Preferences.getLifeAutomata() + lineSeparator);
+			fileWriter.print("#theme=" + Preferences.getColorTheme() + lineSeparator);
 			for (int i = 0; i < board.getBoardCols(); i++) {
 				for (int j = 0; j < board.getBoardRows(); j++) {
 					if (board.getCellAt(j, i).getCellState()) {

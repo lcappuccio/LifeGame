@@ -25,8 +25,16 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -36,6 +44,8 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.systemexception.lifegame.enums.GameSpeeds;
 import org.systemexception.lifegame.menu.FileMenu;
@@ -44,21 +54,22 @@ import org.systemexception.lifegame.menu.SpeedMenu;
 
 public class Main {
 
+	public static int metaKey, coordX, coordY;
+	public static JButton btnReset;
+	public static Timer gameTimer;
+	public static final Font MENU_FONT = new Font("Lucida Grande", Font.PLAIN, 12);
+	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();
+	private static final String platform = System.getProperty("os.name").toLowerCase();
 	private JFrame mainAppWindow;
 	private JPanel centerPanel, lowerPanel;
 	private JMenuBar menuBar;
 	private JMenu menuLifeGame, menuGameSpeed;
-	private FileMenu menuFile;
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
 	private JButton btnStart, btnTick, btnStop;
-	public static JButton btnReset;
-	private Grid grid;
-	public static Timer gameTimer;
+	private FileMenu menuFile;
+	private Properties properties;
 	private int iterationCounter;
-	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();
-	private static String platform = System.getProperty("os.name").toLowerCase();
-	public static int metaKey, coordX, coordY;
-	public static final Font MENU_FONT = new Font("Lucida Grande", Font.PLAIN, 12);
+	private Grid grid;
 
 	/**
 	 * Launch the application.
@@ -126,6 +137,7 @@ public class Main {
 		// File menu
 		menuFile = new FileMenu();
 		menuBar.add(menuFile);
+		menuFileSetOpenAction();
 		// Speed menu
 		menuGameSpeed = new SpeedMenu();
 		menuBar.add(menuGameSpeed);
@@ -254,4 +266,44 @@ public class Main {
 			lblCountIteration.setText(String.valueOf(iterationCounter));
 		}
 	};
+
+	private void menuFileSetOpenAction() {
+		menuFile.menuOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				FileFilter fileFilter = new FileNameExtensionFilter("LifeGame", "life");
+				fileChooser.setFileFilter(fileFilter);
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				int result = fileChooser.showOpenDialog(fileChooser);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();
+					List<String> fileContents = new ArrayList<String>();
+					try {
+						BufferedReader fileReader = new BufferedReader(new FileReader(selectedFile));
+						String line;
+						// Read board settings
+						properties = new Properties();
+						while ((line = fileReader.readLine()).startsWith("#")) {
+							properties.load(new StringReader(line.replace("#", "")));
+						}
+						while ((line = fileReader.readLine()) != null) {
+							fileContents.add(line);
+							System.out.println(line);
+						}
+						fileReader.close();
+						for (int i = 0; i < fileContents.size(); i++) {
+							System.out.print(i + ": ");
+							for (int j = 0; j < fileContents.get(i).length(); j++) {
+								System.out.print(fileContents.get(i).charAt(j));
+							}
+							System.out.print("\n");
+						}
+					} catch (Exception fileException) {
+						System.err.format("Exception occurred trying to read '%s'.", selectedFile);
+						fileException.printStackTrace();
+					}
+				}
+			}
+		});
+	}
 }
