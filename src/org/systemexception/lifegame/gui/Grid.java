@@ -35,8 +35,10 @@ public class Grid extends JComponent {
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
 		this.board = new Board(gridRows, gridCols, savedBoard, automata);
-		// totalLiveCells = board.getCellAliveCount();
+		totalLiveCells = board.getCellAliveCount();
 		setColours(colourTheme);
+		this.paint(getGraphics());
+		;
 	}
 
 	public void setCellValue(int x) {

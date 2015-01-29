@@ -19,14 +19,14 @@ public class Board {
 	}
 
 	public Board(int rows, int cols) {
-		board = new Cell[rows][cols];
+		this.board = new Cell[rows][cols];
 		this.rows = rows;
 		this.cols = cols;
 		generateBoard(rows, cols);
 	}
 
 	public Board(int rows, int cols, ArrayList<ArrayList<String>> savedBoard, String automata) {
-		board = new Cell[rows][cols];
+		this.board = new Cell[rows][cols];
 		this.rows = rows;
 		this.cols = cols;
 		setBoardFromSavedFile(savedBoard);
@@ -380,19 +380,19 @@ public class Board {
 	}
 
 	private void setBoardFromSavedFile(ArrayList<ArrayList<String>> savedBoard) {
-		System.out.println("LOADED BOARD");
+		liveCellCounter = 0;
 		for (int i = 0; i < savedBoard.size(); i++) {
 			for (int j = 0; j < savedBoard.get(i).size(); j++) {
+				Cell cell = new Cell();
 				if (savedBoard.get(i).get(j).equals("o")) {
-
+					cell.setCellAlive();
+					liveCellCounter++;
 				} else {
-
+					cell.setCellDead();
 				}
-				System.out.print(savedBoard.get(i).get(j));
+				board[j][i] = cell;
 			}
-			System.out.println();
 		}
-		// printBoard();
 	}
 
 	@Deprecated

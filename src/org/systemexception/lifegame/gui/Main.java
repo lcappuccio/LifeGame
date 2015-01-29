@@ -298,11 +298,11 @@ public class Main {
 						int gridRows = Integer.valueOf(properties.getProperty("rows"));
 						String automata = properties.getProperty("automata");
 						String theme = properties.getProperty("theme");
+						centerPanel.remove(grid);
 						grid = new Grid(cellSize, gridRows, gridCols, fileContents, automata, theme);
-						grid.repaint();
-
+						centerPanel.add(grid);
+						lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 					} catch (Exception fileException) {
-						System.err.format("Exception occurred trying to read '%s'.", selectedFile);
 						fileException.printStackTrace();
 					}
 				}
