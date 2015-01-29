@@ -4,6 +4,9 @@
  */
 package org.systemexception.lifegame.model;
 
+import java.util.ArrayList;
+
+import org.systemexception.lifegame.enums.Automata;
 import org.systemexception.lifegame.gui.Preferences;
 
 public class Board {
@@ -16,33 +19,46 @@ public class Board {
 	}
 
 	public Board(int rows, int cols) {
-		board = new Cell[rows][cols];
+		this.board = new Cell[rows][cols];
 		this.rows = rows;
 		this.cols = cols;
 		generateBoard(rows, cols);
 	}
 
+	public Board(int rows, int cols, ArrayList<ArrayList<String>> savedBoard, String automata) {
+		this.board = new Cell[rows][cols];
+		this.rows = rows;
+		this.cols = cols;
+		setBoardFromSavedFile(savedBoard);
+	}
+
 	public void iterateBoard() {
-		if (Preferences.getLifeAutomata().equals("Conway's Life")) {
+		if (Preferences.getLifeAutomata().equals(Automata.CONWAY.toString())) {
 			iterateBoardConway();
 		}
-		if (Preferences.getLifeAutomata().equals("DryLife")) {
+		if (Preferences.getLifeAutomata().equals(Automata.DRYLIFE.toString())) {
 			iterateBoardDryLife();
 		}
-		if (Preferences.getLifeAutomata().equals("HighLife")) {
+		if (Preferences.getLifeAutomata().equals(Automata.HIGHLIFE.toString())) {
 			iterateBoardHighLife();
 		}
-		if (Preferences.getLifeAutomata().equals("Live Free or Die")) {
+		if (Preferences.getLifeAutomata().equals(Automata.LIVEFREEORDIE.toString())) {
 			iterateBoardLiveFreeOrDie();
 		}
-		if (Preferences.getLifeAutomata().equals("Maze")) {
+		if (Preferences.getLifeAutomata().equals(Automata.MAZE.toString())) {
 			iterateBoardMaze();
 		}
-		if (Preferences.getLifeAutomata().equals("Serviettes")) {
+		if (Preferences.getLifeAutomata().equals(Automata.SERVIETTES.toString())) {
 			iterateBoardServiettes();
 		}
-		if (Preferences.getLifeAutomata().equals("Coral")) {
+		if (Preferences.getLifeAutomata().equals(Automata.CORAL.toString())) {
 			iterateBoardCoral();
+		}
+		if (Preferences.getLifeAutomata().equals(Automata.MOVE.toString())) {
+			iterateBoardMove();
+		}
+		if (Preferences.getLifeAutomata().equals(Automata.ASSIMILATION.toString())) {
+			iterateBoardAssimilation();
 		}
 	}
 
@@ -123,16 +139,6 @@ public class Board {
 			countSurroundingLiveCells++;
 		}
 		return countSurroundingLiveCells;
-	}
-
-	@Deprecated
-	public void printBoard() {
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				System.out.print("(" + i + "," + j + "): " + getCellAt(i, j).getCellState() + "\t");
-			}
-			System.out.print("\n");
-		}
 	}
 
 	/**
@@ -285,7 +291,7 @@ public class Board {
 	}
 
 	/**
-	 * Coral (45678/3): Every alive cell with 4 to 8 alive neighbours dies.
+	 * Coral (45678/3): Every alive cell with 4 to 8 alive neighbours survives.
 	 * Every dead cell with exactly 3 neighbours becomes alvie.
 	 */
 	public void iterateBoardCoral() {
@@ -294,12 +300,60 @@ public class Board {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				// Cell dies
-				if ((countSurroungingLiveCells(i, j) >= 4 && countSurroungingLiveCells(i, j) <= 8)
+				if (countSurroungingLiveCells(i, j) < 4 && board[i][j].getCellState()) {
+					boardIteration[i][j].setCellDead();
+				}
+				// Cell becomes alive
+				if ((countSurroungingLiveCells(i, j) == 3) && !board[i][j].getCellState()) {
+					boardIteration[i][j].setCellAlive();
+				}
+				updateLiveCellCounter(boardIteration, i, j);
+			}
+		}
+		this.board = boardIteration;
+	}
+
+	/**
+	 * Move (245/368): Every alive cell with 2,4 or 5 survives. Dead cells with
+	 * 3, 6 or 8 neighbours becomes alive.
+	 */
+	public void iterateBoardMove() {
+		liveCellCounter = 0;
+		copyBoard();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				// Cell dies
+				if (!(countSurroungingLiveCells(i, j) == 2 || (countSurroungingLiveCells(i, j) == 4 || countSurroungingLiveCells(
+						i, j) == 5)) && board[i][j].getCellState()) {
+					boardIteration[i][j].setCellDead();
+				}
+				// Cell becomes alive
+				if ((countSurroungingLiveCells(i, j) == 3 || countSurroungingLiveCells(i, j) == 6 || countSurroungingLiveCells(
+						i, j) == 8) && !board[i][j].getCellState()) {
+					boardIteration[i][j].setCellAlive();
+				}
+				updateLiveCellCounter(boardIteration, i, j);
+			}
+		}
+		this.board = boardIteration;
+	}
+
+	/**
+	 * Assimilation (4567/345): Any live cell with 4 to 7 alive neighbours
+	 * survives. Any dead cell with 3 to 5 live neighbours comes alive.
+	 */
+	public void iterateBoardAssimilation() {
+		liveCellCounter = 0;
+		copyBoard();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				// Cell dies
+				if (!(countSurroungingLiveCells(i, j) >= 4 && countSurroungingLiveCells(i, j) <= 7)
 						&& board[i][j].getCellState()) {
 					boardIteration[i][j].setCellDead();
 				}
 				// Cell becomes alive
-				if ((countSurroungingLiveCells(i, j) == 3 || countSurroungingLiveCells(i, j) == 6)
+				if ((countSurroungingLiveCells(i, j) >= 3 && countSurroungingLiveCells(i, j) <= 5)
 						&& !board[i][j].getCellState()) {
 					boardIteration[i][j].setCellAlive();
 				}
@@ -315,13 +369,39 @@ public class Board {
 		}
 	}
 
-	public void copyBoard() {
+	private void copyBoard() {
 		boardIteration = new Cell[board.length][board[0].length];
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				Cell cell = new Cell(board[i][j].getCellState());
 				boardIteration[i][j] = cell;
 			}
+		}
+	}
+
+	private void setBoardFromSavedFile(ArrayList<ArrayList<String>> savedBoard) {
+		liveCellCounter = 0;
+		for (int i = 0; i < savedBoard.size(); i++) {
+			for (int j = 0; j < savedBoard.get(i).size(); j++) {
+				Cell cell = new Cell();
+				if (savedBoard.get(i).get(j).equals("o")) {
+					cell.setCellAlive();
+					liveCellCounter++;
+				} else {
+					cell.setCellDead();
+				}
+				board[j][i] = cell;
+			}
+		}
+	}
+
+	@Deprecated
+	public void printBoard() {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				System.out.print("(" + i + "," + j + "): " + getCellAt(i, j).getCellState() + "\t");
+			}
+			System.out.print("\n");
 		}
 	}
 

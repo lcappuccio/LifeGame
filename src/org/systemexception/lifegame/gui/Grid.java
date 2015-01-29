@@ -6,9 +6,11 @@ package org.systemexception.lifegame.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
+import org.systemexception.lifegame.enums.Themes;
 import org.systemexception.lifegame.model.Board;
 
 public class Grid extends JComponent {
@@ -25,6 +27,18 @@ public class Grid extends JComponent {
 		this.board = new Board(gridRows, gridCols);
 		totalLiveCells = board.getCellAliveCount();
 		setColours(colourTheme);
+	}
+
+	public Grid(int cellSize, int gridRows, int gridCols, ArrayList<ArrayList<String>> savedBoard, String automata,
+			String colourTheme) {
+		this.cellSize = cellSize;
+		this.gridRows = gridRows;
+		this.gridCols = gridCols;
+		this.board = new Board(gridRows, gridCols, savedBoard, automata);
+		totalLiveCells = board.getCellAliveCount();
+		setColours(colourTheme);
+		this.paint(getGraphics());
+		;
 	}
 
 	public void setCellValue(int x) {
@@ -60,27 +74,27 @@ public class Grid extends JComponent {
 	 * @param colourTheme
 	 */
 	private void setColours(String colourTheme) {
-		if (colourTheme.equals("B & W")) {
+		if (colourTheme.equals(Themes.BW.toString())) {
 			colorDark = hex2Rgb("#ECECEC");
 			colorLight = Color.DARK_GRAY;
 			colorRect = Color.BLACK;
 		}
-		if (colourTheme.equals("Inverse")) {
+		if (colourTheme.equals(Themes.INVERSE.toString())) {
 			colorDark = Color.DARK_GRAY;
 			colorLight = hex2Rgb("#ECECEC");
 			colorRect = Color.LIGHT_GRAY;
 		}
-		if (colourTheme.equals("Blue")) {
+		if (colourTheme.equals(Themes.BLUE.toString())) {
 			colorDark = hex2Rgb("#19B5FE");
 			colorLight = hex2Rgb("#336E7B");
 			colorRect = hex2Rgb("#446CB3");
 		}
-		if (colourTheme.equals("Green")) {
+		if (colourTheme.equals(Themes.GREEN.toString())) {
 			colorDark = hex2Rgb("#36D7B7");
 			colorLight = hex2Rgb("#1E824C");
 			colorRect = hex2Rgb("#26A65B");
 		}
-		if (colourTheme.equals("Red")) {
+		if (colourTheme.equals(Themes.RED.toString())) {
 			colorDark = hex2Rgb("#EF4836");
 			colorLight = hex2Rgb("#96281B");
 			colorRect = hex2Rgb("#CF000F");

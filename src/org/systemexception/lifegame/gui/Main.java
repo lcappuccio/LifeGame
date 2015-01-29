@@ -25,10 +25,15 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.StringReader;
+import java.util.ArrayList;
+import java.util.Properties;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -38,26 +43,31 @@ import javax.swing.Timer;
 import javax.swing.UIManager;
 import javax.swing.UIManager.LookAndFeelInfo;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
+import org.systemexception.lifegame.enums.GameSpeeds;
 import org.systemexception.lifegame.menu.FileMenu;
+import org.systemexception.lifegame.menu.LifeGameMenu;
 import org.systemexception.lifegame.menu.SpeedMenu;
 
 public class Main {
 
+	public static int metaKey, coordX, coordY;
+	public static JButton btnReset;
+	public static Timer gameTimer;
+	public static final Font MENU_FONT = new Font("Lucida Grande", Font.PLAIN, 12);
+	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();
+	private static final String platform = System.getProperty("os.name").toLowerCase();
 	private JFrame mainAppWindow;
 	private JPanel centerPanel, lowerPanel;
 	private JMenuBar menuBar;
-	private JMenu menuFile, menuSimulation;
+	private JMenu menuLifeGame, menuGameSpeed;
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
 	private JButton btnStart, btnTick, btnStop;
-	public static JButton btnReset;
-	private Grid grid;
-	public static Timer gameTimer;
+	private FileMenu menuFile;
 	private int iterationCounter;
-	private static final int INITIAL_SPEED = 210;
-	private static String platform = System.getProperty("os.name").toLowerCase();
-	public static int metaKey, coordX, coordY;
-	public static final Font MENU_FONT = new Font("Lucida Grande", Font.PLAIN, 12);
+	private Grid grid;
 
 	/**
 	 * Launch the application.
@@ -119,12 +129,16 @@ public class Main {
 		mainAppWindow.getContentPane().add(menuBar);
 		menuBar.setBorderPainted(false);
 
+		// LifeGame menu
+		menuLifeGame = new LifeGameMenu();
+		menuBar.add(menuLifeGame);
 		// File menu
 		menuFile = new FileMenu();
 		menuBar.add(menuFile);
+		menuFileSetOpenAction();
 		// Speed menu
-		menuSimulation = new SpeedMenu();
-		menuBar.add(menuSimulation);
+		menuGameSpeed = new SpeedMenu();
+		menuBar.add(menuGameSpeed);
 
 		// CENTER panel
 		centerPanel = new JPanel();
@@ -133,6 +147,7 @@ public class Main {
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
 				centerPanel.getHeight() / Preferences.getCellSize(), Preferences.getColorTheme());
+		menuFile.setBoard(grid.getBoard());
 		centerPanel.add(grid);
 
 		// LOWER panel
@@ -142,22 +157,11 @@ public class Main {
 		flowLayout.setVgap(0);
 		lowerPanel.setBounds(6, 525, 390, 29);
 		mainAppWindow.getContentPane().add(lowerPanel);
-		btnTick = new JButton("Tick");
-		btnTick.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (gameTimer != null && gameTimer.isRunning()) {
-					btnStart.setEnabled(true);
-					gameTimer.stop();
-				}
-				iterateGrid();
-			}
-		});
 
 		btnStart = new JButton("Start");
-		btnStart.addMouseListener(new MouseAdapter() {
+		btnStart.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				btnStart.setEnabled(false);
 				if (gameTimer == null) {
 					gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
@@ -168,15 +172,23 @@ public class Main {
 			}
 		});
 		lowerPanel.add(btnStart);
-		lowerPanel.add(btnTick);
-		btnStop = new JButton("Stop");
-		btnStop.addMouseListener(new MouseAdapter() {
+		btnTick = new JButton("Tick");
+		btnTick.addActionListener(new ActionListener() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				if (gameTimer != null && gameTimer.isRunning()) {
 					btnStart.setEnabled(true);
 					gameTimer.stop();
 				}
+				iterateGrid();
+			}
+		});
+		lowerPanel.add(btnTick);
+		btnStop = new JButton("Stop");
+		btnStop.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				stopGame();
 			}
 		});
 		lowerPanel.add(btnStop);
@@ -185,11 +197,9 @@ public class Main {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				resetGrid();
-				if (gameTimer != null && gameTimer.isRunning()) {
-					btnStart.setEnabled(true);
-					gameTimer.stop();
-				}
+				stopGame();
 			}
+
 		});
 		lowerPanel.add(btnReset);
 
@@ -215,13 +225,16 @@ public class Main {
 	}
 
 	private void iterateGrid() {
+		menuFile.menuSave.setEnabled(true);
 		grid.iterateBoard();
+		menuFile.setBoard(grid.getBoard());
 		iterationCounter++;
 		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 		lblCountIteration.setText(String.valueOf(iterationCounter));
 	}
 
 	private void resetGrid() {
+		menuFile.menuSave.setEnabled(true);
 		centerPanel.remove(grid);
 		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
 				centerPanel.getHeight() / Preferences.getCellSize(), Preferences.getColorTheme());
@@ -232,13 +245,68 @@ public class Main {
 		lblCountIteration.setText(String.valueOf(iterationCounter));
 	}
 
+	private void stopGame() {
+		menuFile.menuSave.setEnabled(true);
+		menuFile.setBoard(grid.getBoard());
+		if (gameTimer != null && gameTimer.isRunning()) {
+			btnStart.setEnabled(true);
+			gameTimer.stop();
+		}
+	}
+
 	private ActionListener taskPerformer = new ActionListener() {
 		@Override
 		public void actionPerformed(ActionEvent evt) {
+			menuFile.menuSave.setEnabled(false);
 			grid.iterateBoard();
 			iterationCounter++;
 			lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 			lblCountIteration.setText(String.valueOf(iterationCounter));
 		}
 	};
+
+	private void menuFileSetOpenAction() {
+		menuFile.menuOpen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser fileChooser = new JFileChooser();
+				FileFilter fileFilter = new FileNameExtensionFilter("LifeGame", "life");
+				fileChooser.setFileFilter(fileFilter);
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				int result = fileChooser.showOpenDialog(fileChooser);
+				if (result == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();
+					ArrayList<ArrayList<String>> fileContents = new ArrayList<ArrayList<String>>();
+					try {
+						BufferedReader fileReader = new BufferedReader(new FileReader(selectedFile));
+						String line;
+						// Read board settings
+						Properties properties = new Properties();
+						while ((line = fileReader.readLine()) != null) {
+							if (line.startsWith("#")) {
+								properties.load(new StringReader(line.replace("#", "")));
+							} else {
+								ArrayList<String> fileLine = new ArrayList<String>();
+								for (int i = 0; i < line.length(); i++) {
+									fileLine.add(String.valueOf(line.charAt(i)));
+								}
+								fileContents.add(fileLine);
+							}
+						}
+						fileReader.close();
+						int cellSize = Integer.valueOf(properties.getProperty("cellSize"));
+						int gridCols = Integer.valueOf(properties.getProperty("cols"));
+						int gridRows = Integer.valueOf(properties.getProperty("rows"));
+						String automata = properties.getProperty("automata");
+						String theme = properties.getProperty("theme");
+						centerPanel.remove(grid);
+						grid = new Grid(cellSize, gridRows, gridCols, fileContents, automata, theme);
+						centerPanel.add(grid);
+						lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+					} catch (Exception fileException) {
+						fileException.printStackTrace();
+					}
+				}
+			}
+		});
+	}
 }
