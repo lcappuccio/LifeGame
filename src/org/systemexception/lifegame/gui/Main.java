@@ -215,6 +215,7 @@ public class Main {
 	}
 
 	private void iterateGrid() {
+		menuFile.menuSave.setEnabled(true);
 		grid.iterateBoard();
 		menuFile.setBoard(grid.getBoard());
 		iterationCounter++;
@@ -223,6 +224,7 @@ public class Main {
 	}
 
 	private void resetGrid() {
+		menuFile.menuSave.setEnabled(true);
 		centerPanel.remove(grid);
 		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
 				centerPanel.getHeight() / Preferences.getCellSize(), Preferences.getColorTheme());
@@ -231,6 +233,15 @@ public class Main {
 		iterationCounter = 0;
 		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 		lblCountIteration.setText(String.valueOf(iterationCounter));
+	}
+
+	private void stopGame() {
+		menuFile.menuSave.setEnabled(true);
+		menuFile.setBoard(grid.getBoard());
+		if (gameTimer != null && gameTimer.isRunning()) {
+			btnStart.setEnabled(true);
+			gameTimer.stop();
+		}
 	}
 
 	private ActionListener taskPerformer = new ActionListener() {
@@ -243,13 +254,4 @@ public class Main {
 			lblCountIteration.setText(String.valueOf(iterationCounter));
 		}
 	};
-
-	private void stopGame() {
-		menuFile.menuSave.setEnabled(true);
-		menuFile.setBoard(grid.getBoard());
-		if (gameTimer != null && gameTimer.isRunning()) {
-			btnStart.setEnabled(true);
-			gameTimer.stop();
-		}
-	}
 }
