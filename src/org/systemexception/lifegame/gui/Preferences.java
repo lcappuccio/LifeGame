@@ -57,6 +57,10 @@ public class Preferences extends JFrame {
 		Preferences.lifeAutomata = String.valueOf(prefsAutomataSelector.getSelectedItem());
 	}
 
+	public static void setLifeAutomata(String automata) {
+		Preferences.lifeAutomata = automata;
+	}
+
 	public static int getCellLifeProbability() {
 		return cellLifeProbability;
 	}
