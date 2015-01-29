@@ -60,7 +60,7 @@ public class Grid extends JComponent {
 	 * 
 	 * @param colourTheme
 	 */
-	private void setColours(String colourTheme) {
+	public void setColours(String colourTheme) {
 		if (colourTheme.equals(Themes.BW.toString())) {
 			colorDark = hex2Rgb("#ECECEC");
 			colorLight = Color.DARK_GRAY;

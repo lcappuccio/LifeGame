@@ -288,16 +288,18 @@ public class Main {
 						}
 						while ((line = fileReader.readLine()) != null) {
 							fileContents.add(line);
-							System.out.println(line);
 						}
 						fileReader.close();
-						for (int i = 0; i < fileContents.size(); i++) {
-							System.out.print(i + ": ");
-							for (int j = 0; j < fileContents.get(i).length(); j++) {
-								System.out.print(fileContents.get(i).charAt(j));
-							}
-							System.out.print("\n");
-						}
+						grid.setColours(properties.getProperty("theme"));
+						grid.repaint();
+						// for (int i = 0; i < fileContents.size(); i++) {
+						// System.out.print(i + ": ");
+						// for (int j = 0; j < fileContents.get(i).length();
+						// j++) {
+						// System.out.print(fileContents.get(i).charAt(j));
+						// }
+						// System.out.print("\n");
+						// }
 					} catch (Exception fileException) {
 						System.err.format("Exception occurred trying to read '%s'.", selectedFile);
 						fileException.printStackTrace();
