@@ -6,6 +6,7 @@ package org.systemexception.lifegame.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
@@ -25,6 +26,16 @@ public class Grid extends JComponent {
 		this.gridCols = gridCols;
 		this.board = new Board(gridRows, gridCols);
 		totalLiveCells = board.getCellAliveCount();
+		setColours(colourTheme);
+	}
+
+	public Grid(int cellSize, int gridRows, int gridCols, ArrayList<ArrayList<String>> savedBoard, String automata,
+			String colourTheme) {
+		this.cellSize = cellSize;
+		this.gridRows = gridRows;
+		this.gridCols = gridCols;
+		this.board = new Board(gridRows, gridCols, savedBoard, automata);
+		// totalLiveCells = board.getCellAliveCount();
 		setColours(colourTheme);
 	}
 
@@ -60,7 +71,7 @@ public class Grid extends JComponent {
 	 * 
 	 * @param colourTheme
 	 */
-	public void setColours(String colourTheme) {
+	private void setColours(String colourTheme) {
 		if (colourTheme.equals(Themes.BW.toString())) {
 			colorDark = hex2Rgb("#ECECEC");
 			colorLight = Color.DARK_GRAY;

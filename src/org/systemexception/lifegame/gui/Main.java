@@ -30,7 +30,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.StringReader;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 import javax.swing.JButton;
@@ -67,7 +66,6 @@ public class Main {
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
 	private JButton btnStart, btnTick, btnStop;
 	private FileMenu menuFile;
-	private Properties properties;
 	private int iterationCounter;
 	private Grid grid;
 
@@ -277,29 +275,32 @@ public class Main {
 				int result = fileChooser.showOpenDialog(fileChooser);
 				if (result == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = fileChooser.getSelectedFile();
-					List<String> fileContents = new ArrayList<String>();
+					ArrayList<ArrayList<String>> fileContents = new ArrayList<ArrayList<String>>();
 					try {
 						BufferedReader fileReader = new BufferedReader(new FileReader(selectedFile));
 						String line;
 						// Read board settings
-						properties = new Properties();
-						while ((line = fileReader.readLine()).startsWith("#")) {
-							properties.load(new StringReader(line.replace("#", "")));
-						}
+						Properties properties = new Properties();
 						while ((line = fileReader.readLine()) != null) {
-							fileContents.add(line);
+							if (line.startsWith("#")) {
+								properties.load(new StringReader(line.replace("#", "")));
+							} else {
+								ArrayList<String> fileLine = new ArrayList<String>();
+								for (int i = 0; i < line.length(); i++) {
+									fileLine.add(String.valueOf(line.charAt(i)));
+								}
+								fileContents.add(fileLine);
+							}
 						}
 						fileReader.close();
-						grid.setColours(properties.getProperty("theme"));
+						int cellSize = Integer.valueOf(properties.getProperty("cellSize"));
+						int gridCols = Integer.valueOf(properties.getProperty("cols"));
+						int gridRows = Integer.valueOf(properties.getProperty("rows"));
+						String automata = properties.getProperty("automata");
+						String theme = properties.getProperty("theme");
+						grid = new Grid(cellSize, gridRows, gridCols, fileContents, automata, theme);
 						grid.repaint();
-						// for (int i = 0; i < fileContents.size(); i++) {
-						// System.out.print(i + ": ");
-						// for (int j = 0; j < fileContents.get(i).length();
-						// j++) {
-						// System.out.print(fileContents.get(i).charAt(j));
-						// }
-						// System.out.print("\n");
-						// }
+
 					} catch (Exception fileException) {
 						System.err.format("Exception occurred trying to read '%s'.", selectedFile);
 						fileException.printStackTrace();

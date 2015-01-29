@@ -4,6 +4,8 @@
  */
 package org.systemexception.lifegame.model;
 
+import java.util.ArrayList;
+
 import org.systemexception.lifegame.enums.Automata;
 import org.systemexception.lifegame.gui.Preferences;
 
@@ -21,6 +23,13 @@ public class Board {
 		this.rows = rows;
 		this.cols = cols;
 		generateBoard(rows, cols);
+	}
+
+	public Board(int rows, int cols, ArrayList<ArrayList<String>> savedBoard, String automata) {
+		board = new Cell[rows][cols];
+		this.rows = rows;
+		this.cols = cols;
+		setBoardFromSavedFile(savedBoard);
 	}
 
 	public void iterateBoard() {
@@ -130,16 +139,6 @@ public class Board {
 			countSurroundingLiveCells++;
 		}
 		return countSurroundingLiveCells;
-	}
-
-	@Deprecated
-	public void printBoard() {
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				System.out.print("(" + i + "," + j + "): " + getCellAt(i, j).getCellState() + "\t");
-			}
-			System.out.print("\n");
-		}
 	}
 
 	/**
@@ -370,13 +369,39 @@ public class Board {
 		}
 	}
 
-	public void copyBoard() {
+	private void copyBoard() {
 		boardIteration = new Cell[board.length][board[0].length];
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				Cell cell = new Cell(board[i][j].getCellState());
 				boardIteration[i][j] = cell;
 			}
+		}
+	}
+
+	private void setBoardFromSavedFile(ArrayList<ArrayList<String>> savedBoard) {
+		System.out.println("LOADED BOARD");
+		for (int i = 0; i < savedBoard.size(); i++) {
+			for (int j = 0; j < savedBoard.get(i).size(); j++) {
+				if (savedBoard.get(i).get(j).equals("o")) {
+
+				} else {
+
+				}
+				System.out.print(savedBoard.get(i).get(j));
+			}
+			System.out.println();
+		}
+		// printBoard();
+	}
+
+	@Deprecated
+	public void printBoard() {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				System.out.print("(" + i + "," + j + "): " + getCellAt(i, j).getCellState() + "\t");
+			}
+			System.out.print("\n");
 		}
 	}
 
