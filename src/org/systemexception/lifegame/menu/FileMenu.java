@@ -7,10 +7,14 @@ package org.systemexception.lifegame.menu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 import javax.swing.JMenu;
@@ -48,13 +52,24 @@ public class FileMenu extends JMenu {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				// int result =
-				// fileChooser.showOpenDialog(getParent().getComponent(1));
-				// if (result == JFileChooser.APPROVE_OPTION) {
-				// File selectedFile = fileChooser.getSelectedFile();
-				// System.out.println("Selected file: " +
-				// selectedFile.getAbsolutePath());
-				// }
+				int result = fileChooser.showOpenDialog(getParent().getComponent(1));
+				if (result == JFileChooser.APPROVE_OPTION) {
+					File selectedFile = fileChooser.getSelectedFile();
+					System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+					List<String> fileContents = new ArrayList<String>();
+					try {
+						BufferedReader reader = new BufferedReader(new FileReader(selectedFile));
+						String line;
+						while ((line = reader.readLine()) != null) {
+							fileContents.add(line);
+							System.out.println(line);
+						}
+						reader.close();
+					} catch (Exception fileException) {
+						System.err.format("Exception occurred trying to read '%s'.", selectedFile);
+						fileException.printStackTrace();
+					}
+				}
 			}
 		});
 		return (menuOpen);
@@ -65,9 +80,10 @@ public class FileMenu extends JMenu {
 		menuSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Main.metaKey));
 		menuSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser chooser = new JFileChooser();
-				chooser.showSaveDialog(null);
-				File file = chooser.getSelectedFile();
+				JFileChooser fileChooser = new JFileChooser();
+				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+				fileChooser.showSaveDialog(null);
+				File file = fileChooser.getSelectedFile();
 				boolean exists = true;
 				// Check if file exists
 				if (file != null) {
@@ -77,9 +93,7 @@ public class FileMenu extends JMenu {
 					int response = JOptionPane.showConfirmDialog(null,
 							"Are you sure you want to override existing file?", "Confirm", JOptionPane.YES_NO_OPTION,
 							JOptionPane.QUESTION_MESSAGE);
-					if (response == JOptionPane.NO_OPTION) {
-						// No! What else?
-					} else if (response == JOptionPane.YES_OPTION) {
+					if (response == JOptionPane.YES_OPTION) {
 						file.delete();
 						saveFile(file);
 					}
@@ -98,7 +112,7 @@ public class FileMenu extends JMenu {
 		try {
 			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
 			PrintWriter fileWriter = new PrintWriter(bufferedWriter);
-			// Print board properties first
+			// Save board properties first
 			fileWriter.print("cols=" + board.getBoardCols() + lineSeparator);
 			fileWriter.print("rows=" + board.getBoardRows() + lineSeparator);
 			fileWriter.print("cellSize=" + Preferences.getCellSize() + lineSeparator);
@@ -116,8 +130,8 @@ public class FileMenu extends JMenu {
 				fileWriter.print(lineSeparator);
 			}
 			fileWriter.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception fileException) {
+			fileException.printStackTrace();
 		}
 	}
 }
