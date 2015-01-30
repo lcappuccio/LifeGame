@@ -6,12 +6,15 @@ package org.systemexception.lifegame.gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
 import org.systemexception.lifegame.enums.Themes;
 import org.systemexception.lifegame.model.Board;
+import org.systemexception.lifegame.model.Cell;
 
 public class Grid extends JComponent {
 
@@ -25,6 +28,34 @@ public class Grid extends JComponent {
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
 		this.board = new Board(gridRows, gridCols);
+		this.addMouseListener(new MouseListener() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Cell cell = board.getCellAt(e.getX() / cellSize, e.getY() / cellSize);
+				if (cell.getCellState()) {
+					cell.setCellDead();
+				} else {
+					cell.setCellAlive();
+				}
+				getParent().repaint();
+			}
+
+			@Override
+			public void mousePressed(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseReleased(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+			}
+		});
 		totalLiveCells = board.getCellAliveCount();
 		setColours(colourTheme);
 	}
