@@ -47,6 +47,7 @@ import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import org.systemexception.lifegame.enums.GameSpeeds;
+import org.systemexception.lifegame.enums.SavedBoardProperties;
 import org.systemexception.lifegame.menu.FileMenu;
 import org.systemexception.lifegame.menu.LifeGameMenu;
 import org.systemexception.lifegame.menu.SpeedMenu;
@@ -56,7 +57,8 @@ public class Main {
 	public static int metaKey, coordX, coordY;
 	public static JButton btnReset;
 	public static Timer gameTimer;
-	public static final Font MENU_FONT = new Font("Lucida Grande", Font.PLAIN, 12);
+	public static final Font MENU_FONT = new Font("Lucida Grande", Font.PLAIN, 12), labelFont = new Font(
+			"Lucida Grande", Font.PLAIN, 10);
 	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();
 	private static final String platform = System.getProperty("os.name").toLowerCase();
 	private JFrame mainAppWindow;
@@ -207,21 +209,21 @@ public class Main {
 		lblLiveCells = new JLabel("Live Cells:");
 		lblLiveCells.setBounds(506, 533, 75, 13);
 		mainAppWindow.getContentPane().add(lblLiveCells);
-		lblLiveCells.setFont(new Font("Lucida Grande", Font.BOLD, 10));
+		lblLiveCells.setFont(labelFont);
 		lblCountLiveCells = new JLabel(String.valueOf(grid.getTotalLiveCells()));
 		lblCountLiveCells.setBounds(593, 533, 51, 13);
 		mainAppWindow.getContentPane().add(lblCountLiveCells);
-		lblCountLiveCells.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		lblCountLiveCells.setFont(labelFont);
 
 		// Iteration counter
 		lblIteration = new JLabel("Iteration:");
 		lblIteration.setBounds(656, 533, 75, 13);
 		mainAppWindow.getContentPane().add(lblIteration);
-		lblIteration.setFont(new Font("Lucida Grande", Font.BOLD, 10));
+		lblIteration.setFont(labelFont);
 		lblCountIteration = new JLabel("0");
 		lblCountIteration.setBounds(743, 533, 51, 13);
 		mainAppWindow.getContentPane().add(lblCountIteration);
-		lblCountIteration.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		lblCountIteration.setFont(labelFont);
 	}
 
 	private void iterateGrid() {
@@ -293,11 +295,11 @@ public class Main {
 							}
 						}
 						fileReader.close();
-						int cellSize = Integer.valueOf(properties.getProperty("cellSize"));
-						int gridCols = Integer.valueOf(properties.getProperty("cols"));
-						int gridRows = Integer.valueOf(properties.getProperty("rows"));
-						String automata = properties.getProperty("automata");
-						String theme = properties.getProperty("theme");
+						int cellSize = Integer.valueOf(properties.getProperty(SavedBoardProperties.CELLSIZE.toString()));
+						int gridCols = Integer.valueOf(properties.getProperty(SavedBoardProperties.COLS.toString()));
+						int gridRows = Integer.valueOf(properties.getProperty(SavedBoardProperties.ROWS.toString()));
+						String automata = properties.getProperty(SavedBoardProperties.AUTOMATA.toString());
+						String theme = properties.getProperty(SavedBoardProperties.THEME.toString());
 						centerPanel.remove(grid);
 						grid = new Grid(cellSize, gridRows, gridCols, fileContents, automata, theme);
 						centerPanel.add(grid);
