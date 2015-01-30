@@ -19,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
 
+import org.systemexception.lifegame.enums.SavedBoardProperties;
 import org.systemexception.lifegame.gui.Main;
 import org.systemexception.lifegame.gui.Preferences;
 import org.systemexception.lifegame.model.Board;
@@ -89,11 +90,11 @@ public class FileMenu extends JMenu {
 			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
 			PrintWriter fileWriter = new PrintWriter(bufferedWriter);
 			// Save board properties first
-			fileWriter.print("#cols=" + board.getBoardCols() + lineSeparator);
-			fileWriter.print("#rows=" + board.getBoardRows() + lineSeparator);
-			fileWriter.print("#cellSize=" + Preferences.getCellSize() + lineSeparator);
-			fileWriter.print("#automata=" + Preferences.getLifeAutomata() + lineSeparator);
-			fileWriter.print("#theme=" + Preferences.getColorTheme() + lineSeparator);
+			fileWriter.print("#" + SavedBoardProperties.COLS + "=" + board.getBoardCols() + lineSeparator);
+			fileWriter.print("#" + SavedBoardProperties.ROWS + "=" + board.getBoardRows() + lineSeparator);
+			fileWriter.print("#" + SavedBoardProperties.CELLSIZE + "=" + Preferences.getCellSize() + lineSeparator);
+			fileWriter.print("#" + SavedBoardProperties.AUTOMATA + "=" + Preferences.getLifeAutomata() + lineSeparator);
+			fileWriter.print("#" + SavedBoardProperties.THEME + "=" + Preferences.getColorTheme() + lineSeparator);
 			for (int i = 0; i < board.getBoardCols(); i++) {
 				for (int j = 0; j < board.getBoardRows(); j++) {
 					if (board.getCellAt(j, i).getCellState()) {
