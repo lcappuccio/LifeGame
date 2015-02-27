@@ -10,8 +10,8 @@ import org.systemexception.lifegame.model.Cell;
 
 public class TestGrid {
 
-	private int cellSize = 10, gridRows = 10, gridCols = 5;
-	private Grid sut = new Grid(cellSize, gridRows, gridCols, "B & W");
+	private final int cellSize = 10, gridRows = 10, gridCols = 5;
+	private final Grid sut = new Grid(cellSize, gridRows, gridCols, "B & W");
 
 	@Test
 	public void testGridExists() {

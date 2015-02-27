@@ -7,27 +7,30 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 @SuppressWarnings("serial")
-public class TestDrawRectangle extends JPanel {
+public final class TestDrawRectangle extends JPanel {
 
-	private int x, y, sizeX, sizeY;
-	
+	private final int x, y, sizeX, sizeY;
+
 	@Override
-    public Dimension getMinimumSize() {
-        return new Dimension(5, 5);
-    }
+	public Dimension getMinimumSize() {
+		return new Dimension(5, 5);
+	}
 
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(10, 10);
-    }
+	@Override
+	public Dimension getPreferredSize() {
+		return new Dimension(10, 10);
+	}
 
-    @Override
-    public Dimension getMaximumSize() {
-        return new Dimension(30, 30);
-    }
+	@Override
+	public Dimension getMaximumSize() {
+		return new Dimension(30, 30);
+	}
 
 	/**
 	 * Create the panel.
+	 *
+	 * @param x
+	 * @param y
 	 */
 	public TestDrawRectangle(int x, int y) {
 		this.x = x;

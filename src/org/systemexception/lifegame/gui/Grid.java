@@ -70,7 +70,6 @@ public class Grid extends JComponent {
 		totalLiveCells = board.getCellAliveCount();
 		setColours(colourTheme);
 		this.paint(getGraphics());
-		;
 	}
 
 	public void setCellValue(int x) {

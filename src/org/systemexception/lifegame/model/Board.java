@@ -12,7 +12,8 @@ import org.systemexception.lifegame.gui.Preferences;
 public class Board {
 
 	private Cell[][] board, boardIteration;
-	private int rows, cols, countSurroundingLiveCells = 0, liveCellCounter = 0;
+	private final int rows, cols;
+	private int countSurroundingLiveCells = 0, liveCellCounter = 0;
 
 	public Cell[][] getBoard() {
 		return board;
@@ -407,14 +408,14 @@ public class Board {
 
 	@Deprecated
 	public int getLiveCellCount() {
-		int liveCellCounter = 0;
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				if (board[i][j].getCellState()) {
-					liveCellCounter++;
+		int testCellCounter = 0;
+		for (Cell[] boardRow : board) {
+			for (Cell boardRowCell : boardRow) {
+				if (boardRowCell.getCellState()) {
+					testCellCounter++;
 				}
 			}
 		}
-		return liveCellCounter;
+		return testCellCounter;
 	}
 }

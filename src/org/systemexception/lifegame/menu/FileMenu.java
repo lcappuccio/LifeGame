@@ -29,7 +29,7 @@ public class FileMenu extends JMenu {
 	private static final long serialVersionUID = 2938775479619929623L;
 	public JMenuItem menuOpen, menuSave;
 	private Board board;
-	private String lineSeparator = System.getProperty("line.separator");
+	private final String lineSeparator = System.getProperty("line.separator");
 
 	public FileMenu() {
 		UIManager.put("FileChooser.readOnly", Boolean.FALSE);
@@ -52,6 +52,7 @@ public class FileMenu extends JMenu {
 		menuSave = new JMenuItem("Save");
 		menuSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Main.metaKey));
 		menuSave.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
 				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
@@ -88,26 +89,27 @@ public class FileMenu extends JMenu {
 				file = new File(fileName + ".life");
 			}
 			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
-			PrintWriter fileWriter = new PrintWriter(bufferedWriter);
 			// Save board properties first
-			fileWriter.print("#" + SavedBoardProperties.COLS + "=" + board.getBoardCols() + lineSeparator);
-			fileWriter.print("#" + SavedBoardProperties.ROWS + "=" + board.getBoardRows() + lineSeparator);
-			fileWriter.print("#" + SavedBoardProperties.CELLSIZE + "=" + Preferences.getCellSize() + lineSeparator);
-			fileWriter.print("#" + SavedBoardProperties.AUTOMATA + "=" + Preferences.getLifeAutomata() + lineSeparator);
-			fileWriter.print("#" + SavedBoardProperties.THEME + "=" + Preferences.getColorTheme() + lineSeparator);
-			for (int i = 0; i < board.getBoardCols(); i++) {
-				for (int j = 0; j < board.getBoardRows(); j++) {
-					if (board.getCellAt(j, i).getCellState()) {
-						fileWriter.print("o");
-					} else {
-						fileWriter.print(".");
+			try (PrintWriter fileWriter = new PrintWriter(bufferedWriter)) {
+				// Save board properties first
+				fileWriter.print("#" + SavedBoardProperties.COLS + "=" + board.getBoardCols() + lineSeparator);
+				fileWriter.print("#" + SavedBoardProperties.ROWS + "=" + board.getBoardRows() + lineSeparator);
+				fileWriter.print("#" + SavedBoardProperties.CELLSIZE + "=" + Preferences.getCellSize() + lineSeparator);
+				fileWriter.print("#" + SavedBoardProperties.AUTOMATA + "=" + Preferences.getLifeAutomata() + lineSeparator);
+				fileWriter.print("#" + SavedBoardProperties.THEME + "=" + Preferences.getColorTheme() + lineSeparator);
+				for (int i = 0; i < board.getBoardCols(); i++) {
+					for (int j = 0; j < board.getBoardRows(); j++) {
+						if (board.getCellAt(j, i).getCellState()) {
+							fileWriter.print("o");
+						} else {
+							fileWriter.print(".");
+						}
 					}
+					fileWriter.print(lineSeparator);
 				}
-				fileWriter.print(lineSeparator);
 			}
-			fileWriter.close();
 		} catch (Exception fileException) {
-			fileException.printStackTrace();
+			fileException.printStackTrace(System.out);
 		}
 	}
 }

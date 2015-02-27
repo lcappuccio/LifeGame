@@ -34,6 +34,7 @@ public class LifeGameMenu extends JMenu {
 		menuAbout = new JMenuItem("About");
 		menuAbout.addActionListener(new ActionListener() {
 			// About window
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				About about = new About();
 				about.setBounds(Main.coordX + 50, Main.coordY + 50, about.getWidth(), about.getHeight());
@@ -49,6 +50,7 @@ public class LifeGameMenu extends JMenu {
 		menuPreferences = new JMenuItem("Preferences");
 		menuPreferences.addActionListener(new ActionListener() {
 			// Preferences window
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				preferencesWindow.setVisible(true);
 				preferencesWindow.setBounds(Main.coordX + 40, Main.coordY + 40, preferencesWindow.getWidth(),
@@ -63,6 +65,7 @@ public class LifeGameMenu extends JMenu {
 		menuQuit = new JMenuItem("Quit");
 		menuQuit.addActionListener(new ActionListener() {
 			// Quit application
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
 			}

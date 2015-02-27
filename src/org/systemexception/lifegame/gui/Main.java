@@ -1,21 +1,20 @@
 /*
-    LifeGame
-    Copyright (C) 2014 Leonardo Cappuccio
+ LifeGame
+ Copyright (C) 2014 Leonardo Cappuccio
 
-    This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
+ This program is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ You should have received a copy of the GNU General Public License
+ along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 package org.systemexception.lifegame.gui;
 
 import java.awt.BorderLayout;
@@ -28,6 +27,7 @@ import java.awt.event.InputEvent;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -73,6 +73,8 @@ public class Main {
 
 	/**
 	 * Launch the application.
+	 *
+	 * @param args
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -82,7 +84,7 @@ public class Main {
 					Main window = new Main();
 					window.mainAppWindow.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					e.printStackTrace(System.out);
 				}
 			}
 		});
@@ -97,9 +99,8 @@ public class Main {
 			if ("Nimbus".equals(info.getName())) {
 				try {
 					UIManager.setLookAndFeel(info.getClassName());
-				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException
-						| UnsupportedLookAndFeelException e) {
-					e.printStackTrace();
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+					e.printStackTrace(System.out);
 				}
 				break;
 			}
@@ -269,6 +270,7 @@ public class Main {
 
 	private void menuFileSetOpenAction() {
 		menuFile.menuOpen.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser fileChooser = new JFileChooser();
 				FileFilter fileFilter = new FileNameExtensionFilter("LifeGame", "life");
@@ -277,24 +279,25 @@ public class Main {
 				int result = fileChooser.showOpenDialog(fileChooser);
 				if (result == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = fileChooser.getSelectedFile();
-					ArrayList<ArrayList<String>> fileContents = new ArrayList<ArrayList<String>>();
+					ArrayList<ArrayList<String>> fileContents = new ArrayList<>();
 					try {
-						BufferedReader fileReader = new BufferedReader(new FileReader(selectedFile));
-						String line;
-						// Read board settings
-						Properties properties = new Properties();
-						while ((line = fileReader.readLine()) != null) {
-							if (line.startsWith("#")) {
-								properties.load(new StringReader(line.replace("#", "")));
-							} else {
-								ArrayList<String> fileLine = new ArrayList<String>();
-								for (int i = 0; i < line.length(); i++) {
-									fileLine.add(String.valueOf(line.charAt(i)));
+						Properties properties;
+						try (BufferedReader fileReader = new BufferedReader(new FileReader(selectedFile))) {
+							String line;
+							// Read board settings
+							properties = new Properties();
+							while ((line = fileReader.readLine()) != null) {
+								if (line.startsWith("#")) {
+									properties.load(new StringReader(line.replace("#", "")));
+								} else {
+									ArrayList<String> fileLine = new ArrayList<>();
+									for (int i = 0; i < line.length(); i++) {
+										fileLine.add(String.valueOf(line.charAt(i)));
+									}
+									fileContents.add(fileLine);
 								}
-								fileContents.add(fileLine);
 							}
 						}
-						fileReader.close();
 						int cellSize = Integer.valueOf(properties.getProperty(SavedBoardProperties.CELLSIZE.toString()));
 						int gridCols = Integer.valueOf(properties.getProperty(SavedBoardProperties.COLS.toString()));
 						int gridRows = Integer.valueOf(properties.getProperty(SavedBoardProperties.ROWS.toString()));
@@ -305,8 +308,8 @@ public class Main {
 						centerPanel.add(grid);
 						lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 						Preferences.setLifeAutomata(automata);
-					} catch (Exception fileException) {
-						fileException.printStackTrace();
+					} catch (IOException | NumberFormatException fileException) {
+						fileException.printStackTrace(System.out);
 					}
 				}
 			}
