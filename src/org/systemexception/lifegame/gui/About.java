@@ -6,9 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-@SuppressWarnings("serial")
 public class About extends JFrame {
 
+	private static final long serialVersionUID = -2382552714035702227L;
 	private static final int WINDOW_WIDTH = 300, WINDOW_HEIGHT = 100;
 	private static final JLabel LABEL_TITLE = new JLabel("LifeGame - Java Conway's Game of Life"),
 			LABEL_COPYRIGHT = new JLabel("Copyright © 2014 - Leonardo Cappuccio"), LABEL_LICENSE = new JLabel(

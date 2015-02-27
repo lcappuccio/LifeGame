@@ -6,9 +6,9 @@ import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
-@SuppressWarnings("serial")
 public final class TestDrawRectangle extends JPanel {
 
+	private static final long serialVersionUID = 8786350553649412520L;
 	private final int x, y, sizeX, sizeY;
 
 	@Override
