@@ -19,11 +19,12 @@ import org.systemexception.lifegame.model.Cell;
 public class Grid extends JComponent {
 
 	private static final long serialVersionUID = 7546830315256844429L;
-	private int cellSize, gridRows, gridCols, totalLiveCells;
+	private int cellSize, totalLiveCells;
+	private final int gridRows, gridCols;
 	private Board board;
 	private Color colorDark = Color.DARK_GRAY, colorLight = Color.WHITE, colorRect = Color.LIGHT_GRAY;
 
-	public Grid(int cellSize, int gridRows, int gridCols, String colourTheme) {
+	public Grid(final int cellSize, int gridRows, int gridCols, String colourTheme) {
 		this.cellSize = cellSize;
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
@@ -101,7 +102,7 @@ public class Grid extends JComponent {
 
 	/**
 	 * Colours from: http://www.flatuicolorpicker.com
-	 * 
+	 *
 	 * @param colourTheme
 	 */
 	private void setColours(String colourTheme) {
@@ -136,9 +137,9 @@ public class Grid extends JComponent {
 	 * As seen on:
 	 * http://stackoverflow.com/questions/4129666/how-to-convert-hex-
 	 * to-rgb-using-java
-	 * 
+	 *
 	 * @param colorStr
-	 *            e.g. "#FFFFFF"
+	 * e.g. "#FFFFFF"
 	 * @return
 	 */
 	private static Color hex2Rgb(String colorStr) {
