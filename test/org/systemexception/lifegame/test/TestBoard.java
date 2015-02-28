@@ -2,7 +2,7 @@
  * @author leo
  * Nov 9, 2014 1:27:42 PM
  */
-package org.lifegame.systemexception.test;
+package org.systemexception.lifegame.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

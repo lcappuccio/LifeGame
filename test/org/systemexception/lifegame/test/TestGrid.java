@@ -1,4 +1,4 @@
-package org.lifegame.systemexception.test;
+package org.systemexception.lifegame.test;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;

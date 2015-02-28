@@ -1,4 +1,4 @@
-package org.lifegame.systemexception.test;
+package org.systemexception.lifegame.test;
 
 import java.awt.Color;
 import java.awt.Dimension;
