@@ -79,7 +79,7 @@ public class TestBoard {
 
 	@Test
 	public void testVerticalOscillator() {
-		Board sut = new Board(3, 3);
+		sut = new Board(3, 3);
 		sut.getCellAt(0, 0).setCellDead();
 		sut.getCellAt(0, 1).setCellAlive();
 		sut.getCellAt(0, 2).setCellDead();
