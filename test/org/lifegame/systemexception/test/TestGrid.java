@@ -43,10 +43,10 @@ public class TestGrid {
 
 	@Test
 	public void testChangeCellSize() {
-		int cellSize = sut.getCellSize();
-		Grid sut = new Grid(5, gridRows, gridCols, "B & W");
-		int cellSizeNew = sut.getCellSize();
-		assertTrue(cellSize != cellSizeNew);
+		int innerCellSize = sut.getCellSize();
+		Grid innerSut = new Grid(5, gridRows, gridCols, "B & W");
+		int cellSizeNew = innerSut.getCellSize();
+		assertTrue(innerCellSize != cellSizeNew);
 	}
 
 }
