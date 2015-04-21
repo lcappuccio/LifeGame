@@ -3,3 +3,4 @@ bin
 /nbproject/private/
 /build/
 /dist/
+.jacocoverage
