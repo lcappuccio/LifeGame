@@ -4,21 +4,18 @@
  */
 package org.systemexception.lifegame.gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-
-import javax.swing.JComponent;
-
 import org.systemexception.lifegame.enums.Themes;
 import org.systemexception.lifegame.model.Board;
 import org.systemexception.lifegame.model.Cell;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+
 public class Grid extends JComponent {
 
-	private static final long serialVersionUID = 7546830315256844429L;
 	private int cellSize, totalLiveCells;
 	private final int gridRows, gridCols;
 	private Board board;

@@ -2,17 +2,14 @@
  * @author leo
  * Nov 9, 2014 1:27:42 PM
  */
-package org.systemexception.lifegame.test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
+package test;
 
 import org.junit.Ignore;
 import org.junit.Test;
 import org.systemexception.lifegame.model.Board;
 import org.systemexception.lifegame.model.Cell;
+
+import static org.junit.Assert.*;
 
 public class BoardTest {
 

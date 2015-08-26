@@ -1,14 +1,10 @@
 package org.systemexception.lifegame.gui;
 
-import java.awt.Font;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+import java.awt.*;
 
 public class About extends JFrame {
 
-	private static final long serialVersionUID = -2382552714035702227L;
 	private final int windowWidth = 300, windowHeight = 100;
 	private final JLabel labelTitle = new JLabel("LifeGame - Java Conway's Game of Life"),
 			labelCopyright = new JLabel("Copyright © 2014 - Leonardo Cappuccio"), labelLicense = new JLabel(

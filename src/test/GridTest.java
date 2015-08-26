@@ -1,12 +1,12 @@
-package org.systemexception.lifegame.test;
-
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+package test;
 
 import org.junit.Test;
 import org.systemexception.lifegame.gui.Grid;
 import org.systemexception.lifegame.model.Board;
 import org.systemexception.lifegame.model.Cell;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class GridTest {
 

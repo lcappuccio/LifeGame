@@ -9,7 +9,7 @@ public enum Themes {
 	
 	private final String theme;
 
-    private Themes(final String theme) {
+    Themes(final String theme) {
         this.theme = theme;
     }
 

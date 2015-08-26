@@ -11,7 +11,7 @@ public enum Automata {
 
 	private final String automata;
 
-	private Automata(final String automata) {
+	Automata(final String automata) {
 		this.automata = automata;
 	}
 

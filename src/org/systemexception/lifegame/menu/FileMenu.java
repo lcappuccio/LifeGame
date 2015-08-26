@@ -4,6 +4,12 @@
  */
 package org.systemexception.lifegame.menu;
 
+import org.systemexception.lifegame.enums.SavedBoardProperties;
+import org.systemexception.lifegame.gui.Main;
+import org.systemexception.lifegame.gui.Preferences;
+import org.systemexception.lifegame.model.Board;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -12,21 +18,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 
-import javax.swing.JFileChooser;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.KeyStroke;
-import javax.swing.UIManager;
-
-import org.systemexception.lifegame.enums.SavedBoardProperties;
-import org.systemexception.lifegame.gui.Main;
-import org.systemexception.lifegame.gui.Preferences;
-import org.systemexception.lifegame.model.Board;
-
 public class FileMenu extends JMenu {
 
-	private static final long serialVersionUID = 2938775479619929623L;
 	public JMenuItem menuOpen, menuSave;
 	private Board board;
 	private final String lineSeparator = System.getProperty("line.separator");

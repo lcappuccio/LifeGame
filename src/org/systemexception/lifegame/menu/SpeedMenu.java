@@ -4,21 +4,15 @@
  */
 package org.systemexception.lifegame.menu;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.KeyStroke;
-
+import com.sun.glass.events.KeyEvent;
 import org.systemexception.lifegame.enums.GameSpeeds;
 import org.systemexception.lifegame.gui.Main;
 
-import com.sun.glass.events.KeyEvent;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SpeedMenu extends JMenu {
-
-	private static final long serialVersionUID = -7338470638776832322L;
 
 	public SpeedMenu() {
 		this.setFont(Main.MENU_FONT);

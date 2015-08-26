@@ -9,7 +9,7 @@ public enum SavedBoardProperties {
 
 	private final String property;
 
-	private SavedBoardProperties(String property) {
+	SavedBoardProperties(String property) {
 		this.property = property;
 	}
 
