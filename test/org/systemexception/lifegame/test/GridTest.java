@@ -8,7 +8,7 @@ import org.systemexception.lifegame.gui.Grid;
 import org.systemexception.lifegame.model.Board;
 import org.systemexception.lifegame.model.Cell;
 
-public class TestGrid {
+public class GridTest {
 
 	private final int cellSize = 10, gridRows = 10, gridCols = 5;
 	private final Grid sut = new Grid(cellSize, gridRows, gridCols, "B & W");
