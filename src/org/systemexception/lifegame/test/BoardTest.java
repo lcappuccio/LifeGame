@@ -2,7 +2,7 @@
  * @author leo
  * Nov 9, 2014 1:27:42 PM
  */
-package test;
+package org.systemexception.lifegame.test;
 
 import org.junit.Ignore;
 import org.junit.Test;

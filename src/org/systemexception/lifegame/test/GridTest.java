@@ -1,4 +1,4 @@
-package test;
+package org.systemexception.lifegame.test;
 
 import org.junit.Test;
 import org.systemexception.lifegame.gui.Grid;
