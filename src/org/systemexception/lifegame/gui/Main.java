@@ -17,40 +17,23 @@
  */
 package org.systemexception.lifegame.gui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.InputEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.ArrayList;
-import java.util.Properties;
-
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-import javax.swing.UIManager;
-import javax.swing.UIManager.LookAndFeelInfo;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.filechooser.FileFilter;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import org.systemexception.lifegame.enums.GameSpeeds;
 import org.systemexception.lifegame.enums.SavedBoardProperties;
 import org.systemexception.lifegame.menu.FileMenu;
 import org.systemexception.lifegame.menu.LifeGameMenu;
 import org.systemexception.lifegame.menu.SpeedMenu;
+
+import javax.swing.*;
+import javax.swing.UIManager.LookAndFeelInfo;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Properties;
 
 public class Main {
 
@@ -121,7 +104,7 @@ public class Main {
 	private void initialize() {
 		mainAppWindow = new JFrame();
 		mainAppWindow.setTitle("LifeGame" + " - " + platform);
-		mainAppWindow.setBounds(100, 100, 800, 582);
+		mainAppWindow.setBounds(100, 100, 1277, 1024);
 		mainAppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
 		coordX = mainAppWindow.getX();
@@ -145,7 +128,7 @@ public class Main {
 
 		// CENTER panel
 		centerPanel = new JPanel();
-		centerPanel.setBounds(5, 25, 791, 496);
+		centerPanel.setBounds(5, 25, 1269, 944);
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
@@ -158,7 +141,7 @@ public class Main {
 		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
 		flowLayout.setHgap(0);
 		flowLayout.setVgap(0);
-		lowerPanel.setBounds(6, 525, 390, 29);
+		lowerPanel.setBounds(6, 970, 390, 29);
 		mainAppWindow.getContentPane().add(lowerPanel);
 
 		btnStart = new JButton("Start");
@@ -208,21 +191,21 @@ public class Main {
 
 		// Live cells counter
 		lblLiveCells = new JLabel("Live Cells:");
-		lblLiveCells.setBounds(506, 533, 75, 13);
+		lblLiveCells.setBounds(986, 975, 75, 13);
 		mainAppWindow.getContentPane().add(lblLiveCells);
 		lblLiveCells.setFont(labelFont);
 		lblCountLiveCells = new JLabel(String.valueOf(grid.getTotalLiveCells()));
-		lblCountLiveCells.setBounds(593, 533, 51, 13);
+		lblCountLiveCells.setBounds(1073, 975, 51, 13);
 		mainAppWindow.getContentPane().add(lblCountLiveCells);
 		lblCountLiveCells.setFont(labelFont);
 
 		// Iteration counter
 		lblIteration = new JLabel("Iteration:");
-		lblIteration.setBounds(656, 533, 75, 13);
+		lblIteration.setBounds(1136, 975, 75, 13);
 		mainAppWindow.getContentPane().add(lblIteration);
 		lblIteration.setFont(labelFont);
 		lblCountIteration = new JLabel("0");
-		lblCountIteration.setBounds(743, 533, 51, 13);
+		lblCountIteration.setBounds(1223, 975, 51, 13);
 		mainAppWindow.getContentPane().add(lblCountIteration);
 		lblCountIteration.setFont(labelFont);
 	}
