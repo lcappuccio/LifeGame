@@ -83,7 +83,8 @@ public class Main {
 			if ("Nimbus".equals(info.getName())) {
 				try {
 					UIManager.setLookAndFeel(info.getClassName());
-				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException e) {
+				} catch (ClassNotFoundException | InstantiationException | IllegalAccessException |
+						UnsupportedLookAndFeelException e) {
 					e.printStackTrace(System.out);
 				}
 				break;
@@ -105,15 +106,15 @@ public class Main {
 	private void initialize() {
 		mainAppWindow = new JFrame();
 		mainAppWindow.setTitle("LifeGame" + " - " + platform);
-		mainAppWindow.setBounds(100, 100, 1276, 1024);
-		mainAppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainAppWindow.setBounds(0, 0, 1280, 1024);
+		mainAppWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
 		coordX = mainAppWindow.getX();
 		coordY = mainAppWindow.getY();
 		mainAppWindow.setResizable(false);
 		menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, mainAppWindow.getWidth(), 20);
-		mainAppWindow.getContentPane().add(menuBar);
+		mainAppWindow.getContentPane().add(menuBar, BorderLayout.NORTH);
 		menuBar.setBorderPainted(false);
 
 		// LifeGame menu
@@ -129,8 +130,8 @@ public class Main {
 
 		// CENTER panel
 		centerPanel = new JPanel();
-		centerPanel.setBounds(5, 25, 1269, 942);
-		mainAppWindow.getContentPane().add(centerPanel);
+		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
+		mainAppWindow.getContentPane().add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
 				centerPanel.getHeight() / Preferences.getCellSize(), Preferences.getColorTheme());
@@ -142,8 +143,8 @@ public class Main {
 		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
 		flowLayout.setHgap(0);
 		flowLayout.setVgap(0);
-		lowerPanel.setBounds(6, 970, 390, 29);
-		mainAppWindow.getContentPane().add(lowerPanel);
+		lowerPanel.setBounds(0, 970, 390, 29);
+		mainAppWindow.getContentPane().add(lowerPanel, BorderLayout.SOUTH);
 
 		btnStart = new JButton("Start");
 		btnStart.addActionListener(new ActionListener() {
@@ -193,21 +194,21 @@ public class Main {
 		// Live cells counter
 		lblLiveCells = new JLabel("Live Cells:");
 		lblLiveCells.setBounds(986, 977, 75, 13);
-		mainAppWindow.getContentPane().add(lblLiveCells);
+		mainAppWindow.getContentPane().add(lblLiveCells, BorderLayout.SOUTH);
 		lblLiveCells.setFont(labelFont);
 		lblCountLiveCells = new JLabel(String.valueOf(grid.getTotalLiveCells()));
 		lblCountLiveCells.setBounds(1073, 977, 51, 13);
-		mainAppWindow.getContentPane().add(lblCountLiveCells);
+		mainAppWindow.getContentPane().add(lblCountLiveCells, BorderLayout.SOUTH);
 		lblCountLiveCells.setFont(labelFont);
 
 		// Iteration counter
 		lblIteration = new JLabel("Iteration:");
 		lblIteration.setBounds(1136, 977, 75, 13);
-		mainAppWindow.getContentPane().add(lblIteration);
+		mainAppWindow.getContentPane().add(lblIteration, BorderLayout.SOUTH);
 		lblIteration.setFont(labelFont);
 		lblCountIteration = new JLabel("0");
 		lblCountIteration.setBounds(1223, 977, 51, 13);
-		mainAppWindow.getContentPane().add(lblCountIteration);
+		mainAppWindow.getContentPane().add(lblCountIteration, BorderLayout.SOUTH);
 		lblCountIteration.setFont(labelFont);
 	}
 
@@ -282,7 +283,8 @@ public class Main {
 								}
 							}
 						}
-						int cellSize = Integer.valueOf(properties.getProperty(SavedBoardProperties.CELLSIZE.toString()));
+						int cellSize = Integer.valueOf(properties.getProperty(SavedBoardProperties.CELLSIZE.toString
+								()));
 						int gridCols = Integer.valueOf(properties.getProperty(SavedBoardProperties.COLS.toString()));
 						int gridRows = Integer.valueOf(properties.getProperty(SavedBoardProperties.ROWS.toString()));
 						String automata = properties.getProperty(SavedBoardProperties.AUTOMATA.toString());
