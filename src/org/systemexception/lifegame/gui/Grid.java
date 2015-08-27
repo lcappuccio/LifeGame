@@ -4,21 +4,18 @@
  */
 package org.systemexception.lifegame.gui;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
-
-import javax.swing.JComponent;
-
 import org.systemexception.lifegame.enums.Themes;
 import org.systemexception.lifegame.model.Board;
 import org.systemexception.lifegame.model.Cell;
 
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.ArrayList;
+
 public class Grid extends JComponent {
 
-	private static final long serialVersionUID = 7546830315256844429L;
 	private int cellSize, totalLiveCells;
 	private final int gridRows, gridCols;
 	private Board board;
@@ -62,7 +59,7 @@ public class Grid extends JComponent {
 	}
 
 	public Grid(int cellSize, int gridRows, int gridCols, ArrayList<ArrayList<String>> savedBoard, String automata,
-			String colourTheme) {
+	            String colourTheme) {
 		this.cellSize = cellSize;
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
@@ -137,8 +134,7 @@ public class Grid extends JComponent {
 	 * http://stackoverflow.com/questions/4129666/how-to-convert-hex-
 	 * to-rgb-using-java
 	 *
-	 * @param colorStr
-	 * e.g. "#FFFFFF"
+	 * @param colorStr e.g. "#FFFFFF"
 	 * @return
 	 */
 	private static Color hex2Rgb(String colorStr) {
@@ -148,12 +144,12 @@ public class Grid extends JComponent {
 
 	@Override
 	public void paintComponent(Graphics g) {
+		g.setColor(colorRect);
+		g.fillRect(this.getX(), this.getY(), super.getWidth() - cellSize, super.getHeight() - cellSize + 2);
 		for (int i = 0; i < board.getBoardRows(); i++) {
 			for (int j = 0; j < board.getBoardCols(); j++) {
 				g.setColor(board.getCellAt(i, j).getCellState() ? colorDark : colorLight);
-				g.fillRect(cellSize * i, cellSize * j, cellSize, cellSize);
-				g.setColor(colorRect);
-				g.drawRect(cellSize * i, cellSize * j, cellSize, cellSize);
+				g.fillRect(cellSize * i - 1, cellSize * j + 1, cellSize - 1, cellSize - 1);
 			}
 		}
 		totalLiveCells = board.getCellAliveCount();

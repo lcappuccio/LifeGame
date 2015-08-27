@@ -1,26 +1,17 @@
 package org.systemexception.lifegame.gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.border.EmptyBorder;
-
 import org.systemexception.lifegame.enums.Automata;
 import org.systemexception.lifegame.enums.Themes;
 
+import javax.swing.*;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class Preferences extends JFrame {
 
-	private static final long serialVersionUID = 1664253982218939516L;
 	private final GroupLayout gl_prefsWindow;
 	private final JPanel prefsWindow;
 	private final JSpinner prefsCellSpinner, prefsLifeProbabilitySpinner;
@@ -53,7 +44,7 @@ public class Preferences extends JFrame {
 		return lifeAutomata;
 	}
 
-	public void setLifeAutomata() {
+	private void setLifeAutomata() {
 		Preferences.lifeAutomata = String.valueOf(prefsAutomataSelector.getSelectedItem());
 	}
 

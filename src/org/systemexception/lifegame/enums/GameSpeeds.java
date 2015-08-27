@@ -10,7 +10,7 @@ public enum GameSpeeds {
 	
 	private final int gameSpeed;
 	
-	private GameSpeeds(int gameSpeed) {
+	GameSpeeds(int gameSpeed) {
 		this.gameSpeed = gameSpeed;
 	}
 	

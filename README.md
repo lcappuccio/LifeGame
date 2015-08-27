@@ -6,29 +6,30 @@ A humble [Conway's Game Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Li
 
 ## Installation
 
-Download the code and execute or build with your favourite IDE
+Download the code/jar and build/execute with your favourite IDE/CLI.
 
 ## Usage
 
 ### Main Controls
 
-- Start: starts the game, will run indefinitely
+- Start: starts the simulation, will run indefinitely
 - Speed menu: sets the speed between each iteration (a tribute to SimCity)
-- Tick: stops the game and performs a single tick (or iteration)
-- Stop: stops the game
-- Reset: resets the game and generates a new random grid
+- Tick: stops the simulation and performs a single tick (or iteration)
+- Stop: stops the simulation
+- Reset: resets the simulation and generates a new random grid
 
 ### Preferences
 
 - Cell Size: sets the cell size, smaller values generate more cells per grid, viceversa larger values will generate less cells per grid
 - Theme: sets the colour theme for the grid
-- Automata: selects a different automata for the game evolution, see [LifeWiki](http://www.conwaylife.com/wiki/Cellular_automaton)
-- Life Probability: sets the probability of alive cell generations, combine different settings with the automata setting
-- Apply: applies the preferences (*caution:* will stop the current game and reset the grid)
+- Automata: selects a different automata, see [LifeWiki](http://www.conwaylife.com/wiki/Cellular_automaton)
+- Life Probability: sets the probability of generating a live cell in a new board, combine different settings with the
+automata setting
+- Apply: applies the preferences (*caution:* will stop the current simulation and reset the grid)
 
 ## License
 
-LifeGame 0.1
+LifeGame 0.2
 
 Copyright (C) 2014 Leonardo Cappuccio
 

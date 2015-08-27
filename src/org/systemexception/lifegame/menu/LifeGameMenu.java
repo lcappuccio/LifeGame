@@ -4,21 +4,17 @@
  */
 package org.systemexception.lifegame.menu;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.KeyStroke;
-
 import org.systemexception.lifegame.gui.About;
 import org.systemexception.lifegame.gui.Main;
 import org.systemexception.lifegame.gui.Preferences;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+
 public class LifeGameMenu extends JMenu {
 
-	private static final long serialVersionUID = 7405208334736215552L;
 	private Preferences preferencesWindow;
 	private JMenuItem menuAbout, menuPreferences, menuQuit;
 
