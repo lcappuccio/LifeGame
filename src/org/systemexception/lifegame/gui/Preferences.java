@@ -129,78 +129,79 @@ public class Preferences extends JFrame {
 		gl_prefsWindow = new GroupLayout(prefsWindow);
 		gl_prefsWindow.setHorizontalGroup(gl_prefsWindow.createParallelGroup(Alignment.LEADING).addGroup(
 				gl_prefsWindow
-				.createSequentialGroup()
-				.addGroup(
-						gl_prefsWindow
-						.createParallelGroup(Alignment.LEADING)
+						.createSequentialGroup()
 						.addGroup(
 								gl_prefsWindow
-								.createSequentialGroup()
-								.addComponent(prefsApply, GroupLayout.DEFAULT_SIZE, 140,
-										Short.MAX_VALUE)
-								.addGap(8)
-								.addComponent(prefsCancel, GroupLayout.PREFERRED_SIZE, 86,
-										GroupLayout.PREFERRED_SIZE))
-						.addGroup(
-								gl_prefsWindow
-								.createSequentialGroup()
-								.addContainerGap()
-								.addGroup(
-										gl_prefsWindow.createParallelGroup(Alignment.LEADING)
-										.addComponent(lblTheme)
-										.addComponent(prefsCellSize)
-										.addComponent(lblAutomata)
-										.addComponent(lblLifeProbability))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(
-										gl_prefsWindow
 										.createParallelGroup(Alignment.LEADING)
-										.addComponent(prefsLifeProbabilitySpinner,
-												GroupLayout.DEFAULT_SIZE, 128,
-												Short.MAX_VALUE)
-										.addComponent(prefsThemeSelector, 0, 128,
-												Short.MAX_VALUE)
-										.addComponent(prefsCellSpinner,
-												GroupLayout.DEFAULT_SIZE, 128,
-												Short.MAX_VALUE)
-										.addComponent(prefsAutomataSelector,
-												Alignment.TRAILING, 0, 128,
-												Short.MAX_VALUE)))).addContainerGap()));
+										.addGroup(
+												gl_prefsWindow
+														.createSequentialGroup()
+														.addComponent(prefsApply, GroupLayout.DEFAULT_SIZE, 140,
+																Short.MAX_VALUE)
+														.addGap(8)
+														.addComponent(prefsCancel, GroupLayout.PREFERRED_SIZE, 86,
+																GroupLayout.PREFERRED_SIZE))
+										.addGroup(
+												gl_prefsWindow
+														.createSequentialGroup()
+														.addContainerGap()
+														.addGroup(
+																gl_prefsWindow.createParallelGroup(Alignment.LEADING)
+																		.addComponent(lblTheme)
+																		.addComponent(prefsCellSize)
+																		.addComponent(lblAutomata)
+																		.addComponent(lblLifeProbability))
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addGroup(
+																gl_prefsWindow
+																		.createParallelGroup(Alignment.LEADING)
+																		.addComponent(prefsLifeProbabilitySpinner,
+																				GroupLayout.DEFAULT_SIZE, 128,
+																				Short.MAX_VALUE)
+																		.addComponent(prefsThemeSelector, 0, 128,
+																				Short.MAX_VALUE)
+																		.addComponent(prefsCellSpinner,
+																				GroupLayout.DEFAULT_SIZE, 128,
+																				Short.MAX_VALUE)
+																		.addComponent(prefsAutomataSelector,
+																				Alignment.TRAILING, 0, 128,
+																				Short.MAX_VALUE)))).addContainerGap
+						()));
 		gl_prefsWindow.setVerticalGroup(gl_prefsWindow.createParallelGroup(Alignment.LEADING).addGroup(
 				gl_prefsWindow
-				.createSequentialGroup()
-				.addContainerGap()
-				.addGroup(
-						gl_prefsWindow
-						.createParallelGroup(Alignment.BASELINE)
-						.addComponent(prefsCellSize)
-						.addComponent(prefsCellSpinner, GroupLayout.PREFERRED_SIZE,
-								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(
-						gl_prefsWindow
-						.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblTheme)
-						.addComponent(prefsThemeSelector, GroupLayout.PREFERRED_SIZE,
-								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED)
-				.addGroup(
-						gl_prefsWindow
-						.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblAutomata)
-						.addComponent(prefsAutomataSelector, GroupLayout.PREFERRED_SIZE,
-								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-				.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-				.addGroup(
-						gl_prefsWindow
-						.createParallelGroup(Alignment.BASELINE)
-						.addComponent(prefsLifeProbabilitySpinner, GroupLayout.PREFERRED_SIZE,
-								GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblLifeProbability))
-				.addGap(18)
-				.addGroup(
-						gl_prefsWindow.createParallelGroup(Alignment.BASELINE).addComponent(prefsApply)
-						.addComponent(prefsCancel))));
+						.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(
+								gl_prefsWindow
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(prefsCellSize)
+										.addComponent(prefsCellSpinner, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(
+								gl_prefsWindow
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblTheme)
+										.addComponent(prefsThemeSelector, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(
+								gl_prefsWindow
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblAutomata)
+										.addComponent(prefsAutomataSelector, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGroup(
+								gl_prefsWindow
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(prefsLifeProbabilitySpinner, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblLifeProbability))
+						.addGap(18)
+						.addGroup(
+								gl_prefsWindow.createParallelGroup(Alignment.BASELINE).addComponent(prefsApply)
+										.addComponent(prefsCancel))));
 		prefsWindow.setLayout(gl_prefsWindow);
 	}
 }

@@ -5,6 +5,7 @@
 package org.systemexception.lifegame.enums;
 
 public enum Themes {
+
 	BW("B & W"), INVERSE("Inverse"), BLUE("Blue"), GREEN("Green"), RED("Red");
 	
 	private final String theme;

@@ -324,12 +324,14 @@ public class Board {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				// Cell dies
-				if (!(countSurroungingLiveCells(i, j) == 2 || (countSurroungingLiveCells(i, j) == 4 || countSurroungingLiveCells(
+				if (!(countSurroungingLiveCells(i, j) == 2 || (countSurroungingLiveCells(i, j) == 4 ||
+						countSurroungingLiveCells(
 						i, j) == 5)) && board[i][j].getCellState()) {
 					boardIteration[i][j].setCellDead();
 				}
 				// Cell becomes alive
-				if ((countSurroungingLiveCells(i, j) == 3 || countSurroungingLiveCells(i, j) == 6 || countSurroungingLiveCells(
+				if ((countSurroungingLiveCells(i, j) == 3 || countSurroungingLiveCells(i, j) == 6 ||
+						countSurroungingLiveCells(
 						i, j) == 8) && !board[i][j].getCellState()) {
 					boardIteration[i][j].setCellAlive();
 				}
