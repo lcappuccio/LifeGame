@@ -69,10 +69,18 @@ public class Grid extends JComponent {
 		this.paint(getGraphics());
 	}
 
+	/**
+	 * Used in tests only
+	 *
+	 * @param x
+	 */
 	public void setCellValue(int x) {
 		cellSize = x;
 	}
 
+	/**
+	 * Resets the board
+	 */
 	public void resetBoard() {
 		this.board = new Board(gridRows, gridCols);
 		totalLiveCells = board.getCellAliveCount();
@@ -86,6 +94,9 @@ public class Grid extends JComponent {
 		return cellSize;
 	}
 
+	/**
+	 * Iterates the board using the chosen automata
+	 */
 	public void iterateBoard() {
 		board.iterateBoard();
 		totalLiveCells = board.getCellAliveCount();
@@ -144,12 +155,10 @@ public class Grid extends JComponent {
 
 	@Override
 	public void paintComponent(Graphics g) {
-		g.setColor(colorRect);
-		g.fillRect(this.getX(), this.getY(), super.getWidth() - cellSize, super.getHeight() - cellSize + 2);
 		for (int i = 0; i < board.getBoardRows(); i++) {
 			for (int j = 0; j < board.getBoardCols(); j++) {
 				g.setColor(board.getCellAt(i, j).getCellState() ? colorDark : colorLight);
-				g.fillRect(cellSize * i - 1, cellSize * j + 1, cellSize - 1, cellSize - 1);
+				g.fillRect(cellSize * i, cellSize * j, cellSize, cellSize);
 			}
 		}
 		totalLiveCells = board.getCellAliveCount();

@@ -105,7 +105,7 @@ public class Main {
 	private void initialize() {
 		mainAppWindow = new JFrame();
 		mainAppWindow.setTitle("LifeGame" + " - " + platform);
-		mainAppWindow.setBounds(100, 100, 1277, 1024);
+		mainAppWindow.setBounds(100, 100, 1276, 1024);
 		mainAppWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
 		coordX = mainAppWindow.getX();
@@ -129,7 +129,7 @@ public class Main {
 
 		// CENTER panel
 		centerPanel = new JPanel();
-		centerPanel.setBounds(5, 25, 1269, 944);
+		centerPanel.setBounds(5, 25, 1269, 942);
 		mainAppWindow.getContentPane().add(centerPanel);
 		centerPanel.setLayout(new BorderLayout(0, 0));
 		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
@@ -192,21 +192,21 @@ public class Main {
 
 		// Live cells counter
 		lblLiveCells = new JLabel("Live Cells:");
-		lblLiveCells.setBounds(986, 975, 75, 13);
+		lblLiveCells.setBounds(986, 977, 75, 13);
 		mainAppWindow.getContentPane().add(lblLiveCells);
 		lblLiveCells.setFont(labelFont);
 		lblCountLiveCells = new JLabel(String.valueOf(grid.getTotalLiveCells()));
-		lblCountLiveCells.setBounds(1073, 975, 51, 13);
+		lblCountLiveCells.setBounds(1073, 977, 51, 13);
 		mainAppWindow.getContentPane().add(lblCountLiveCells);
 		lblCountLiveCells.setFont(labelFont);
 
 		// Iteration counter
 		lblIteration = new JLabel("Iteration:");
-		lblIteration.setBounds(1136, 975, 75, 13);
+		lblIteration.setBounds(1136, 977, 75, 13);
 		mainAppWindow.getContentPane().add(lblIteration);
 		lblIteration.setFont(labelFont);
 		lblCountIteration = new JLabel("0");
-		lblCountIteration.setBounds(1223, 975, 51, 13);
+		lblCountIteration.setBounds(1223, 977, 51, 13);
 		mainAppWindow.getContentPane().add(lblCountIteration);
 		lblCountIteration.setFont(labelFont);
 	}
