@@ -1,6 +1,7 @@
 package org.systemexception.lifegame.gui;
 
 import org.systemexception.lifegame.enums.Automata;
+import org.systemexception.lifegame.enums.BoardSizes;
 import org.systemexception.lifegame.enums.Themes;
 
 import javax.swing.*;
@@ -16,13 +17,15 @@ public class Preferences extends JFrame {
 	private final JPanel prefsWindow;
 	private final JSpinner prefsCellSpinner, prefsLifeProbabilitySpinner;
 	private final JLabel prefsCellSize = new JLabel("Cell Size"), lblTheme = new JLabel("Theme"),
-			lblAutomata = new JLabel("Automata"), lblLifeProbability = new JLabel("Life Probability");
+			lblAutomata = new JLabel("Automata"), lblLifeProbability = new JLabel("Life Probability"), lblBoardSize =
+			new JLabel("Board Size");
 	private final JButton prefsApply, prefsCancel;
-	private final JComboBox<String> prefsThemeSelector, prefsAutomataSelector;
+	private final JComboBox<String> prefsThemeSelector, prefsAutomataSelector, prefsBoardSizeSelector;
 	private static int cellSize = 5, cellLifeProbability = 50;
-	private static final int WINDOW_WIDTH = 250, WINDOW_HEIGHT = 210, MIN_CELL_SIZE = 1, MAX_CELL_SIZE = 10,
+	private static final int WINDOW_WIDTH = 250, WINDOW_HEIGHT = 240, MIN_CELL_SIZE = 1, MAX_CELL_SIZE = 10,
 			MIN_CELL_LIFE_PROBABILITY = 1, MAX_CELL_LIFE_PROBABILITY = 100;
-	private static String colourTheme = Themes.BW.toString(), lifeAutomata = Automata.CONWAY.toString();
+	private static String colourTheme = Themes.BW.toString() ,lifeAutomata = Automata.CONWAY.toString(), boardSize =
+			BoardSizes.MEDIUM.toString();
 
 	public static int getCellSize() {
 		return cellSize;
@@ -60,11 +63,20 @@ public class Preferences extends JFrame {
 		Preferences.cellLifeProbability = Integer.parseInt(prefsLifeProbabilitySpinner.getValue().toString());
 	}
 
+	public static String getBoardSize() {
+		return boardSize;
+	}
+
+	public void setBoardSize() {
+		Preferences.boardSize = String.valueOf(prefsBoardSizeSelector.getSelectedItem());
+	}
+
 	private void applyPrefs() {
 		setCellSize();
 		setColorTheme();
 		setLifeAutomata();
 		setCellLifeProbability();
+		setBoardSize();
 		super.setVisible(false);
 	}
 
@@ -122,6 +134,12 @@ public class Preferences extends JFrame {
 		prefsAutomataSelector.addItem(Automata.SERVIETTES.toString());
 		prefsAutomataSelector.setSelectedItem(Automata.CONWAY.toString());
 
+		prefsBoardSizeSelector = new JComboBox<>();
+		prefsBoardSizeSelector.addItem(BoardSizes.SMALL.toString());
+		prefsBoardSizeSelector.addItem(BoardSizes.MEDIUM.toString());
+		prefsBoardSizeSelector.addItem(BoardSizes.LARGE.toString());
+		prefsBoardSizeSelector.setSelectedItem(BoardSizes.MEDIUM.toString());
+
 		SpinnerNumberModel prefsCellLifeProbabilityModel = new SpinnerNumberModel(cellLifeProbability,
 				MIN_CELL_LIFE_PROBABILITY, MAX_CELL_LIFE_PROBABILITY, 1);
 		prefsLifeProbabilitySpinner = new JSpinner(prefsCellLifeProbabilityModel);
@@ -150,7 +168,8 @@ public class Preferences extends JFrame {
 																		.addComponent(lblTheme)
 																		.addComponent(prefsCellSize)
 																		.addComponent(lblAutomata)
-																		.addComponent(lblLifeProbability))
+																		.addComponent(lblLifeProbability)
+																		.addComponent(lblBoardSize))
 														.addPreferredGap(ComponentPlacement.RELATED)
 														.addGroup(
 																gl_prefsWindow
@@ -165,8 +184,12 @@ public class Preferences extends JFrame {
 																				Short.MAX_VALUE)
 																		.addComponent(prefsAutomataSelector,
 																				Alignment.TRAILING, 0, 128,
-																				Short.MAX_VALUE)))).addContainerGap
-						()));
+																				Short.MAX_VALUE)
+																		.addComponent(prefsBoardSizeSelector,
+																				Alignment.TRAILING, 0, 128,
+																				Short.MAX_VALUE))))
+						.addContainerGap
+								()));
 		gl_prefsWindow.setVerticalGroup(gl_prefsWindow.createParallelGroup(Alignment.LEADING).addGroup(
 				gl_prefsWindow
 						.createSequentialGroup()
@@ -198,7 +221,15 @@ public class Preferences extends JFrame {
 										.addComponent(prefsLifeProbabilitySpinner, GroupLayout.PREFERRED_SIZE,
 												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 										.addComponent(lblLifeProbability))
-						.addGap(18)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(
+								gl_prefsWindow
+										.createParallelGroup(Alignment.BASELINE)
+										.addComponent(lblBoardSize)
+										.addComponent(prefsBoardSizeSelector, GroupLayout.PREFERRED_SIZE,
+												GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGap(5)
 						.addGroup(
 								gl_prefsWindow.createParallelGroup(Alignment.BASELINE).addComponent(prefsApply)
 										.addComponent(prefsCancel))));

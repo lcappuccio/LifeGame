@@ -17,6 +17,7 @@
  */
 package org.systemexception.lifegame.gui;
 
+import org.systemexception.lifegame.enums.BoardSizes;
 import org.systemexception.lifegame.enums.GameSpeeds;
 import org.systemexception.lifegame.enums.SavedBoardProperties;
 import org.systemexception.lifegame.menu.FileMenu;
@@ -33,15 +34,16 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Properties;
 
 public class Main {
 
 	public static int metaKey, coordX, coordY;
-	public static JButton btnReset;
 	public static Timer gameTimer;
 	public static final Font MENU_FONT = new Font("Lucida Grande", Font.PLAIN, 12);
-	private static final Font labelFont = new Font(
+	private static final Font labelFontBold = new Font(
+			"Lucida Grande", Font.BOLD, 10), labelFontPlain =  new Font(
 			"Lucida Grande", Font.PLAIN, 10);
 	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();
 	private static final String platform = System.getProperty("os.name").toLowerCase();
@@ -51,6 +53,7 @@ public class Main {
 	private JMenu menuLifeGame, menuGameSpeed;
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
 	private JButton btnStart, btnTick, btnStop;
+	public static JButton btnReset;
 	private FileMenu menuFile;
 	private int iterationCounter;
 	private Grid grid;
@@ -184,6 +187,7 @@ public class Main {
 		btnReset.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				setWindowSize();
 				resetGrid();
 				stopGame();
 			}
@@ -195,21 +199,21 @@ public class Main {
 		lblLiveCells = new JLabel("Live Cells:");
 		lblLiveCells.setBounds(986, 977, 75, 13);
 		mainAppWindow.getContentPane().add(lblLiveCells, BorderLayout.SOUTH);
-		lblLiveCells.setFont(labelFont);
+		lblLiveCells.setFont(labelFontBold);
 		lblCountLiveCells = new JLabel(String.valueOf(grid.getTotalLiveCells()));
 		lblCountLiveCells.setBounds(1073, 977, 51, 13);
 		mainAppWindow.getContentPane().add(lblCountLiveCells, BorderLayout.SOUTH);
-		lblCountLiveCells.setFont(labelFont);
+		lblCountLiveCells.setFont(labelFontPlain);
 
 		// Iteration counter
 		lblIteration = new JLabel("Iteration:");
 		lblIteration.setBounds(1136, 977, 75, 13);
 		mainAppWindow.getContentPane().add(lblIteration, BorderLayout.SOUTH);
-		lblIteration.setFont(labelFont);
+		lblIteration.setFont(labelFontBold);
 		lblCountIteration = new JLabel("0");
 		lblCountIteration.setBounds(1223, 977, 51, 13);
 		mainAppWindow.getContentPane().add(lblCountIteration, BorderLayout.SOUTH);
-		lblCountIteration.setFont(labelFont);
+		lblCountIteration.setFont(labelFontPlain);
 	}
 
 	private void iterateGrid() {
@@ -300,5 +304,35 @@ public class Main {
 				}
 			}
 		});
+	}
+
+	private void setWindowSize() {
+		if (Preferences.getBoardSize().equals(BoardSizes.LARGE.toString())) {
+			mainAppWindow.setBounds(0, 0, 1280, 1024);
+			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
+			lowerPanel.setBounds(0, 970, 390, 29);
+			lblLiveCells.setBounds(986, 977, 75, 13);
+			lblCountLiveCells.setBounds(1073, 977, 51, 13);
+			lblIteration.setBounds(1136, 977, 75, 13);
+			lblCountIteration.setBounds(1223, 977, 51, 13);
+		}
+		if (Preferences.getBoardSize().equals(BoardSizes.MEDIUM.toString())) {
+			mainAppWindow.setBounds(0, 25, 1024, 768);
+			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
+			lowerPanel.setBounds(0, 720, 390, 29);
+			lblLiveCells.setBounds(700, 730, 75, 13);
+			lblCountLiveCells.setBounds(787, 730, 51, 13);
+			lblIteration.setBounds(860, 730, 75, 13);
+			lblCountIteration.setBounds(947, 730, 51, 13);
+		}
+		if (Preferences.getBoardSize().equals(BoardSizes.SMALL.toString())) {
+			mainAppWindow.setBounds(100, 100, 800, 582);
+			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
+			lowerPanel.setBounds(0, 525, 390, 29);
+			lblLiveCells.setBounds(506, 533, 75, 13);
+			lblCountLiveCells.setBounds(593, 533, 51, 13);
+			lblIteration.setBounds(656, 533, 75, 13);
+			lblCountIteration.setBounds(743, 533, 51, 13);
+		}
 	}
 }
