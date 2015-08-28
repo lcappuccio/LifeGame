@@ -316,6 +316,15 @@ public class Main {
 			lblIteration.setBounds(1136, 977, 75, 13);
 			lblCountIteration.setBounds(1223, 977, 51, 13);
 		}
+		if (Preferences.getBoardSize().equals(BoardSizes.MEDIUM.toString())) {
+			mainAppWindow.setBounds(0, 25, 1024, 768);
+			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
+			lowerPanel.setBounds(0, 720, 390, 29);
+			lblLiveCells.setBounds(700, 730, 75, 13);
+			lblCountLiveCells.setBounds(787, 730, 51, 13);
+			lblIteration.setBounds(860, 730, 75, 13);
+			lblCountIteration.setBounds(947, 730, 51, 13);
+		}
 		if (Preferences.getBoardSize().equals(BoardSizes.SMALL.toString())) {
 			mainAppWindow.setBounds(100, 100, 800, 582);
 			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
