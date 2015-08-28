@@ -60,7 +60,7 @@ public class Main {
 	/**
 	 * Launch the application.
 	 *
-	 * @param args
+	 * @param args UNUSED
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -295,7 +295,7 @@ public class Main {
 						String automata = properties.getProperty(SavedBoardProperties.AUTOMATA.toString());
 						String theme = properties.getProperty(SavedBoardProperties.THEME.toString());
 						centerPanel.remove(grid);
-						grid = new Grid(cellSize, gridRows, gridCols, fileContents, automata, theme);
+						grid = new Grid(cellSize, gridRows, gridCols, fileContents, theme);
 						centerPanel.add(grid);
 						lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
 						Preferences.setLifeAutomata(automata);

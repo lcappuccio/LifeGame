@@ -19,7 +19,7 @@ public class Grid extends JComponent {
 	private int cellSize, totalLiveCells;
 	private final int gridRows, gridCols;
 	private Board board;
-	private Color colorDark = Color.DARK_GRAY, colorLight = Color.WHITE, colorRect = Color.LIGHT_GRAY;
+	private Color colorDark = Color.DARK_GRAY, colorLight = Color.WHITE;
 
 	public Grid(final int cellSize, int gridRows, int gridCols, String colourTheme) {
 		this.cellSize = cellSize;
@@ -58,24 +58,14 @@ public class Grid extends JComponent {
 		setColours(colourTheme);
 	}
 
-	public Grid(int cellSize, int gridRows, int gridCols, ArrayList<ArrayList<String>> savedBoard, String automata,
-	            String colourTheme) {
+	public Grid(int cellSize, int gridRows, int gridCols, ArrayList<ArrayList<String>> savedBoard, String colourTheme) {
 		this.cellSize = cellSize;
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
-		this.board = new Board(gridRows, gridCols, savedBoard, automata);
+		this.board = new Board(gridRows, gridCols, savedBoard);
 		totalLiveCells = board.getCellAliveCount();
 		setColours(colourTheme);
 		this.paint(getGraphics());
-	}
-
-	/**
-	 * Used in tests only
-	 *
-	 * @param x
-	 */
-	public void setCellValue(int x) {
-		cellSize = x;
 	}
 
 	/**
@@ -110,33 +100,28 @@ public class Grid extends JComponent {
 	/**
 	 * Colours from: http://www.flatuicolorpicker.com
 	 *
-	 * @param colourTheme
+	 * @param colourTheme is the colour enum value
 	 */
 	private void setColours(String colourTheme) {
 		if (colourTheme.equals(Themes.BW.toString())) {
 			colorDark = hex2Rgb("#ECECEC");
 			colorLight = Color.DARK_GRAY;
-			colorRect = Color.BLACK;
 		}
 		if (colourTheme.equals(Themes.INVERSE.toString())) {
 			colorDark = Color.DARK_GRAY;
 			colorLight = hex2Rgb("#ECECEC");
-			colorRect = Color.LIGHT_GRAY;
 		}
 		if (colourTheme.equals(Themes.BLUE.toString())) {
 			colorDark = hex2Rgb("#19B5FE");
 			colorLight = hex2Rgb("#336E7B");
-			colorRect = hex2Rgb("#446CB3");
 		}
 		if (colourTheme.equals(Themes.GREEN.toString())) {
 			colorDark = hex2Rgb("#36D7B7");
 			colorLight = hex2Rgb("#1E824C");
-			colorRect = hex2Rgb("#26A65B");
 		}
 		if (colourTheme.equals(Themes.RED.toString())) {
 			colorDark = hex2Rgb("#EF4836");
 			colorLight = hex2Rgb("#96281B");
-			colorRect = hex2Rgb("#CF000F");
 		}
 	}
 
@@ -146,7 +131,7 @@ public class Grid extends JComponent {
 	 * to-rgb-using-java
 	 *
 	 * @param colorStr e.g. "#FFFFFF"
-	 * @return
+	 * @return the colour in RGB fashion
 	 */
 	private static Color hex2Rgb(String colorStr) {
 		return new Color(Integer.valueOf(colorStr.substring(1, 3), 16), Integer.valueOf(colorStr.substring(3, 5), 16),

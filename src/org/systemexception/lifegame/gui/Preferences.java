@@ -67,7 +67,7 @@ public class Preferences extends JFrame {
 		return boardSize;
 	}
 
-	public void setBoardSize() {
+	private void setBoardSize() {
 		Preferences.boardSize = String.valueOf(prefsBoardSizeSelector.getSelectedItem());
 	}
 
