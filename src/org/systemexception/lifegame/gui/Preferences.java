@@ -1,6 +1,7 @@
 package org.systemexception.lifegame.gui;
 
 import org.systemexception.lifegame.enums.Automata;
+import org.systemexception.lifegame.enums.BoardSizes;
 import org.systemexception.lifegame.enums.Themes;
 
 import javax.swing.*;
@@ -124,10 +125,10 @@ public class Preferences extends JFrame {
 		prefsAutomataSelector.setSelectedItem(Automata.CONWAY.toString());
 
 		prefsBoardSizeSelector = new JComboBox<>();
-		prefsBoardSizeSelector.addItem("Small");
-		prefsBoardSizeSelector.addItem("Medium");
-		prefsBoardSizeSelector.addItem("Large");
-		prefsBoardSizeSelector.setSelectedIndex(0);
+		prefsBoardSizeSelector.addItem(BoardSizes.SMALL.toString());
+		prefsBoardSizeSelector.addItem(BoardSizes.MEDIUM.toString());
+		prefsBoardSizeSelector.addItem(BoardSizes.LARGE.toString());
+		prefsBoardSizeSelector.setSelectedItem(BoardSizes.SMALL.toString());
 
 		SpinnerNumberModel prefsCellLifeProbabilityModel = new SpinnerNumberModel(cellLifeProbability,
 				MIN_CELL_LIFE_PROBABILITY, MAX_CELL_LIFE_PROBABILITY, 1);
@@ -178,7 +179,7 @@ public class Preferences extends JFrame {
 																				Alignment.TRAILING, 0, 128,
 																				Short.MAX_VALUE))))
 						.addContainerGap
-						()));
+								()));
 		gl_prefsWindow.setVerticalGroup(gl_prefsWindow.createParallelGroup(Alignment.LEADING).addGroup(
 				gl_prefsWindow
 						.createSequentialGroup()
