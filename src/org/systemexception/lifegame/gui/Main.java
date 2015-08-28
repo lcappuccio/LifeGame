@@ -309,7 +309,7 @@ public class Main {
 
 	private void setWindowSize() {
 		if (Preferences.getBoardSize().equals(BoardSizes.LARGE.toString())) {
-			mainAppWindow.setBounds(0, 0, 1280, 1024);
+			mainAppWindow.setBounds(100, 100, 1280, 1024);
 			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
 			lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, 390, 29);
 			lblLiveCells.setBounds(986, mainAppWindow.getHeight() - 52, 75, 29);
@@ -318,7 +318,7 @@ public class Main {
 			lblCountIteration.setBounds(1223, mainAppWindow.getHeight() - 52, 75, 29);
 		}
 		if (Preferences.getBoardSize().equals(BoardSizes.MEDIUM.toString())) {
-			mainAppWindow.setBounds(0, 25, 1024, 768);
+			mainAppWindow.setBounds(100, 100, 1024, 768);
 			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
 			lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, 390, 29);
 			lblLiveCells.setBounds(700, mainAppWindow.getHeight() - 52, 75, 29);
