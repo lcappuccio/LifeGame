@@ -24,7 +24,8 @@ public class Preferences extends JFrame {
 	private static int cellSize = 5, cellLifeProbability = 50;
 	private static final int WINDOW_WIDTH = 250, WINDOW_HEIGHT = 240, MIN_CELL_SIZE = 1, MAX_CELL_SIZE = 10,
 			MIN_CELL_LIFE_PROBABILITY = 1, MAX_CELL_LIFE_PROBABILITY = 100;
-	private static String colourTheme = Themes.BW.toString(), lifeAutomata = Automata.CONWAY.toString();
+	private static String colourTheme = Themes.BW.toString();
+	private static String lifeAutomata = Automata.CONWAY.toString(), boardSize = BoardSizes.MEDIUM.toString();;
 
 	public static int getCellSize() {
 		return cellSize;
@@ -62,11 +63,20 @@ public class Preferences extends JFrame {
 		Preferences.cellLifeProbability = Integer.parseInt(prefsLifeProbabilitySpinner.getValue().toString());
 	}
 
+	public static String getBoardSize() {
+		return boardSize;
+	}
+
+	public void setBoardSize() {
+		Preferences.boardSize = String.valueOf(prefsBoardSizeSelector.getSelectedItem());
+	}
+
 	private void applyPrefs() {
 		setCellSize();
 		setColorTheme();
 		setLifeAutomata();
 		setCellLifeProbability();
+		setBoardSize();
 		super.setVisible(false);
 	}
 
@@ -128,7 +138,7 @@ public class Preferences extends JFrame {
 		prefsBoardSizeSelector.addItem(BoardSizes.SMALL.toString());
 		prefsBoardSizeSelector.addItem(BoardSizes.MEDIUM.toString());
 		prefsBoardSizeSelector.addItem(BoardSizes.LARGE.toString());
-		prefsBoardSizeSelector.setSelectedItem(BoardSizes.SMALL.toString());
+		prefsBoardSizeSelector.setSelectedItem(BoardSizes.MEDIUM.toString());
 
 		SpinnerNumberModel prefsCellLifeProbabilityModel = new SpinnerNumberModel(cellLifeProbability,
 				MIN_CELL_LIFE_PROBABILITY, MAX_CELL_LIFE_PROBABILITY, 1);
