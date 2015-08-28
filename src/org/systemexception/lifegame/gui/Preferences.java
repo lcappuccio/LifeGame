@@ -24,8 +24,8 @@ public class Preferences extends JFrame {
 	private static int cellSize = 5, cellLifeProbability = 50;
 	private static final int WINDOW_WIDTH = 250, WINDOW_HEIGHT = 240, MIN_CELL_SIZE = 1, MAX_CELL_SIZE = 10,
 			MIN_CELL_LIFE_PROBABILITY = 1, MAX_CELL_LIFE_PROBABILITY = 100;
-	private static String colourTheme = Themes.BW.toString();
-	private static String lifeAutomata = Automata.CONWAY.toString(), boardSize = BoardSizes.MEDIUM.toString();
+	private static String colourTheme = Themes.BW.toString() ,lifeAutomata = Automata.CONWAY.toString(), boardSize =
+			BoardSizes.MEDIUM.toString();
 
 	public static int getCellSize() {
 		return cellSize;
