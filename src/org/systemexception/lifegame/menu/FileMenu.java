@@ -23,6 +23,7 @@ public class FileMenu extends JMenu {
 	public JMenuItem menuOpen, menuSave;
 	private Board board;
 	private final String lineSeparator = System.getProperty("line.separator");
+	private final String cellAlive = "o", cellDead = ".";
 
 	public FileMenu() {
 		UIManager.put("FileChooser.readOnly", Boolean.FALSE);
@@ -95,9 +96,9 @@ public class FileMenu extends JMenu {
 				for (int i = 0; i < board.getBoardCols(); i++) {
 					for (int j = 0; j < board.getBoardRows(); j++) {
 						if (board.getCellAt(j, i).getCellState()) {
-							fileWriter.print("o");
+							fileWriter.print(cellAlive);
 						} else {
-							fileWriter.print(".");
+							fileWriter.print(cellDead);
 						}
 					}
 					fileWriter.print(lineSeparator);
