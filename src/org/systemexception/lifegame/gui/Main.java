@@ -326,13 +326,13 @@ public class Main {
 			lblCountIteration.setBounds(947, 730, 51, 13);
 		}
 		if (Preferences.getBoardSize().equals(BoardSizes.SMALL.toString())) {
-			mainAppWindow.setBounds(100, 100, 800, 582);
+			mainAppWindow.setBounds(100, 100, 800, 600);
 			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
-			lowerPanel.setBounds(0, 525, 390, 29);
-			lblLiveCells.setBounds(506, 533, 75, 13);
-			lblCountLiveCells.setBounds(593, 533, 51, 13);
-			lblIteration.setBounds(656, 533, 75, 13);
-			lblCountIteration.setBounds(743, 533, 51, 13);
+			lowerPanel.setBounds(0, 550, 390, 29);
+			lblLiveCells.setBounds(506, 560, 75, 13);
+			lblCountLiveCells.setBounds(593, 560, 51, 13);
+			lblIteration.setBounds(656, 560, 75, 13);
+			lblCountIteration.setBounds(743, 560, 51, 13);
 		}
 	}
 }
