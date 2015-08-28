@@ -34,7 +34,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Properties;
 
 public class Main {
@@ -197,23 +196,25 @@ public class Main {
 
 		// Live cells counter
 		lblLiveCells = new JLabel("Live Cells:");
-		lblLiveCells.setBounds(986, 977, 75, 13);
+		lblLiveCells.setBounds(986, 977, 75, 29);
 		mainAppWindow.getContentPane().add(lblLiveCells, BorderLayout.SOUTH);
 		lblLiveCells.setFont(labelFontBold);
 		lblCountLiveCells = new JLabel(String.valueOf(grid.getTotalLiveCells()));
-		lblCountLiveCells.setBounds(1073, 977, 51, 13);
+		lblCountLiveCells.setBounds(1073, 977, 75, 29);
 		mainAppWindow.getContentPane().add(lblCountLiveCells, BorderLayout.SOUTH);
 		lblCountLiveCells.setFont(labelFontPlain);
 
 		// Iteration counter
 		lblIteration = new JLabel("Iteration:");
-		lblIteration.setBounds(1136, 977, 75, 13);
+		lblIteration.setBounds(1136, 977, 75, 29);
 		mainAppWindow.getContentPane().add(lblIteration, BorderLayout.SOUTH);
 		lblIteration.setFont(labelFontBold);
 		lblCountIteration = new JLabel("0");
-		lblCountIteration.setBounds(1223, 977, 51, 13);
+		lblCountIteration.setBounds(1223, 977, 75, 29);
 		mainAppWindow.getContentPane().add(lblCountIteration, BorderLayout.SOUTH);
 		lblCountIteration.setFont(labelFontPlain);
+
+		setWindowSize();
 	}
 
 	private void iterateGrid() {
@@ -310,29 +311,29 @@ public class Main {
 		if (Preferences.getBoardSize().equals(BoardSizes.LARGE.toString())) {
 			mainAppWindow.setBounds(0, 0, 1280, 1024);
 			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
-			lowerPanel.setBounds(0, 970, 390, 29);
-			lblLiveCells.setBounds(986, 977, 75, 13);
-			lblCountLiveCells.setBounds(1073, 977, 51, 13);
-			lblIteration.setBounds(1136, 977, 75, 13);
-			lblCountIteration.setBounds(1223, 977, 51, 13);
+			lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, 390, 29);
+			lblLiveCells.setBounds(986, mainAppWindow.getHeight() - 52, 75, 29);
+			lblCountLiveCells.setBounds(1073, mainAppWindow.getHeight() - 52, 75, 29);
+			lblIteration.setBounds(1136, mainAppWindow.getHeight() - 52, 75, 29);
+			lblCountIteration.setBounds(1223, mainAppWindow.getHeight() - 52, 75, 29);
 		}
 		if (Preferences.getBoardSize().equals(BoardSizes.MEDIUM.toString())) {
 			mainAppWindow.setBounds(0, 25, 1024, 768);
 			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
-			lowerPanel.setBounds(0, 720, 390, 29);
-			lblLiveCells.setBounds(700, 730, 75, 13);
-			lblCountLiveCells.setBounds(787, 730, 51, 13);
-			lblIteration.setBounds(860, 730, 75, 13);
-			lblCountIteration.setBounds(947, 730, 51, 13);
+			lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, 390, 29);
+			lblLiveCells.setBounds(700, mainAppWindow.getHeight() - 52, 75, 29);
+			lblCountLiveCells.setBounds(787, mainAppWindow.getHeight() - 52, 75, 29);
+			lblIteration.setBounds(860, mainAppWindow.getHeight() - 52, 75, 29);
+			lblCountIteration.setBounds(947, mainAppWindow.getHeight() - 52, 75, 29);
 		}
 		if (Preferences.getBoardSize().equals(BoardSizes.SMALL.toString())) {
 			mainAppWindow.setBounds(100, 100, 800, 600);
 			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
-			lowerPanel.setBounds(0, 550, 390, 29);
-			lblLiveCells.setBounds(506, 560, 75, 13);
-			lblCountLiveCells.setBounds(593, 560, 51, 13);
-			lblIteration.setBounds(656, 560, 75, 13);
-			lblCountIteration.setBounds(743, 560, 51, 13);
+			lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, 390, 29);
+			lblLiveCells.setBounds(506, mainAppWindow.getHeight() - 52, 75, 29);
+			lblCountLiveCells.setBounds(593, mainAppWindow.getHeight() - 52, 75, 29);
+			lblIteration.setBounds(656, mainAppWindow.getHeight() - 52, 75, 29);
+			lblCountIteration.setBounds(743, mainAppWindow.getHeight() - 52, 75, 29);
 		}
 	}
 }
