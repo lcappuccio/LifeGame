@@ -8,7 +8,7 @@ public class About extends JFrame {
 	private final int windowWidth = 300, windowHeight = 100;
 	private final JLabel labelTitle = new JLabel("LifeGame - Java Conway's Game of Life"),
 			labelCopyright = new JLabel("Copyright © 2014 - Leonardo Cappuccio"), labelLicense = new JLabel(
-					"Released under GNU GPL v3.0 License");
+			"Released under GNU GPL v3.0 License");
 
 	/**
 	 * Create the frame.

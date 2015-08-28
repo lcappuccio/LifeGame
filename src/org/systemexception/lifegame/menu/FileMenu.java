@@ -87,8 +87,10 @@ public class FileMenu extends JMenu {
 				// Save board properties first
 				fileWriter.print("#" + SavedBoardProperties.COLS + "=" + board.getBoardCols() + lineSeparator);
 				fileWriter.print("#" + SavedBoardProperties.ROWS + "=" + board.getBoardRows() + lineSeparator);
-				fileWriter.print("#" + SavedBoardProperties.CELLSIZE + "=" + Preferences.getCellSize() + lineSeparator);
-				fileWriter.print("#" + SavedBoardProperties.AUTOMATA + "=" + Preferences.getLifeAutomata() + lineSeparator);
+				fileWriter.print("#" + SavedBoardProperties.CELLSIZE + "=" + Preferences.getCellSize() +
+						lineSeparator);
+				fileWriter.print("#" + SavedBoardProperties.AUTOMATA + "=" + Preferences.getLifeAutomata() +
+						lineSeparator);
 				fileWriter.print("#" + SavedBoardProperties.THEME + "=" + Preferences.getColorTheme() + lineSeparator);
 				for (int i = 0; i < board.getBoardCols(); i++) {
 					for (int j = 0; j < board.getBoardRows(); j++) {

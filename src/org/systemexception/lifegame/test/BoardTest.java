@@ -4,10 +4,8 @@
  */
 package org.systemexception.lifegame.test;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.systemexception.lifegame.model.Board;
-import org.systemexception.lifegame.model.Cell;
 
 import static org.junit.Assert.*;
 
@@ -34,44 +32,6 @@ public class BoardTest {
 				assertNotNull(sut.getCellAt(i, j));
 			}
 		}
-	}
-
-	@Test
-	@Deprecated
-	@Ignore
-	public void boardIsRoundHorizontally() {
-		// Border is no longer "round"
-		Cell myCell = sut.getCellAt(2, 0);
-		assertSame(myCell, sut.getCellAt(-1, 0));
-	}
-
-	@Test
-	@Deprecated
-	@Ignore
-	public void boardIsRoundVertically() {
-		// Border is no longer "round"
-		Cell myCell = sut.getCellAt(2, 2);
-		assertSame(myCell, sut.getCellAt(2, -1));
-	}
-
-	@Test
-	@Ignore
-	@SuppressWarnings("deprecation")
-	public void verifySurroundingAliveCellsCount() {
-		int i = 1, j = 2;
-		sut = new Board(3, 3);
-		sut.getCellAt(0, 0).setCellDead();
-		sut.getCellAt(0, 1).setCellAlive();
-		sut.getCellAt(0, 2).setCellDead();
-		sut.getCellAt(1, 0).setCellDead();
-		sut.getCellAt(1, 1).setCellAlive();
-		sut.getCellAt(1, 2).setCellDead();
-		sut.getCellAt(2, 0).setCellDead();
-		sut.getCellAt(2, 1).setCellAlive();
-		sut.getCellAt(2, 2).setCellDead();
-		int aliveCellCount = sut.countSurroungingLiveCells(i, j);
-		sut.printBoard();
-		System.out.println("Live cells around (" + i + "," + j + "): " + aliveCellCount);
 	}
 
 	@Test

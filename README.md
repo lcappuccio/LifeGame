@@ -25,11 +25,12 @@ Download the code/jar and build/execute with your favourite IDE/CLI.
 - Automata: selects a different automata, see [LifeWiki](http://www.conwaylife.com/wiki/Cellular_automaton)
 - Life Probability: sets the probability of generating a live cell in a new board, combine different settings with the
 automata setting
+- Board Size: sets the board size, Small (800x600), Medium (1024x768), Large (1280x1024)
 - Apply: applies the preferences (*caution:* will stop the current simulation and reset the grid)
 
 ## License
 
-LifeGame 0.2
+LifeGame 0.3
 
 Copyright (C) 2014 Leonardo Cappuccio
 
