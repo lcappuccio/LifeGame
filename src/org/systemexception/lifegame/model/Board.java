@@ -32,30 +32,39 @@ public class Board {
 	public void iterateBoard() {
 		if (Preferences.getLifeAutomata().equals(Automata.CONWAY.toString())) {
 			iterateBoardConway();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.DRYLIFE.toString())) {
 			iterateBoardDryLife();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.HIGHLIFE.toString())) {
 			iterateBoardHighLife();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.LIVEFREEORDIE.toString())) {
 			iterateBoardLiveFreeOrDie();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.MAZE.toString())) {
 			iterateBoardMaze();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.SERVIETTES.toString())) {
 			iterateBoardServiettes();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.CORAL.toString())) {
 			iterateBoardCoral();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.MOVE.toString())) {
 			iterateBoardMove();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.ASSIMILATION.toString())) {
 			iterateBoardAssimilation();
+			return;
 		}
 	}
 
