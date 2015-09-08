@@ -18,7 +18,7 @@ public class SpeedMenu extends JMenu {
 		this.setFont(Main.MENU_FONT);
 		this.setText("Speed");
 		for (int i = 0; i < GameSpeeds.values().length; i++) {
-			JMenuItem speedMenuItem = new JMenuItem(GameSpeeds.values()[i].name());
+			final JMenuItem speedMenuItem = new JMenuItem(GameSpeeds.values()[i].name());
 			final int gameSpeed = GameSpeeds.values()[i].getGameSpeed();
 			speedMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5 - i, Main.metaKey));
 			speedMenuItem.addActionListener(new ActionListener() {
