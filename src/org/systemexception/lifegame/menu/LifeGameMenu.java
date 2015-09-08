@@ -33,7 +33,7 @@ public class LifeGameMenu extends JMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				About about = new About();
-				about.setBounds(Main.coordX + 50, Main.coordY + 50, about.getWidth(), about.getHeight());
+				about.setBounds(Main.windowPositionX + 25, Main.windowPositionY + 25, about.getWidth(), about.getHeight());
 				about.setVisible(true);
 			}
 		});
@@ -49,7 +49,7 @@ public class LifeGameMenu extends JMenu {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				preferencesWindow.setVisible(true);
-				preferencesWindow.setBounds(Main.coordX + 40, Main.coordY + 40, preferencesWindow.getWidth(),
+				preferencesWindow.setBounds(Main.windowPositionX + 25, Main.windowPositionY + 25, preferencesWindow.getWidth(),
 						preferencesWindow.getHeight());
 			}
 		});
