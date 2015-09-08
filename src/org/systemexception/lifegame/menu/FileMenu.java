@@ -26,6 +26,7 @@ public class FileMenu extends JMenu {
 	private final String cellAlive = "o", cellDead = ".";
 
 	public FileMenu() {
+		this.setFont(Main.MENU_FONT);
 		UIManager.put("FileChooser.readOnly", Boolean.FALSE);
 		this.setText("File");
 		this.add(menuOpen());

@@ -40,7 +40,7 @@ public class Main {
 
 	public static int metaKey, windowPositionX, windowPositionY;
 	public static Timer gameTimer;
-	public static final Font MENU_FONT = new Font("Lucida Grande", Font.PLAIN, 12);
+	public static final Font MENU_FONT = new Font("Lucida Grande", Font.BOLD, 12);
 	private static final Font labelFontBold = new Font(
 			"Lucida Grande", Font.BOLD, 10), labelFontPlain =  new Font(
 			"Lucida Grande", Font.PLAIN, 10);
