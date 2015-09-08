@@ -9,6 +9,7 @@ import org.systemexception.lifegame.enums.GameSpeeds;
 import org.systemexception.lifegame.gui.Main;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,10 +27,18 @@ public class SpeedMenu extends JMenu {
 				public void actionPerformed(ActionEvent e) {
 					if (Main.gameTimer != null && Main.gameTimer.isRunning()) {
 						Main.gameTimer.setDelay(gameSpeed);
+						resetFont();
+						speedMenuItem.setFont(Main.MENU_FONT.deriveFont(Font.BOLD));
 					}
 				}
 			});
 			this.add(speedMenuItem);
+		}
+	}
+
+	private void resetFont() {
+		for (int i = 0; i < this.getItemCount(); i++) {
+			this.getItem(i).setFont(Main.MENU_FONT.deriveFont(Font.PLAIN));
 		}
 	}
 }
