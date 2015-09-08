@@ -16,7 +16,7 @@ public class About extends JFrame {
 	public About() {
 		setTitle("About LifeGame");
 		setResizable(false);
-		setBounds(100, 100, windowWidth, windowHeight);
+		setBounds(Main.windowPositionX + 50, Main.windowPositionY + 50, windowWidth, windowHeight);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 

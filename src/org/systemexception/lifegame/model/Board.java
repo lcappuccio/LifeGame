@@ -15,10 +15,6 @@ public class Board {
 	private final int rows, cols;
 	private int countSurroundingLiveCells = 0, liveCellCounter = 0;
 
-	public Cell[][] getBoard() {
-		return board;
-	}
-
 	public Board(int rows, int cols) {
 		this.board = new Cell[rows][cols];
 		this.rows = rows;
@@ -26,7 +22,7 @@ public class Board {
 		generateBoard(rows, cols);
 	}
 
-	public Board(int rows, int cols, ArrayList<ArrayList<String>> savedBoard, String automata) {
+	public Board(int rows, int cols, ArrayList<ArrayList<String>> savedBoard) {
 		this.board = new Cell[rows][cols];
 		this.rows = rows;
 		this.cols = cols;
@@ -36,36 +32,40 @@ public class Board {
 	public void iterateBoard() {
 		if (Preferences.getLifeAutomata().equals(Automata.CONWAY.toString())) {
 			iterateBoardConway();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.DRYLIFE.toString())) {
 			iterateBoardDryLife();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.HIGHLIFE.toString())) {
 			iterateBoardHighLife();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.LIVEFREEORDIE.toString())) {
 			iterateBoardLiveFreeOrDie();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.MAZE.toString())) {
 			iterateBoardMaze();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.SERVIETTES.toString())) {
 			iterateBoardServiettes();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.CORAL.toString())) {
 			iterateBoardCoral();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.MOVE.toString())) {
 			iterateBoardMove();
+			return;
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.ASSIMILATION.toString())) {
 			iterateBoardAssimilation();
+			return;
 		}
-	}
-
-	public Board resetBoard(int rows, int cols) {
-		generateBoard(rows, cols);
-		return this;
 	}
 
 	private void generateBoard(int rows, int cols) {
@@ -84,10 +84,6 @@ public class Board {
 
 	public int getBoardCols() {
 		return cols;
-	}
-
-	public boolean getCellIsAlive(int i, int j) {
-		return board[i][j].getCellState();
 	}
 
 	public int getCellAliveCount() {
@@ -112,7 +108,7 @@ public class Board {
 		return board[i][j];
 	}
 
-	public int countSurroungingLiveCells(int i, int j) {
+	private int countSurroungingLiveCells(int i, int j) {
 		countSurroundingLiveCells = 0;
 		// Rotating clockwise
 		if (getCellAt(i, j - 1).getCellState()) {
@@ -395,16 +391,6 @@ public class Board {
 				}
 				board[j][i] = cell;
 			}
-		}
-	}
-
-	@Deprecated
-	public void printBoard() {
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < cols; j++) {
-				System.out.print("(" + i + "," + j + "): " + getCellAt(i, j).getCellState() + "\t");
-			}
-			System.out.print("\n");
 		}
 	}
 
