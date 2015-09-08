@@ -143,7 +143,6 @@ public class Main {
 		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
 		flowLayout.setHgap(0);
 		flowLayout.setVgap(0);
-		lowerPanel.setBounds(0, 970, 390, 29);
 		mainAppWindow.getContentPane().add(lowerPanel, BorderLayout.SOUTH);
 
 		btnStart = new JButton("Start");
@@ -194,21 +193,17 @@ public class Main {
 
 		// Live cells counter
 		lblLiveCells = new JLabel("Live Cells:");
-		lblLiveCells.setBounds(986, 977, 75, 29);
 		mainAppWindow.getContentPane().add(lblLiveCells, BorderLayout.SOUTH);
 		lblLiveCells.setFont(labelFontBold);
 		lblCountLiveCells = new JLabel(String.valueOf(grid.getTotalLiveCells()));
-		lblCountLiveCells.setBounds(1073, 977, 75, 29);
 		mainAppWindow.getContentPane().add(lblCountLiveCells, BorderLayout.SOUTH);
 		lblCountLiveCells.setFont(labelFontPlain);
 
 		// Iteration counter
 		lblIteration = new JLabel("Iteration:");
-		lblIteration.setBounds(1136, 977, 75, 29);
 		mainAppWindow.getContentPane().add(lblIteration, BorderLayout.SOUTH);
 		lblIteration.setFont(labelFontBold);
 		lblCountIteration = new JLabel("0");
-		lblCountIteration.setBounds(1223, 977, 75, 29);
 		mainAppWindow.getContentPane().add(lblCountIteration, BorderLayout.SOUTH);
 		lblCountIteration.setFont(labelFontPlain);
 
