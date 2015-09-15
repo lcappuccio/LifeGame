@@ -37,7 +37,7 @@ public class BoardTest {
 	}
 
 	@Test
-	public void testVerticalOscillator() {
+	public void testConwayVerticalOscillator() {
 		sut = new Board(3, 3);
 		sut.getCellAt(0, 0).setCellDead();
 		sut.getCellAt(0, 1).setCellAlive();
@@ -53,5 +53,94 @@ public class BoardTest {
 		assertTrue(sut.getCellAt(1, 0).getCellState());
 		assertTrue(sut.getCellAt(1, 1).getCellState());
 		assertTrue(sut.getCellAt(1, 2).getCellState());
+	}
+
+
+	@Test
+	public void testAssimilationIteration() {
+		sut = new Board(100,100);
+		int cellsCounterBefore = sut.getCellAliveCount();
+		Preferences.setLifeAutomata(Automata.ASSIMILATION.toString());
+		sut.iterateBoard();
+		int cellsCounterAfter = sut.getCellAliveCount();
+		assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
+	}
+
+	@Test
+	public void testDryLifeIteration() {
+		sut = new Board(100,100);
+		int cellsCounterBefore = sut.getCellAliveCount();
+		Preferences.setLifeAutomata(Automata.DRYLIFE.toString());
+		sut.iterateBoard();
+		int cellsCounterAfter = sut.getCellAliveCount();
+		assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
+	}
+
+	@Test
+	public void testHighLifeIteration() {
+		sut = new Board(100,100);
+		int cellsCounterBefore = sut.getCellAliveCount();
+		Preferences.setLifeAutomata(Automata.HIGHLIFE.toString());
+		sut.iterateBoard();
+		int cellsCounterAfter = sut.getCellAliveCount();
+		assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
+	}
+
+	@Test
+	public void testLiveFreeOrDieIteration() {
+		sut = new Board(100,100);
+		int cellsCounterBefore = sut.getCellAliveCount();
+		Preferences.setLifeAutomata(Automata.LIVEFREEORDIE.toString());
+		sut.iterateBoard();
+		int cellsCounterAfter = sut.getCellAliveCount();
+		assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
+	}
+
+	@Test
+	public void testCoralIteration() {
+		sut = new Board(100,100);
+		int cellsCounterBefore = sut.getCellAliveCount();
+		Preferences.setLifeAutomata(Automata.CORAL.toString());
+		sut.iterateBoard();
+		int cellsCounterAfter = sut.getCellAliveCount();
+		assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
+	}
+
+	@Test
+	public void testMazeIteration() {
+		sut = new Board(100,100);
+		int cellsCounterBefore = sut.getCellAliveCount();
+		Preferences.setLifeAutomata(Automata.MAZE.toString());
+		sut.iterateBoard();
+		int cellsCounterAfter = sut.getCellAliveCount();
+		assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
+	}
+
+	@Test
+	public void testMoveIteration() {
+		sut = new Board(100,100);
+		int cellsCounterBefore = sut.getCellAliveCount();
+		Preferences.setLifeAutomata(Automata.MOVE.toString());
+		sut.iterateBoard();
+		int cellsCounterAfter = sut.getCellAliveCount();
+		assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
+	}
+
+	@Test
+	public void testServiettesIteration() {
+		sut = new Board(100,100);
+		int cellsCounterBefore = sut.getCellAliveCount();
+		Preferences.setLifeAutomata(Automata.SERVIETTES.toString());
+		sut.iterateBoard();
+		int cellsCounterAfter = sut.getCellAliveCount();
+		assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
+	}
+
+	private boolean compareCounters(final int aliveCellsBefore, final int aliveCellsAfter) {
+		if (aliveCellsAfter == aliveCellsBefore) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
