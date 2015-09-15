@@ -143,7 +143,7 @@ public class Board {
 	 * cells around dies. Any dead cell with exactly 3 alive neighbors comes to
 	 * life.
 	 */
-	public void iterateBoardConway() {
+	private void iterateBoardConway() {
 		liveCellCounter = 0;
 		copyBoard();
 		for (int i = 0; i < board.length; i++) {

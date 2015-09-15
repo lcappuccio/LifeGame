@@ -5,6 +5,8 @@
 package org.systemexception.lifegame.test;
 
 import org.junit.Test;
+import org.systemexception.lifegame.enums.Automata;
+import org.systemexception.lifegame.gui.Preferences;
 import org.systemexception.lifegame.model.Board;
 
 import static org.junit.Assert.*;
@@ -46,7 +48,8 @@ public class BoardTest {
 		sut.getCellAt(2, 0).setCellDead();
 		sut.getCellAt(2, 1).setCellAlive();
 		sut.getCellAt(2, 2).setCellDead();
-		sut.iterateBoardConway();
+		Preferences.setLifeAutomata(Automata.CONWAY.toString());
+		sut.iterateBoard();
 		assertTrue(sut.getCellAt(1, 0).getCellState());
 		assertTrue(sut.getCellAt(1, 1).getCellState());
 		assertTrue(sut.getCellAt(1, 2).getCellState());
