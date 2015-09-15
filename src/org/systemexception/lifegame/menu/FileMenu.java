@@ -23,7 +23,6 @@ public class FileMenu extends JMenu {
 	public JMenuItem menuOpen, menuSave;
 	private Board board;
 	private final String lineSeparator = System.getProperty("line.separator");
-	private final String cellAlive = "o", cellDead = ".";
 
 	public FileMenu() {
 		this.setFont(Main.MENU_FONT);
@@ -97,9 +96,9 @@ public class FileMenu extends JMenu {
 				for (int i = 0; i < board.getBoardCols(); i++) {
 					for (int j = 0; j < board.getBoardRows(); j++) {
 						if (board.getCellAt(j, i).getCellState()) {
-							fileWriter.print(cellAlive);
+							fileWriter.print(Board.ALIVE_CELL);
 						} else {
-							fileWriter.print(cellDead);
+							fileWriter.print(Board.DEAD_CELL);
 						}
 					}
 					fileWriter.print(lineSeparator);

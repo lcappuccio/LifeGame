@@ -14,6 +14,7 @@ public class Board {
 	private Cell[][] board, boardIteration;
 	private final int rows, cols;
 	private int countSurroundingLiveCells = 0, liveCellCounter = 0;
+	public static final String ALIVE_CELL = "o", DEAD_CELL = ".";
 
 	public Board(int rows, int cols) {
 		this.board = new Cell[rows][cols];
@@ -383,7 +384,7 @@ public class Board {
 		for (int i = 0; i < savedBoard.size(); i++) {
 			for (int j = 0; j < savedBoard.get(i).size(); j++) {
 				Cell cell = new Cell();
-				if (savedBoard.get(i).get(j).equals("o")) {
+				if (savedBoard.get(i).get(j).equals(ALIVE_CELL)) {
 					cell.setCellAlive();
 					liveCellCounter++;
 				} else {
