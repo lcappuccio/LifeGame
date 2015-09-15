@@ -104,24 +104,24 @@ public class Grid extends JComponent {
 	 */
 	private void setColours(String colourTheme) {
 		if (colourTheme.equals(Themes.BW.toString())) {
-			colorDark = hex2Rgb("#ECECEC");
-			colorLight = Color.DARK_GRAY;
-		}
-		if (colourTheme.equals(Themes.INVERSE.toString())) {
 			colorDark = Color.DARK_GRAY;
 			colorLight = hex2Rgb("#ECECEC");
 		}
+		if (colourTheme.equals(Themes.INVERSE.toString())) {
+			colorDark = hex2Rgb("#ECECEC");
+			colorLight = Color.DARK_GRAY;
+		}
 		if (colourTheme.equals(Themes.BLUE.toString())) {
-			colorDark = hex2Rgb("#19B5FE");
-			colorLight = hex2Rgb("#336E7B");
+			colorDark = hex2Rgb("#336E7B");
+			colorLight = hex2Rgb("#19B5FE");
 		}
 		if (colourTheme.equals(Themes.GREEN.toString())) {
-			colorDark = hex2Rgb("#36D7B7");
-			colorLight = hex2Rgb("#1E824C");
+			colorDark = hex2Rgb("#1E824C");
+			colorLight = hex2Rgb("#36D7B7");
 		}
 		if (colourTheme.equals(Themes.RED.toString())) {
-			colorDark = hex2Rgb("#EF4836");
-			colorLight = hex2Rgb("#96281B");
+			colorDark = hex2Rgb("#96281B");
+			colorLight = hex2Rgb("#EF4836");
 		}
 	}
 
@@ -142,7 +142,7 @@ public class Grid extends JComponent {
 	public void paintComponent(Graphics g) {
 		for (int i = 0; i < board.getBoardRows(); i++) {
 			for (int j = 0; j < board.getBoardCols(); j++) {
-				g.setColor(board.getCellAt(i, j).getCellState() ? colorDark : colorLight);
+				g.setColor(board.getCellAt(i, j).getCellState() ? colorLight : colorDark);
 				g.fillRect(cellSize * i, cellSize * j, cellSize, cellSize);
 			}
 		}
