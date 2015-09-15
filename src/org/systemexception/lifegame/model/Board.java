@@ -393,17 +393,4 @@ public class Board {
 			}
 		}
 	}
-
-	@Deprecated
-	public int getLiveCellCount() {
-		int testCellCounter = 0;
-		for (Cell[] boardRow : board) {
-			for (Cell boardRowCell : boardRow) {
-				if (boardRowCell.getCellState()) {
-					testCellCounter++;
-				}
-			}
-		}
-		return testCellCounter;
-	}
 }

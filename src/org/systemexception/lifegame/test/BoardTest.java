@@ -51,19 +51,4 @@ public class BoardTest {
 		assertTrue(sut.getCellAt(1, 1).getCellState());
 		assertTrue(sut.getCellAt(1, 2).getCellState());
 	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	public void testLiveCellCount() {
-		sut = new Board(100, 100);
-		assertEquals(sut.getLiveCellCount(), sut.getCellAliveCount());
-	}
-
-	@Test
-	@SuppressWarnings("deprecation")
-	public void testLiveCellCountIteration() {
-		sut = new Board(1000, 1000);
-		sut.iterateBoardConway();
-		assertEquals(sut.getLiveCellCount(), sut.getCellAliveCount());
-	}
 }
