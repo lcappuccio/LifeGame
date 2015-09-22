@@ -42,9 +42,8 @@ public class Main {
 	public static int metaKey, windowPositionX, windowPositionY;
 	public static Timer gameTimer;
 	public static final Font MENU_FONT = new Font("Lucida Grande", Font.BOLD, 12);
-	private static final Font labelFontBold = new Font(
-			"Lucida Grande", Font.BOLD, 10), labelFontPlain = new Font(
-			"Lucida Grande", Font.PLAIN, 10);
+	private static final Font labelFontBold = new Font("Lucida Grande", Font.BOLD, 10), labelFontPlain = new Font
+			("Lucida Grande", Font.PLAIN, 10);
 	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();
 	private static final String platform = System.getProperty("os.name").toLowerCase();
 	private JFrame mainAppWindow;
