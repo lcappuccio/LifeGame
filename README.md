@@ -30,8 +30,6 @@ automata setting
 
 ## License
 
-LifeGame 0.4
-
 Copyright (C) 2014 Leonardo Cappuccio
 
 This program is free software: you can redistribute it and/or modify
