@@ -4,6 +4,14 @@
 
 A humble [Conway's Game Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) java/swing implementation
 
+**Master**
+
+[![Build Status](https://travis-ci.org/lcappuccio/life-game.svg?branch=master)](https://travis-ci.org/lcappuccio/life-game)
+
+**Develop**
+
+[![Build Status](https://travis-ci.org/lcappuccio/life-game.svg?branch=develop)](https://travis-ci.org/lcappuccio/life-game)
+
 ## Installation
 
 Download the code/jar and build/execute with your favourite IDE/CLI.
