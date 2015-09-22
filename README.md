@@ -25,6 +25,7 @@ Download the code/jar and build/execute with your favourite IDE/CLI.
 - Tick: stops the simulation and performs a single tick (or iteration)
 - Stop: stops the simulation
 - Reset: resets the simulation and generates a new random grid
+- Preset: loads a preset [Methuselah](http://www.conwaylife.com/wiki/Methuselah)
 
 ### Preferences
 
