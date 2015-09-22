@@ -58,7 +58,8 @@ public class Grid extends JComponent {
 		setColours(colourTheme);
 	}
 
-	public Grid(int cellSize, int gridRows, int gridCols, ArrayList<ArrayList<String>> savedBoard, String colourTheme) {
+	public Grid(int cellSize, int gridRows, int gridCols, ArrayList<ArrayList<String>> savedBoard, String
+			colourTheme) {
 		this.cellSize = cellSize;
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
