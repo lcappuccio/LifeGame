@@ -14,6 +14,7 @@ public class Board {
 	private Cell[][] board, boardIteration;
 	private final int rows, cols;
 	private int countSurroundingLiveCells = 0, liveCellCounter = 0;
+	public static final String ALIVE_CELL = "o", DEAD_CELL = ".";
 
 	public Board(int rows, int cols) {
 		this.board = new Cell[rows][cols];
@@ -143,7 +144,7 @@ public class Board {
 	 * cells around dies. Any dead cell with exactly 3 alive neighbors comes to
 	 * life.
 	 */
-	public void iterateBoardConway() {
+	private void iterateBoardConway() {
 		liveCellCounter = 0;
 		copyBoard();
 		for (int i = 0; i < board.length; i++) {
@@ -383,7 +384,7 @@ public class Board {
 		for (int i = 0; i < savedBoard.size(); i++) {
 			for (int j = 0; j < savedBoard.get(i).size(); j++) {
 				Cell cell = new Cell();
-				if (savedBoard.get(i).get(j).equals("o")) {
+				if (savedBoard.get(i).get(j).equals(ALIVE_CELL)) {
 					cell.setCellAlive();
 					liveCellCounter++;
 				} else {
@@ -392,18 +393,5 @@ public class Board {
 				board[j][i] = cell;
 			}
 		}
-	}
-
-	@Deprecated
-	public int getLiveCellCount() {
-		int testCellCounter = 0;
-		for (Cell[] boardRow : board) {
-			for (Cell boardRowCell : boardRow) {
-				if (boardRowCell.getCellState()) {
-					testCellCounter++;
-				}
-			}
-		}
-		return testCellCounter;
 	}
 }

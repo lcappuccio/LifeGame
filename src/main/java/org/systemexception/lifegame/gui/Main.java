@@ -22,6 +22,7 @@ import org.systemexception.lifegame.enums.GameSpeeds;
 import org.systemexception.lifegame.enums.SavedBoardProperties;
 import org.systemexception.lifegame.menu.FileMenu;
 import org.systemexception.lifegame.menu.LifeGameMenu;
+import org.systemexception.lifegame.menu.PresetsMenu;
 import org.systemexception.lifegame.menu.SpeedMenu;
 
 import javax.swing.*;
@@ -42,20 +43,24 @@ public class Main {
 	public static Timer gameTimer;
 	public static final Font MENU_FONT = new Font("Lucida Grande", Font.BOLD, 12);
 	private static final Font labelFontBold = new Font(
-			"Lucida Grande", Font.BOLD, 10), labelFontPlain =  new Font(
+			"Lucida Grande", Font.BOLD, 10), labelFontPlain = new Font(
 			"Lucida Grande", Font.PLAIN, 10);
 	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();
 	private static final String platform = System.getProperty("os.name").toLowerCase();
 	private JFrame mainAppWindow;
-	private JPanel centerPanel, lowerPanel;
+	private static JPanel centerPanel;
+	private JPanel lowerPanel;
 	private JMenuBar menuBar;
-	private JMenu menuLifeGame, menuGameSpeed;
-	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
-	private JButton btnStart, btnTick, btnStop;
-	public static JButton btnReset;
+	private JMenu menuLifeGame, menuGameSpeed, menuPresets;
+	private JLabel lblLiveCells;
+	private static JLabel lblCountLiveCells;
+	private JLabel lblIteration;
+	private JLabel lblCountIteration;
+	private JButton btnStart, btnTick;
+	public static JButton btnReset, btnStop;
 	private FileMenu menuFile;
 	private int iterationCounter;
-	private Grid grid;
+	private static Grid grid;
 
 	/**
 	 * Launch the application.
@@ -127,6 +132,9 @@ public class Main {
 		// Speed menu
 		menuGameSpeed = new SpeedMenu();
 		menuBar.add(menuGameSpeed);
+		// Presets menu
+		menuPresets = new PresetsMenu();
+		menuBar.add(menuPresets);
 
 		// CENTER panel
 		centerPanel = new JPanel();
@@ -262,42 +270,47 @@ public class Main {
 				int result = fileChooser.showOpenDialog(fileChooser);
 				if (result == JFileChooser.APPROVE_OPTION) {
 					File selectedFile = fileChooser.getSelectedFile();
-					ArrayList<ArrayList<String>> fileContents = new ArrayList<>();
-					try {
-						Properties properties;
-						try (BufferedReader fileReader = new BufferedReader(new FileReader(selectedFile))) {
-							String line;
-							// Read board settings
-							properties = new Properties();
-							while ((line = fileReader.readLine()) != null) {
-								if (line.startsWith("#")) {
-									properties.load(new StringReader(line.replace("#", "")));
-								} else {
-									ArrayList<String> fileLine = new ArrayList<>();
-									for (int i = 0; i < line.length(); i++) {
-										fileLine.add(String.valueOf(line.charAt(i)));
-									}
-									fileContents.add(fileLine);
-								}
-							}
-						}
-						int cellSize = Integer.valueOf(properties.getProperty(SavedBoardProperties.CELLSIZE.toString
-								()));
-						int gridCols = Integer.valueOf(properties.getProperty(SavedBoardProperties.COLS.toString()));
-						int gridRows = Integer.valueOf(properties.getProperty(SavedBoardProperties.ROWS.toString()));
-						String automata = properties.getProperty(SavedBoardProperties.AUTOMATA.toString());
-						String theme = properties.getProperty(SavedBoardProperties.THEME.toString());
-						centerPanel.remove(grid);
-						grid = new Grid(cellSize, gridRows, gridCols, fileContents, theme);
-						centerPanel.add(grid);
-						lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
-						Preferences.setLifeAutomata(automata);
-					} catch (IOException | NumberFormatException fileException) {
-						fileException.printStackTrace(System.out);
-					}
+					openFile(selectedFile);
 				}
 			}
 		});
+	}
+
+	public static void openFile(File selectedFile) {
+		btnStop.doClick();
+		ArrayList<ArrayList<String>> fileContents = new ArrayList<>();
+		try {
+			Properties properties;
+			try (BufferedReader fileReader = new BufferedReader(new FileReader(selectedFile))) {
+				String line;
+				// Read board settings
+				properties = new Properties();
+				while ((line = fileReader.readLine()) != null) {
+					if (line.startsWith("#")) {
+						properties.load(new StringReader(line.replace("#", "")));
+					} else {
+						ArrayList<String> fileLine = new ArrayList<>();
+						for (int i = 0; i < line.length(); i++) {
+							fileLine.add(String.valueOf(line.charAt(i)));
+						}
+						fileContents.add(fileLine);
+					}
+				}
+			}
+			int cellSize = Integer.valueOf(properties.getProperty(SavedBoardProperties.CELLSIZE.toString
+					()));
+			int gridCols = Integer.valueOf(properties.getProperty(SavedBoardProperties.COLS.toString()));
+			int gridRows = Integer.valueOf(properties.getProperty(SavedBoardProperties.ROWS.toString()));
+			String automata = properties.getProperty(SavedBoardProperties.AUTOMATA.toString());
+			String theme = properties.getProperty(SavedBoardProperties.THEME.toString());
+			centerPanel.remove(grid);
+			grid = new Grid(cellSize, gridRows, gridCols, fileContents, theme);
+			centerPanel.add(grid);
+			lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+			Preferences.setLifeAutomata(automata);
+		} catch (IOException | NumberFormatException fileException) {
+			fileException.printStackTrace(System.out);
+		}
 	}
 
 	private void setWindowSize() {

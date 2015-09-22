@@ -4,6 +4,14 @@
 
 A humble [Conway's Game Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) java/swing implementation
 
+**Master**
+
+[![Build Status](https://travis-ci.org/lcappuccio/life-game.svg?branch=master)](https://travis-ci.org/lcappuccio/life-game)
+
+**Develop**
+
+[![Build Status](https://travis-ci.org/lcappuccio/life-game.svg?branch=develop)](https://travis-ci.org/lcappuccio/life-game)
+
 ## Installation
 
 Download the code/jar and build/execute with your favourite IDE/CLI.
@@ -17,6 +25,7 @@ Download the code/jar and build/execute with your favourite IDE/CLI.
 - Tick: stops the simulation and performs a single tick (or iteration)
 - Stop: stops the simulation
 - Reset: resets the simulation and generates a new random grid
+- Preset: loads a preset [Methuselah](http://www.conwaylife.com/wiki/Methuselah)
 
 ### Preferences
 
@@ -29,8 +38,6 @@ automata setting
 - Apply: applies the preferences (*caution:* will stop the current simulation and reset the grid)
 
 ## License
-
-LifeGame 0.4
 
 Copyright (C) 2014 Leonardo Cappuccio
 
