@@ -52,10 +52,8 @@ public class Main {
 	private JPanel lowerPanel;
 	private JMenuBar menuBar;
 	private JMenu menuLifeGame, menuGameSpeed, menuPresets;
-	private JLabel lblLiveCells;
+	private JLabel lblLiveCells, lblIteration, lblCountIteration;
 	private static JLabel lblCountLiveCells;
-	private JLabel lblIteration;
-	private JLabel lblCountIteration;
 	private JButton btnStart, btnTick;
 	public static JButton btnReset, btnStop;
 	private FileMenu menuFile;
