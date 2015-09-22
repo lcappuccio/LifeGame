@@ -22,6 +22,7 @@ import org.systemexception.lifegame.enums.GameSpeeds;
 import org.systemexception.lifegame.enums.SavedBoardProperties;
 import org.systemexception.lifegame.menu.FileMenu;
 import org.systemexception.lifegame.menu.LifeGameMenu;
+import org.systemexception.lifegame.menu.PresetsMenu;
 import org.systemexception.lifegame.menu.SpeedMenu;
 
 import javax.swing.*;
@@ -49,7 +50,7 @@ public class Main {
 	private JFrame mainAppWindow;
 	private JPanel centerPanel, lowerPanel;
 	private JMenuBar menuBar;
-	private JMenu menuLifeGame, menuGameSpeed;
+	private JMenu menuLifeGame, menuGameSpeed, menuPresets;
 	private JLabel lblLiveCells, lblCountLiveCells, lblIteration, lblCountIteration;
 	private JButton btnStart, btnTick, btnStop;
 	public static JButton btnReset;
@@ -127,6 +128,9 @@ public class Main {
 		// Speed menu
 		menuGameSpeed = new SpeedMenu();
 		menuBar.add(menuGameSpeed);
+		// Presets menu
+		menuPresets = new PresetsMenu();
+		menuBar.add(menuPresets);
 
 		// CENTER panel
 		centerPanel = new JPanel();
