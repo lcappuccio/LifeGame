@@ -56,8 +56,8 @@ public class Main {
 	private static JLabel lblCountLiveCells;
 	private JLabel lblIteration;
 	private JLabel lblCountIteration;
-	private JButton btnStart, btnTick, btnStop;
-	public static JButton btnReset;
+	private JButton btnStart, btnTick;
+	public static JButton btnReset, btnStop;
 	private FileMenu menuFile;
 	private int iterationCounter;
 	private static Grid grid;
@@ -277,6 +277,7 @@ public class Main {
 	}
 
 	public static void openFile(File selectedFile) {
+		btnStop.doClick();
 		ArrayList<ArrayList<String>> fileContents = new ArrayList<>();
 		try {
 			Properties properties;
