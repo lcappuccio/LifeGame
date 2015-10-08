@@ -23,7 +23,6 @@ public class PresetsMenu extends JMenu {
 
 	public PresetsMenu() {
 		this.setFont(Main.MENU_FONT);
-		UIManager.put("FileChooser.readOnly", Boolean.FALSE);
 		this.setText("Presets");
 		try {
 			List<String> lifePresets = scanLifePresets();
