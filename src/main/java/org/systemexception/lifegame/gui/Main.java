@@ -51,8 +51,8 @@ public class Main {
 	private JPanel lowerPanel;
 	private JMenuBar menuBar;
 	private JMenu menuLifeGame, menuGameSpeed, menuPresets;
-	private JLabel lblLiveCells, lblIteration, lblCountIteration;
-	private static JLabel lblCountLiveCells;
+	private JLabel lblLiveCells, lblIteration;
+	private static JLabel lblCountIteration, lblCountLiveCells;
 	private JButton btnStart, btnTick;
 	public static JButton btnReset, btnStop;
 	private FileMenu menuFile;
@@ -304,6 +304,7 @@ public class Main {
 			grid = new Grid(cellSize, gridRows, gridCols, fileContents, theme);
 			centerPanel.add(grid);
 			lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+			lblCountIteration.setText("0");
 			Preferences.setLifeAutomata(automata);
 		} catch (IOException | NumberFormatException fileException) {
 			fileException.printStackTrace(System.out);
