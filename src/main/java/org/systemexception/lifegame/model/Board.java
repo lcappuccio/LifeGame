@@ -65,7 +65,6 @@ public class Board {
 		}
 		if (Preferences.getLifeAutomata().equals(Automata.ASSIMILATION.toString())) {
 			iterateBoardAssimilation();
-			return;
 		}
 	}
 
