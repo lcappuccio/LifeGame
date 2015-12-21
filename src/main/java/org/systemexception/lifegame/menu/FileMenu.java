@@ -55,7 +55,7 @@ public class FileMenu extends JMenu {
 			}
 			if (exists && file != null) {
 				int response = JOptionPane.showConfirmDialog(null,
-						"Are you sure you want to override existing file?", "Confirm", JOptionPane.YES_NO_OPTION,
+						"Are you sure you want to overwrite existing file?", "Confirm", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE);
 				if (response == JOptionPane.YES_OPTION) {
 					file.delete();
