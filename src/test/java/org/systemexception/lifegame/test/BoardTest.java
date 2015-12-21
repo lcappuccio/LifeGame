@@ -137,10 +137,6 @@ public class BoardTest {
 	}
 
 	private boolean compareCounters(final int aliveCellsBefore, final int aliveCellsAfter) {
-		if (aliveCellsAfter == aliveCellsBefore) {
-			return true;
-		} else {
-			return false;
-		}
+		return aliveCellsAfter == aliveCellsBefore;
 	}
 }
