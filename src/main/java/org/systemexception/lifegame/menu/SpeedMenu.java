@@ -10,8 +10,6 @@ import org.systemexception.lifegame.gui.Main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class SpeedMenu extends JMenu {
 
@@ -22,14 +20,11 @@ public class SpeedMenu extends JMenu {
 			final JMenuItem speedMenuItem = new JMenuItem(GameSpeeds.values()[i].name());
 			final int gameSpeed = GameSpeeds.values()[i].getGameSpeed();
 			speedMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_5 - i, Main.metaKey));
-			speedMenuItem.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					if (Main.gameTimer != null && Main.gameTimer.isRunning()) {
-						Main.gameTimer.setDelay(gameSpeed);
-						resetFont();
-						speedMenuItem.setFont(Main.MENU_FONT.deriveFont(Font.BOLD));
-					}
+			speedMenuItem.addActionListener(e -> {
+				if (Main.gameTimer != null && Main.gameTimer.isRunning()) {
+					Main.gameTimer.setDelay(gameSpeed);
+					resetFont();
+					speedMenuItem.setFont(Main.MENU_FONT.deriveFont(Font.BOLD));
 				}
 			});
 			this.add(speedMenuItem);
