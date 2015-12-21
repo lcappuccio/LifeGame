@@ -65,15 +65,12 @@ public class Main {
 	 * @param args UNUSED
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				try {
-					Main window = new Main();
-					window.mainAppWindow.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace(System.out);
-				}
+		EventQueue.invokeLater(() -> {
+			try {
+				Main window = new Main();
+				window.mainAppWindow.setVisible(true);
+			} catch (Exception e) {
+				e.printStackTrace(System.out);
 			}
 		});
 	}
@@ -151,48 +148,33 @@ public class Main {
 		mainAppWindow.getContentPane().add(lowerPanel, BorderLayout.SOUTH);
 
 		btnStart = new JButton("Start");
-		btnStart.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				btnStart.setEnabled(false);
-				if (gameTimer == null) {
-					gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
-					gameTimer.start();
-				} else {
-					gameTimer.restart();
-				}
+		btnStart.addActionListener(e -> {
+			btnStart.setEnabled(false);
+			if (gameTimer == null) {
+				gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
+				gameTimer.start();
+			} else {
+				gameTimer.restart();
 			}
 		});
 		lowerPanel.add(btnStart);
 		btnTick = new JButton("Tick");
-		btnTick.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				if (gameTimer != null && gameTimer.isRunning()) {
-					btnStart.setEnabled(true);
-					gameTimer.stop();
-				}
-				iterateGrid();
+		btnTick.addActionListener(e -> {
+			if (gameTimer != null && gameTimer.isRunning()) {
+				btnStart.setEnabled(true);
+				gameTimer.stop();
 			}
+			iterateGrid();
 		});
 		lowerPanel.add(btnTick);
 		btnStop = new JButton("Stop");
-		btnStop.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				stopGame();
-			}
-		});
+		btnStop.addActionListener(e -> stopGame());
 		lowerPanel.add(btnStop);
 		btnReset = new JButton("Reset");
-		btnReset.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				setWindowSize();
-				resetGrid();
-				stopGame();
-			}
-
+		btnReset.addActionListener(e -> {
+			setWindowSize();
+			resetGrid();
+			stopGame();
 		});
 		lowerPanel.add(btnReset);
 
@@ -257,18 +239,15 @@ public class Main {
 	};
 
 	private void menuFileSetOpenAction() {
-		menuFile.menuOpen.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser();
-				FileFilter fileFilter = new FileNameExtensionFilter("LifeGame", "life");
-				fileChooser.setFileFilter(fileFilter);
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				int result = fileChooser.showOpenDialog(fileChooser);
-				if (result == JFileChooser.APPROVE_OPTION) {
-					File selectedFile = fileChooser.getSelectedFile();
-					openFile(selectedFile);
-				}
+		menuFile.menuOpen.addActionListener(e -> {
+			JFileChooser fileChooser = new JFileChooser();
+			FileFilter fileFilter = new FileNameExtensionFilter("LifeGame", "life");
+			fileChooser.setFileFilter(fileFilter);
+			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			int result = fileChooser.showOpenDialog(fileChooser);
+			if (result == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = fileChooser.getSelectedFile();
+				openFile(selectedFile);
 			}
 		});
 	}

@@ -10,8 +10,6 @@ import org.systemexception.lifegame.gui.Preferences;
 import org.systemexception.lifegame.model.Board;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -45,31 +43,28 @@ public class FileMenu extends JMenu {
 	private JMenuItem menuSave() {
 		menuSave = new JMenuItem("Save");
 		menuSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, Main.metaKey));
-		menuSave.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JFileChooser fileChooser = new JFileChooser();
-				fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				fileChooser.showSaveDialog(null);
-				File file = fileChooser.getSelectedFile();
-				boolean exists = true;
-				// Check if file exists
-				if (file != null) {
-					exists = file.exists();
+		menuSave.addActionListener(e -> {
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			fileChooser.showSaveDialog(null);
+			File file = fileChooser.getSelectedFile();
+			boolean exists = true;
+			// Check if file exists
+			if (file != null) {
+				exists = file.exists();
+			}
+			if (exists && file != null) {
+				int response = JOptionPane.showConfirmDialog(null,
+						"Are you sure you want to override existing file?", "Confirm", JOptionPane.YES_NO_OPTION,
+						JOptionPane.QUESTION_MESSAGE);
+				if (response == JOptionPane.YES_OPTION) {
+					file.delete();
+					saveFile(file);
 				}
-				if (exists && file != null) {
-					int response = JOptionPane.showConfirmDialog(null,
-							"Are you sure you want to override existing file?", "Confirm", JOptionPane.YES_NO_OPTION,
-							JOptionPane.QUESTION_MESSAGE);
-					if (response == JOptionPane.YES_OPTION) {
-						file.delete();
-						saveFile(file);
-					}
-				} else {
-					if (file != null) {
-						file.delete();
-						saveFile(file);
-					}
+			} else {
+				if (file != null) {
+					file.delete();
+					saveFile(file);
 				}
 			}
 		});
