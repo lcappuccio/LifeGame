@@ -6,7 +6,7 @@ package org.systemexception.lifegame.model;
 
 import java.util.Random;
 
-import org.systemexception.lifegame.gui.Preferences;
+import org.systemexception.lifegame.gui.PreferencesGui;
 
 public class Cell {
 
@@ -14,7 +14,7 @@ public class Cell {
 
 	public Cell() {
 		Random rnd = new Random();
-		isAlive = rnd.nextInt(101) > (100 - Preferences.getCellLifeProbability());
+		isAlive = rnd.nextInt(101) > (100 - PreferencesGui.getCellLifeProbability());
 	}
 
 	public Cell(Boolean state) {

@@ -8,10 +8,8 @@ import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class Preferences extends JFrame {
+public class PreferencesGui extends JFrame {
 
 	private final GroupLayout gl_prefsWindow;
 	private final JPanel prefsWindow;
@@ -32,7 +30,7 @@ public class Preferences extends JFrame {
 	}
 
 	private void setCellSize() {
-		Preferences.cellSize = Integer.parseInt(prefsCellSpinner.getValue().toString());
+		PreferencesGui.cellSize = Integer.parseInt(prefsCellSpinner.getValue().toString());
 	}
 
 	public static String getColorTheme() {
@@ -40,7 +38,7 @@ public class Preferences extends JFrame {
 	}
 
 	private void setColorTheme() {
-		Preferences.colourTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
+		PreferencesGui.colourTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
 	}
 
 	public static String getLifeAutomata() {
@@ -48,11 +46,11 @@ public class Preferences extends JFrame {
 	}
 
 	private void setLifeAutomata() {
-		Preferences.lifeAutomata = String.valueOf(prefsAutomataSelector.getSelectedItem());
+		PreferencesGui.lifeAutomata = String.valueOf(prefsAutomataSelector.getSelectedItem());
 	}
 
 	public static void setLifeAutomata(String automata) {
-		Preferences.lifeAutomata = automata;
+		PreferencesGui.lifeAutomata = automata;
 	}
 
 	public static int getCellLifeProbability() {
@@ -60,7 +58,7 @@ public class Preferences extends JFrame {
 	}
 
 	private void setCellLifeProbability() {
-		Preferences.cellLifeProbability = Integer.parseInt(prefsLifeProbabilitySpinner.getValue().toString());
+		PreferencesGui.cellLifeProbability = Integer.parseInt(prefsLifeProbabilitySpinner.getValue().toString());
 	}
 
 	public static String getBoardSize() {
@@ -68,7 +66,7 @@ public class Preferences extends JFrame {
 	}
 
 	private void setBoardSize() {
-		Preferences.boardSize = String.valueOf(prefsBoardSizeSelector.getSelectedItem());
+		PreferencesGui.boardSize = String.valueOf(prefsBoardSizeSelector.getSelectedItem());
 	}
 
 	private void applyPrefs() {
@@ -87,11 +85,11 @@ public class Preferences extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Preferences() {
+	public PreferencesGui() {
 		setResizable(false);
 		setTitle("Preferences");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(Main.windowPositionX + 25, Main.windowPositionY + 25, WINDOW_WIDTH, WINDOW_HEIGHT);
+		setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25, WINDOW_WIDTH, WINDOW_HEIGHT);
 		prefsWindow = new JPanel();
 		prefsWindow.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(prefsWindow);
@@ -100,20 +98,12 @@ public class Preferences extends JFrame {
 		prefsCellSpinner = new JSpinner(prefsCellSpinnerModel);
 
 		prefsApply = new JButton("Apply");
-		prefsApply.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				applyPrefs();
-				Main.btnReset.doClick();
-			}
+		prefsApply.addActionListener(e -> {
+			applyPrefs();
+			MainGui.btnReset.doClick();
 		});
 		prefsCancel = new JButton("Cancel");
-		prefsCancel.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				closeWindow();
-			}
-		});
+		prefsCancel.addActionListener(e -> closeWindow());
 
 		prefsThemeSelector = new JComboBox<>();
 		prefsThemeSelector.addItem(Themes.BW.toString());

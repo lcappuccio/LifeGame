@@ -7,10 +7,12 @@ A humble [Conway's Game Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Li
 **Master**
 
 [![Build Status](https://travis-ci.org/lcappuccio/life-game.svg?branch=master)](https://travis-ci.org/lcappuccio/life-game)
+[![codecov.io](https://codecov.io/github/lcappuccio/life-game/coverage.svg?branch=master)](https://codecov.io/github/lcappuccio/life-game?branch=master)
 
 **Develop**
 
 [![Build Status](https://travis-ci.org/lcappuccio/life-game.svg?branch=develop)](https://travis-ci.org/lcappuccio/life-game)
+[![codecov.io](https://codecov.io/github/lcappuccio/life-game/coverage.svg?branch=develop)](https://codecov.io/github/lcappuccio/life-game?branch=develop)
 
 ## Installation
 

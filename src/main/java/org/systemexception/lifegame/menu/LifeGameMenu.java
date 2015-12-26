@@ -4,22 +4,20 @@
  */
 package org.systemexception.lifegame.menu;
 
-import org.systemexception.lifegame.gui.About;
-import org.systemexception.lifegame.gui.Main;
-import org.systemexception.lifegame.gui.Preferences;
+import org.systemexception.lifegame.gui.AboutGui;
+import org.systemexception.lifegame.gui.MainGui;
+import org.systemexception.lifegame.gui.PreferencesGui;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 public class LifeGameMenu extends JMenu {
 
-	private Preferences preferencesWindow;
+	private PreferencesGui preferencesGuiWindow;
 	private JMenuItem menuAbout, menuPreferences, menuQuit;
 
 	public LifeGameMenu() {
-		this.setFont(Main.MENU_FONT);
+		this.setFont(MainGui.MENU_FONT);
 		this.setText("LifeGame");
 		this.add(menuAbout());
 		this.add(menuPreferences());
@@ -28,45 +26,31 @@ public class LifeGameMenu extends JMenu {
 
 	private JMenuItem menuAbout() {
 		menuAbout = new JMenuItem("About");
-		menuAbout.addActionListener(new ActionListener() {
-			// About window
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				About about = new About();
-				about.setBounds(Main.windowPositionX + 25, Main.windowPositionY + 25, about.getWidth(), about.getHeight());
-				about.setVisible(true);
-			}
+		menuAbout.addActionListener(e -> {
+			AboutGui aboutGui = new AboutGui();
+			aboutGui.setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25, aboutGui.getWidth(), aboutGui.getHeight());
+			aboutGui.setVisible(true);
 		});
-		menuAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, Main.metaKey));
+		menuAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, MainGui.metaKey));
 		return (menuAbout);
 	}
 
 	private JMenuItem menuPreferences() {
-		preferencesWindow = new Preferences();
+		preferencesGuiWindow = new PreferencesGui();
 		menuPreferences = new JMenuItem("Preferences");
-		menuPreferences.addActionListener(new ActionListener() {
-			// Preferences window
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				preferencesWindow.setVisible(true);
-				preferencesWindow.setBounds(Main.windowPositionX + 25, Main.windowPositionY + 25, preferencesWindow.getWidth(),
-						preferencesWindow.getHeight());
-			}
+		menuPreferences.addActionListener(e -> {
+			preferencesGuiWindow.setVisible(true);
+			preferencesGuiWindow.setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25, preferencesGuiWindow.getWidth(),
+					preferencesGuiWindow.getHeight());
 		});
-		menuPreferences.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, Main.metaKey));
+		menuPreferences.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, MainGui.metaKey));
 		return (menuPreferences);
 	}
 
 	private JMenuItem menuQuit() {
 		menuQuit = new JMenuItem("Quit");
-		menuQuit.addActionListener(new ActionListener() {
-			// Quit application
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		menuQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, Main.metaKey));
+		menuQuit.addActionListener(e -> System.exit(0));
+		menuQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, MainGui.metaKey));
 		return (menuQuit);
 	}
 }
