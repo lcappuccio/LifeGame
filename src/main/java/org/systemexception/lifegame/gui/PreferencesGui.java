@@ -12,12 +12,10 @@ import javax.swing.border.EmptyBorder;
 public class PreferencesGui extends JFrame {
 
 	private final GroupLayout gl_prefsWindow;
-	private final JPanel prefsWindow;
 	private final JSpinner prefsCellSpinner, prefsLifeProbabilitySpinner;
 	private final JLabel prefsCellSize = new JLabel("Cell Size"), lblTheme = new JLabel("Theme"),
 			lblAutomata = new JLabel("Automata"), lblLifeProbability = new JLabel("Life Probability"), lblBoardSize =
 			new JLabel("Board Size");
-	private final JButton prefsApply, prefsCancel;
 	private final JComboBox<String> prefsThemeSelector, prefsAutomataSelector, prefsBoardSizeSelector;
 	private static int cellSize = 5, cellLifeProbability = 50;
 	private static final int WINDOW_WIDTH = 250, WINDOW_HEIGHT = 240, MIN_CELL_SIZE = 1, MAX_CELL_SIZE = 10,
@@ -90,19 +88,19 @@ public class PreferencesGui extends JFrame {
 		setTitle("Preferences");
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25, WINDOW_WIDTH, WINDOW_HEIGHT);
-		prefsWindow = new JPanel();
+		JPanel prefsWindow = new JPanel();
 		prefsWindow.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(prefsWindow);
 
 		SpinnerNumberModel prefsCellSpinnerModel = new SpinnerNumberModel(cellSize, MIN_CELL_SIZE, MAX_CELL_SIZE, 1);
 		prefsCellSpinner = new JSpinner(prefsCellSpinnerModel);
 
-		prefsApply = new JButton("Apply");
+		JButton prefsApply = new JButton("Apply");
 		prefsApply.addActionListener(e -> {
 			applyPrefs();
 			MainGui.btnReset.doClick();
 		});
-		prefsCancel = new JButton("Cancel");
+		JButton prefsCancel = new JButton("Cancel");
 		prefsCancel.addActionListener(e -> closeWindow());
 
 		prefsThemeSelector = new JComboBox<>();
