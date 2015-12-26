@@ -56,6 +56,12 @@
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.7.5.201505241946</version>
+				<configuration>
+					<excludes>
+						<exclude>org.systemexception.lifegame.gui.*</exclude>
+						<exclude>org.systemexception.lifegame.menu.*</exclude>
+					</excludes>
+				</configuration>
 				<executions>
 					<execution>
 						<goals>
