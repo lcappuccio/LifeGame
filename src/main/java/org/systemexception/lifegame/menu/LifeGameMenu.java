@@ -13,7 +13,6 @@ import java.awt.event.KeyEvent;
 
 public class LifeGameMenu extends JMenu {
 
-	private PreferencesGui preferencesGuiWindow;
 	private JMenuItem menuAbout, menuPreferences, menuQuit;
 
 	public LifeGameMenu() {
@@ -36,7 +35,7 @@ public class LifeGameMenu extends JMenu {
 	}
 
 	private JMenuItem menuPreferences() {
-		preferencesGuiWindow = new PreferencesGui();
+		PreferencesGui preferencesGuiWindow = new PreferencesGui();
 		menuPreferences = new JMenuItem("Preferences");
 		menuPreferences.addActionListener(e -> {
 			preferencesGuiWindow.setVisible(true);
