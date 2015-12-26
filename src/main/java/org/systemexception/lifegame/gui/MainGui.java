@@ -49,8 +49,6 @@ public class MainGui {
 	private JFrame mainAppWindow;
 	private static JPanel centerPanel;
 	private JPanel lowerPanel;
-	private JMenuBar menuBar;
-	private JMenu menuLifeGame, menuGameSpeed, menuPresets;
 	private JLabel lblLiveCells, lblIteration;
 	private static JLabel lblCountIteration, lblCountLiveCells;
 	private JButton btnStart, btnTick;
@@ -111,23 +109,23 @@ public class MainGui {
 		mainAppWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
 		mainAppWindow.setResizable(false);
-		menuBar = new JMenuBar();
+		JMenuBar menuBar = new JMenuBar();
 		menuBar.setBounds(0, 0, mainAppWindow.getWidth(), 20);
 		mainAppWindow.getContentPane().add(menuBar, BorderLayout.NORTH);
 		menuBar.setBorderPainted(false);
 
 		// LifeGame menu
-		menuLifeGame = new LifeGameMenu();
+		JMenu menuLifeGame = new LifeGameMenu();
 		menuBar.add(menuLifeGame);
 		// File menu
 		menuFile = new FileMenu();
 		menuBar.add(menuFile);
 		menuFileSetOpenAction();
 		// Speed menu
-		menuGameSpeed = new SpeedMenu();
+		JMenu menuGameSpeed = new SpeedMenu();
 		menuBar.add(menuGameSpeed);
 		// Presets menu
-		menuPresets = new PresetsMenu();
+		JMenu menuPresets = new PresetsMenu();
 		menuBar.add(menuPresets);
 
 		// CENTER panel

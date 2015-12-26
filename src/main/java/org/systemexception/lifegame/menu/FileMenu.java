@@ -15,6 +15,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.nio.file.Files;
 
 public class FileMenu extends JMenu {
 
@@ -71,12 +72,9 @@ public class FileMenu extends JMenu {
 		return (menuSave);
 	}
 
-	private void saveFile(File file) {
+	private void saveFile(final File file) {
 		try {
 			String fileName = file.getAbsolutePath();
-			if (!fileName.endsWith(".life")) {
-				file = new File(fileName + ".life");
-			}
 			BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file, true));
 			// Save board properties first
 			try (PrintWriter fileWriter = new PrintWriter(bufferedWriter)) {
@@ -98,6 +96,9 @@ public class FileMenu extends JMenu {
 					}
 					fileWriter.print(lineSeparator);
 				}
+			}
+			if (!fileName.endsWith(".life")) {
+				Files.move(file.toPath(), new File(fileName + ".life").toPath());
 			}
 		} catch (Exception fileException) {
 			fileException.printStackTrace(System.out);
