@@ -13,7 +13,6 @@ import java.awt.event.KeyEvent;
 
 public class LifeGameMenu extends JMenu {
 
-	private JMenuItem menuAbout, menuPreferences, menuQuit;
 
 	public LifeGameMenu() {
 		this.setFont(MainGui.MENU_FONT);
@@ -24,7 +23,7 @@ public class LifeGameMenu extends JMenu {
 	}
 
 	private JMenuItem menuAbout() {
-		menuAbout = new JMenuItem("About");
+		JMenuItem menuAbout = new JMenuItem("About");
 		menuAbout.addActionListener(e -> {
 			AboutGui aboutGui = new AboutGui();
 			aboutGui.setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25, aboutGui.getWidth(), aboutGui.getHeight());
@@ -36,7 +35,7 @@ public class LifeGameMenu extends JMenu {
 
 	private JMenuItem menuPreferences() {
 		PreferencesGui preferencesGuiWindow = new PreferencesGui();
-		menuPreferences = new JMenuItem("Preferences");
+		JMenuItem menuPreferences = new JMenuItem("Preferences");
 		menuPreferences.addActionListener(e -> {
 			preferencesGuiWindow.setVisible(true);
 			preferencesGuiWindow.setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25, preferencesGuiWindow.getWidth(),
@@ -47,7 +46,7 @@ public class LifeGameMenu extends JMenu {
 	}
 
 	private JMenuItem menuQuit() {
-		menuQuit = new JMenuItem("Quit");
+		JMenuItem menuQuit = new JMenuItem("Quit");
 		menuQuit.addActionListener(e -> System.exit(0));
 		menuQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, MainGui.metaKey));
 		return (menuQuit);
