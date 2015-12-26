@@ -3,7 +3,7 @@ package org.systemexception.lifegame.gui;
 import javax.swing.*;
 import java.awt.*;
 
-public class About extends JFrame {
+public class AboutGui extends JFrame {
 
 	private final int windowWidth = 300, windowHeight = 100;
 	private final JLabel labelTitle = new JLabel("LifeGame - Java Conway's Game of Life"),
@@ -13,10 +13,10 @@ public class About extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public About() {
+	public AboutGui() {
 		setTitle("About LifeGame");
 		setResizable(false);
-		setBounds(Main.windowPositionX + 50, Main.windowPositionY + 50, windowWidth, windowHeight);
+		setBounds(MainGui.windowPositionX + 50, MainGui.windowPositionY + 50, windowWidth, windowHeight);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 

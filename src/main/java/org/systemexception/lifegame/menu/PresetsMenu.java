@@ -1,6 +1,6 @@
 package org.systemexception.lifegame.menu;
 
-import org.systemexception.lifegame.gui.Main;
+import org.systemexception.lifegame.gui.MainGui;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +20,7 @@ public class PresetsMenu extends JMenu {
 			TEMP_LIFE_PRESET = "temp.life";
 
 	public PresetsMenu() {
-		this.setFont(Main.MENU_FONT);
+		this.setFont(MainGui.MENU_FONT);
 		this.setText("Presets");
 		this.add(buildMenuItem("7468M.life"));
 		this.add(buildMenuItem("acorn.life"));
@@ -47,7 +47,7 @@ public class PresetsMenu extends JMenu {
 					}
 					fileOutputStream.close();
 					File tempFile = new File(TEMP_LIFE_PRESET);
-					Main.openFile(new File(TEMP_LIFE_PRESET));
+					MainGui.openFile(new File(TEMP_LIFE_PRESET));
 					tempFile.delete();
 				} catch (IOException e1) {
 					e1.printStackTrace();

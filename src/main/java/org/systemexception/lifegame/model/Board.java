@@ -5,7 +5,7 @@
 package org.systemexception.lifegame.model;
 
 import org.systemexception.lifegame.enums.Automata;
-import org.systemexception.lifegame.gui.Preferences;
+import org.systemexception.lifegame.gui.PreferencesGui;
 
 import java.util.ArrayList;
 
@@ -31,39 +31,39 @@ public class Board {
 	}
 
 	public void iterateBoard() {
-		if (Preferences.getLifeAutomata().equals(Automata.CONWAY.toString())) {
+		if (PreferencesGui.getLifeAutomata().equals(Automata.CONWAY.toString())) {
 			iterateBoardConway();
 			return;
 		}
-		if (Preferences.getLifeAutomata().equals(Automata.DRYLIFE.toString())) {
+		if (PreferencesGui.getLifeAutomata().equals(Automata.DRYLIFE.toString())) {
 			iterateBoardDryLife();
 			return;
 		}
-		if (Preferences.getLifeAutomata().equals(Automata.HIGHLIFE.toString())) {
+		if (PreferencesGui.getLifeAutomata().equals(Automata.HIGHLIFE.toString())) {
 			iterateBoardHighLife();
 			return;
 		}
-		if (Preferences.getLifeAutomata().equals(Automata.LIVEFREEORDIE.toString())) {
+		if (PreferencesGui.getLifeAutomata().equals(Automata.LIVEFREEORDIE.toString())) {
 			iterateBoardLiveFreeOrDie();
 			return;
 		}
-		if (Preferences.getLifeAutomata().equals(Automata.MAZE.toString())) {
+		if (PreferencesGui.getLifeAutomata().equals(Automata.MAZE.toString())) {
 			iterateBoardMaze();
 			return;
 		}
-		if (Preferences.getLifeAutomata().equals(Automata.SERVIETTES.toString())) {
+		if (PreferencesGui.getLifeAutomata().equals(Automata.SERVIETTES.toString())) {
 			iterateBoardServiettes();
 			return;
 		}
-		if (Preferences.getLifeAutomata().equals(Automata.CORAL.toString())) {
+		if (PreferencesGui.getLifeAutomata().equals(Automata.CORAL.toString())) {
 			iterateBoardCoral();
 			return;
 		}
-		if (Preferences.getLifeAutomata().equals(Automata.MOVE.toString())) {
+		if (PreferencesGui.getLifeAutomata().equals(Automata.MOVE.toString())) {
 			iterateBoardMove();
 			return;
 		}
-		if (Preferences.getLifeAutomata().equals(Automata.ASSIMILATION.toString())) {
+		if (PreferencesGui.getLifeAutomata().equals(Automata.ASSIMILATION.toString())) {
 			iterateBoardAssimilation();
 		}
 	}

@@ -31,7 +31,7 @@
 				<configuration>
 					<archive>
 						<manifest>
-							<mainClass>org.systemexception.lifegame.gui.Main</mainClass>
+							<mainClass>org.systemexception.lifegame.gui.MainGui</mainClass>
 						</manifest>
 					</archive>
 					<descriptorRefs>
@@ -58,8 +58,8 @@
 				<version>0.7.5.201505241946</version>
 				<configuration>
 					<excludes>
-						<exclude>org.systemexception.lifegame.gui.*</exclude>
-						<exclude>org.systemexception.lifegame.menu.*</exclude>
+						<exclude>**/*Gui.*</exclude>
+						<exclude>**/*Menu.*</exclude>
 					</excludes>
 				</configuration>
 				<executions>

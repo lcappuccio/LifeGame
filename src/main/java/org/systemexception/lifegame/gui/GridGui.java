@@ -14,14 +14,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
-public class Grid extends JComponent {
+public class GridGui extends JComponent {
 
 	private int cellSize, totalLiveCells;
 	private final int gridRows, gridCols;
 	private Board board;
 	private Color colorDark = Color.DARK_GRAY, colorLight = Color.WHITE;
 
-	public Grid(final int cellSize, int gridRows, int gridCols, String colourTheme) {
+	public GridGui(final int cellSize, int gridRows, int gridCols, String colourTheme) {
 		this.cellSize = cellSize;
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
@@ -58,7 +58,7 @@ public class Grid extends JComponent {
 		setColours(colourTheme);
 	}
 
-	public Grid(int cellSize, int gridRows, int gridCols, ArrayList<ArrayList<String>> savedBoard, String
+	public GridGui(int cellSize, int gridRows, int gridCols, ArrayList<ArrayList<String>> savedBoard, String
 			colourTheme) {
 		this.cellSize = cellSize;
 		this.gridRows = gridRows;

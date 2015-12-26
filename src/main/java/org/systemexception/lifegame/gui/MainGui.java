@@ -37,7 +37,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Properties;
 
-public class Main {
+public class MainGui {
 
 	public static int metaKey, windowPositionX, windowPositionY;
 	public static Timer gameTimer;
@@ -57,7 +57,7 @@ public class Main {
 	public static JButton btnReset, btnStop;
 	private FileMenu menuFile;
 	private int iterationCounter;
-	private static Grid grid;
+	private static GridGui gridGui;
 
 	/**
 	 * Launch the application.
@@ -67,7 +67,7 @@ public class Main {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			try {
-				Main window = new Main();
+				MainGui window = new MainGui();
 				window.mainAppWindow.setVisible(true);
 			} catch (Exception e) {
 				e.printStackTrace(System.out);
@@ -78,7 +78,7 @@ public class Main {
 	/**
 	 * Create the application.
 	 */
-	private Main() {
+	private MainGui() {
 		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 			// Opt for Nimbus
 			if ("Nimbus".equals(info.getName())) {
@@ -135,10 +135,10 @@ public class Main {
 		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
 		mainAppWindow.getContentPane().add(centerPanel, BorderLayout.CENTER);
 		centerPanel.setLayout(new BorderLayout(0, 0));
-		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
-				centerPanel.getHeight() / Preferences.getCellSize(), Preferences.getColorTheme());
-		menuFile.setBoard(grid.getBoard());
-		centerPanel.add(grid);
+		gridGui = new GridGui(PreferencesGui.getCellSize(), centerPanel.getWidth() / PreferencesGui.getCellSize(),
+				centerPanel.getHeight() / PreferencesGui.getCellSize(), PreferencesGui.getColorTheme());
+		menuFile.setBoard(gridGui.getBoard());
+		centerPanel.add(gridGui);
 
 		// LOWER panel
 		lowerPanel = new JPanel();
@@ -182,7 +182,7 @@ public class Main {
 		lblLiveCells = new JLabel("Live Cells:");
 		mainAppWindow.getContentPane().add(lblLiveCells, BorderLayout.SOUTH);
 		lblLiveCells.setFont(labelFontBold);
-		lblCountLiveCells = new JLabel(String.valueOf(grid.getTotalLiveCells()));
+		lblCountLiveCells = new JLabel(String.valueOf(gridGui.getTotalLiveCells()));
 		mainAppWindow.getContentPane().add(lblCountLiveCells, BorderLayout.SOUTH);
 		lblCountLiveCells.setFont(labelFontPlain);
 
@@ -199,28 +199,28 @@ public class Main {
 
 	private void iterateGrid() {
 		menuFile.menuSave.setEnabled(true);
-		grid.iterateBoard();
-		menuFile.setBoard(grid.getBoard());
+		gridGui.iterateBoard();
+		menuFile.setBoard(gridGui.getBoard());
 		iterationCounter++;
-		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+		lblCountLiveCells.setText(String.valueOf(gridGui.getTotalLiveCells()));
 		lblCountIteration.setText(String.valueOf(iterationCounter));
 	}
 
 	private void resetGrid() {
 		menuFile.menuSave.setEnabled(true);
-		centerPanel.remove(grid);
-		grid = new Grid(Preferences.getCellSize(), centerPanel.getWidth() / Preferences.getCellSize(),
-				centerPanel.getHeight() / Preferences.getCellSize(), Preferences.getColorTheme());
-		grid.resetBoard();
-		centerPanel.add(grid);
+		centerPanel.remove(gridGui);
+		gridGui = new GridGui(PreferencesGui.getCellSize(), centerPanel.getWidth() / PreferencesGui.getCellSize(),
+				centerPanel.getHeight() / PreferencesGui.getCellSize(), PreferencesGui.getColorTheme());
+		gridGui.resetBoard();
+		centerPanel.add(gridGui);
 		iterationCounter = 0;
-		lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+		lblCountLiveCells.setText(String.valueOf(gridGui.getTotalLiveCells()));
 		lblCountIteration.setText(String.valueOf(iterationCounter));
 	}
 
 	private void stopGame() {
 		menuFile.menuSave.setEnabled(true);
-		menuFile.setBoard(grid.getBoard());
+		menuFile.setBoard(gridGui.getBoard());
 		if (gameTimer != null && gameTimer.isRunning()) {
 			btnStart.setEnabled(true);
 			gameTimer.stop();
@@ -231,9 +231,9 @@ public class Main {
 		@Override
 		public void actionPerformed(ActionEvent evt) {
 			menuFile.menuSave.setEnabled(false);
-			grid.iterateBoard();
+			gridGui.iterateBoard();
 			iterationCounter++;
-			lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+			lblCountLiveCells.setText(String.valueOf(gridGui.getTotalLiveCells()));
 			lblCountIteration.setText(String.valueOf(iterationCounter));
 		}
 	};
@@ -279,12 +279,12 @@ public class Main {
 			int gridRows = Integer.valueOf(properties.getProperty(SavedBoardProperties.ROWS.toString()));
 			String automata = properties.getProperty(SavedBoardProperties.AUTOMATA.toString());
 			String theme = properties.getProperty(SavedBoardProperties.THEME.toString());
-			centerPanel.remove(grid);
-			grid = new Grid(cellSize, gridRows, gridCols, fileContents, theme);
-			centerPanel.add(grid);
-			lblCountLiveCells.setText(String.valueOf(grid.getTotalLiveCells()));
+			centerPanel.remove(gridGui);
+			gridGui = new GridGui(cellSize, gridRows, gridCols, fileContents, theme);
+			centerPanel.add(gridGui);
+			lblCountLiveCells.setText(String.valueOf(gridGui.getTotalLiveCells()));
 			lblCountIteration.setText("0");
-			Preferences.setLifeAutomata(automata);
+			PreferencesGui.setLifeAutomata(automata);
 		} catch (IOException | NumberFormatException fileException) {
 			fileException.printStackTrace(System.out);
 		}
@@ -299,7 +299,7 @@ public class Main {
 			windowPositionX = mainAppWindow.getX();
 			windowPositionY = mainAppWindow.getY();
 		}
-		if (Preferences.getBoardSize().equals(BoardSizes.LARGE.toString())) {
+		if (PreferencesGui.getBoardSize().equals(BoardSizes.LARGE.toString())) {
 			mainAppWindow.setBounds(windowPositionX, windowPositionY, 1280, 1024);
 			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
 			lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, 390, 29);
@@ -309,7 +309,7 @@ public class Main {
 			lblCountIteration.setBounds(1223, mainAppWindow.getHeight() - 52, 75, 29);
 			return;
 		}
-		if (Preferences.getBoardSize().equals(BoardSizes.MEDIUM.toString())) {
+		if (PreferencesGui.getBoardSize().equals(BoardSizes.MEDIUM.toString())) {
 			mainAppWindow.setBounds(windowPositionX, windowPositionY, 1024, 768);
 			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
 			lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, 390, 29);
@@ -319,7 +319,7 @@ public class Main {
 			lblCountIteration.setBounds(947, mainAppWindow.getHeight() - 52, 75, 29);
 			return;
 		}
-		if (Preferences.getBoardSize().equals(BoardSizes.SMALL.toString())) {
+		if (PreferencesGui.getBoardSize().equals(BoardSizes.SMALL.toString())) {
 			mainAppWindow.setBounds(windowPositionX, windowPositionY, 800, 600);
 			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
 			lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, 390, 29);

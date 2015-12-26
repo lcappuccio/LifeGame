@@ -1,17 +1,17 @@
 package org.systemexception.lifegame.test;
 
 import org.junit.Test;
-import org.systemexception.lifegame.gui.Grid;
+import org.systemexception.lifegame.gui.GridGui;
 import org.systemexception.lifegame.model.Board;
 import org.systemexception.lifegame.model.Cell;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
-public class GridTest {
+public class GridGuiTest {
 
 	private final int cellSize = 10, gridRows = 10, gridCols = 5;
-	private final Grid sut = new Grid(cellSize, gridRows, gridCols, "B & W");
+	private final GridGui sut = new GridGui(cellSize, gridRows, gridCols, "B & W");
 
 	@Test
 	public void testGridExists() {
@@ -44,7 +44,7 @@ public class GridTest {
 	@Test
 	public void testChangeCellSize() {
 		int innerCellSize = sut.getCellSize();
-		Grid innerSut = new Grid(5, gridRows, gridCols, "B & W");
+		GridGui innerSut = new GridGui(5, gridRows, gridCols, "B & W");
 		int cellSizeNew = innerSut.getCellSize();
 		assertTrue(innerCellSize != cellSizeNew);
 	}
