@@ -51,11 +51,10 @@ public class MainGui {
 	private JPanel lowerPanel;
 	private JLabel lblLiveCells, lblIteration;
 	private static JLabel lblCountIteration, lblCountLiveCells;
-	private JButton btnStart, btnTick;
-	public static JButton btnReset, btnStop;
+	public static JButton btnReset, btnStop, btnStart, btnTick;
 	private FileMenu menuFile;
 	private int iterationCounter;
-	private static GridGui gridGui;
+	public static GridGui gridGui;
 
 	/**
 	 * Launch the application.
@@ -76,7 +75,7 @@ public class MainGui {
 	/**
 	 * Create the application.
 	 */
-	private MainGui() {
+	public MainGui() {
 		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 			// Opt for Nimbus
 			if ("Nimbus".equals(info.getName())) {
