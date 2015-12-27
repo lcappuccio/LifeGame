@@ -103,7 +103,7 @@ public class GridGui extends JComponent {
 	 *
 	 * @param colourTheme is the colour enum value
 	 */
-	private void setColours(String colourTheme) {
+	public void setColours(String colourTheme) {
 		if (colourTheme.equals(Themes.BW.toString())) {
 			colorDark = Color.DARK_GRAY;
 			colorLight = hex2Rgb("#ECECEC");
