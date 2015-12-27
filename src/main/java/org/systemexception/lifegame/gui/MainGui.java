@@ -76,7 +76,7 @@ public class MainGui {
 	/**
 	 * Create the application.
 	 */
-	private MainGui() {
+	public MainGui() {
 		for (LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
 			// Opt for Nimbus
 			if ("Nimbus".equals(info.getName())) {
