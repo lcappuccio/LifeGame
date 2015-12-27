@@ -14,14 +14,14 @@ public class PreferencesGui extends JFrame {
 	private final GroupLayout gl_prefsWindow;
 	private final JSpinner prefsCellSpinner, prefsLifeProbabilitySpinner;
 	private final JLabel prefsCellSize = new JLabel("Cell Size"), lblTheme = new JLabel("Theme"),
-			lblAutomata = new JLabel("Automata"), lblLifeProbability = new JLabel("Life Probability"), lblBoardSize =
-			new JLabel("Board Size");
+			lblAutomata = new JLabel("Automata"), lblLifeProbability = new JLabel("Life Probability"),
+			lblBoardSize = new JLabel("Board Size");
 	private final JComboBox<String> prefsThemeSelector, prefsAutomataSelector, prefsBoardSizeSelector;
 	private static int cellSize = 5, cellLifeProbability = 50;
 	private static final int WINDOW_WIDTH = 250, WINDOW_HEIGHT = 240, MIN_CELL_SIZE = 1, MAX_CELL_SIZE = 10,
 			MIN_CELL_LIFE_PROBABILITY = 1, MAX_CELL_LIFE_PROBABILITY = 100;
-	private static String colourTheme = Themes.BW.toString() ,lifeAutomata = Automata.CONWAY.toString(), boardSize =
-			BoardSizes.MEDIUM.toString();
+	private static String colourTheme = Themes.BW.toString() ,lifeAutomata = Automata.CONWAY.toString(),
+			boardSize = BoardSizes.MEDIUM.toString();
 
 	public static int getCellSize() {
 		return cellSize;
