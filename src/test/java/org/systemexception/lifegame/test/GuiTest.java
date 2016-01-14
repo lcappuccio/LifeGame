@@ -2,9 +2,11 @@ package org.systemexception.lifegame.test;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.systemexception.lifegame.enums.BoardSizes;
 import org.systemexception.lifegame.enums.GameSpeeds;
 import org.systemexception.lifegame.enums.Themes;
 import org.systemexception.lifegame.gui.MainGui;
+import org.systemexception.lifegame.gui.PreferencesGui;
 import org.systemexception.lifegame.menu.FileMenu;
 import org.systemexception.lifegame.menu.LifeGameMenu;
 import org.systemexception.lifegame.menu.PresetsMenu;
@@ -82,11 +84,10 @@ public class GuiTest {
 		assertTrue(5 == speedMenu.getItemCount());
 		List<String> menuItems = new ArrayList<>();
 		for (int i = 0; i < speedMenu.getItemCount(); i++) {
+			speedMenu.getItem(i).doClick();
 			JMenuItem jMenuItem = speedMenu.getItem(i);
 			String speedText = jMenuItem.getText();
 			menuItems.add(speedText);
-			int speed = GameSpeeds.valueOf(speedText).getGameSpeed();
-			jMenuItem.doClick();
 		}
 		assert (menuItems.contains(GameSpeeds.Cheetah.name()));
 		assert (menuItems.contains(GameSpeeds.Horse.name()));
@@ -96,8 +97,9 @@ public class GuiTest {
 	}
 
 	@Test
-	public void testStartStop() {
+	public void testStartStop() throws InterruptedException {
 		MainGui.btnStart.doClick();
+		Thread.sleep(1000);
 		MainGui.btnStop.doClick();
 	}
 
@@ -117,6 +119,20 @@ public class GuiTest {
 		for (int i = 0; i < values.length; i++) {
 			MainGui.gridGui.setColours(values[i].toString());
 		}
+	}
+
+	@Test
+	public void testBoardSizes() {
+		PreferencesGui.prefsBoardSizeSelector.setSelectedItem(BoardSizes.LARGE.toString());
+		PreferencesGui.setBoardSize();
+		PreferencesGui.prefsApply.doClick();
+		PreferencesGui.prefsBoardSizeSelector.setSelectedItem(BoardSizes.MEDIUM.toString());
+		PreferencesGui.setBoardSize();
+		PreferencesGui.prefsApply.doClick();
+		PreferencesGui.prefsBoardSizeSelector.setSelectedItem(BoardSizes.SMALL.toString());
+		PreferencesGui.setBoardSize();
+		PreferencesGui.prefsApply.doClick();
+		PreferencesGui.prefsCancel.doClick();
 	}
 
 }
