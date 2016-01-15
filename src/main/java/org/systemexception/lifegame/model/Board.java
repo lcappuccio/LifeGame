@@ -13,7 +13,7 @@ public class Board {
 
 	private Cell[][] board, boardIteration;
 	private final int rows, cols;
-	private int countSurroundingLiveCells = 0, liveCellCounter = 0;
+	private int liveCellCounter = 0;
 	public static final String ALIVE_CELL = "o", DEAD_CELL = ".";
 
 	public Board(int rows, int cols) {
@@ -109,7 +109,7 @@ public class Board {
 	}
 
 	private int countSurroungingLiveCells(int i, int j) {
-		countSurroundingLiveCells = 0;
+		int countSurroundingLiveCells = 0;
 		// Rotating clockwise
 		if (getCellAt(i, j - 1).getCellState()) {
 			countSurroundingLiveCells++;
