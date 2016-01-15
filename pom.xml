@@ -6,7 +6,7 @@
 
 	<groupId>org.systemexception</groupId>
 	<artifactId>life-game</artifactId>
-	<version>0.9-SNAPSHOT</version>
+	<version>0.9</version>
 	<packaging>jar</packaging>
 
 	<properties>
