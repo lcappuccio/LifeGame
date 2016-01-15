@@ -11,11 +11,7 @@ import javax.swing.border.EmptyBorder;
 
 public class PreferencesGui extends JFrame {
 
-	private final GroupLayout gl_prefsWindow;
 	private final JSpinner prefsCellSpinner, prefsLifeProbabilitySpinner;
-	private final JLabel prefsCellSize = new JLabel("Cell Size"), lblTheme = new JLabel("Theme"),
-			lblAutomata = new JLabel("Automata"), lblLifeProbability = new JLabel("Life Probability"),
-			lblBoardSize = new JLabel("Board Size");
 	private final JComboBox<String> prefsThemeSelector, prefsAutomataSelector;
 	public static final JComboBox<String> prefsBoardSizeSelector = new JComboBox<>();
 	public static final JButton prefsApply = new JButton("Apply"), prefsCancel = new JButton("Cancel");
@@ -131,7 +127,12 @@ public class PreferencesGui extends JFrame {
 				MIN_CELL_LIFE_PROBABILITY, MAX_CELL_LIFE_PROBABILITY, 1);
 		prefsLifeProbabilitySpinner = new JSpinner(prefsCellLifeProbabilityModel);
 
-		gl_prefsWindow = new GroupLayout(prefsWindow);
+		GroupLayout gl_prefsWindow = new GroupLayout(prefsWindow);
+		JLabel prefsCellSize = new JLabel("Cell Size");
+		JLabel lblTheme = new JLabel("Theme");
+		JLabel lblAutomata = new JLabel("Automata");
+		JLabel lblLifeProbability = new JLabel("Life Probability");
+		JLabel lblBoardSize = new JLabel("Board Size");
 		gl_prefsWindow.setHorizontalGroup(gl_prefsWindow.createParallelGroup(Alignment.LEADING).addGroup(
 				gl_prefsWindow
 						.createSequentialGroup()
