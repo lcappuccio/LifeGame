@@ -16,7 +16,9 @@ public class PreferencesGui extends JFrame {
 	private final JLabel prefsCellSize = new JLabel("Cell Size"), lblTheme = new JLabel("Theme"),
 			lblAutomata = new JLabel("Automata"), lblLifeProbability = new JLabel("Life Probability"),
 			lblBoardSize = new JLabel("Board Size");
-	private final JComboBox<String> prefsThemeSelector, prefsAutomataSelector, prefsBoardSizeSelector;
+	private final JComboBox<String> prefsThemeSelector, prefsAutomataSelector;
+	public static JComboBox<String> prefsBoardSizeSelector;
+	public static JButton prefsApply, prefsCancel;
 	private static int cellSize = 5, cellLifeProbability = 50;
 	private static final int WINDOW_WIDTH = 250, WINDOW_HEIGHT = 240, MIN_CELL_SIZE = 1, MAX_CELL_SIZE = 10,
 			MIN_CELL_LIFE_PROBABILITY = 1, MAX_CELL_LIFE_PROBABILITY = 100;
@@ -63,7 +65,7 @@ public class PreferencesGui extends JFrame {
 		return boardSize;
 	}
 
-	private void setBoardSize() {
+	public static void setBoardSize() {
 		PreferencesGui.boardSize = String.valueOf(prefsBoardSizeSelector.getSelectedItem());
 	}
 
@@ -95,12 +97,12 @@ public class PreferencesGui extends JFrame {
 		SpinnerNumberModel prefsCellSpinnerModel = new SpinnerNumberModel(cellSize, MIN_CELL_SIZE, MAX_CELL_SIZE, 1);
 		prefsCellSpinner = new JSpinner(prefsCellSpinnerModel);
 
-		JButton prefsApply = new JButton("Apply");
+		prefsApply =  new JButton("Apply");
 		prefsApply.addActionListener(e -> {
 			applyPrefs();
 			MainGui.btnReset.doClick();
 		});
-		JButton prefsCancel = new JButton("Cancel");
+		prefsCancel = new JButton("Cancel");
 		prefsCancel.addActionListener(e -> closeWindow());
 
 		prefsThemeSelector = new JComboBox<>();
