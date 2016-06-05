@@ -122,6 +122,16 @@ public class GuiTest {
 	}
 
 	@Test
+	public void testChangeSpeed() throws InterruptedException {
+		MainGui.btnStart.doClick();
+		Thread.sleep(1000);
+		for (int i = 0; i < speedMenu.getItemCount(); i++) {
+			speedMenu.getItem(i).doClick();
+		}
+		MainGui.btnStop.doClick();
+	}
+
+	@Test
 	public void testBoardSizes() {
 		PreferencesGui.prefsBoardSizeSelector.setSelectedItem(BoardSizes.LARGE.toString());
 		PreferencesGui.setBoardSize();
