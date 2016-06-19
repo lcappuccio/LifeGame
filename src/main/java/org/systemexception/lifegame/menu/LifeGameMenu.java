@@ -26,7 +26,8 @@ public class LifeGameMenu extends JMenu {
 		JMenuItem menuAbout = new JMenuItem("About");
 		menuAbout.addActionListener(e -> {
 			AboutGui aboutGui = new AboutGui();
-			aboutGui.setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25, aboutGui.getWidth(), aboutGui.getHeight());
+			aboutGui.setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25, aboutGui.getWidth(),
+					aboutGui.getHeight());
 			aboutGui.setVisible(true);
 		});
 		menuAbout.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, MainGui.metaKey));
@@ -38,8 +39,8 @@ public class LifeGameMenu extends JMenu {
 		JMenuItem menuPreferences = new JMenuItem("Preferences");
 		menuPreferences.addActionListener(e -> {
 			preferencesGuiWindow.setVisible(true);
-			preferencesGuiWindow.setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25, preferencesGuiWindow.getWidth(),
-					preferencesGuiWindow.getHeight());
+			preferencesGuiWindow.setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25,
+					preferencesGuiWindow.getWidth(), preferencesGuiWindow.getHeight());
 		});
 		menuPreferences.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_COMMA, MainGui.metaKey));
 		return (menuPreferences);
