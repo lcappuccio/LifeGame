@@ -91,21 +91,12 @@ public class Board {
 	}
 
 	public Cell getCellAt(int i, int j) {
-		// If out of bounds below
-		if (i <= -1) {
+		// If out of bounds
+		if (i <= -1 || j <= -1 || i >= rows || j >= cols) {
 			return new Cell(false);
+		} else {
+			return board[i][j];
 		}
-		if (j <= -1) {
-			return new Cell(false);
-		}
-		// If out of bounds above
-		if (i >= rows) {
-			return new Cell(false);
-		}
-		if (j >= cols) {
-			return new Cell(false);
-		}
-		return board[i][j];
 	}
 
 	private int countSurroungingLiveCells(int i, int j) {
