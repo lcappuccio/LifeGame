@@ -13,7 +13,7 @@ public class PreferencesGui extends JFrame {
 
 	private final JSpinner prefsCellSpinner, prefsLifeProbabilitySpinner;
 	private final JComboBox<String> prefsThemeSelector, prefsAutomataSelector;
-	public static JComboBox<String> prefsBoardSizeSelector;
+	public static final JComboBox<String> prefsBoardSizeSelector = new JComboBox<>();
 	public static final JButton prefsApply = new JButton("Apply"), prefsCancel = new JButton("Cancel");
 	private static int cellSize = 5, cellLifeProbability = 50;
 	private static final int WINDOW_WIDTH = 250, WINDOW_HEIGHT = 240, MIN_CELL_SIZE = 1, MAX_CELL_SIZE = 10,
@@ -103,12 +103,11 @@ public class PreferencesGui extends JFrame {
 
 		prefsAutomataSelector = getAutomataJComboBox();
 
-		prefsBoardSizeSelector = getBoardSizeSelector();
-
 		SpinnerNumberModel prefsCellLifeProbabilityModel = new SpinnerNumberModel(cellLifeProbability,
 				MIN_CELL_LIFE_PROBABILITY, MAX_CELL_LIFE_PROBABILITY, 1);
 		prefsLifeProbabilitySpinner = new JSpinner(prefsCellLifeProbabilityModel);
 
+		setUpBoardSizeSelector();
 		setGroupLayout(prefsWindow);
 
 	}
@@ -142,15 +141,12 @@ public class PreferencesGui extends JFrame {
 		return objectJComboBox;
 	}
 
-	private JComboBox getBoardSizeSelector() {
+	private void setUpBoardSizeSelector() {
 
-		JComboBox<Object> objectJComboBox = new JComboBox<>();
-
-		objectJComboBox.addItem(BoardSizes.SMALL.toString());
-		objectJComboBox.addItem(BoardSizes.MEDIUM.toString());
-		objectJComboBox.addItem(BoardSizes.LARGE.toString());
-		objectJComboBox.setSelectedItem(BoardSizes.MEDIUM.toString());
-		return objectJComboBox;
+		prefsBoardSizeSelector.addItem(BoardSizes.SMALL.toString());
+		prefsBoardSizeSelector.addItem(BoardSizes.MEDIUM.toString());
+		prefsBoardSizeSelector.addItem(BoardSizes.LARGE.toString());
+		prefsBoardSizeSelector.setSelectedItem(BoardSizes.MEDIUM.toString());
 	}
 
 	private void setGroupLayout(JPanel jpanel) {
