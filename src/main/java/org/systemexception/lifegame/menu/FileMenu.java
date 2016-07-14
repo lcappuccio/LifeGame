@@ -88,22 +88,26 @@ public class FileMenu extends JMenu {
 						lineSeparator);
 				fileWriter.print("#" + SavedBoardProperties.THEME + "=" + PreferencesGui.getColorTheme() +
 						lineSeparator);
-				for (int i = 0; i < board.getBoardCols(); i++) {
-					for (int j = 0; j < board.getBoardRows(); j++) {
-						if (board.getCellAt(j, i).getCellState()) {
-							fileWriter.print(Board.ALIVE_CELL);
-						} else {
-							fileWriter.print(Board.DEAD_CELL);
-						}
-					}
-					fileWriter.print(lineSeparator);
-				}
+				writeToFile(fileWriter);
 			}
 			if (!fileName.endsWith(".life")) {
 				Files.move(file.toPath(), new File(fileName + ".life").toPath());
 			}
 		} catch (Exception fileException) {
 			fileException.printStackTrace(System.out);
+		}
+	}
+
+	private void writeToFile(PrintWriter fileWriter) {
+		for (int i = 0; i < board.getBoardCols(); i++) {
+			for (int j = 0; j < board.getBoardRows(); j++) {
+				if (board.getCellAt(j, i).getCellState()) {
+					fileWriter.print(Board.ALIVE_CELL);
+				} else {
+					fileWriter.print(Board.DEAD_CELL);
+				}
+			}
+			fileWriter.print(lineSeparator);
 		}
 	}
 }
