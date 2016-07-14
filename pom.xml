@@ -6,7 +6,7 @@
 
 	<groupId>org.systemexception</groupId>
 	<artifactId>life-game</artifactId>
-	<version>1.0</version>
+	<version>1.0.1</version>
 	<packaging>jar</packaging>
 
 	<properties>
@@ -47,10 +47,6 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.jacoco</groupId>

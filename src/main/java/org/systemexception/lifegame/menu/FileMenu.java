@@ -59,14 +59,15 @@ public class FileMenu extends JMenu {
 						"Are you sure you want to overwrite existing file?", "Confirm", JOptionPane.YES_NO_OPTION,
 						JOptionPane.QUESTION_MESSAGE);
 				if (response == JOptionPane.YES_OPTION) {
-					file.delete();
-					saveFile(file);
+					if (!file.delete()) {
+						JOptionPane.showMessageDialog(null, "Error overwriting file", "Error",
+								JOptionPane.ERROR_MESSAGE);
+					} else {
+						saveFile(file);
+					}
 				}
 			} else {
-				if (file != null) {
-					file.delete();
-					saveFile(file);
-				}
+				saveFile(file);
 			}
 		});
 		return (menuSave);
@@ -85,23 +86,28 @@ public class FileMenu extends JMenu {
 						lineSeparator);
 				fileWriter.print("#" + SavedBoardProperties.AUTOMATA + "=" + PreferencesGui.getLifeAutomata() +
 						lineSeparator);
-				fileWriter.print("#" + SavedBoardProperties.THEME + "=" + PreferencesGui.getColorTheme() + lineSeparator);
-				for (int i = 0; i < board.getBoardCols(); i++) {
-					for (int j = 0; j < board.getBoardRows(); j++) {
-						if (board.getCellAt(j, i).getCellState()) {
-							fileWriter.print(Board.ALIVE_CELL);
-						} else {
-							fileWriter.print(Board.DEAD_CELL);
-						}
-					}
-					fileWriter.print(lineSeparator);
-				}
+				fileWriter.print("#" + SavedBoardProperties.THEME + "=" + PreferencesGui.getColorTheme() +
+						lineSeparator);
+				writeToFile(fileWriter);
 			}
 			if (!fileName.endsWith(".life")) {
 				Files.move(file.toPath(), new File(fileName + ".life").toPath());
 			}
 		} catch (Exception fileException) {
 			fileException.printStackTrace(System.out);
+		}
+	}
+
+	private void writeToFile(PrintWriter fileWriter) {
+		for (int i = 0; i < board.getBoardCols(); i++) {
+			for (int j = 0; j < board.getBoardRows(); j++) {
+				if (board.getCellAt(j, i).getCellState()) {
+					fileWriter.print(Board.ALIVE_CELL);
+				} else {
+					fileWriter.print(Board.DEAD_CELL);
+				}
+			}
+			fileWriter.print(lineSeparator);
 		}
 	}
 }

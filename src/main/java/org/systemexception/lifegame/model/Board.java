@@ -91,21 +91,12 @@ public class Board {
 	}
 
 	public Cell getCellAt(int i, int j) {
-		// If out of bounds below
-		if (i <= -1) {
+		// If out of bounds
+		if (i <= -1 || j <= -1 || i >= rows || j >= cols) {
 			return new Cell(false);
+		} else {
+			return board[i][j];
 		}
-		if (j <= -1) {
-			return new Cell(false);
-		}
-		// If out of bounds above
-		if (i >= rows) {
-			return new Cell(false);
-		}
-		if (j >= cols) {
-			return new Cell(false);
-		}
-		return board[i][j];
 	}
 
 	private int countSurroungingLiveCells(int i, int j) {
@@ -321,14 +312,12 @@ public class Board {
 			for (int j = 0; j < board[i].length; j++) {
 				// Cell dies
 				if (!(countSurroungingLiveCells(i, j) == 2 || (countSurroungingLiveCells(i, j) == 4 ||
-						countSurroungingLiveCells(
-						i, j) == 5)) && board[i][j].getCellState()) {
+						countSurroungingLiveCells(i, j) == 5)) && board[i][j].getCellState()) {
 					boardIteration[i][j].setCellDead();
 				}
 				// Cell becomes alive
 				if ((countSurroungingLiveCells(i, j) == 3 || countSurroungingLiveCells(i, j) == 6 ||
-						countSurroungingLiveCells(
-						i, j) == 8) && !board[i][j].getCellState()) {
+						countSurroungingLiveCells(i, j) == 8) && !board[i][j].getCellState()) {
 					boardIteration[i][j].setCellAlive();
 				}
 				updateLiveCellCounter(boardIteration, i, j);

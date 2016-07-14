@@ -4,9 +4,9 @@
  */
 package org.systemexception.lifegame.model;
 
-import java.util.Random;
-
 import org.systemexception.lifegame.gui.PreferencesGui;
+
+import java.util.Random;
 
 public class Cell {
 
