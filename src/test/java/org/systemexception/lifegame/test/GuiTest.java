@@ -43,8 +43,8 @@ public class GuiTest {
 			JMenuItem jMenuItem = fileMenu.getItem(i);
 			menuItems.add(jMenuItem.getText());
 		}
-		assert (menuItems.contains("Open"));
-		assert (menuItems.contains("Save"));
+		assert (menuItems.contains(FileMenu.FILE_OPEN));
+		assert (menuItems.contains(FileMenu.FILE_SAVE));
 	}
 
 	@Test
