@@ -7,14 +7,14 @@ public class AboutGui extends JFrame {
 
 	private final int windowWidth = 300, windowHeight = 100;
 	private final JLabel labelTitle = new JLabel("LifeGame - Java Conway's Game of Life"),
-			labelCopyright = new JLabel("Copyright © 2014 - Leonardo Cappuccio"), labelLicense = new JLabel(
-			"Released under GNU GPL v3.0 License");
+			labelCopyright = new JLabel("Copyright © 2014 - Leonardo Cappuccio"),
+			labelLicense = new JLabel("Released under GNU GPL v3.0 License");
 
 	/**
 	 * Create the frame.
 	 */
 	public AboutGui() {
-		setTitle("About LifeGame");
+		setTitle("About " + MainGui.APP_NAME);
 		setResizable(false);
 		setBounds(MainGui.windowPositionX + 50, MainGui.windowPositionY + 50, windowWidth, windowHeight);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

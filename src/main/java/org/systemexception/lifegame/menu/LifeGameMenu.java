@@ -18,7 +18,7 @@ public class LifeGameMenu extends JMenu {
 
 	public LifeGameMenu() {
 		this.setFont(MainGui.MENU_FONT);
-		this.setText("LifeGame");
+		this.setText(MainGui.APP_NAME);
 		this.add(menuAbout());
 		this.add(menuPreferences());
 		this.add(menuQuit());

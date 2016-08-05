@@ -41,7 +41,7 @@ public class MainGui {
 
 	public static int metaKey, windowPositionX, windowPositionY;
 	public static Timer gameTimer;
-	public static final String FONT_NAME = "Lucida Grande";
+	public static final String FONT_NAME = "Lucida Grande", APP_NAME = "LifeGame";
 	public static final Font MENU_FONT = new Font(FONT_NAME, Font.BOLD, 12);
 	private static final Font labelFontBold = new Font(FONT_NAME, Font.BOLD, 10), labelFontPlain = new Font
 			(FONT_NAME, Font.PLAIN, 10);
@@ -106,7 +106,7 @@ public class MainGui {
 	 */
 	private void initialize() {
 		mainAppWindow = new JFrame();
-		mainAppWindow.setTitle("LifeGame" + " - " + platform);
+		mainAppWindow.setTitle(APP_NAME + " - " + platform);
 		mainAppWindow.setBounds(0, 0, 1280, 1024);
 		mainAppWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
@@ -241,7 +241,7 @@ public class MainGui {
 	private void menuFileSetOpenAction() {
 		menuFile.menuOpen.addActionListener(e -> {
 			JFileChooser fileChooser = new JFileChooser();
-			FileFilter fileFilter = new FileNameExtensionFilter("LifeGame", "life");
+			FileFilter fileFilter = new FileNameExtensionFilter(APP_NAME, "life");
 			fileChooser.setFileFilter(fileFilter);
 			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 			int result = fileChooser.showOpenDialog(fileChooser);
