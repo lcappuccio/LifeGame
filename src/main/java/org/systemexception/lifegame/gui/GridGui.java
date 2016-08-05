@@ -58,7 +58,7 @@ public class GridGui extends JComponent {
 		setColours(colourTheme);
 	}
 
-	GridGui(int cellSize, int gridRows, int gridCols, ArrayList<ArrayList<String>> savedBoard, String
+	public GridGui(int cellSize, int gridRows, int gridCols, ArrayList<ArrayList<String>> savedBoard, String
 			colourTheme) {
 		this.cellSize = cellSize;
 		this.gridRows = gridRows;
@@ -72,7 +72,7 @@ public class GridGui extends JComponent {
 	/**
 	 * Resets the board
 	 */
-	void resetBoard() {
+	public void resetBoard() {
 		this.board = new Board(gridRows, gridCols);
 		totalLiveCells = board.getCellAliveCount();
 	}
@@ -88,13 +88,13 @@ public class GridGui extends JComponent {
 	/**
 	 * Iterates the board using the chosen automata
 	 */
-	void iterateBoard() {
+	public void iterateBoard() {
 		board.iterateBoard();
 		totalLiveCells = board.getCellAliveCount();
 		this.repaint();
 	}
 
-	int getTotalLiveCells() {
+	public int getTotalLiveCells() {
 		return totalLiveCells;
 	}
 
