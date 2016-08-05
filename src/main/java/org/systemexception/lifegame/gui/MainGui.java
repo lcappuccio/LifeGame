@@ -297,33 +297,45 @@ public class MainGui {
 			windowPositionY = mainAppWindow.getY();
 		}
 		if (PreferencesGui.getBoardSize().equals(BoardSizes.LARGE.toString())) {
-			mainAppWindow.setBounds(windowPositionX, windowPositionY, 1280, 1024);
-			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
-			lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, 390, 29);
-			lblLiveCells.setBounds(986, mainAppWindow.getHeight() - 52, 75, 29);
-			lblCountLiveCells.setBounds(1073, mainAppWindow.getHeight() - 52, 75, 29);
-			lblIteration.setBounds(1136, mainAppWindow.getHeight() - 52, 75, 29);
-			lblCountIteration.setBounds(1223, mainAppWindow.getHeight() - 52, 75, 29);
+			setLargeWindowLayout();
 			return;
 		}
 		if (PreferencesGui.getBoardSize().equals(BoardSizes.MEDIUM.toString())) {
-			mainAppWindow.setBounds(windowPositionX, windowPositionY, 1024, 768);
-			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
-			lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, 390, 29);
-			lblLiveCells.setBounds(700, mainAppWindow.getHeight() - 52, 75, 29);
-			lblCountLiveCells.setBounds(787, mainAppWindow.getHeight() - 52, 75, 29);
-			lblIteration.setBounds(860, mainAppWindow.getHeight() - 52, 75, 29);
-			lblCountIteration.setBounds(947, mainAppWindow.getHeight() - 52, 75, 29);
+			setMediumWindowLayout();
 			return;
 		}
 		if (PreferencesGui.getBoardSize().equals(BoardSizes.SMALL.toString())) {
-			mainAppWindow.setBounds(windowPositionX, windowPositionY, 800, 600);
-			centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
-			lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, 390, 29);
-			lblLiveCells.setBounds(506, mainAppWindow.getHeight() - 52, 75, 29);
-			lblCountLiveCells.setBounds(593, mainAppWindow.getHeight() - 52, 75, 29);
-			lblIteration.setBounds(656, mainAppWindow.getHeight() - 52, 75, 29);
-			lblCountIteration.setBounds(743, mainAppWindow.getHeight() - 52, 75, 29);
+			setSmallWindowLayout();
 		}
+	}
+
+	private void setLargeWindowLayout() {
+		mainAppWindow.setBounds(windowPositionX, windowPositionY, 1280, 1024);
+		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
+		lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, 390, 29);
+		lblLiveCells.setBounds(986, mainAppWindow.getHeight() - 52, 75, 29);
+		lblCountLiveCells.setBounds(1073, mainAppWindow.getHeight() - 52, 75, 29);
+		lblIteration.setBounds(1136, mainAppWindow.getHeight() - 52, 75, 29);
+		lblCountIteration.setBounds(1223, mainAppWindow.getHeight() - 52, 75, 29);
+	}
+
+	private void setMediumWindowLayout() {
+		mainAppWindow.setBounds(windowPositionX, windowPositionY, 1024, 768);
+		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
+		lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, 390, 29);
+		lblLiveCells.setBounds(700, mainAppWindow.getHeight() - 52, 75, 29);
+		lblCountLiveCells.setBounds(787, mainAppWindow.getHeight() - 52, 75, 29);
+		lblIteration.setBounds(860, mainAppWindow.getHeight() - 52, 75, 29);
+		lblCountIteration.setBounds(947, mainAppWindow.getHeight() - 52, 75, 29);
+	}
+
+	private void setSmallWindowLayout() {
+		mainAppWindow.setBounds(windowPositionX, windowPositionY, 800, 600);
+		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - 80);
+		lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, 390, 29);
+		lblLiveCells.setBounds(506, mainAppWindow.getHeight() - 52, 75, 29);
+		lblCountLiveCells.setBounds(593, mainAppWindow.getHeight() - 52, 75, 29);
+		lblIteration.setBounds(656, mainAppWindow.getHeight() - 52, 75, 29);
+		lblCountIteration.setBounds(743, mainAppWindow.getHeight() - 52, 75, 29);
 	}
 }
