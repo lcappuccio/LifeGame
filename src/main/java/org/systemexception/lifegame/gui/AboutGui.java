@@ -20,18 +20,18 @@ public class AboutGui extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 
-		labelTitle.setFont(new Font("Lucida Grande", Font.BOLD, 12));
+		labelTitle.setFont(new Font(MainGui.FONT_NAME, Font.BOLD, 12));
 		labelTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		labelTitle.setBounds(6, 6, 286, 16);
 		getContentPane().add(labelTitle);
 
 		labelCopyright.setHorizontalAlignment(SwingConstants.CENTER);
-		labelCopyright.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		labelCopyright.setFont(new Font(MainGui.FONT_NAME, Font.PLAIN, 10));
 		labelCopyright.setBounds(6, 25, 286, 16);
 		getContentPane().add(labelCopyright);
 
 		labelLicense.setHorizontalAlignment(SwingConstants.CENTER);
-		labelLicense.setFont(new Font("Lucida Grande", Font.PLAIN, 10));
+		labelLicense.setFont(new Font(MainGui.FONT_NAME, Font.PLAIN, 10));
 		labelLicense.setBounds(6, 46, 286, 16);
 		getContentPane().add(labelLicense);
 	}
