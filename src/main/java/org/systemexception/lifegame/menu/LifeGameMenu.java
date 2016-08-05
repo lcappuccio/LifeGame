@@ -13,17 +13,19 @@ import java.awt.event.KeyEvent;
 
 public class LifeGameMenu extends JMenu {
 
+	public static final String MENU_ITEM_ABOUT = "About", MENU_ITEM_PREFERENCES = "Preferences",
+			MENU_ITEM_QUIT = "Quit";
 
 	public LifeGameMenu() {
 		this.setFont(MainGui.MENU_FONT);
-		this.setText("LifeGame");
+		this.setText(MainGui.APP_NAME);
 		this.add(menuAbout());
 		this.add(menuPreferences());
 		this.add(menuQuit());
 	}
 
 	private JMenuItem menuAbout() {
-		JMenuItem menuAbout = new JMenuItem("About");
+		JMenuItem menuAbout = new JMenuItem(MENU_ITEM_ABOUT);
 		menuAbout.addActionListener(e -> {
 			AboutGui aboutGui = new AboutGui();
 			aboutGui.setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25, aboutGui.getWidth(),
@@ -36,7 +38,7 @@ public class LifeGameMenu extends JMenu {
 
 	private JMenuItem menuPreferences() {
 		PreferencesGui preferencesGuiWindow = new PreferencesGui();
-		JMenuItem menuPreferences = new JMenuItem("Preferences");
+		JMenuItem menuPreferences = new JMenuItem(MENU_ITEM_PREFERENCES);
 		menuPreferences.addActionListener(e -> {
 			preferencesGuiWindow.setVisible(true);
 			preferencesGuiWindow.setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25,
@@ -47,7 +49,7 @@ public class LifeGameMenu extends JMenu {
 	}
 
 	private JMenuItem menuQuit() {
-		JMenuItem menuQuit = new JMenuItem("Quit");
+		JMenuItem menuQuit = new JMenuItem(MENU_ITEM_QUIT);
 		menuQuit.addActionListener(e -> System.exit(0));
 		menuQuit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, MainGui.metaKey));
 		return (menuQuit);

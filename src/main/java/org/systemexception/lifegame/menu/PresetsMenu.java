@@ -18,17 +18,21 @@ public class PresetsMenu extends JMenu {
 
 	private static final String PRESETS_FOLDER = File.separator + "presets" + File.separator,
 			TEMP_LIFE_PRESET = "temp.life";
+	public final static String PRESET_7468M = "7468M.life", PRESET_ACORN = "acorn.life",
+			PRESET_B_HEPTOMINO = "b_heptomino.life", PRESET_EMPTY_BOARD = "empty_board.life",
+			PRESET_R_PENTOMINO = "r_pentomino.life", PRESET_RABBITS = "rabbits.life",
+			PRESET_CONWAY_SINGLE_LINE = "single_line_conway.life";
 
 	public PresetsMenu() {
 		this.setFont(MainGui.MENU_FONT);
 		this.setText("Presets");
-		this.add(buildMenuItem("7468M.life"));
-		this.add(buildMenuItem("acorn.life"));
-		this.add(buildMenuItem("b_heptomino.life"));
-		this.add(buildMenuItem("empty_board.life"));
-		this.add(buildMenuItem("r_pentomino.life"));
-		this.add(buildMenuItem("rabbits.life"));
-		this.add(buildMenuItem("single_line_conway.life"));
+		this.add(buildMenuItem(PRESET_7468M));
+		this.add(buildMenuItem(PRESET_ACORN));
+		this.add(buildMenuItem(PRESET_B_HEPTOMINO));
+		this.add(buildMenuItem(PRESET_EMPTY_BOARD));
+		this.add(buildMenuItem(PRESET_R_PENTOMINO));
+		this.add(buildMenuItem(PRESET_RABBITS));
+		this.add(buildMenuItem(PRESET_CONWAY_SINGLE_LINE));
 	}
 
 	private JMenuItem buildMenuItem(final String fileName) {

@@ -43,8 +43,8 @@ public class GuiTest {
 			JMenuItem jMenuItem = fileMenu.getItem(i);
 			menuItems.add(jMenuItem.getText());
 		}
-		assert (menuItems.contains("Open"));
-		assert (menuItems.contains("Save"));
+		assert (menuItems.contains(FileMenu.FILE_OPEN));
+		assert (menuItems.contains(FileMenu.FILE_SAVE));
 	}
 
 	@Test
@@ -53,13 +53,13 @@ public class GuiTest {
 		List<String> menuItems = new ArrayList<>();
 		for (int i = 0; i < lifeGameMenu.getItemCount(); i++) {
 			menuItems.add(lifeGameMenu.getItem(i).getText());
-			if (lifeGameMenu.getItem(i).getText() != "Quit") {
+			if (!LifeGameMenu.MENU_ITEM_QUIT.equals(lifeGameMenu.getItem(i).getText())) {
 				lifeGameMenu.getItem(i).doClick();
 			}
 		}
-		assert (menuItems.contains("About"));
-		assert (menuItems.contains("Preferences"));
-		assert (menuItems.contains("Quit"));
+		assert (menuItems.contains(LifeGameMenu.MENU_ITEM_ABOUT));
+		assert (menuItems.contains(LifeGameMenu.MENU_ITEM_PREFERENCES));
+		assert (menuItems.contains(LifeGameMenu.MENU_ITEM_QUIT));
 	}
 
 	@Test
@@ -70,13 +70,13 @@ public class GuiTest {
 			menuItems.add(presetsMenu.getItem(i).getText());
 			presetsMenu.getItem(i).doClick();
 		}
-		assert (menuItems.contains("7468M.life"));
-		assert (menuItems.contains("acorn.life"));
-		assert (menuItems.contains("b_heptomino.life"));
-		assert (menuItems.contains("empty_board.life"));
-		assert (menuItems.contains("r_pentomino.life"));
-		assert (menuItems.contains("rabbits.life"));
-		assert (menuItems.contains("single_line_conway.life"));
+		assert (menuItems.contains(PresetsMenu.PRESET_7468M));
+		assert (menuItems.contains(PresetsMenu.PRESET_ACORN));
+		assert (menuItems.contains(PresetsMenu.PRESET_B_HEPTOMINO));
+		assert (menuItems.contains(PresetsMenu.PRESET_EMPTY_BOARD));
+		assert (menuItems.contains(PresetsMenu.PRESET_R_PENTOMINO));
+		assert (menuItems.contains(PresetsMenu.PRESET_RABBITS));
+		assert (menuItems.contains(PresetsMenu.PRESET_CONWAY_SINGLE_LINE));
 	}
 
 	@Test

@@ -7,7 +7,9 @@ package org.systemexception.lifegame.enums;
 
 public enum BoardSizes {
 
-	SMALL("Small"), MEDIUM("Medium"), LARGE("Large");
+	SMALL("Small"),
+	MEDIUM("Medium"),
+	LARGE("Large");
 
 	private final String boardSize;
 

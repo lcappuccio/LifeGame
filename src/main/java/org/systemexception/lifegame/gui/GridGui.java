@@ -106,10 +106,10 @@ public class GridGui extends JComponent {
 	public void setColours(String colourTheme) {
 		if (colourTheme.equals(Themes.BW.toString())) {
 			colorDark = Color.DARK_GRAY;
-			colorLight = hex2Rgb("#ECECEC");
+			colorLight = Color.WHITE;
 		}
 		if (colourTheme.equals(Themes.INVERSE.toString())) {
-			colorDark = hex2Rgb("#ECECEC");
+			colorDark = Color.WHITE;
 			colorLight = Color.DARK_GRAY;
 		}
 		if (colourTheme.equals(Themes.BLUE.toString())) {

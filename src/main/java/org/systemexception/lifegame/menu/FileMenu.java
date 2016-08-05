@@ -19,9 +19,10 @@ import java.nio.file.Files;
 
 public class FileMenu extends JMenu {
 
+	public static final String FILE_OPEN = "Open", FILE_SAVE = "Save";
+	private final String lineSeparator = System.getProperty("line.separator");
 	public JMenuItem menuOpen, menuSave;
 	private Board board;
-	private final String lineSeparator = System.getProperty("line.separator");
 
 	public FileMenu() {
 		this.setFont(MainGui.MENU_FONT);
@@ -36,13 +37,13 @@ public class FileMenu extends JMenu {
 	}
 
 	private JMenuItem menuOpen() {
-		menuOpen = new JMenuItem("Open");
+		menuOpen = new JMenuItem(FILE_OPEN);
 		menuOpen.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, MainGui.metaKey));
 		return (menuOpen);
 	}
 
 	private JMenuItem menuSave() {
-		menuSave = new JMenuItem("Save");
+		menuSave = new JMenuItem(FILE_SAVE);
 		menuSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, MainGui.metaKey));
 		menuSave.addActionListener(e -> {
 			JFileChooser fileChooser = new JFileChooser();
