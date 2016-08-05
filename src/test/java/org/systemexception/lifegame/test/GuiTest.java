@@ -53,7 +53,7 @@ public class GuiTest {
 		List<String> menuItems = new ArrayList<>();
 		for (int i = 0; i < lifeGameMenu.getItemCount(); i++) {
 			menuItems.add(lifeGameMenu.getItem(i).getText());
-			if (!"Quit".equals(lifeGameMenu.getItem(i).getText())) {
+			if (!LifeGameMenu.MENU_ITEM_QUIT.equals(lifeGameMenu.getItem(i).getText())) {
 				lifeGameMenu.getItem(i).doClick();
 			}
 		}
