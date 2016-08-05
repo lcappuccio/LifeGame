@@ -70,13 +70,13 @@ public class GuiTest {
 			menuItems.add(presetsMenu.getItem(i).getText());
 			presetsMenu.getItem(i).doClick();
 		}
-		assert (menuItems.contains("7468M.life"));
-		assert (menuItems.contains("acorn.life"));
-		assert (menuItems.contains("b_heptomino.life"));
-		assert (menuItems.contains("empty_board.life"));
-		assert (menuItems.contains("r_pentomino.life"));
-		assert (menuItems.contains("rabbits.life"));
-		assert (menuItems.contains("single_line_conway.life"));
+		assert (menuItems.contains(PresetsMenu.PRESET_7468M));
+		assert (menuItems.contains(PresetsMenu.PRESET_ACORN));
+		assert (menuItems.contains(PresetsMenu.PRESET_B_HEPTOMINO));
+		assert (menuItems.contains(PresetsMenu.PRESET_EMPTY_BOARD));
+		assert (menuItems.contains(PresetsMenu.PRESET_R_PENTOMINO));
+		assert (menuItems.contains(PresetsMenu.PRESET_RABBITS));
+		assert (menuItems.contains(PresetsMenu.PRESET_CONWAY_SINGLE_LINE));
 	}
 
 	@Test

@@ -3,6 +3,7 @@ package org.systemexception.lifegame.gui;
 import org.systemexception.lifegame.enums.Automata;
 import org.systemexception.lifegame.enums.BoardSizes;
 import org.systemexception.lifegame.enums.Themes;
+import org.systemexception.lifegame.menu.LifeGameMenu;
 
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
@@ -83,7 +84,7 @@ public class PreferencesGui extends JFrame {
 	 */
 	public PreferencesGui() {
 		setResizable(false);
-		setTitle("Preferences");
+		setTitle(LifeGameMenu.MENU_ITEM_PREFERENCES);
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 		setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25, WINDOW_WIDTH, WINDOW_HEIGHT);
 		JPanel prefsWindow = new JPanel();
