@@ -46,8 +46,8 @@ public class MainGui {
 			("Lucida Grande", Font.PLAIN, 10);
 	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();
 	private static final String platform = System.getProperty("os.name").toLowerCase();
-	private final int labelHeight = 29, labelWidth = 75, panelWidth = 390;
-	private final int mainAppWindowHeightExclude = 80;
+	private final int labelHeight = 29, labelWidth = 75, panelWidth = 390, mainAppWindowHeightExclude = 80,
+			panelAndLabelHeightExclude = 52;
 	private JFrame mainAppWindow;
 	private static JPanel centerPanel;
 	private JPanel lowerPanel;
@@ -314,30 +314,30 @@ public class MainGui {
 	private void setLargeWindowLayout() {
 		mainAppWindow.setBounds(windowPositionX, windowPositionY, 1280, 1024);
 		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - mainAppWindowHeightExclude);
-		lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, panelWidth, labelHeight);
-		lblLiveCells.setBounds(986, mainAppWindow.getHeight() - 52, labelWidth, labelHeight);
-		lblCountLiveCells.setBounds(1073, mainAppWindow.getHeight() - 52, labelWidth, labelHeight);
-		lblIteration.setBounds(1136, mainAppWindow.getHeight() - 52, labelWidth, labelHeight);
-		lblCountIteration.setBounds(1223, mainAppWindow.getHeight() - 52, labelWidth, labelHeight);
+		lowerPanel.setBounds(0, mainAppWindow.getHeight() - panelAndLabelHeightExclude, panelWidth, labelHeight);
+		lblLiveCells.setBounds(986, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblCountLiveCells.setBounds(1073, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblIteration.setBounds(1136, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblCountIteration.setBounds(1223, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
 	}
 
 	private void setMediumWindowLayout() {
 		mainAppWindow.setBounds(windowPositionX, windowPositionY, 1024, 768);
 		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - mainAppWindowHeightExclude);
-		lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, panelWidth, labelHeight);
-		lblLiveCells.setBounds(700, mainAppWindow.getHeight() - 52, labelWidth, labelHeight);
-		lblCountLiveCells.setBounds(787, mainAppWindow.getHeight() - 52, labelWidth, labelHeight);
-		lblIteration.setBounds(860, mainAppWindow.getHeight() - 52, labelWidth, labelHeight);
-		lblCountIteration.setBounds(947, mainAppWindow.getHeight() - 52, labelWidth, labelHeight);
+		lowerPanel.setBounds(0, mainAppWindow.getHeight() - panelAndLabelHeightExclude, panelWidth, labelHeight);
+		lblLiveCells.setBounds(700, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblCountLiveCells.setBounds(787, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblIteration.setBounds(860, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblCountIteration.setBounds(947, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
 	}
 
 	private void setSmallWindowLayout() {
 		mainAppWindow.setBounds(windowPositionX, windowPositionY, 800, 600);
 		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - mainAppWindowHeightExclude);
-		lowerPanel.setBounds(0, mainAppWindow.getHeight() - 52, panelWidth, labelHeight);
-		lblLiveCells.setBounds(506, mainAppWindow.getHeight() - 52, labelWidth, labelHeight);
-		lblCountLiveCells.setBounds(593, mainAppWindow.getHeight() - 52, labelWidth, labelHeight);
-		lblIteration.setBounds(656, mainAppWindow.getHeight() - 52, labelWidth, labelHeight);
-		lblCountIteration.setBounds(743, mainAppWindow.getHeight() - 52, labelWidth, labelHeight);
+		lowerPanel.setBounds(0, mainAppWindow.getHeight() - panelAndLabelHeightExclude, panelWidth, labelHeight);
+		lblLiveCells.setBounds(506, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblCountLiveCells.setBounds(593, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblIteration.setBounds(656, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblCountIteration.setBounds(743, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
 	}
 }
