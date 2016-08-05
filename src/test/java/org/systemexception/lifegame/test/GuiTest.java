@@ -57,9 +57,9 @@ public class GuiTest {
 				lifeGameMenu.getItem(i).doClick();
 			}
 		}
-		assert (menuItems.contains("About"));
-		assert (menuItems.contains("Preferences"));
-		assert (menuItems.contains("Quit"));
+		assert (menuItems.contains(LifeGameMenu.MENU_ITEM_ABOUT));
+		assert (menuItems.contains(LifeGameMenu.MENU_ITEM_PREFERENCES));
+		assert (menuItems.contains(LifeGameMenu.MENU_ITEM_QUIT));
 	}
 
 	@Test
