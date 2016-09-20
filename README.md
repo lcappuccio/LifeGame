@@ -2,7 +2,7 @@
 
 ## Conway's Game of Life
 
-A humble [Conway's Game Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) java/swing implementation
+[Conway's Game Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) java/swing implementation
 
 **Master**
 
