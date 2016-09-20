@@ -39,23 +39,24 @@ import java.io.IOException;
 public class MainGui {
 
 	public static int metaKey, windowPositionX, windowPositionY;
+	private static int iterationCounter;
+	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();;
 	public static Timer gameTimer;
-	public static final String FONT_NAME = "Lucida Grande", APP_NAME = "LifeGame";
+	public static final String FONT_NAME = "Lucida Grande", APP_NAME = "LifeGame",
+			platform = System.getProperty("os" + ".name").toLowerCase();
 	public static final Font MENU_FONT = new Font(FONT_NAME, Font.BOLD, 12);
 	private static final Font labelFontBold = new Font(FONT_NAME, Font.BOLD, 10), labelFontPlain = new Font
 			(FONT_NAME, Font.PLAIN, 10);
-	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();
-	private static final String platform = System.getProperty("os.name").toLowerCase();
 	private final int labelHeight = 29, labelWidth = 75, panelWidth = 390, mainAppWindowHeightExclude = 80,
 			panelAndLabelHeightExclude = 52;
 	private JFrame mainAppWindow;
 	private static JPanel centerPanel;
 	private JPanel lowerPanel;
 	private JLabel lblLiveCells, lblIteration;
-	private static JLabel lblCountIteration, lblCountLiveCells;
+	public static JLabel lblCountIteration;
+	private static JLabel lblCountLiveCells;
 	public static JButton btnReset, btnStop, btnStart, btnTick;
 	private FileMenu menuFile;
-	private int iterationCounter;
 	public static GridGui gridGui;
 
 	/**
@@ -170,8 +171,7 @@ public class MainGui {
 		gridGui = FileUtils.gridGuiFromFile(selectedFile);
 		centerPanel.add(gridGui);
 		lblCountLiveCells.setText(String.valueOf(gridGui.getTotalLiveCells()));
-		// TODO LC save also iteration number
-		lblCountIteration.setText("0");
+		iterationCounter = Integer.valueOf(lblCountIteration.getText());
 	}
 
 	private void setWindowSize() {

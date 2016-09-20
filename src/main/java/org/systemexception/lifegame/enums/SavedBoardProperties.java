@@ -9,6 +9,7 @@ public enum SavedBoardProperties {
 	AUTOMATA("automata"),
 	CELLSIZE("cellSize"),
 	COLS("cols"),
+	ITERATION_COUNTER("iteration"),
 	ROWS("rows"),
 	THEME("theme");
 

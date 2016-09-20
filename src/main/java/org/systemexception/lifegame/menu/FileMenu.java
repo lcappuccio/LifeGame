@@ -90,6 +90,8 @@ public class FileMenu extends JMenu {
 						FileUtils.FILE_PROPERTIES_SEPARATOR + PreferencesGui.getCellSize() + lineSeparator);
 				fileWriter.print(FileUtils.FILE_PROPERTIES_LINE  + SavedBoardProperties.AUTOMATA +
 						FileUtils.FILE_PROPERTIES_SEPARATOR + PreferencesGui.getLifeAutomata() + lineSeparator);
+				fileWriter.print(FileUtils.FILE_PROPERTIES_LINE + SavedBoardProperties.ITERATION_COUNTER +
+				FileUtils.FILE_PROPERTIES_SEPARATOR + MainGui.lblCountIteration.getText() + lineSeparator);
 				fileWriter.print(FileUtils.FILE_PROPERTIES_LINE  + SavedBoardProperties.THEME +
 						FileUtils.FILE_PROPERTIES_SEPARATOR + PreferencesGui.getColorTheme() + lineSeparator);
 				writeToFile(fileWriter);

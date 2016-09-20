@@ -2,6 +2,7 @@ package org.systemexception.lifegame.pojo;
 
 import org.systemexception.lifegame.enums.SavedBoardProperties;
 import org.systemexception.lifegame.gui.GridGui;
+import org.systemexception.lifegame.gui.MainGui;
 import org.systemexception.lifegame.gui.PreferencesGui;
 
 import java.io.*;
@@ -38,6 +39,9 @@ public class FileUtils {
 
 		String automata = properties.getProperty(SavedBoardProperties.AUTOMATA.toString());
 		PreferencesGui.setLifeAutomata(automata);
+
+		String iterationCounter = properties.getProperty(SavedBoardProperties.ITERATION_COUNTER.toString());
+		MainGui.lblCountIteration.setText(iterationCounter);
 
 		String theme = properties.getProperty(SavedBoardProperties.THEME.toString());
 
