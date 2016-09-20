@@ -194,6 +194,7 @@ public class MainGui {
 		gridGui = new GridGui(cellSize, gridRows, gridCols, fileContents, theme);
 		centerPanel.add(gridGui);
 		lblCountLiveCells.setText(String.valueOf(gridGui.getTotalLiveCells()));
+		// TODO LC save also iteration number
 		lblCountIteration.setText("0");
 		PreferencesGui.setLifeAutomata(automata);
 	}
