@@ -10,7 +10,8 @@ import java.util.Properties;
 
 public class FileUtils {
 
-	private static final String FILE_PROPERTIES_LINE = "#";
+	public static final String SAVE_FILE_EXTENSION = ".life";
+	public static final String FILE_PROPERTIES_LINE = "#", FILE_PROPERTIES_SEPARATOR = "=";
 	private static final String EMPTY_STRING = "";
 
 	public static GridGui gridGuiFromFile(final File file) throws IOException {

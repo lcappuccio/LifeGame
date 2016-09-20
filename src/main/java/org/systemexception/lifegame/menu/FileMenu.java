@@ -8,6 +8,7 @@ import org.systemexception.lifegame.enums.SavedBoardProperties;
 import org.systemexception.lifegame.gui.MainGui;
 import org.systemexception.lifegame.gui.PreferencesGui;
 import org.systemexception.lifegame.model.Board;
+import org.systemexception.lifegame.pojo.FileUtils;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -81,18 +82,20 @@ public class FileMenu extends JMenu {
 			// Save board properties first
 			try (PrintWriter fileWriter = new PrintWriter(bufferedWriter)) {
 				// Save board properties first
-				fileWriter.print("#" + SavedBoardProperties.COLS + "=" + board.getBoardCols() + lineSeparator);
-				fileWriter.print("#" + SavedBoardProperties.ROWS + "=" + board.getBoardRows() + lineSeparator);
-				fileWriter.print("#" + SavedBoardProperties.CELLSIZE + "=" + PreferencesGui.getCellSize() +
-						lineSeparator);
-				fileWriter.print("#" + SavedBoardProperties.AUTOMATA + "=" + PreferencesGui.getLifeAutomata() +
-						lineSeparator);
-				fileWriter.print("#" + SavedBoardProperties.THEME + "=" + PreferencesGui.getColorTheme() +
-						lineSeparator);
+				fileWriter.print(FileUtils.FILE_PROPERTIES_LINE + SavedBoardProperties.COLS +
+						FileUtils.FILE_PROPERTIES_SEPARATOR + board.getBoardCols() + lineSeparator);
+				fileWriter.print(FileUtils.FILE_PROPERTIES_LINE  + SavedBoardProperties.ROWS +
+						FileUtils.FILE_PROPERTIES_SEPARATOR + board.getBoardRows() + lineSeparator);
+				fileWriter.print(FileUtils.FILE_PROPERTIES_LINE  + SavedBoardProperties.CELLSIZE +
+						FileUtils.FILE_PROPERTIES_SEPARATOR + PreferencesGui.getCellSize() + lineSeparator);
+				fileWriter.print(FileUtils.FILE_PROPERTIES_LINE  + SavedBoardProperties.AUTOMATA +
+						FileUtils.FILE_PROPERTIES_SEPARATOR + PreferencesGui.getLifeAutomata() + lineSeparator);
+				fileWriter.print(FileUtils.FILE_PROPERTIES_LINE  + SavedBoardProperties.THEME +
+						FileUtils.FILE_PROPERTIES_SEPARATOR + PreferencesGui.getColorTheme() + lineSeparator);
 				writeToFile(fileWriter);
 			}
-			if (!fileName.endsWith(".life")) {
-				Files.move(file.toPath(), new File(fileName + ".life").toPath());
+			if (!fileName.endsWith(FileUtils.SAVE_FILE_EXTENSION)) {
+				Files.move(file.toPath(), new File(fileName + FileUtils.SAVE_FILE_EXTENSION).toPath());
 			}
 		} catch (Exception fileException) {
 			fileException.printStackTrace(System.out);
