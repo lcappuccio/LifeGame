@@ -43,7 +43,7 @@ public class FileMenu extends JMenu {
 	private JMenuItem menuSave() {
 		menuSave = new JMenuItem(FILE_SAVE);
 		menuSave.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, MainGui.metaKey));
-		menuSave.addActionListener(e -> {
+		menuSave.addActionListener(actionEvent -> {
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 			fileChooser.showSaveDialog(null);
