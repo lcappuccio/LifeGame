@@ -19,11 +19,11 @@ package org.systemexception.lifegame.gui;
 
 import org.systemexception.lifegame.enums.BoardSizes;
 import org.systemexception.lifegame.enums.GameSpeeds;
-import org.systemexception.lifegame.enums.SavedBoardProperties;
 import org.systemexception.lifegame.menu.FileMenu;
 import org.systemexception.lifegame.menu.LifeGameMenu;
 import org.systemexception.lifegame.menu.PresetsMenu;
 import org.systemexception.lifegame.menu.SpeedMenu;
+import org.systemexception.lifegame.pojo.FileUtils;
 
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -33,9 +33,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Properties;
+import java.io.File;
+import java.io.IOException;
 
 public class MainGui {
 
@@ -167,36 +166,12 @@ public class MainGui {
 
 	public static void openFile(File selectedFile) throws IOException {
 		btnStop.doClick();
-		ArrayList<ArrayList<String>> fileContents = new ArrayList<>();
-		Properties properties;
-		BufferedReader fileReader = new BufferedReader(new FileReader(selectedFile));
-		String line;
-		// Read board settings
-		properties = new Properties();
-		while ((line = fileReader.readLine()) != null) {
-			if (line.startsWith("#")) {
-				properties.load(new StringReader(line.replace("#", "")));
-			} else {
-				ArrayList<String> fileLine = new ArrayList<>();
-				for (int i = 0; i < line.length(); i++) {
-					fileLine.add(String.valueOf(line.charAt(i)));
-				}
-				fileContents.add(fileLine);
-			}
-		}
-		int cellSize = Integer.valueOf(properties.getProperty(SavedBoardProperties.CELLSIZE.toString
-				()));
-		int gridCols = Integer.valueOf(properties.getProperty(SavedBoardProperties.COLS.toString()));
-		int gridRows = Integer.valueOf(properties.getProperty(SavedBoardProperties.ROWS.toString()));
-		String automata = properties.getProperty(SavedBoardProperties.AUTOMATA.toString());
-		String theme = properties.getProperty(SavedBoardProperties.THEME.toString());
 		centerPanel.remove(gridGui);
-		gridGui = new GridGui(cellSize, gridRows, gridCols, fileContents, theme);
+		gridGui = FileUtils.gridGuiFromFile(selectedFile);
 		centerPanel.add(gridGui);
 		lblCountLiveCells.setText(String.valueOf(gridGui.getTotalLiveCells()));
 		// TODO LC save also iteration number
 		lblCountIteration.setText("0");
-		PreferencesGui.setLifeAutomata(automata);
 	}
 
 	private void setWindowSize() {
