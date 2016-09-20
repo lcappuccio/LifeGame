@@ -147,17 +147,9 @@ public class MainGui {
 		flowLayout.setVgap(0);
 		mainAppWindow.getContentPane().add(lowerPanel, BorderLayout.SOUTH);
 
-		btnStart = new JButton("Start");
-		btnStart.addActionListener(e -> {
-			btnStart.setEnabled(false);
-			if (gameTimer == null) {
-				gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
-				gameTimer.start();
-			} else {
-				gameTimer.restart();
-			}
-		});
+		setUpStartButton();
 		lowerPanel.add(btnStart);
+
 		btnTick = new JButton("Tick");
 		btnTick.addActionListener(e -> {
 			if (gameTimer != null && gameTimer.isRunning()) {
@@ -345,5 +337,18 @@ public class MainGui {
 		lblIteration.setBounds(656, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
 		lblCountIteration.setBounds(743, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth,
 				labelHeight);
+	}
+
+	private void setUpStartButton() {
+		btnStart = new JButton("Start");
+		btnStart.addActionListener(e -> {
+			btnStart.setEnabled(false);
+			if (gameTimer == null) {
+				gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
+				gameTimer.start();
+			} else {
+				gameTimer.restart();
+			}
+		});
 	}
 }
