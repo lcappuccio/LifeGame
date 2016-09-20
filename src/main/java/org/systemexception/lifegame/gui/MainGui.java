@@ -148,33 +148,11 @@ public class MainGui {
 		mainAppWindow.getContentPane().add(lowerPanel, BorderLayout.SOUTH);
 
 		setUpStartButton();
-		lowerPanel.add(btnStart);
-
 		setUpTickButton();
-		lowerPanel.add(btnTick);
-
 		setUpStopButton();
-		lowerPanel.add(btnStop);
-
 		setUpResetButton();
-		lowerPanel.add(btnReset);
-
-		// Live cells counter
-		lblLiveCells = new JLabel("Live Cells:");
-		mainAppWindow.getContentPane().add(lblLiveCells, BorderLayout.SOUTH);
-		lblLiveCells.setFont(labelFontBold);
-		lblCountLiveCells = new JLabel(String.valueOf(gridGui.getTotalLiveCells()));
-		mainAppWindow.getContentPane().add(lblCountLiveCells, BorderLayout.SOUTH);
-		lblCountLiveCells.setFont(labelFontPlain);
-
-		// Iteration counter
-		lblIteration = new JLabel("Iteration:");
-		mainAppWindow.getContentPane().add(lblIteration, BorderLayout.SOUTH);
-		lblIteration.setFont(labelFontBold);
-		lblCountIteration = new JLabel("0");
-		mainAppWindow.getContentPane().add(lblCountIteration, BorderLayout.SOUTH);
-		lblCountIteration.setFont(labelFontPlain);
-
+		setUpLiveCellsCounter();
+		setUpIterationCounter();
 		setWindowSize();
 	}
 
@@ -328,6 +306,24 @@ public class MainGui {
 				labelHeight);
 	}
 
+	private void setUpLiveCellsCounter() {
+		lblLiveCells = new JLabel("Live Cells:");
+		mainAppWindow.getContentPane().add(lblLiveCells, BorderLayout.SOUTH);
+		lblLiveCells.setFont(labelFontBold);
+		lblCountLiveCells = new JLabel(String.valueOf(gridGui.getTotalLiveCells()));
+		mainAppWindow.getContentPane().add(lblCountLiveCells, BorderLayout.SOUTH);
+		lblCountLiveCells.setFont(labelFontPlain);
+	}
+
+	private void setUpIterationCounter() {
+		lblIteration = new JLabel("Iteration:");
+		mainAppWindow.getContentPane().add(lblIteration, BorderLayout.SOUTH);
+		lblIteration.setFont(labelFontBold);
+		lblCountIteration = new JLabel("0");
+		mainAppWindow.getContentPane().add(lblCountIteration, BorderLayout.SOUTH);
+		lblCountIteration.setFont(labelFontPlain);
+	}
+
 	private void setUpStartButton() {
 		btnStart = new JButton("Start");
 		btnStart.addActionListener(e -> {
@@ -339,11 +335,13 @@ public class MainGui {
 				gameTimer.restart();
 			}
 		});
+		lowerPanel.add(btnStart);
 	}
 
 	private void setUpStopButton() {
 		btnStop = new JButton("Stop");
 		btnStop.addActionListener(e -> stopGame());
+		lowerPanel.add(btnStop);
 	}
 
 	private void setUpTickButton() {
@@ -355,6 +353,7 @@ public class MainGui {
 			}
 			iterateGrid();
 		});
+		lowerPanel.add(btnTick);
 	}
 
 	private void setUpResetButton() {
@@ -364,6 +363,7 @@ public class MainGui {
 			resetGrid();
 			stopGame();
 		});
+		lowerPanel.add(btnReset);
 	}
 
 }
