@@ -11,10 +11,7 @@ import org.systemexception.lifegame.model.Board;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.PrintWriter;
+import java.io.*;
 import java.nio.file.Files;
 
 public class FileMenu extends JMenu {
@@ -100,7 +97,7 @@ public class FileMenu extends JMenu {
 			if (!fileName.endsWith(SAVE_FILE_EXTENSION)) {
 				Files.move(file.toPath(), new File(fileName + SAVE_FILE_EXTENSION).toPath());
 			}
-		} catch (Exception fileException) {
+		} catch (IOException fileException) {
 			fileException.printStackTrace(System.out);
 		}
 	}
