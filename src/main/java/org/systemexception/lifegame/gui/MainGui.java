@@ -111,25 +111,8 @@ public class MainGui {
 		mainAppWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
 		mainAppWindow.setResizable(false);
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, mainAppWindow.getWidth(), 20);
-		mainAppWindow.getContentPane().add(menuBar, BorderLayout.NORTH);
-		menuBar.setBorderPainted(false);
 
-		// LifeGame menu
-		JMenu menuLifeGame = new LifeGameMenu();
-		menuBar.add(menuLifeGame);
-		// File menu
-		menuFile = new FileMenu();
-		menuBar.add(menuFile);
-		menuFileSetOpenAction();
-		// Speed menu
-		JMenu menuGameSpeed = new SpeedMenu();
-		menuBar.add(menuGameSpeed);
-		// Presets menu
-		JMenu menuPresets = new PresetsMenu();
-		menuBar.add(menuPresets);
-
+		setUpMenuBar();
 		setUpCenterPanel();
 		setUpLowerPanel();
 		setUpStartButton();
@@ -181,24 +164,6 @@ public class MainGui {
 			lblCountIteration.setText(String.valueOf(iterationCounter));
 		}
 	};
-
-	private void menuFileSetOpenAction() {
-		menuFile.menuOpen.addActionListener(e -> {
-			JFileChooser fileChooser = new JFileChooser();
-			FileFilter fileFilter = new FileNameExtensionFilter(APP_NAME, "life");
-			fileChooser.setFileFilter(fileFilter);
-			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-			int result = fileChooser.showOpenDialog(fileChooser);
-			if (result == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = fileChooser.getSelectedFile();
-				try {
-					openFile(selectedFile);
-				} catch (IOException exception) {
-					exception.getMessage();
-				}
-			}
-		});
-	}
 
 	public static void openFile(File selectedFile) throws IOException {
 		btnStop.doClick();
@@ -368,6 +333,42 @@ public class MainGui {
 		flowLayout.setHgap(0);
 		flowLayout.setVgap(0);
 		mainAppWindow.getContentPane().add(lowerPanel, BorderLayout.SOUTH);
+	}
+
+	private void setUpMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, mainAppWindow.getWidth(), 20);
+		mainAppWindow.getContentPane().add(menuBar, BorderLayout.NORTH);
+		menuBar.setBorderPainted(false);
+
+		JMenu menuLifeGame = new LifeGameMenu();
+		JMenu menuGameSpeed = new SpeedMenu();
+		JMenu menuPresets = new PresetsMenu();
+		menuFile = new FileMenu();
+		menuFileSetOpenAction();
+
+		menuBar.add(menuLifeGame);
+		menuBar.add(menuFile);
+		menuBar.add(menuGameSpeed);
+		menuBar.add(menuPresets);
+	}
+
+	private void menuFileSetOpenAction() {
+		menuFile.menuOpen.addActionListener(e -> {
+			JFileChooser fileChooser = new JFileChooser();
+			FileFilter fileFilter = new FileNameExtensionFilter(APP_NAME, "life");
+			fileChooser.setFileFilter(fileFilter);
+			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			int result = fileChooser.showOpenDialog(fileChooser);
+			if (result == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = fileChooser.getSelectedFile();
+				try {
+					openFile(selectedFile);
+				} catch (IOException exception) {
+					exception.getMessage();
+				}
+			}
+		});
 	}
 
 }
