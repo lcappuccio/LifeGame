@@ -19,11 +19,11 @@ package org.systemexception.lifegame.gui;
 
 import org.systemexception.lifegame.enums.BoardSizes;
 import org.systemexception.lifegame.enums.GameSpeeds;
-import org.systemexception.lifegame.enums.SavedBoardProperties;
 import org.systemexception.lifegame.menu.FileMenu;
 import org.systemexception.lifegame.menu.LifeGameMenu;
 import org.systemexception.lifegame.menu.PresetsMenu;
 import org.systemexception.lifegame.menu.SpeedMenu;
+import org.systemexception.lifegame.pojo.FileUtils;
 
 import javax.swing.*;
 import javax.swing.UIManager.LookAndFeelInfo;
@@ -33,30 +33,30 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Properties;
+import java.io.File;
+import java.io.IOException;
 
 public class MainGui {
 
 	public static int metaKey, windowPositionX, windowPositionY;
+	private static int iterationCounter;
+	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();;
 	public static Timer gameTimer;
-	public static final String FONT_NAME = "Lucida Grande", APP_NAME = "LifeGame";
+	public static final String FONT_NAME = "Lucida Grande", APP_NAME = "LifeGame",
+			platform = System.getProperty("os" + ".name").toLowerCase();
 	public static final Font MENU_FONT = new Font(FONT_NAME, Font.BOLD, 12);
 	private static final Font labelFontBold = new Font(FONT_NAME, Font.BOLD, 10), labelFontPlain = new Font
 			(FONT_NAME, Font.PLAIN, 10);
-	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();
-	private static final String platform = System.getProperty("os.name").toLowerCase();
 	private final int labelHeight = 29, labelWidth = 75, panelWidth = 390, mainAppWindowHeightExclude = 80,
 			panelAndLabelHeightExclude = 52;
 	private JFrame mainAppWindow;
 	private static JPanel centerPanel;
 	private JPanel lowerPanel;
 	private JLabel lblLiveCells, lblIteration;
-	private static JLabel lblCountIteration, lblCountLiveCells;
+	public static JLabel lblCountIteration;
+	private static JLabel lblCountLiveCells;
 	public static JButton btnReset, btnStop, btnStart, btnTick;
 	private FileMenu menuFile;
-	private int iterationCounter;
 	public static GridGui gridGui;
 
 	/**
@@ -111,89 +111,16 @@ public class MainGui {
 		mainAppWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);
 		mainAppWindow.setResizable(false);
-		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, mainAppWindow.getWidth(), 20);
-		mainAppWindow.getContentPane().add(menuBar, BorderLayout.NORTH);
-		menuBar.setBorderPainted(false);
 
-		// LifeGame menu
-		JMenu menuLifeGame = new LifeGameMenu();
-		menuBar.add(menuLifeGame);
-		// File menu
-		menuFile = new FileMenu();
-		menuBar.add(menuFile);
-		menuFileSetOpenAction();
-		// Speed menu
-		JMenu menuGameSpeed = new SpeedMenu();
-		menuBar.add(menuGameSpeed);
-		// Presets menu
-		JMenu menuPresets = new PresetsMenu();
-		menuBar.add(menuPresets);
-
-		// CENTER panel
-		centerPanel = new JPanel();
-		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - mainAppWindowHeightExclude);
-		mainAppWindow.getContentPane().add(centerPanel, BorderLayout.CENTER);
-		centerPanel.setLayout(new BorderLayout(0, 0));
-		gridGui = new GridGui(PreferencesGui.getCellSize(), centerPanel.getWidth() / PreferencesGui.getCellSize(),
-				centerPanel.getHeight() / PreferencesGui.getCellSize(), PreferencesGui.getColorTheme());
-		menuFile.setBoard(gridGui.getBoard());
-		centerPanel.add(gridGui);
-
-		// LOWER panel
-		lowerPanel = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
-		flowLayout.setHgap(0);
-		flowLayout.setVgap(0);
-		mainAppWindow.getContentPane().add(lowerPanel, BorderLayout.SOUTH);
-
-		btnStart = new JButton("Start");
-		btnStart.addActionListener(e -> {
-			btnStart.setEnabled(false);
-			if (gameTimer == null) {
-				gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
-				gameTimer.start();
-			} else {
-				gameTimer.restart();
-			}
-		});
-		lowerPanel.add(btnStart);
-		btnTick = new JButton("Tick");
-		btnTick.addActionListener(e -> {
-			if (gameTimer != null && gameTimer.isRunning()) {
-				btnStart.setEnabled(true);
-				gameTimer.stop();
-			}
-			iterateGrid();
-		});
-		lowerPanel.add(btnTick);
-		btnStop = new JButton("Stop");
-		btnStop.addActionListener(e -> stopGame());
-		lowerPanel.add(btnStop);
-		btnReset = new JButton("Reset");
-		btnReset.addActionListener(e -> {
-			setWindowSize();
-			resetGrid();
-			stopGame();
-		});
-		lowerPanel.add(btnReset);
-
-		// Live cells counter
-		lblLiveCells = new JLabel("Live Cells:");
-		mainAppWindow.getContentPane().add(lblLiveCells, BorderLayout.SOUTH);
-		lblLiveCells.setFont(labelFontBold);
-		lblCountLiveCells = new JLabel(String.valueOf(gridGui.getTotalLiveCells()));
-		mainAppWindow.getContentPane().add(lblCountLiveCells, BorderLayout.SOUTH);
-		lblCountLiveCells.setFont(labelFontPlain);
-
-		// Iteration counter
-		lblIteration = new JLabel("Iteration:");
-		mainAppWindow.getContentPane().add(lblIteration, BorderLayout.SOUTH);
-		lblIteration.setFont(labelFontBold);
-		lblCountIteration = new JLabel("0");
-		mainAppWindow.getContentPane().add(lblCountIteration, BorderLayout.SOUTH);
-		lblCountIteration.setFont(labelFontPlain);
-
+		setUpMenuBar();
+		setUpCenterPanel();
+		setUpLowerPanel();
+		setUpStartButton();
+		setUpTickButton();
+		setUpStopButton();
+		setUpResetButton();
+		setUpLiveCellsCounter();
+		setUpIterationCounter();
 		setWindowSize();
 	}
 
@@ -238,56 +165,13 @@ public class MainGui {
 		}
 	};
 
-	private void menuFileSetOpenAction() {
-		menuFile.menuOpen.addActionListener(e -> {
-			JFileChooser fileChooser = new JFileChooser();
-			FileFilter fileFilter = new FileNameExtensionFilter(APP_NAME, "life");
-			fileChooser.setFileFilter(fileFilter);
-			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-			int result = fileChooser.showOpenDialog(fileChooser);
-			if (result == JFileChooser.APPROVE_OPTION) {
-				File selectedFile = fileChooser.getSelectedFile();
-				openFile(selectedFile);
-			}
-		});
-	}
-
-	public static void openFile(File selectedFile) {
+	public static void openFile(File selectedFile) throws IOException {
 		btnStop.doClick();
-		ArrayList<ArrayList<String>> fileContents = new ArrayList<>();
-		try {
-			Properties properties;
-			try (BufferedReader fileReader = new BufferedReader(new FileReader(selectedFile))) {
-				String line;
-				// Read board settings
-				properties = new Properties();
-				while ((line = fileReader.readLine()) != null) {
-					if (line.startsWith("#")) {
-						properties.load(new StringReader(line.replace("#", "")));
-					} else {
-						ArrayList<String> fileLine = new ArrayList<>();
-						for (int i = 0; i < line.length(); i++) {
-							fileLine.add(String.valueOf(line.charAt(i)));
-						}
-						fileContents.add(fileLine);
-					}
-				}
-			}
-			int cellSize = Integer.valueOf(properties.getProperty(SavedBoardProperties.CELLSIZE.toString
-					()));
-			int gridCols = Integer.valueOf(properties.getProperty(SavedBoardProperties.COLS.toString()));
-			int gridRows = Integer.valueOf(properties.getProperty(SavedBoardProperties.ROWS.toString()));
-			String automata = properties.getProperty(SavedBoardProperties.AUTOMATA.toString());
-			String theme = properties.getProperty(SavedBoardProperties.THEME.toString());
-			centerPanel.remove(gridGui);
-			gridGui = new GridGui(cellSize, gridRows, gridCols, fileContents, theme);
-			centerPanel.add(gridGui);
-			lblCountLiveCells.setText(String.valueOf(gridGui.getTotalLiveCells()));
-			lblCountIteration.setText("0");
-			PreferencesGui.setLifeAutomata(automata);
-		} catch (IOException | NumberFormatException fileException) {
-			fileException.printStackTrace(System.out);
-		}
+		centerPanel.remove(gridGui);
+		gridGui = FileUtils.gridGuiFromFile(selectedFile);
+		centerPanel.add(gridGui);
+		lblCountLiveCells.setText(String.valueOf(gridGui.getTotalLiveCells()));
+		iterationCounter = Integer.valueOf(lblCountIteration.getText());
 	}
 
 	private void setWindowSize() {
@@ -317,9 +201,11 @@ public class MainGui {
 		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - mainAppWindowHeightExclude);
 		lowerPanel.setBounds(0, mainAppWindow.getHeight() - panelAndLabelHeightExclude, panelWidth, labelHeight);
 		lblLiveCells.setBounds(986, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
-		lblCountLiveCells.setBounds(1073, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblCountLiveCells.setBounds(1073, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth,
+				labelHeight);
 		lblIteration.setBounds(1136, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
-		lblCountIteration.setBounds(1223, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblCountIteration.setBounds(1223, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth,
+				labelHeight);
 	}
 
 	private void setMediumWindowLayout() {
@@ -327,9 +213,11 @@ public class MainGui {
 		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - mainAppWindowHeightExclude);
 		lowerPanel.setBounds(0, mainAppWindow.getHeight() - panelAndLabelHeightExclude, panelWidth, labelHeight);
 		lblLiveCells.setBounds(700, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
-		lblCountLiveCells.setBounds(787, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblCountLiveCells.setBounds(787, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth,
+				labelHeight);
 		lblIteration.setBounds(860, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
-		lblCountIteration.setBounds(947, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblCountIteration.setBounds(947, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth,
+				labelHeight);
 	}
 
 	private void setSmallWindowLayout() {
@@ -337,8 +225,126 @@ public class MainGui {
 		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - mainAppWindowHeightExclude);
 		lowerPanel.setBounds(0, mainAppWindow.getHeight() - panelAndLabelHeightExclude, panelWidth, labelHeight);
 		lblLiveCells.setBounds(506, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
-		lblCountLiveCells.setBounds(593, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblCountLiveCells.setBounds(593, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth,
+				labelHeight);
 		lblIteration.setBounds(656, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
-		lblCountIteration.setBounds(743, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
+		lblCountIteration.setBounds(743, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth,
+				labelHeight);
 	}
+
+	private void setUpLiveCellsCounter() {
+		lblLiveCells = new JLabel("Live Cells:");
+		mainAppWindow.getContentPane().add(lblLiveCells, BorderLayout.SOUTH);
+		lblLiveCells.setFont(labelFontBold);
+		lblCountLiveCells = new JLabel(String.valueOf(gridGui.getTotalLiveCells()));
+		mainAppWindow.getContentPane().add(lblCountLiveCells, BorderLayout.SOUTH);
+		lblCountLiveCells.setFont(labelFontPlain);
+	}
+
+	private void setUpIterationCounter() {
+		lblIteration = new JLabel("Iteration:");
+		mainAppWindow.getContentPane().add(lblIteration, BorderLayout.SOUTH);
+		lblIteration.setFont(labelFontBold);
+		lblCountIteration = new JLabel("0");
+		mainAppWindow.getContentPane().add(lblCountIteration, BorderLayout.SOUTH);
+		lblCountIteration.setFont(labelFontPlain);
+	}
+
+	private void setUpStartButton() {
+		btnStart = new JButton("Start");
+		btnStart.addActionListener(e -> {
+			btnStart.setEnabled(false);
+			if (gameTimer == null) {
+				gameTimer = new Timer(INITIAL_SPEED, taskPerformer);
+				gameTimer.start();
+			} else {
+				gameTimer.restart();
+			}
+		});
+		lowerPanel.add(btnStart);
+	}
+
+	private void setUpStopButton() {
+		btnStop = new JButton("Stop");
+		btnStop.addActionListener(e -> stopGame());
+		lowerPanel.add(btnStop);
+	}
+
+	private void setUpTickButton() {
+		btnTick = new JButton("Tick");
+		btnTick.addActionListener(e -> {
+			if (gameTimer != null && gameTimer.isRunning()) {
+				btnStart.setEnabled(true);
+				gameTimer.stop();
+			}
+			iterateGrid();
+		});
+		lowerPanel.add(btnTick);
+	}
+
+	private void setUpResetButton() {
+		btnReset = new JButton("Reset");
+		btnReset.addActionListener(e -> {
+			setWindowSize();
+			resetGrid();
+			stopGame();
+		});
+		lowerPanel.add(btnReset);
+	}
+
+	private void setUpCenterPanel() {
+		centerPanel = new JPanel();
+		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - mainAppWindowHeightExclude);
+		mainAppWindow.getContentPane().add(centerPanel, BorderLayout.CENTER);
+		centerPanel.setLayout(new BorderLayout(0, 0));
+		gridGui = new GridGui(PreferencesGui.getCellSize(), centerPanel.getWidth() / PreferencesGui.getCellSize(),
+				centerPanel.getHeight() / PreferencesGui.getCellSize(), PreferencesGui.getColorTheme());
+		menuFile.setBoard(gridGui.getBoard());
+		centerPanel.add(gridGui);
+	}
+
+	private void setUpLowerPanel() {
+		lowerPanel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
+		flowLayout.setHgap(0);
+		flowLayout.setVgap(0);
+		mainAppWindow.getContentPane().add(lowerPanel, BorderLayout.SOUTH);
+	}
+
+	private void setUpMenuBar() {
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, mainAppWindow.getWidth(), 20);
+		mainAppWindow.getContentPane().add(menuBar, BorderLayout.NORTH);
+		menuBar.setBorderPainted(false);
+
+		JMenu menuLifeGame = new LifeGameMenu();
+		JMenu menuGameSpeed = new SpeedMenu();
+		JMenu menuPresets = new PresetsMenu();
+		menuFile = new FileMenu();
+		menuFileSetOpenAction();
+
+		menuBar.add(menuLifeGame);
+		menuBar.add(menuFile);
+		menuBar.add(menuGameSpeed);
+		menuBar.add(menuPresets);
+	}
+
+	private void menuFileSetOpenAction() {
+		menuFile.menuOpen.addActionListener(e -> {
+			JFileChooser fileChooser = new JFileChooser();
+			FileFilter fileFilter = new FileNameExtensionFilter(APP_NAME, "life");
+			fileChooser.setFileFilter(fileFilter);
+			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			int result = fileChooser.showOpenDialog(fileChooser);
+			if (result == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = fileChooser.getSelectedFile();
+				try {
+					openFile(selectedFile);
+				} catch (IOException exception) {
+					exception.getMessage();
+				}
+			}
+		});
+	}
+
 }
