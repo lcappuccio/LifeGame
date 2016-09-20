@@ -21,8 +21,8 @@ public class FileMenu extends JMenu {
 
 	private static final String SAVE_FILE_EXTENSION = ".life";
 	public static final String FILE_PROPERTIES_LINE = "#";
-	private static final String FILE_OPEN = "Open", FILE_SAVE = "Save", FILE_PROPERTIES_SEPARATOR = "=";
-	private final String lineSeparator = System.getProperty("line.separator");
+	public static final String FILE_OPEN = "Open", FILE_SAVE = "Save";
+	private final String lineSeparator = System.getProperty("line.separator"), FILE_PROPERTIES_SEPARATOR = "=";
 	public JMenuItem menuOpen, menuSave;
 	private Board board;
 
