@@ -16,10 +16,9 @@ import java.nio.file.Files;
 
 public class FileMenu extends JMenu {
 
-	private static final String SAVE_FILE_EXTENSION = ".life";
+	private static final String SAVE_FILE_EXTENSION = ".life", LINE_SEPARATOR = System.getProperty("line.separator");
 	public static final String FILE_PROPERTIES_LINE = "#";
 	public static final String FILE_OPEN = "Open", FILE_SAVE = "Save";
-	private final String lineSeparator = System.getProperty("line.separator"), FILE_PROPERTIES_SEPARATOR = "=";
 	public JMenuItem menuOpen, menuSave;
 	private Board board;
 
@@ -80,18 +79,19 @@ public class FileMenu extends JMenu {
 			// Save board properties first
 			try (PrintWriter fileWriter = new PrintWriter(bufferedWriter)) {
 				// Save board properties first
+				final String FILE_PROPERTIES_SEPARATOR = "=";
 				fileWriter.print(FILE_PROPERTIES_LINE + SavedBoardProperties.COLS +
-						FILE_PROPERTIES_SEPARATOR + board.getBoardCols() + lineSeparator);
+						FILE_PROPERTIES_SEPARATOR + board.getBoardCols() + LINE_SEPARATOR);
 				fileWriter.print(FILE_PROPERTIES_LINE  + SavedBoardProperties.ROWS +
-						FILE_PROPERTIES_SEPARATOR + board.getBoardRows() + lineSeparator);
+						FILE_PROPERTIES_SEPARATOR + board.getBoardRows() + LINE_SEPARATOR);
 				fileWriter.print(FILE_PROPERTIES_LINE  + SavedBoardProperties.CELLSIZE +
-						FILE_PROPERTIES_SEPARATOR + PreferencesGui.getCellSize() + lineSeparator);
+						FILE_PROPERTIES_SEPARATOR + PreferencesGui.getCellSize() + LINE_SEPARATOR);
 				fileWriter.print(FILE_PROPERTIES_LINE  + SavedBoardProperties.AUTOMATA +
-						FILE_PROPERTIES_SEPARATOR + PreferencesGui.getLifeAutomata() + lineSeparator);
+						FILE_PROPERTIES_SEPARATOR + PreferencesGui.getLifeAutomata() + LINE_SEPARATOR);
 				fileWriter.print(FILE_PROPERTIES_LINE + SavedBoardProperties.ITERATION_COUNTER +
-				FILE_PROPERTIES_SEPARATOR + MainGui.lblCountIteration.getText() + lineSeparator);
+						FILE_PROPERTIES_SEPARATOR + MainGui.lblCountIteration.getText() + LINE_SEPARATOR);
 				fileWriter.print(FILE_PROPERTIES_LINE  + SavedBoardProperties.THEME +
-						FILE_PROPERTIES_SEPARATOR + PreferencesGui.getColorTheme() + lineSeparator);
+						FILE_PROPERTIES_SEPARATOR + PreferencesGui.getColorTheme() + LINE_SEPARATOR);
 				writeToFile(fileWriter);
 			}
 			if (!fileName.endsWith(SAVE_FILE_EXTENSION)) {
@@ -111,7 +111,7 @@ public class FileMenu extends JMenu {
 					fileWriter.print(Board.DEAD_CELL);
 				}
 			}
-			fileWriter.print(lineSeparator);
+			fileWriter.print(LINE_SEPARATOR);
 		}
 	}
 }
