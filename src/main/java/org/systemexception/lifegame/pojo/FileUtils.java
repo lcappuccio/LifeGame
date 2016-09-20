@@ -27,8 +27,7 @@ public class FileUtils {
 				properties.load(new StringReader(line.replace(FileMenu.FILE_PROPERTIES_LINE, EMPTY_STRING)));
 			}
 		}
-		int cellSize = Integer.valueOf(properties.getProperty(SavedBoardProperties.CELLSIZE.toString
-				()));
+		int cellSize = Integer.valueOf(properties.getProperty(SavedBoardProperties.CELLSIZE.toString()));
 		int gridCols = Integer.valueOf(properties.getProperty(SavedBoardProperties.COLS.toString()));
 		int gridRows = Integer.valueOf(properties.getProperty(SavedBoardProperties.ROWS.toString()));
 
