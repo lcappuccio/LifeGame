@@ -150,24 +150,13 @@ public class MainGui {
 		setUpStartButton();
 		lowerPanel.add(btnStart);
 
-		btnTick = new JButton("Tick");
-		btnTick.addActionListener(e -> {
-			if (gameTimer != null && gameTimer.isRunning()) {
-				btnStart.setEnabled(true);
-				gameTimer.stop();
-			}
-			iterateGrid();
-		});
+		setUpTickButton();
 		lowerPanel.add(btnTick);
-		btnStop = new JButton("Stop");
-		btnStop.addActionListener(e -> stopGame());
+
+		setUpStopButton();
 		lowerPanel.add(btnStop);
-		btnReset = new JButton("Reset");
-		btnReset.addActionListener(e -> {
-			setWindowSize();
-			resetGrid();
-			stopGame();
-		});
+
+		setUpResetButton();
 		lowerPanel.add(btnReset);
 
 		// Live cells counter
@@ -351,4 +340,30 @@ public class MainGui {
 			}
 		});
 	}
+
+	private void setUpStopButton() {
+		btnStop = new JButton("Stop");
+		btnStop.addActionListener(e -> stopGame());
+	}
+
+	private void setUpTickButton() {
+		btnTick = new JButton("Tick");
+		btnTick.addActionListener(e -> {
+			if (gameTimer != null && gameTimer.isRunning()) {
+				btnStart.setEnabled(true);
+				gameTimer.stop();
+			}
+			iterateGrid();
+		});
+	}
+
+	private void setUpResetButton() {
+		btnReset = new JButton("Reset");
+		btnReset.addActionListener(e -> {
+			setWindowSize();
+			resetGrid();
+			stopGame();
+		});
+	}
+
 }
