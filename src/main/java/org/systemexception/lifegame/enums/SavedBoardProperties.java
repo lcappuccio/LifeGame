@@ -6,10 +6,10 @@ package org.systemexception.lifegame.enums;
 
 public enum SavedBoardProperties {
 
+	AUTOMATA("automata"),
+	CELLSIZE("cellSize"),
 	COLS("cols"),
 	ROWS("rows"),
-	CELLSIZE("cellSize"),
-	AUTOMATA("automata"),
 	THEME("theme");
 
 	private final String property;
