@@ -4,6 +4,7 @@ import org.systemexception.lifegame.enums.SavedBoardProperties;
 import org.systemexception.lifegame.gui.GridGui;
 import org.systemexception.lifegame.gui.MainGui;
 import org.systemexception.lifegame.gui.PreferencesGui;
+import org.systemexception.lifegame.menu.FileMenu;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,8 +12,6 @@ import java.util.Properties;
 
 public class FileUtils {
 
-	public static final String SAVE_FILE_EXTENSION = ".life";
-	public static final String FILE_PROPERTIES_LINE = "#", FILE_PROPERTIES_SEPARATOR = "=";
 	private static final String EMPTY_STRING = "";
 
 	public static GridGui gridGuiFromFile(final File file) throws IOException {
@@ -22,10 +21,10 @@ public class FileUtils {
 		Properties properties = new Properties();
 		BufferedReader fileReader = new BufferedReader(new FileReader(file));
 		while ((line = fileReader.readLine()) != null) {
-			if (!line.startsWith(FILE_PROPERTIES_LINE)) {
+			if (!line.startsWith(FileMenu.FILE_PROPERTIES_LINE)) {
 				gridGuiAsArrayList.add(getBoardLineFrom(line));
 			} else {
-				properties.load(new StringReader(line.replace(FILE_PROPERTIES_LINE, EMPTY_STRING)));
+				properties.load(new StringReader(line.replace(FileMenu.FILE_PROPERTIES_LINE, EMPTY_STRING)));
 			}
 		}
 		int cellSize = Integer.valueOf(properties.getProperty(SavedBoardProperties.CELLSIZE.toString

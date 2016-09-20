@@ -8,7 +8,6 @@ import org.systemexception.lifegame.enums.SavedBoardProperties;
 import org.systemexception.lifegame.gui.MainGui;
 import org.systemexception.lifegame.gui.PreferencesGui;
 import org.systemexception.lifegame.model.Board;
-import org.systemexception.lifegame.pojo.FileUtils;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -20,7 +19,9 @@ import java.nio.file.Files;
 
 public class FileMenu extends JMenu {
 
-	public static final String FILE_OPEN = "Open", FILE_SAVE = "Save";
+	private static final String SAVE_FILE_EXTENSION = ".life";
+	public static final String FILE_PROPERTIES_LINE = "#";
+	private static final String FILE_OPEN = "Open", FILE_SAVE = "Save", FILE_PROPERTIES_SEPARATOR = "=";
 	private final String lineSeparator = System.getProperty("line.separator");
 	public JMenuItem menuOpen, menuSave;
 	private Board board;
@@ -82,22 +83,22 @@ public class FileMenu extends JMenu {
 			// Save board properties first
 			try (PrintWriter fileWriter = new PrintWriter(bufferedWriter)) {
 				// Save board properties first
-				fileWriter.print(FileUtils.FILE_PROPERTIES_LINE + SavedBoardProperties.COLS +
-						FileUtils.FILE_PROPERTIES_SEPARATOR + board.getBoardCols() + lineSeparator);
-				fileWriter.print(FileUtils.FILE_PROPERTIES_LINE  + SavedBoardProperties.ROWS +
-						FileUtils.FILE_PROPERTIES_SEPARATOR + board.getBoardRows() + lineSeparator);
-				fileWriter.print(FileUtils.FILE_PROPERTIES_LINE  + SavedBoardProperties.CELLSIZE +
-						FileUtils.FILE_PROPERTIES_SEPARATOR + PreferencesGui.getCellSize() + lineSeparator);
-				fileWriter.print(FileUtils.FILE_PROPERTIES_LINE  + SavedBoardProperties.AUTOMATA +
-						FileUtils.FILE_PROPERTIES_SEPARATOR + PreferencesGui.getLifeAutomata() + lineSeparator);
-				fileWriter.print(FileUtils.FILE_PROPERTIES_LINE + SavedBoardProperties.ITERATION_COUNTER +
-				FileUtils.FILE_PROPERTIES_SEPARATOR + MainGui.lblCountIteration.getText() + lineSeparator);
-				fileWriter.print(FileUtils.FILE_PROPERTIES_LINE  + SavedBoardProperties.THEME +
-						FileUtils.FILE_PROPERTIES_SEPARATOR + PreferencesGui.getColorTheme() + lineSeparator);
+				fileWriter.print(FILE_PROPERTIES_LINE + SavedBoardProperties.COLS +
+						FILE_PROPERTIES_SEPARATOR + board.getBoardCols() + lineSeparator);
+				fileWriter.print(FILE_PROPERTIES_LINE  + SavedBoardProperties.ROWS +
+						FILE_PROPERTIES_SEPARATOR + board.getBoardRows() + lineSeparator);
+				fileWriter.print(FILE_PROPERTIES_LINE  + SavedBoardProperties.CELLSIZE +
+						FILE_PROPERTIES_SEPARATOR + PreferencesGui.getCellSize() + lineSeparator);
+				fileWriter.print(FILE_PROPERTIES_LINE  + SavedBoardProperties.AUTOMATA +
+						FILE_PROPERTIES_SEPARATOR + PreferencesGui.getLifeAutomata() + lineSeparator);
+				fileWriter.print(FILE_PROPERTIES_LINE + SavedBoardProperties.ITERATION_COUNTER +
+				FILE_PROPERTIES_SEPARATOR + MainGui.lblCountIteration.getText() + lineSeparator);
+				fileWriter.print(FILE_PROPERTIES_LINE  + SavedBoardProperties.THEME +
+						FILE_PROPERTIES_SEPARATOR + PreferencesGui.getColorTheme() + lineSeparator);
 				writeToFile(fileWriter);
 			}
-			if (!fileName.endsWith(FileUtils.SAVE_FILE_EXTENSION)) {
-				Files.move(file.toPath(), new File(fileName + FileUtils.SAVE_FILE_EXTENSION).toPath());
+			if (!fileName.endsWith(SAVE_FILE_EXTENSION)) {
+				Files.move(file.toPath(), new File(fileName + SAVE_FILE_EXTENSION).toPath());
 			}
 		} catch (Exception fileException) {
 			fileException.printStackTrace(System.out);
