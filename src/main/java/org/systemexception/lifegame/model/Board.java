@@ -31,8 +31,15 @@ public class Board {
 	}
 
 	public void iterateBoard() {
+		if (PreferencesGui.getLifeAutomata().equals(Automata.ASSIMILATION.toString())) {
+			iterateBoardAssimilation();
+		}
 		if (PreferencesGui.getLifeAutomata().equals(Automata.CONWAY.toString())) {
 			iterateBoardConway();
+			return;
+		}
+		if (PreferencesGui.getLifeAutomata().equals(Automata.CORAL.toString())) {
+			iterateBoardCoral();
 			return;
 		}
 		if (PreferencesGui.getLifeAutomata().equals(Automata.DRYLIFE.toString())) {
@@ -51,20 +58,12 @@ public class Board {
 			iterateBoardMaze();
 			return;
 		}
-		if (PreferencesGui.getLifeAutomata().equals(Automata.SERVIETTES.toString())) {
-			iterateBoardServiettes();
-			return;
-		}
-		if (PreferencesGui.getLifeAutomata().equals(Automata.CORAL.toString())) {
-			iterateBoardCoral();
-			return;
-		}
 		if (PreferencesGui.getLifeAutomata().equals(Automata.MOVE.toString())) {
 			iterateBoardMove();
 			return;
 		}
-		if (PreferencesGui.getLifeAutomata().equals(Automata.ASSIMILATION.toString())) {
-			iterateBoardAssimilation();
+		if (PreferencesGui.getLifeAutomata().equals(Automata.SERVIETTES.toString())) {
+			iterateBoardServiettes();
 		}
 	}
 
