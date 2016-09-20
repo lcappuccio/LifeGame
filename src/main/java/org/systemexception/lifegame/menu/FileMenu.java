@@ -25,7 +25,7 @@ public class FileMenu extends JMenu {
 
 	public FileMenu() {
 		this.setFont(MainGui.MENU_FONT);
-		UIManager.put("FileChooser.readOnly", Boolean.FALSE);
+		UIManager.put("FileChooser.readOnly", Boolean.TRUE);
 		this.setText("File");
 		this.add(menuOpen());
 		this.add(menuSave());
