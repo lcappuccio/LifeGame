@@ -40,10 +40,10 @@ public class MainGui {
 
 	public static int metaKey, windowPositionX, windowPositionY;
 	private static int iterationCounter;
-	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();;
+	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();
 	public static Timer gameTimer;
-	public static final String FONT_NAME = "Lucida Grande", APP_NAME = "LifeGame",
-			platform = System.getProperty("os" + ".name").toLowerCase();
+	public static final String FONT_NAME = "Lucida Grande", APP_NAME = "LifeGame";
+	private static final String PLATFORM = System.getProperty("os.name").toLowerCase();
 	public static final Font MENU_FONT = new Font(FONT_NAME, Font.BOLD, 12);
 	private static final Font labelFontBold = new Font(FONT_NAME, Font.BOLD, 10), labelFontPlain = new Font
 			(FONT_NAME, Font.PLAIN, 10);
@@ -90,11 +90,11 @@ public class MainGui {
 				}
 				break;
 			}
-			// Set menu accelerator enabler key varies on platform
-			if (platform.contains("linux") || platform.contains("windows")) {
+			// Set menu accelerator enabler key varies on PLATFORM
+			if (PLATFORM.contains("linux") || PLATFORM.contains("windows")) {
 				metaKey = InputEvent.CTRL_MASK;
 			}
-			if (platform.contains("mac")) {
+			if (PLATFORM.contains("mac")) {
 				metaKey = InputEvent.META_MASK;
 			}
 		}
@@ -106,7 +106,7 @@ public class MainGui {
 	 */
 	private void initialize() {
 		mainAppWindow = new JFrame();
-		mainAppWindow.setTitle(APP_NAME + " - " + platform);
+		mainAppWindow.setTitle(APP_NAME + " - " + PLATFORM);
 		mainAppWindow.setBounds(0, 0, 1280, 1024);
 		mainAppWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		mainAppWindow.getContentPane().setLayout(null);

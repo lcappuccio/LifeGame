@@ -6,15 +6,15 @@ package org.systemexception.lifegame.enums;
 
 public enum Automata {
 
+	ASSIMILATION("Assimilation"),
 	CONWAY("Conway's Life"),
+	CORAL("Coral"),
 	DRYLIFE("DryLife"),
 	HIGHLIFE("HighLife"),
 	LIVEFREEORDIE("Live Free or Die"),
 	MAZE("Maze"),
-	SERVIETTES("Serviettes"),
-	CORAL("Coral"),
 	MOVE("Move"),
-	ASSIMILATION("Assimilation");
+	SERVIETTES("Serviettes");
 
 	private final String automata;
 

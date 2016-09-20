@@ -2,7 +2,7 @@
 
 ## Conway's Game of Life
 
-A humble [Conway's Game Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) java/swing implementation
+[Conway's Game Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) java/swing implementation
 
 **Master**
 
@@ -19,6 +19,10 @@ A humble [Conway's Game Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Li
 ## Installation
 
 Download the code/jar and build/execute with your favourite IDE/CLI.
+
+### Maven Build
+
+`mvn clean compile assembly:single`
 
 ## Usage
 
