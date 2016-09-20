@@ -247,45 +247,46 @@ public class MainGui {
 			int result = fileChooser.showOpenDialog(fileChooser);
 			if (result == JFileChooser.APPROVE_OPTION) {
 				File selectedFile = fileChooser.getSelectedFile();
-				openFile(selectedFile);
+				try {
+					openFile(selectedFile);
+				} catch (IOException exception) {
+					exception.getMessage();
+				}
 			}
 		});
 	}
 
-	public static void openFile(File selectedFile) {
+	public static void openFile(File selectedFile) throws IOException {
 		btnStop.doClick();
 		ArrayList<ArrayList<String>> fileContents = new ArrayList<>();
 		Properties properties;
-		try (BufferedReader fileReader = new BufferedReader(new FileReader(selectedFile))) {
-			String line;
-			// Read board settings
-			properties = new Properties();
-			while ((line = fileReader.readLine()) != null) {
-				if (line.startsWith("#")) {
-					properties.load(new StringReader(line.replace("#", "")));
-				} else {
-					ArrayList<String> fileLine = new ArrayList<>();
-					for (int i = 0; i < line.length(); i++) {
-						fileLine.add(String.valueOf(line.charAt(i)));
-					}
-					fileContents.add(fileLine);
+		BufferedReader fileReader = new BufferedReader(new FileReader(selectedFile));
+		String line;
+		// Read board settings
+		properties = new Properties();
+		while ((line = fileReader.readLine()) != null) {
+			if (line.startsWith("#")) {
+				properties.load(new StringReader(line.replace("#", "")));
+			} else {
+				ArrayList<String> fileLine = new ArrayList<>();
+				for (int i = 0; i < line.length(); i++) {
+					fileLine.add(String.valueOf(line.charAt(i)));
 				}
+				fileContents.add(fileLine);
 			}
-			int cellSize = Integer.valueOf(properties.getProperty(SavedBoardProperties.CELLSIZE.toString
-					()));
-			int gridCols = Integer.valueOf(properties.getProperty(SavedBoardProperties.COLS.toString()));
-			int gridRows = Integer.valueOf(properties.getProperty(SavedBoardProperties.ROWS.toString()));
-			String automata = properties.getProperty(SavedBoardProperties.AUTOMATA.toString());
-			String theme = properties.getProperty(SavedBoardProperties.THEME.toString());
-			centerPanel.remove(gridGui);
-			gridGui = new GridGui(cellSize, gridRows, gridCols, fileContents, theme);
-			centerPanel.add(gridGui);
-			lblCountLiveCells.setText(String.valueOf(gridGui.getTotalLiveCells()));
-			lblCountIteration.setText("0");
-			PreferencesGui.setLifeAutomata(automata);
-		} catch (IOException | NumberFormatException fileException) {
-			fileException.printStackTrace(System.out);
 		}
+		int cellSize = Integer.valueOf(properties.getProperty(SavedBoardProperties.CELLSIZE.toString
+				()));
+		int gridCols = Integer.valueOf(properties.getProperty(SavedBoardProperties.COLS.toString()));
+		int gridRows = Integer.valueOf(properties.getProperty(SavedBoardProperties.ROWS.toString()));
+		String automata = properties.getProperty(SavedBoardProperties.AUTOMATA.toString());
+		String theme = properties.getProperty(SavedBoardProperties.THEME.toString());
+		centerPanel.remove(gridGui);
+		gridGui = new GridGui(cellSize, gridRows, gridCols, fileContents, theme);
+		centerPanel.add(gridGui);
+		lblCountLiveCells.setText(String.valueOf(gridGui.getTotalLiveCells()));
+		lblCountIteration.setText("0");
+		PreferencesGui.setLifeAutomata(automata);
 	}
 
 	private void setWindowSize() {
