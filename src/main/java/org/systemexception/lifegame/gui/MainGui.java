@@ -130,23 +130,8 @@ public class MainGui {
 		JMenu menuPresets = new PresetsMenu();
 		menuBar.add(menuPresets);
 
-		// CENTER panel
-		centerPanel = new JPanel();
-		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - mainAppWindowHeightExclude);
-		mainAppWindow.getContentPane().add(centerPanel, BorderLayout.CENTER);
-		centerPanel.setLayout(new BorderLayout(0, 0));
-		gridGui = new GridGui(PreferencesGui.getCellSize(), centerPanel.getWidth() / PreferencesGui.getCellSize(),
-				centerPanel.getHeight() / PreferencesGui.getCellSize(), PreferencesGui.getColorTheme());
-		menuFile.setBoard(gridGui.getBoard());
-		centerPanel.add(gridGui);
-
-		// LOWER panel
-		lowerPanel = new JPanel();
-		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
-		flowLayout.setHgap(0);
-		flowLayout.setVgap(0);
-		mainAppWindow.getContentPane().add(lowerPanel, BorderLayout.SOUTH);
-
+		setUpCenterPanel();
+		setUpLowerPanel();
 		setUpStartButton();
 		setUpTickButton();
 		setUpStopButton();
@@ -364,6 +349,25 @@ public class MainGui {
 			stopGame();
 		});
 		lowerPanel.add(btnReset);
+	}
+
+	private void setUpCenterPanel() {
+		centerPanel = new JPanel();
+		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - mainAppWindowHeightExclude);
+		mainAppWindow.getContentPane().add(centerPanel, BorderLayout.CENTER);
+		centerPanel.setLayout(new BorderLayout(0, 0));
+		gridGui = new GridGui(PreferencesGui.getCellSize(), centerPanel.getWidth() / PreferencesGui.getCellSize(),
+				centerPanel.getHeight() / PreferencesGui.getCellSize(), PreferencesGui.getColorTheme());
+		menuFile.setBoard(gridGui.getBoard());
+		centerPanel.add(gridGui);
+	}
+
+	private void setUpLowerPanel() {
+		lowerPanel = new JPanel();
+		FlowLayout flowLayout = (FlowLayout) lowerPanel.getLayout();
+		flowLayout.setHgap(0);
+		flowLayout.setVgap(0);
+		mainAppWindow.getContentPane().add(lowerPanel, BorderLayout.SOUTH);
 	}
 
 }
