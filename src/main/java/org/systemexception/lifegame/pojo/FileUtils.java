@@ -23,11 +23,7 @@ public class FileUtils {
 		BufferedReader fileReader = new BufferedReader(new FileReader(file));
 		while ((line = fileReader.readLine()) != null) {
 			if (!line.startsWith(FILE_PROPERTIES_LINE)) {
-				ArrayList<String> fileLine = new ArrayList<>();
-				for (int i = 0; i < line.length(); i++) {
-					fileLine.add(String.valueOf(line.charAt(i)));
-				}
-				gridGuiAsArrayList.add(fileLine);
+				gridGuiAsArrayList.add(getBoardLineFrom(line));
 			} else {
 				properties.load(new StringReader(line.replace(FILE_PROPERTIES_LINE, EMPTY_STRING)));
 			}
@@ -46,5 +42,13 @@ public class FileUtils {
 		String theme = properties.getProperty(SavedBoardProperties.THEME.toString());
 
 		return new GridGui(cellSize, gridRows, gridCols, gridGuiAsArrayList, theme);
+	}
+
+	private static ArrayList<String> getBoardLineFrom(String line) {
+		ArrayList<String> fileLine = new ArrayList<>();
+		for (int i = 0; i < line.length(); i++) {
+			fileLine.add(String.valueOf(line.charAt(i)));
+		}
+		return fileLine;
 	}
 }
