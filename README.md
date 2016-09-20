@@ -20,6 +20,10 @@
 
 Download the code/jar and build/execute with your favourite IDE/CLI.
 
+### Maven Build
+
+`mvn clean compile assembly:single`
+
 ## Usage
 
 ### Main Controls
