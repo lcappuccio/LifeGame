@@ -184,7 +184,23 @@ public class Board {
 	 * alive.
 	 */
 	private void iterateBoardMaze() {
-		iterateConwayDerivatives(1, 3, 5);
+		liveCellCounter = 0;
+		copyBoard();
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				// Cell dies
+				if ((countSurroungingLiveCells(i, j) < 1 || countSurroungingLiveCells(i, j) > 5)
+						&& board[i][j].getCellState()) {
+					boardIteration[i][j].setCellDead();
+				}
+				// Cell becomes alive
+				if (countSurroungingLiveCells(i, j) == 3 && !board[i][j].getCellState()) {
+					boardIteration[i][j].setCellAlive();
+				}
+				updateLiveCellCounter(boardIteration, i, j);
+			}
+		}
+		this.board = boardIteration;
 	}
 
 	/**
