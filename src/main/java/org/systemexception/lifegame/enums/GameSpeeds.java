@@ -7,8 +7,8 @@ package org.systemexception.lifegame.enums;
 public enum GameSpeeds {
 	
 	Cheetah(10),
-	Horse(210),
-	Jackrabbit(60),
+	Horse(60),
+	Jackrabbit(210),
 	Llama(360),
 	Turtle(500);
 	
