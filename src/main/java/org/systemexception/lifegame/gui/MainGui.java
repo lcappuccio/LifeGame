@@ -40,7 +40,7 @@ public class MainGui {
 
 	public static int metaKey, windowPositionX, windowPositionY;
 	private static int iterationCounter;
-	private static final int INITIAL_SPEED = GameSpeeds.Horse.getGameSpeed();
+	private static final int INITIAL_SPEED = GameSpeeds.Jackrabbit.getGameSpeed();
 	public static Timer gameTimer;
 	public static final String FONT_NAME = "Lucida Grande", APP_NAME = "LifeGame";
 	private static final String PLATFORM = System.getProperty("os.name").toLowerCase();
