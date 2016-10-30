@@ -16,8 +16,8 @@ import java.util.ArrayList;
 
 public class GridGui extends JComponent {
 
-	private int cellSize, totalLiveCells;
 	private final int gridRows, gridCols;
+	private int cellSize, totalLiveCells;
 	private Board board;
 	private Color colorDark = Color.DARK_GRAY, colorLight = Color.WHITE;
 

@@ -11,10 +11,10 @@ import java.util.ArrayList;
 
 public class Board {
 
-	private Cell[][] board, boardIteration;
-	private final int rows, cols;
-	private int liveCellCounter = 0;
 	public static final String ALIVE_CELL = "o", DEAD_CELL = ".";
+	private final int rows, cols;
+	private Cell[][] board, boardIteration;
+	private int liveCellCounter = 0;
 
 	public Board(int rows, int cols) {
 		this.board = new Cell[rows][cols];

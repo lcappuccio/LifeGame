@@ -16,10 +16,11 @@ import java.nio.file.Files;
 
 public class FileMenu extends JMenu {
 
-	private static final String SAVE_FILE_EXTENSION = ".life", LINE_SEPARATOR = System.getProperty("line.separator");
 	public static final String FILE_PROPERTIES_LINE = "#";
 	public static final String FILE_OPEN = "Open", FILE_SAVE = "Save";
 	public JMenuItem menuOpen, menuSave;
+
+	private static final String SAVE_FILE_EXTENSION = ".life", LINE_SEPARATOR = System.getProperty("line.separator");
 	private Board board;
 
 	public FileMenu() {

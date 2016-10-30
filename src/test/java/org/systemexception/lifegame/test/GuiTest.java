@@ -24,9 +24,9 @@ import static org.junit.Assert.assertTrue;
  */
 public class GuiTest {
 
-	private final static MainGui mainGui = new MainGui();
-	private final FileMenu fileMenu = new FileMenu();
 	private static final LifeGameMenu lifeGameMenu = new LifeGameMenu();
+	private static final MainGui mainGui = new MainGui();
+	private final FileMenu fileMenu = new FileMenu();
 	private final PresetsMenu presetsMenu = new PresetsMenu();
 	private final SpeedMenu speedMenu = new SpeedMenu();
 
