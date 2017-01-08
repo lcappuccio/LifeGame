@@ -37,7 +37,7 @@ public class PresetsMenu extends JMenu {
 		JMenuItem jMenuItem = new JMenuItem();
 		jMenuItem.setText(fileName);
 		jMenuItem.addActionListener(actionEvent -> {
-			ClassLoader classLoader = PresetsMenu.class.getClassLoader();
+			ClassLoader classLoader = this.getClass().getClassLoader();
 			InputStream inputStream = classLoader.getResourceAsStream(PRESETS_FOLDER + fileName);
 			try {
 				FileOutputStream fileOutputStream = new FileOutputStream(new File(TEMP_LIFE_PRESET));
