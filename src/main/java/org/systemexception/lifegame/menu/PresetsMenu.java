@@ -37,8 +37,8 @@ public class PresetsMenu extends JMenu {
 		JMenuItem jMenuItem = new JMenuItem();
 		jMenuItem.setText(fileName);
 		jMenuItem.addActionListener(actionEvent -> {
-			InputStream inputStream = this.getClass().getResourceAsStream(PRESETS_FOLDER + fileName);
-			try {
+
+			try (InputStream inputStream = this.getClass().getResourceAsStream(PRESETS_FOLDER + fileName)) {
 				FileOutputStream fileOutputStream = new FileOutputStream(new File(TEMP_LIFE_PRESET));
 				int read = 0;
 				byte[] bytes = new byte[1024];
@@ -48,7 +48,7 @@ public class PresetsMenu extends JMenu {
 				fileOutputStream.close();
 				File tempFile = new File(TEMP_LIFE_PRESET);
 				MainGui.openFile(new File(TEMP_LIFE_PRESET));
-				tempFile.delete();
+				tempFile.deleteOnExit();
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}
