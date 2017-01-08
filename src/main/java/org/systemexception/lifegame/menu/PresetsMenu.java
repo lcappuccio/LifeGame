@@ -41,7 +41,8 @@ public class PresetsMenu extends JMenu {
 		jMenuItem.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				InputStream inputStream = this.getClass().getResourceAsStream(PRESETS_FOLDER + fileName);
+				ClassLoader classLoader = this.getClass().getClassLoader();
+				InputStream inputStream = classLoader.getResourceAsStream(PRESETS_FOLDER + fileName);
 				try {
 					FileOutputStream fileOutputStream = new FileOutputStream(new File(TEMP_LIFE_PRESET));
 					int read = 0;
