@@ -20,7 +20,7 @@ public class PresetsMenu extends JMenu {
 			PRESET_B_HEPTOMINO = "b_heptomino.life", PRESET_EMPTY_BOARD = "empty_board.life",
 			PRESET_R_PENTOMINO = "r_pentomino.life", PRESET_RABBITS = "rabbits.life",
 			PRESET_CONWAY_SINGLE_LINE = "single_line_conway.life";
-	private static final String PRESETS_FOLDER = File.separator + "presets" + File.separator,
+	private static final String PRESETS_FOLDER = "\\presets" + File.separator,
 			TEMP_LIFE_PRESET = "temp.life";
 
 	public PresetsMenu() {
