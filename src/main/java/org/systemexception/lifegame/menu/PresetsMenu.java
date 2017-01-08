@@ -3,8 +3,6 @@ package org.systemexception.lifegame.menu;
 import org.systemexception.lifegame.gui.MainGui;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -38,25 +36,22 @@ public class PresetsMenu extends JMenu {
 	private JMenuItem buildMenuItem(final String fileName) {
 		JMenuItem jMenuItem = new JMenuItem();
 		jMenuItem.setText(fileName);
-		jMenuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				ClassLoader classLoader = PresetsMenu.class.getClassLoader();
-				InputStream inputStream = classLoader.getResourceAsStream(PRESETS_FOLDER + fileName);
-				try {
-					FileOutputStream fileOutputStream = new FileOutputStream(new File(TEMP_LIFE_PRESET));
-					int read = 0;
-					byte[] bytes = new byte[1024];
-					while ((read = inputStream.read(bytes)) != -1) {
-						fileOutputStream.write(bytes, 0, read);
-					}
-					fileOutputStream.close();
-					File tempFile = new File(TEMP_LIFE_PRESET);
-					MainGui.openFile(new File(TEMP_LIFE_PRESET));
-					tempFile.delete();
-				} catch (IOException e1) {
-					e1.printStackTrace();
+		jMenuItem.addActionListener(actionEvent -> {
+			ClassLoader classLoader = PresetsMenu.class.getClassLoader();
+			InputStream inputStream = classLoader.getResourceAsStream(PRESETS_FOLDER + fileName);
+			try {
+				FileOutputStream fileOutputStream = new FileOutputStream(new File(TEMP_LIFE_PRESET));
+				int read = 0;
+				byte[] bytes = new byte[1024];
+				while ((read = inputStream.read(bytes)) != -1) {
+					fileOutputStream.write(bytes, 0, read);
 				}
+				fileOutputStream.close();
+				File tempFile = new File(TEMP_LIFE_PRESET);
+				MainGui.openFile(new File(TEMP_LIFE_PRESET));
+				tempFile.delete();
+			} catch (IOException ex) {
+				ex.printStackTrace();
 			}
 		});
 		return jMenuItem;
