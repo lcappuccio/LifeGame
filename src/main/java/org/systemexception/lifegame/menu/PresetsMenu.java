@@ -18,7 +18,7 @@ public class PresetsMenu extends JMenu {
 			PRESET_B_HEPTOMINO = "b_heptomino.life", PRESET_EMPTY_BOARD = "empty_board.life",
 			PRESET_R_PENTOMINO = "r_pentomino.life", PRESET_RABBITS = "rabbits.life",
 			PRESET_CONWAY_SINGLE_LINE = "single_line_conway.life";
-	private static final String PRESETS_FOLDER = "\\presets" + File.separator,
+	private static final String PRESETS_FOLDER = "/presets/",
 			TEMP_LIFE_PRESET = "temp.life";
 
 	public PresetsMenu() {
@@ -37,9 +37,8 @@ public class PresetsMenu extends JMenu {
 		JMenuItem jMenuItem = new JMenuItem();
 		jMenuItem.setText(fileName);
 		jMenuItem.addActionListener(actionEvent -> {
-			ClassLoader classLoader = this.getClass().getClassLoader();
-			InputStream inputStream = classLoader.getResourceAsStream(PRESETS_FOLDER + fileName);
-			try {
+
+			try (InputStream inputStream = this.getClass().getResourceAsStream(PRESETS_FOLDER + fileName)) {
 				FileOutputStream fileOutputStream = new FileOutputStream(new File(TEMP_LIFE_PRESET));
 				int read = 0;
 				byte[] bytes = new byte[1024];
@@ -49,7 +48,7 @@ public class PresetsMenu extends JMenu {
 				fileOutputStream.close();
 				File tempFile = new File(TEMP_LIFE_PRESET);
 				MainGui.openFile(new File(TEMP_LIFE_PRESET));
-				tempFile.delete();
+				tempFile.deleteOnExit();
 			} catch (IOException ex) {
 				ex.printStackTrace();
 			}

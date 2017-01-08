@@ -13,6 +13,7 @@ import org.systemexception.lifegame.menu.PresetsMenu;
 import org.systemexception.lifegame.menu.SpeedMenu;
 
 import javax.swing.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,12 +64,11 @@ public class GuiTest {
 	}
 
 	@Test
-	public void presetsMenuTest() {
+	public void presetsMenuTest() throws IOException {
 		assertTrue(7 == presetsMenu.getItemCount());
 		List<String> menuItems = new ArrayList<>();
 		for (int i = 0; i < presetsMenu.getItemCount(); i++) {
 			menuItems.add(presetsMenu.getItem(i).getText());
-			presetsMenu.getItem(i).doClick();
 		}
 		assert (menuItems.contains(PresetsMenu.PRESET_7468M));
 		assert (menuItems.contains(PresetsMenu.PRESET_ACORN));
