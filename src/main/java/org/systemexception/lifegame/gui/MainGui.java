@@ -53,8 +53,8 @@ public class MainGui {
 	private static int iterationCounter;
 	private static JLabel lblCountLiveCells;
 	private static JPanel centerPanel;
-	private final int labelHeight = 29, labelWidth = 75, panelWidth = 390, mainAppWindowHeightExclude = 80,
-			panelAndLabelHeightExclude = 52;
+	private final int labelHeight = 29, labelWidth = 75, panelWidth = 390;
+	private int mainAppWindowHeightExclude, panelAndLabelHeightExclude;
 	private FileMenu menuFile;
 	private JFrame mainAppWindow;
 	private JLabel lblLiveCells, lblIteration;
@@ -92,6 +92,13 @@ public class MainGui {
 				break;
 			}
 
+		}
+		if (PLATFORM.contains("windows")) {
+			mainAppWindowHeightExclude = 88;
+			panelAndLabelHeightExclude = 60;
+		} else {
+			mainAppWindowHeightExclude = 80;
+			panelAndLabelHeightExclude = 52;
 		}
 		// Set menu accelerator enabler key varies on PLATFORM
 		if (PLATFORM.contains("linux") || PLATFORM.contains("windows")) {
