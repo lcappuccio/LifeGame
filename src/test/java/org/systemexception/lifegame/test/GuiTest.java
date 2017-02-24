@@ -69,6 +69,7 @@ public class GuiTest {
 		List<String> menuItems = new ArrayList<>();
 		for (int i = 0; i < presetsMenu.getItemCount(); i++) {
 			menuItems.add(presetsMenu.getItem(i).getText());
+			presetsMenu.getItem(i).doClick();
 		}
 		assert (menuItems.contains(PresetsMenu.PRESET_7468M));
 		assert (menuItems.contains(PresetsMenu.PRESET_ACORN));
