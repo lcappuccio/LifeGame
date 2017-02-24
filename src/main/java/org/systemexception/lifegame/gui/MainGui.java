@@ -91,13 +91,14 @@ public class MainGui {
 				}
 				break;
 			}
-			// Set menu accelerator enabler key varies on PLATFORM
-			if (PLATFORM.contains("linux") || PLATFORM.contains("windows")) {
-				metaKey = InputEvent.CTRL_MASK;
-			}
-			if (PLATFORM.contains("mac")) {
-				metaKey = InputEvent.META_MASK;
-			}
+
+		}
+		// Set menu accelerator enabler key varies on PLATFORM
+		if (PLATFORM.contains("linux") || PLATFORM.contains("windows")) {
+			metaKey = InputEvent.CTRL_MASK;
+		}
+		if (PLATFORM.contains("mac")) {
+			metaKey = InputEvent.META_MASK;
 		}
 		initialize();
 	}
