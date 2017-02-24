@@ -38,26 +38,27 @@ import java.io.IOException;
 
 public class MainGui {
 
-	public static int metaKey, windowPositionX, windowPositionY;
-	private static int iterationCounter;
-	private static final int INITIAL_SPEED = GameSpeeds.Jackrabbit.getGameSpeed();
-	public static Timer gameTimer;
 	public static final String FONT_NAME = "Lucida Grande", APP_NAME = "LifeGame";
-	private static final String PLATFORM = System.getProperty("os.name").toLowerCase();
 	public static final Font MENU_FONT = new Font(FONT_NAME, Font.BOLD, 12);
+	public static int metaKey, windowPositionX, windowPositionY;
+	public static GridGui gridGui;
+	public static JButton btnReset, btnStop, btnStart, btnTick;
+	public static JLabel lblCountIteration;
+	public static Timer gameTimer;
+
 	private static final Font labelFontBold = new Font(FONT_NAME, Font.BOLD, 10), labelFontPlain = new Font
 			(FONT_NAME, Font.PLAIN, 10);
-	private final int labelHeight = 29, labelWidth = 75, panelWidth = 390, mainAppWindowHeightExclude = 80,
-			panelAndLabelHeightExclude = 52;
-	private JFrame mainAppWindow;
-	private static JPanel centerPanel;
-	private JPanel lowerPanel;
-	private JLabel lblLiveCells, lblIteration;
-	public static JLabel lblCountIteration;
+	private static final int INITIAL_SPEED = GameSpeeds.Jackrabbit.getGameSpeed();
+	private static final String PLATFORM = System.getProperty("os.name").toLowerCase();
+	private static int iterationCounter;
 	private static JLabel lblCountLiveCells;
-	public static JButton btnReset, btnStop, btnStart, btnTick;
+	private static JPanel centerPanel;
+	private final int labelHeight = 29, labelWidth = 75, panelWidth = 390;
+	private int mainAppWindowHeightExclude, panelAndLabelHeightExclude;
 	private FileMenu menuFile;
-	public static GridGui gridGui;
+	private JFrame mainAppWindow;
+	private JLabel lblLiveCells, lblIteration;
+	private JPanel lowerPanel;
 
 	/**
 	 * Launch the application.
@@ -90,13 +91,21 @@ public class MainGui {
 				}
 				break;
 			}
-			// Set menu accelerator enabler key varies on PLATFORM
-			if (PLATFORM.contains("linux") || PLATFORM.contains("windows")) {
-				metaKey = InputEvent.CTRL_MASK;
-			}
-			if (PLATFORM.contains("mac")) {
-				metaKey = InputEvent.META_MASK;
-			}
+
+		}
+		if (PLATFORM.contains("windows")) {
+			mainAppWindowHeightExclude = 88;
+			panelAndLabelHeightExclude = 60;
+		} else {
+			mainAppWindowHeightExclude = 80;
+			panelAndLabelHeightExclude = 52;
+		}
+		// Set menu accelerator enabler key varies on PLATFORM
+		if (PLATFORM.contains("linux") || PLATFORM.contains("windows")) {
+			metaKey = InputEvent.CTRL_MASK;
+		}
+		if (PLATFORM.contains("mac")) {
+			metaKey = InputEvent.META_MASK;
 		}
 		initialize();
 	}

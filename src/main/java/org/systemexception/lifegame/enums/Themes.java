@@ -6,10 +6,10 @@ package org.systemexception.lifegame.enums;
 
 public enum Themes {
 
-	BW("B & W"),
-	INVERSE("Inverse"),
 	BLUE("Blue"),
+	BW("B & W"),
 	GREEN("Green"),
+	INVERSE("Inverse"),
 	RED("Red");
 	
 	private final String theme;
