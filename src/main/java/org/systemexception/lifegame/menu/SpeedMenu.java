@@ -4,12 +4,12 @@
  */
 package org.systemexception.lifegame.menu;
 
-import com.sun.glass.events.KeyEvent;
 import org.systemexception.lifegame.enums.GameSpeeds;
 import org.systemexception.lifegame.gui.MainGui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class SpeedMenu extends JMenu {
 
