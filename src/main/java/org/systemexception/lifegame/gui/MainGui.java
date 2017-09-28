@@ -94,18 +94,18 @@ public class MainGui {
 
 		}
 		if (PLATFORM.contains("windows")) {
-			mainAppWindowHeightExclude = 88;
-			panelAndLabelHeightExclude = 60;
+			mainAppWindowHeightExclude = 99;
+			panelAndLabelHeightExclude = 70;
 		} else {
 			mainAppWindowHeightExclude = 80;
 			panelAndLabelHeightExclude = 52;
 		}
 		// Set menu accelerator enabler key varies on PLATFORM
 		if (PLATFORM.contains("linux") || PLATFORM.contains("windows")) {
-			metaKey = InputEvent.CTRL_MASK;
+			metaKey = InputEvent.CTRL_DOWN_MASK;
 		}
 		if (PLATFORM.contains("mac")) {
-			metaKey = InputEvent.META_MASK;
+			metaKey = InputEvent.META_DOWN_MASK;
 		}
 		initialize();
 	}
