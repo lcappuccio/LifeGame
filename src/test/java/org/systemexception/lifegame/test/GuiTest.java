@@ -111,7 +111,7 @@ public class GuiTest {
 
 	@Test
 	public void testSingleIteration() {
-		MainGui.btnTick.doClick();
+		MainGui.btnStep.doClick();
 	}
 
 	@Test

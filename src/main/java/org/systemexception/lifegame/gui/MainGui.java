@@ -42,7 +42,7 @@ public class MainGui {
 	public static final Font MENU_FONT = new Font(FONT_NAME, Font.BOLD, 12);
 	public static int metaKey, windowPositionX, windowPositionY;
 	public static GridGui gridGui;
-	public static JButton btnReset, btnStop, btnStart, btnTick;
+	public static JButton btnReset, btnStop, btnStart, btnStep;
 	public static JLabel lblCountIteration;
 	public static Timer gameTimer;
 
@@ -125,7 +125,7 @@ public class MainGui {
 		setUpCenterPanel();
 		setUpLowerPanel();
 		setUpStartButton();
-		setUpTickButton();
+		setUpStepButton();
 		setUpStopButton();
 		setUpResetButton();
 		setUpLiveCellsCounter();
@@ -279,16 +279,16 @@ public class MainGui {
 		lowerPanel.add(btnStop);
 	}
 
-	private void setUpTickButton() {
-		btnTick = new JButton("Tick");
-		btnTick.addActionListener(e -> {
+	private void setUpStepButton() {
+		btnStep = new JButton("Step");
+		btnStep.addActionListener(e -> {
 			if (gameTimer != null && gameTimer.isRunning()) {
 				btnStart.setEnabled(true);
 				gameTimer.stop();
 			}
 			iterateGrid();
 		});
-		lowerPanel.add(btnTick);
+		lowerPanel.add(btnStep);
 	}
 
 	private void setUpResetButton() {
