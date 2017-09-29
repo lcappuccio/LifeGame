@@ -40,7 +40,7 @@ public class PresetsMenu extends JMenu {
 
 			try (InputStream inputStream = this.getClass().getResourceAsStream(PRESETS_FOLDER + fileName)) {
 				FileOutputStream fileOutputStream = new FileOutputStream(new File(TEMP_LIFE_PRESET));
-				int read = 0;
+				int read;
 				byte[] bytes = new byte[1024];
 				while ((read = inputStream.read(bytes)) != -1) {
 					fileOutputStream.write(bytes, 0, read);
