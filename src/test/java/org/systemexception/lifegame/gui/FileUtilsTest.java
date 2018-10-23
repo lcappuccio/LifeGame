@@ -1,9 +1,7 @@
-package org.systemexception.lifegame.test;
+package org.systemexception.lifegame.gui;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.systemexception.lifegame.gui.GridGui;
-import org.systemexception.lifegame.gui.MainGui;
 import org.systemexception.lifegame.pojo.FileUtils;
 
 import java.io.File;

@@ -2,7 +2,7 @@
  * @author leo
  * Nov 9, 2014 1:27:42 PM
  */
-package org.systemexception.lifegame.test;
+package org.systemexception.lifegame.model;
 
 import org.junit.Test;
 import org.systemexception.lifegame.enums.Automata;
