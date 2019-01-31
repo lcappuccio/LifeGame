@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -44,13 +45,13 @@ public class GuiTest {
 			JMenuItem jMenuItem = fileMenu.getItem(i);
 			menuItems.add(jMenuItem.getText());
 		}
-		assert (menuItems.contains(FileMenu.FILE_OPEN));
-		assert (menuItems.contains(FileMenu.FILE_SAVE));
+		assertTrue(menuItems.contains(FileMenu.FILE_OPEN));
+		assertTrue(menuItems.contains(FileMenu.FILE_SAVE));
 	}
 
 	@Test
 	public void lifeGameMenuTest() {
-		assertTrue(3 == lifeGameMenu.getItemCount());
+		assertEquals(3, lifeGameMenu.getItemCount());
 		List<String> menuItems = new ArrayList<>();
 		for (int i = 0; i < lifeGameMenu.getItemCount(); i++) {
 			menuItems.add(lifeGameMenu.getItem(i).getText());
@@ -58,31 +59,31 @@ public class GuiTest {
 				lifeGameMenu.getItem(i).doClick();
 			}
 		}
-		assert (menuItems.contains(LifeGameMenu.MENU_ITEM_ABOUT));
-		assert (menuItems.contains(LifeGameMenu.MENU_ITEM_PREFERENCES));
-		assert (menuItems.contains(LifeGameMenu.MENU_ITEM_QUIT));
+		assertTrue(menuItems.contains(LifeGameMenu.MENU_ITEM_ABOUT));
+		assertTrue(menuItems.contains(LifeGameMenu.MENU_ITEM_PREFERENCES));
+		assertTrue(menuItems.contains(LifeGameMenu.MENU_ITEM_QUIT));
 	}
 
 	@Test
 	public void presetsMenuTest() throws IOException {
-		assertTrue(7 == presetsMenu.getItemCount());
+		assertEquals(7, presetsMenu.getItemCount());
 		List<String> menuItems = new ArrayList<>();
 		for (int i = 0; i < presetsMenu.getItemCount(); i++) {
 			menuItems.add(presetsMenu.getItem(i).getText());
 			presetsMenu.getItem(i).doClick();
 		}
-		assert (menuItems.contains(PresetsMenu.PRESET_7468M));
-		assert (menuItems.contains(PresetsMenu.PRESET_ACORN));
-		assert (menuItems.contains(PresetsMenu.PRESET_B_HEPTOMINO));
-		assert (menuItems.contains(PresetsMenu.PRESET_EMPTY_BOARD));
-		assert (menuItems.contains(PresetsMenu.PRESET_R_PENTOMINO));
-		assert (menuItems.contains(PresetsMenu.PRESET_RABBITS));
-		assert (menuItems.contains(PresetsMenu.PRESET_CONWAY_SINGLE_LINE));
+		assertTrue(menuItems.contains(PresetsMenu.PRESET_7468M));
+		assertTrue(menuItems.contains(PresetsMenu.PRESET_ACORN));
+		assertTrue(menuItems.contains(PresetsMenu.PRESET_B_HEPTOMINO));
+		assertTrue(menuItems.contains(PresetsMenu.PRESET_EMPTY_BOARD));
+		assertTrue(menuItems.contains(PresetsMenu.PRESET_R_PENTOMINO));
+		assertTrue(menuItems.contains(PresetsMenu.PRESET_RABBITS));
+		assertTrue(menuItems.contains(PresetsMenu.PRESET_CONWAY_SINGLE_LINE));
 	}
 
 	@Test
 	public void speedMenuTest() {
-		assertTrue(5 == speedMenu.getItemCount());
+		assertEquals(6, speedMenu.getItemCount());
 		List<String> menuItems = new ArrayList<>();
 		for (int i = 0; i < speedMenu.getItemCount(); i++) {
 			speedMenu.getItem(i).doClick();
@@ -90,11 +91,12 @@ public class GuiTest {
 			String speedText = jMenuItem.getText();
 			menuItems.add(speedText);
 		}
-		assert (menuItems.contains(GameSpeeds.Cheetah.name()));
-		assert (menuItems.contains(GameSpeeds.Horse.name()));
-		assert (menuItems.contains(GameSpeeds.Jackrabbit.name()));
-		assert (menuItems.contains(GameSpeeds.Llama.name()));
-		assert (menuItems.contains(GameSpeeds.Turtle.name()));
+		assertTrue(menuItems.contains(GameSpeeds.Neutrino.name()));
+		assertTrue(menuItems.contains(GameSpeeds.Cheetah.name()));
+		assertTrue(menuItems.contains(GameSpeeds.Horse.name()));
+		assertTrue(menuItems.contains(GameSpeeds.Jackrabbit.name()));
+		assertTrue(menuItems.contains(GameSpeeds.Llama.name()));
+		assertTrue(menuItems.contains(GameSpeeds.Turtle.name()));
 	}
 
 	@Test
@@ -117,8 +119,8 @@ public class GuiTest {
 	@Test
 	public void testChangeTheme() {
 		Themes[] values = Themes.values();
-		for (int i = 0; i < values.length; i++) {
-			MainGui.gridGui.setColours(values[i].toString());
+		for (Themes value : values) {
+			MainGui.gridGui.setColours(value.toString());
 		}
 	}
 
