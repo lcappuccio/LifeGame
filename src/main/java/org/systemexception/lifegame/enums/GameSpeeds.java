@@ -5,7 +5,8 @@
 package org.systemexception.lifegame.enums;
 
 public enum GameSpeeds {
-	
+
+	Neutrino(1),
 	Cheetah(10),
 	Horse(60),
 	Jackrabbit(210),
