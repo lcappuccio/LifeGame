@@ -42,7 +42,10 @@ public class MainGui {
 	public static final Font MENU_FONT = new Font(FONT_NAME, Font.BOLD, 12);
 	public static int metaKey, windowPositionX, windowPositionY;
 	public static GridGui gridGui;
-	public static JButton btnReset, btnStop, btnStart, btnStep;
+	public static JButton btnReset;
+    public static JButton btnStop;
+    public static JButton btnStart;
+    public static JButton btnStep;
 	public static JLabel lblCountIteration;
 	public static Timer gameTimer;
 
@@ -53,8 +56,14 @@ public class MainGui {
 	private static int iterationCounter;
 	private static JLabel lblCountLiveCells;
 	private static JPanel centerPanel;
-	private final int labelHeight = 29, labelWidth = 75, panelWidth = 390;
-	private int mainAppWindowHeightExclude, panelAndLabelHeightExclude;
+
+	private final int labelHeight = 29;
+    private final int labelWidth = 75;
+    private final int  panelWidth = 390;
+
+	private final int mainAppWindowHeightExclude;
+    private final int panelAndLabelHeightExclude;
+
 	private FileMenu menuFile;
 	private JFrame mainAppWindow;
 	private JLabel lblLiveCells, lblIteration;

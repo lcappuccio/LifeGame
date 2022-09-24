@@ -16,14 +16,14 @@ public enum Automata {
 	MOVE("Move"),
 	SERVIETTES("Serviettes");
 
-	private final String automata;
+	private final String automataName;
 
-	Automata(final String automata) {
-		this.automata = automata;
+	Automata(final String automataName) {
+		this.automataName = automataName;
 	}
 
 	@Override
 	public String toString() {
-		return automata;
+		return automataName;
 	}
 }

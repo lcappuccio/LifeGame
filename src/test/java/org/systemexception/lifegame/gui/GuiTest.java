@@ -5,8 +5,6 @@ import org.junit.Test;
 import org.systemexception.lifegame.enums.BoardSizes;
 import org.systemexception.lifegame.enums.GameSpeeds;
 import org.systemexception.lifegame.enums.Themes;
-import org.systemexception.lifegame.gui.MainGui;
-import org.systemexception.lifegame.gui.PreferencesGui;
 import org.systemexception.lifegame.menu.FileMenu;
 import org.systemexception.lifegame.menu.LifeGameMenu;
 import org.systemexception.lifegame.menu.PresetsMenu;
@@ -17,8 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * @author leo
@@ -104,16 +101,19 @@ public class GuiTest {
 		MainGui.btnStart.doClick();
 		Thread.sleep(1000);
 		MainGui.btnStop.doClick();
+        assertFalse(MainGui.gameTimer.isRunning());
 	}
 
 	@Test
 	public void testReset() {
 		MainGui.btnReset.doClick();
+        assertFalse(MainGui.gameTimer.isRunning());
 	}
 
 	@Test
 	public void testSingleIteration() {
 		MainGui.btnStep.doClick();
+        assertFalse(MainGui.gameTimer.isRunning());
 	}
 
 	@Test
@@ -132,6 +132,7 @@ public class GuiTest {
 			speedMenu.getItem(i).doClick();
 		}
 		MainGui.btnStop.doClick();
+        assertFalse(MainGui.gameTimer.isRunning());
 	}
 
 	@Test
