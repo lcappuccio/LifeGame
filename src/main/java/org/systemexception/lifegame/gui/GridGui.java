@@ -12,13 +12,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
+import java.util.List;
 
 public class GridGui extends JComponent {
 
 	private final int gridRows;
     private final int gridCols;
-	private int cellSize;
+	private final int cellSize;
     private int totalLiveCells;
 
 	private Color colorDark = Color.DARK_GRAY;
@@ -45,25 +45,29 @@ public class GridGui extends JComponent {
 
 			@Override
 			public void mousePressed(MouseEvent e) {
-			}
+                // not implemented
+            }
 
 			@Override
 			public void mouseReleased(MouseEvent e) {
-			}
+                // not implemented
+            }
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-			}
+                // not implemented
+            }
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-			}
+                // not implemented
+            }
 		});
 		totalLiveCells = board.getCellAliveCount();
 		setColours(colourTheme);
 	}
 
-	public GridGui(int cellSize, int gridRows, int gridCols, ArrayList<ArrayList<String>> savedBoard, String
+	public GridGui(int cellSize, int gridRows, int gridCols, List<List<String>> savedBoard, String
 			colourTheme) {
 		this.cellSize = cellSize;
 		this.gridRows = gridRows;
@@ -104,10 +108,10 @@ public class GridGui extends JComponent {
 	}
 
 	/**
-	 * Colours from: http://www.flatuicolorpicker.com
-	 *
-	 * @param colourTheme is the colour enum value
-	 */
+     * Colours from: <a href="http://www.flatuicolorpicker.com">...</a>
+     *
+     * @param colourTheme is the colour enum value
+     */
 	public void setColours(String colourTheme) {
 		if (colourTheme.equals(Themes.BW.toString())) {
 			colorDark = Color.DARK_GRAY;
@@ -132,13 +136,13 @@ public class GridGui extends JComponent {
 	}
 
 	/**
-	 * As seen on:
-	 * http://stackoverflow.com/questions/4129666/how-to-convert-hex-
-	 * to-rgb-using-java
-	 *
-	 * @param colorStr e.g. "#FFFFFF"
-	 * @return the colour in RGB fashion
-	 */
+     * As seen on:
+     * <a href="http://stackoverflow.com/questions/4129666/how-to-convert-hex-">...</a>
+     * to-rgb-using-java
+     *
+     * @param colorStr e.g. "#FFFFFF"
+     * @return the colour in RGB fashion
+     */
 	private static Color hex2Rgb(String colorStr) {
 		return new Color(Integer.valueOf(colorStr.substring(1, 3), 16), Integer.valueOf(colorStr.substring(3, 5), 16),
 				Integer.valueOf(colorStr.substring(5, 7), 16));

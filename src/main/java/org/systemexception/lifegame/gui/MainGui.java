@@ -51,7 +51,7 @@ public class MainGui {
 
 	private static final Font labelFontBold = new Font(FONT_NAME, Font.BOLD, 10), labelFontPlain = new Font
 			(FONT_NAME, Font.PLAIN, 10);
-	private static final int INITIAL_SPEED = GameSpeeds.Jackrabbit.getGameSpeed();
+	private static final int INITIAL_SPEED = GameSpeeds.JACKRABBIT.getGameSpeed();
 	private static final String PLATFORM = System.getProperty("os.name").toLowerCase();
 	private static int iterationCounter;
 	private static JLabel lblCountLiveCells;

@@ -14,12 +14,15 @@ import java.io.InputStream;
  */
 public class PresetsMenu extends JMenu {
 
-	public final static String PRESET_7468M = "7468M.life", PRESET_ACORN = "acorn.life",
-			PRESET_B_HEPTOMINO = "b_heptomino.life", PRESET_EMPTY_BOARD = "empty_board.life",
-			PRESET_R_PENTOMINO = "r_pentomino.life", PRESET_RABBITS = "rabbits.life",
-			PRESET_CONWAY_SINGLE_LINE = "single_line_conway.life";
-	private static final String PRESETS_FOLDER = "/presets/",
-			TEMP_LIFE_PRESET = "target" + File.separator + "temp.life";
+	public static final String PRESET_7468M = "7468M.life";
+    public static final String PRESET_ACORN = "acorn.life";
+    public static final String PRESET_B_HEPTOMINO = "b_heptomino.life";
+    public static final String PRESET_EMPTY_BOARD = "empty_board.life";
+    public static final String PRESET_R_PENTOMINO = "r_pentomino.life";
+    public static final String PRESET_RABBITS = "rabbits.life";
+    public static final String PRESET_CONWAY_SINGLE_LINE = "single_line_conway.life";
+	private static final String PRESETS_FOLDER = "/presets/";
+    private static final String TEMP_LIFE_PRESET = "target" + File.separator + "temp.life";
 
 	public PresetsMenu() {
 		this.setFont(MainGui.MENU_FONT);

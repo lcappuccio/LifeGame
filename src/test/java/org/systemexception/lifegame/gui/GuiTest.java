@@ -88,12 +88,12 @@ public class GuiTest {
 			String speedText = jMenuItem.getText();
 			menuItems.add(speedText);
 		}
-		assertTrue(menuItems.contains(GameSpeeds.Neutrino.name()));
-		assertTrue(menuItems.contains(GameSpeeds.Cheetah.name()));
-		assertTrue(menuItems.contains(GameSpeeds.Horse.name()));
-		assertTrue(menuItems.contains(GameSpeeds.Jackrabbit.name()));
-		assertTrue(menuItems.contains(GameSpeeds.Llama.name()));
-		assertTrue(menuItems.contains(GameSpeeds.Turtle.name()));
+		assertTrue(menuItems.contains(GameSpeeds.NEUTRINO.name()));
+		assertTrue(menuItems.contains(GameSpeeds.CHEETAH.name()));
+		assertTrue(menuItems.contains(GameSpeeds.HORSE.name()));
+		assertTrue(menuItems.contains(GameSpeeds.JACKRABBIT.name()));
+		assertTrue(menuItems.contains(GameSpeeds.LLAMA.name()));
+		assertTrue(menuItems.contains(GameSpeeds.TURTLE.name()));
 	}
 
 	@Test

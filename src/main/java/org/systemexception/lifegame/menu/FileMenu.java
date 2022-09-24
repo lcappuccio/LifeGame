@@ -17,11 +17,14 @@ import java.nio.file.Files;
 public class FileMenu extends JMenu {
 
 	public static final String FILE_PROPERTIES_LINE = "#";
-	public static final String FILE_OPEN = "Open", FILE_SAVE = "Save";
-	public JMenuItem menuOpen, menuSave;
+	public static final String FILE_OPEN = "Open";
+    public static final String FILE_SAVE = "Save";
+	public JMenuItem menuOpen;
+    public JMenuItem menuSave;
 
-	private static final String SAVE_FILE_EXTENSION = ".life", LINE_SEPARATOR = System.getProperty("line.separator");
-	private Board board;
+	private static final String SAVE_FILE_EXTENSION = ".life";
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+	private transient Board board;
 
 	public FileMenu() {
 		this.setFont(MainGui.MENU_FONT);
@@ -99,7 +102,8 @@ public class FileMenu extends JMenu {
 				Files.move(file.toPath(), new File(fileName + SAVE_FILE_EXTENSION).toPath());
 			}
 		} catch (IOException fileException) {
-			fileException.printStackTrace(System.out);
+            String exceptionMessage = fileException.getMessage();
+            System.err.println(exceptionMessage);
 		}
 	}
 

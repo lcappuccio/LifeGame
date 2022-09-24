@@ -5,7 +5,8 @@ import java.awt.*;
 
 public class AboutGui extends JFrame {
 
-	private static final int WINDOW_WIDTH = 300, WINDOW_HEIGHT = 100;
+	private static final int WINDOW_WIDTH = 300;
+    private static final int WINDOW_HEIGHT = 100;
 	private static final JLabel LABEL_TITLE = new JLabel("LifeGame - Java Conway's Game of Life");
     private static final JLabel LABEL_COPYRIGHT = new JLabel("Copyright © 2014 - Leonardo Cappuccio");
     private static final JLabel	LABEL_LICENSE = new JLabel("Released under GNU GPL v3.0 License");
