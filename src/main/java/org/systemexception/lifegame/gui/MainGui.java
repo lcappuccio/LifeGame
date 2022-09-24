@@ -57,16 +57,17 @@ public class MainGui {
 	private static JLabel lblCountLiveCells;
 	private static JPanel centerPanel;
 
-	private final int labelHeight = 29;
-    private final int labelWidth = 75;
-    private final int  panelWidth = 390;
+	private static final int labelHeight = 29;
+    private static final int labelWidth = 75;
+    private static final int  panelWidth = 390;
 
 	private final int mainAppWindowHeightExclude;
     private final int panelAndLabelHeightExclude;
 
 	private FileMenu menuFile;
 	private JFrame mainAppWindow;
-	private JLabel lblLiveCells, lblIteration;
+	private JLabel lblLiveCells;
+    private JLabel lblIteration;
 	private JPanel lowerPanel;
 
 	/**

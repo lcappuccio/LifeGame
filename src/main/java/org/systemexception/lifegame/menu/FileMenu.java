@@ -4,6 +4,8 @@
  */
 package org.systemexception.lifegame.menu;
 
+import com.sun.org.slf4j.internal.Logger;
+import com.sun.org.slf4j.internal.LoggerFactory;
 import org.systemexception.lifegame.enums.SavedBoardProperties;
 import org.systemexception.lifegame.gui.MainGui;
 import org.systemexception.lifegame.gui.PreferencesGui;
@@ -16,6 +18,7 @@ import java.nio.file.Files;
 
 public class FileMenu extends JMenu {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(FileMenu.class);
 	public static final String FILE_PROPERTIES_LINE = "#";
 	public static final String FILE_OPEN = "Open";
     public static final String FILE_SAVE = "Save";
@@ -103,7 +106,7 @@ public class FileMenu extends JMenu {
 			}
 		} catch (IOException fileException) {
             String exceptionMessage = fileException.getMessage();
-            System.err.println(exceptionMessage);
+            LOGGER.error(exceptionMessage);
 		}
 	}
 
