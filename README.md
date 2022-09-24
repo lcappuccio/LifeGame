@@ -4,17 +4,8 @@
 
 [Conway's Game Life](http://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) java/swing implementation
 
-**Master**
-
-[![Build Status](https://travis-ci.org/lcappuccio/life-game.svg?branch=master)](https://travis-ci.org/lcappuccio/life-game)
-[![codecov.io](https://codecov.io/github/lcappuccio/life-game/coverage.svg?branch=master)](https://codecov.io/github/lcappuccio/life-game?branch=master)
-[![Codacy Badge](https://api.codacy.com/project/badge/grade/768d2a11aa9549a39e325ab944de9739)](https://www.codacy.com/app/leo_4/life-game)
+[![Build Status](https://github.com/lcappuccio/life-game/workflows/Build%20life-game%20with%20xvfb/badge.svg)](https://github.com/lcappuccio/life-game/actions)
 [![codebeat badge](https://codebeat.co/badges/01266f8b-6e70-4564-8542-a0d0b4fdab60)](https://codebeat.co/projects/github-com-lcappuccio-life-game)
-
-**Develop**
-
-[![Build Status](https://travis-ci.org/lcappuccio/life-game.svg?branch=develop)](https://travis-ci.org/lcappuccio/life-game)
-[![codecov.io](https://codecov.io/github/lcappuccio/life-game/coverage.svg?branch=develop)](https://codecov.io/github/lcappuccio/life-game?branch=develop)
 
 ## Installation
 
