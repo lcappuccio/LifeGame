@@ -1,7 +1,6 @@
 package org.systemexception.lifegame.gui;
 
 import org.junit.Test;
-import org.systemexception.lifegame.gui.GridGui;
 import org.systemexception.lifegame.model.Board;
 import org.systemexception.lifegame.model.Cell;
 
@@ -36,7 +35,7 @@ public class GridGuiTest {
 		for (int i = 0; i < board.getBoardRows(); i++) {
 			for (int j = 0; j < board.getBoardCols(); j++) {
 				Cell cell = board.getCellAt(i, j);
-				assertNotNull(cell.getCellState());
+				assertNotNull(cell);
 			}
 		}
 	}

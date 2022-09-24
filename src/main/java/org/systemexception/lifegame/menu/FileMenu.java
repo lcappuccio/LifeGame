@@ -13,15 +13,21 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.io.*;
 import java.nio.file.Files;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FileMenu extends JMenu {
 
+    private static final Logger LOGGER = Logger.getLogger(FileMenu.class.getName());
 	public static final String FILE_PROPERTIES_LINE = "#";
-	public static final String FILE_OPEN = "Open", FILE_SAVE = "Save";
-	public JMenuItem menuOpen, menuSave;
+	public static final String FILE_OPEN = "Open";
+    public static final String FILE_SAVE = "Save";
+	public JMenuItem menuOpen;
+    public JMenuItem menuSave;
 
-	private static final String SAVE_FILE_EXTENSION = ".life", LINE_SEPARATOR = System.getProperty("line.separator");
-	private Board board;
+	private static final String SAVE_FILE_EXTENSION = ".life";
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+	private transient Board board;
 
 	public FileMenu() {
 		this.setFont(MainGui.MENU_FONT);
@@ -99,7 +105,8 @@ public class FileMenu extends JMenu {
 				Files.move(file.toPath(), new File(fileName + SAVE_FILE_EXTENSION).toPath());
 			}
 		} catch (IOException fileException) {
-			fileException.printStackTrace(System.out);
+            String exceptionMessage = fileException.getMessage();
+            LOGGER.log(Level.SEVERE, exceptionMessage);
 		}
 	}
 

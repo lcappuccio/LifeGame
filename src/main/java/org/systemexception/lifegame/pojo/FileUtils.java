@@ -8,6 +8,7 @@ import org.systemexception.lifegame.menu.FileMenu;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class FileUtils {
@@ -16,7 +17,7 @@ public class FileUtils {
 
 	public static GridGui gridGuiFromFile(final File file) throws IOException {
 
-		ArrayList<ArrayList<String>> gridGuiAsArrayList = new ArrayList<>();
+		List<List<String>> gridGuiAsArrayList = new ArrayList<>();
 		String line;
 		Properties properties = new Properties();
 		BufferedReader fileReader = new BufferedReader(new FileReader(file));
@@ -27,9 +28,9 @@ public class FileUtils {
 				properties.load(new StringReader(line.replace(FileMenu.FILE_PROPERTIES_LINE, EMPTY_STRING)));
 			}
 		}
-		int cellSize = Integer.valueOf(properties.getProperty(SavedBoardProperties.CELLSIZE.toString()));
-		int gridCols = Integer.valueOf(properties.getProperty(SavedBoardProperties.COLS.toString()));
-		int gridRows = Integer.valueOf(properties.getProperty(SavedBoardProperties.ROWS.toString()));
+		int cellSize = Integer.parseInt(properties.getProperty(SavedBoardProperties.CELLSIZE.toString()));
+		int gridCols = Integer.parseInt(properties.getProperty(SavedBoardProperties.COLS.toString()));
+		int gridRows = Integer.parseInt(properties.getProperty(SavedBoardProperties.ROWS.toString()));
 
 		String automata = properties.getProperty(SavedBoardProperties.AUTOMATA.toString());
 		PreferencesGui.setLifeAutomata(automata);

@@ -12,16 +12,25 @@ import javax.swing.border.EmptyBorder;
 
 public class PreferencesGui extends JFrame {
 
-	public static final JButton prefsApply = new JButton("Apply"), prefsCancel = new JButton("Cancel");
+	public static final JButton prefsApply = new JButton("Apply");
+    public static final JButton prefsCancel = new JButton("Cancel");
 	public static final JComboBox<String> prefsBoardSizeSelector = new JComboBox<>();
 
-	private static final int WINDOW_WIDTH = 250, WINDOW_HEIGHT = 240, MIN_CELL_SIZE = 1, MAX_CELL_SIZE = 10,
-			MIN_CELL_LIFE_PROBABILITY = 0, MAX_CELL_LIFE_PROBABILITY = 100;
-	private static int cellSize = 5, cellLifeProbability = 50;
-	private static String colourTheme = Themes.BW.toString(), lifeAutomata = Automata.CONWAY.toString(),
-			boardSize = BoardSizes.MEDIUM.toString();
-	private final JComboBox<String> prefsThemeSelector, prefsAutomataSelector;
-	private final JSpinner prefsCellSpinner, prefsLifeProbabilitySpinner;
+	private static final int WINDOW_WIDTH = 250;
+    private static final int WINDOW_HEIGHT = 240;
+    private static final int MIN_CELL_SIZE = 1;
+    private static final int MAX_CELL_SIZE = 10;
+    private static final int MIN_CELL_LIFE_PROBABILITY = 0;
+    private static final int MAX_CELL_LIFE_PROBABILITY = 100;
+	private static int cellSize = 5;
+    private static int cellLifeProbability = 50;
+	private static String colourTheme = Themes.BW.toString();
+    private static String lifeAutomata = Automata.CONWAY.toString();
+    private static String boardSize = BoardSizes.MEDIUM.toString();
+	private final JComboBox<String> prefsThemeSelector;
+    private final JComboBox<String> prefsAutomataSelector;
+	private final JSpinner prefsCellSpinner;
+    private final JSpinner prefsLifeProbabilitySpinner;
 
 	public static int getCellSize() {
 		return cellSize;
@@ -114,9 +123,9 @@ public class PreferencesGui extends JFrame {
 
 	}
 
-	private JComboBox getThemeJComboBox() {
+	private JComboBox<String> getThemeJComboBox() {
 
-		JComboBox<Object> objectJComboBox = new JComboBox<>();
+		JComboBox<String> objectJComboBox = new JComboBox<>();
 
 		objectJComboBox.addItem(Themes.BW.toString());
 		objectJComboBox.addItem(Themes.INVERSE.toString());
@@ -126,9 +135,9 @@ public class PreferencesGui extends JFrame {
 		return objectJComboBox;
 	}
 
-	private JComboBox getAutomataJComboBox() {
+	private JComboBox<String> getAutomataJComboBox() {
 
-		JComboBox<Object> objectJComboBox = new JComboBox<>();
+		JComboBox<String> objectJComboBox = new JComboBox<>();
 
 		objectJComboBox.addItem(Automata.ASSIMILATION.toString());
 		objectJComboBox.addItem(Automata.CONWAY.toString());

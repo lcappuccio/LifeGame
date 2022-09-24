@@ -13,8 +13,9 @@ import java.awt.event.KeyEvent;
 
 public class LifeGameMenu extends JMenu {
 
-	public static final String MENU_ITEM_ABOUT = "About", MENU_ITEM_PREFERENCES = "Preferences",
-			MENU_ITEM_QUIT = "Quit";
+	public static final String MENU_ITEM_ABOUT = "About";
+    public static final String MENU_ITEM_PREFERENCES = "Preferences";
+    public static final String MENU_ITEM_QUIT = "Quit";
 
 	public LifeGameMenu() {
 		this.setFont(MainGui.MENU_FONT);

@@ -7,7 +7,7 @@ package org.systemexception.lifegame.model;
 import org.systemexception.lifegame.enums.Automata;
 import org.systemexception.lifegame.gui.PreferencesGui;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Board {
 
@@ -23,7 +23,7 @@ public class Board {
 		generateBoard(rows, cols);
 	}
 
-	public Board(int rows, int cols, ArrayList<ArrayList<String>> savedBoard) {
+	public Board(int rows, int cols, List<List<String>> savedBoard) {
 		this.board = new Cell[rows][cols];
 		this.rows = rows;
 		this.cols = cols;
@@ -300,7 +300,7 @@ public class Board {
 		}
 	}
 
-	private void setBoardFromSavedFile(ArrayList<ArrayList<String>> savedBoard) {
+	private void setBoardFromSavedFile(List<List<String>> savedBoard) {
 		liveCellCounter = 0;
 		for (int i = 0; i < savedBoard.size(); i++) {
 			for (int j = 0; j < savedBoard.get(i).size(); j++) {

@@ -42,22 +42,32 @@ public class MainGui {
 	public static final Font MENU_FONT = new Font(FONT_NAME, Font.BOLD, 12);
 	public static int metaKey, windowPositionX, windowPositionY;
 	public static GridGui gridGui;
-	public static JButton btnReset, btnStop, btnStart, btnStep;
+	public static JButton btnReset;
+    public static JButton btnStop;
+    public static JButton btnStart;
+    public static JButton btnStep;
 	public static JLabel lblCountIteration;
 	public static Timer gameTimer;
 
 	private static final Font labelFontBold = new Font(FONT_NAME, Font.BOLD, 10), labelFontPlain = new Font
 			(FONT_NAME, Font.PLAIN, 10);
-	private static final int INITIAL_SPEED = GameSpeeds.Jackrabbit.getGameSpeed();
+	private static final int INITIAL_SPEED = GameSpeeds.JACKRABBIT.getGameSpeed();
 	private static final String PLATFORM = System.getProperty("os.name").toLowerCase();
 	private static int iterationCounter;
 	private static JLabel lblCountLiveCells;
 	private static JPanel centerPanel;
-	private final int labelHeight = 29, labelWidth = 75, panelWidth = 390;
-	private int mainAppWindowHeightExclude, panelAndLabelHeightExclude;
+
+	private static final int LABEL_HEIGHT = 29;
+    private static final int LABEL_WIDTH = 75;
+    private static final int PANEL_WIDTH = 390;
+
+	private final int mainAppWindowHeightExclude;
+    private final int panelAndLabelHeightExclude;
+
 	private FileMenu menuFile;
 	private JFrame mainAppWindow;
-	private JLabel lblLiveCells, lblIteration;
+	private JLabel lblLiveCells;
+    private JLabel lblIteration;
 	private JPanel lowerPanel;
 
 	/**
@@ -208,37 +218,37 @@ public class MainGui {
 	private void setLargeWindowLayout() {
 		mainAppWindow.setBounds(windowPositionX, windowPositionY, 1280, 1024);
 		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - mainAppWindowHeightExclude);
-		lowerPanel.setBounds(0, mainAppWindow.getHeight() - panelAndLabelHeightExclude, panelWidth, labelHeight);
-		lblLiveCells.setBounds(986, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
-		lblCountLiveCells.setBounds(1073, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth,
-				labelHeight);
-		lblIteration.setBounds(1136, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
-		lblCountIteration.setBounds(1223, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth,
-				labelHeight);
+		lowerPanel.setBounds(0, mainAppWindow.getHeight() - panelAndLabelHeightExclude, PANEL_WIDTH, LABEL_HEIGHT);
+		lblLiveCells.setBounds(986, mainAppWindow.getHeight() - panelAndLabelHeightExclude, LABEL_WIDTH, LABEL_HEIGHT);
+		lblCountLiveCells.setBounds(1073, mainAppWindow.getHeight() - panelAndLabelHeightExclude, LABEL_WIDTH,
+                LABEL_HEIGHT);
+		lblIteration.setBounds(1136, mainAppWindow.getHeight() - panelAndLabelHeightExclude, LABEL_WIDTH, LABEL_HEIGHT);
+		lblCountIteration.setBounds(1223, mainAppWindow.getHeight() - panelAndLabelHeightExclude, LABEL_WIDTH,
+                LABEL_HEIGHT);
 	}
 
 	private void setMediumWindowLayout() {
 		mainAppWindow.setBounds(windowPositionX, windowPositionY, 1024, 768);
 		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - mainAppWindowHeightExclude);
-		lowerPanel.setBounds(0, mainAppWindow.getHeight() - panelAndLabelHeightExclude, panelWidth, labelHeight);
-		lblLiveCells.setBounds(700, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
-		lblCountLiveCells.setBounds(787, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth,
-				labelHeight);
-		lblIteration.setBounds(860, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
-		lblCountIteration.setBounds(947, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth,
-				labelHeight);
+		lowerPanel.setBounds(0, mainAppWindow.getHeight() - panelAndLabelHeightExclude, PANEL_WIDTH, LABEL_HEIGHT);
+		lblLiveCells.setBounds(700, mainAppWindow.getHeight() - panelAndLabelHeightExclude, LABEL_WIDTH, LABEL_HEIGHT);
+		lblCountLiveCells.setBounds(787, mainAppWindow.getHeight() - panelAndLabelHeightExclude, LABEL_WIDTH,
+                LABEL_HEIGHT);
+		lblIteration.setBounds(860, mainAppWindow.getHeight() - panelAndLabelHeightExclude, LABEL_WIDTH, LABEL_HEIGHT);
+		lblCountIteration.setBounds(947, mainAppWindow.getHeight() - panelAndLabelHeightExclude, LABEL_WIDTH,
+                LABEL_HEIGHT);
 	}
 
 	private void setSmallWindowLayout() {
 		mainAppWindow.setBounds(windowPositionX, windowPositionY, 800, 600);
 		centerPanel.setBounds(0, 25, mainAppWindow.getWidth(), mainAppWindow.getHeight() - mainAppWindowHeightExclude);
-		lowerPanel.setBounds(0, mainAppWindow.getHeight() - panelAndLabelHeightExclude, panelWidth, labelHeight);
-		lblLiveCells.setBounds(506, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
-		lblCountLiveCells.setBounds(593, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth,
-				labelHeight);
-		lblIteration.setBounds(656, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth, labelHeight);
-		lblCountIteration.setBounds(743, mainAppWindow.getHeight() - panelAndLabelHeightExclude, labelWidth,
-				labelHeight);
+		lowerPanel.setBounds(0, mainAppWindow.getHeight() - panelAndLabelHeightExclude, PANEL_WIDTH, LABEL_HEIGHT);
+		lblLiveCells.setBounds(506, mainAppWindow.getHeight() - panelAndLabelHeightExclude, LABEL_WIDTH, LABEL_HEIGHT);
+		lblCountLiveCells.setBounds(593, mainAppWindow.getHeight() - panelAndLabelHeightExclude, LABEL_WIDTH,
+                LABEL_HEIGHT);
+		lblIteration.setBounds(656, mainAppWindow.getHeight() - panelAndLabelHeightExclude, LABEL_WIDTH, LABEL_HEIGHT);
+		lblCountIteration.setBounds(743, mainAppWindow.getHeight() - panelAndLabelHeightExclude, LABEL_WIDTH,
+                LABEL_HEIGHT);
 	}
 
 	private void setUpLiveCellsCounter() {
