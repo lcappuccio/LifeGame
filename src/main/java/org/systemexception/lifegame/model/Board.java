@@ -19,15 +19,17 @@ public class Board {
 	private int liveCellCounter = 0;
 
 	public Board(int rows, int cols) {
-		this.board = new boolean[rows][cols];
+		board = new boolean[rows][cols];
+        boardIteration = new boolean[rows][cols];
 		this.rows = rows;
 		this.cols = cols;
 		generateBoard(rows, cols);
 	}
 
 	public Board(int rows, int cols, List<List<String>> savedBoard) {
-		this.board = new boolean[rows][cols];
-		this.rows = rows;
+		board = new boolean[rows][cols];
+        boardIteration = new boolean[rows][cols];
+        this.rows = rows;
 		this.cols = cols;
 		setBoardFromSavedFile(savedBoard);
 	}

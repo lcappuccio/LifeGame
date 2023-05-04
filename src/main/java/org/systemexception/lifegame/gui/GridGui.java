@@ -149,6 +149,8 @@ public class GridGui extends JPanel {
 	@Override
 	public void paintComponent(Graphics graphics) {
         Graphics2D graphics2D = (Graphics2D) graphics;
+        graphics2D.setRenderingHint(RenderingHints.KEY_ALPHA_INTERPOLATION, RenderingHints.VALUE_ALPHA_INTERPOLATION_SPEED);
+        graphics2D.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
         graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
         Rectangle2D rectangle2D = new Rectangle2D.Double();
         for (int i = 0; i < gridRows; i++) {
@@ -158,6 +160,5 @@ public class GridGui extends JPanel {
                 graphics2D.fill(rectangle2D);
             }
 		}
-		totalLiveCells = board.getCellAliveCount();
 	}
 }
