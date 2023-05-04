@@ -119,15 +119,15 @@ public class GridGui extends JComponent {
 			colorLight = Color.DARK_GRAY;
 		}
 		if (colourTheme.equals(Themes.BLUE.toString())) {
-			colorDark = hex2Rgb("#336E7B");
+			colorDark = hex2Rgb("#003366");
 			colorLight = hex2Rgb("#19B5FE");
 		}
 		if (colourTheme.equals(Themes.GREEN.toString())) {
-			colorDark = hex2Rgb("#1E824C");
+			colorDark = hex2Rgb("#336600");
 			colorLight = hex2Rgb("#36D7B7");
 		}
 		if (colourTheme.equals(Themes.RED.toString())) {
-			colorDark = hex2Rgb("#96281B");
+			colorDark = hex2Rgb("#660000");
 			colorLight = hex2Rgb("#EF4836");
 		}
 	}
