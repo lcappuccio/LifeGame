@@ -20,10 +20,10 @@ public class PreferencesGui extends JFrame {
 	private static final int WINDOW_WIDTH = 250;
     private static final int WINDOW_HEIGHT = 240;
     private static final int MIN_CELL_SIZE = 1;
-    private static final int MAX_CELL_SIZE = 10;
+    private static final int MAX_CELL_SIZE = 4;
     private static final int MIN_CELL_LIFE_PROBABILITY = 0;
     private static final int MAX_CELL_LIFE_PROBABILITY = 100;
-	private static int cellSize = 5;
+	private static int cellSize = 2;
     private static int cellLifeProbability = 50;
 	private static String colourTheme = Themes.BW.toString();
     private static Automata lifeAutomata = Automata.CONWAY;
@@ -38,7 +38,7 @@ public class PreferencesGui extends JFrame {
 	}
 
 	private void setCellSize() {
-		PreferencesGui.cellSize = Integer.parseInt(prefsCellSpinner.getValue().toString());
+		cellSize = Integer.parseInt(prefsCellSpinner.getValue().toString());
 	}
 
 	public static String getColorTheme() {
