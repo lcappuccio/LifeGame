@@ -33,40 +33,18 @@ public class Board {
 	}
 
 	public void iterateBoard() {
-		if (PreferencesGui.getLifeAutomata().equals(Automata.ASSIMILATION.toString())) {
-			iterateBoardAssimilation();
-		}
-		if (PreferencesGui.getLifeAutomata().equals(Automata.CONWAY.toString())) {
-			iterateBoardConway();
-			return;
-		}
-		if (PreferencesGui.getLifeAutomata().equals(Automata.CORAL.toString())) {
-			iterateBoardCoral();
-			return;
-		}
-		if (PreferencesGui.getLifeAutomata().equals(Automata.DRYLIFE.toString())) {
-			iterateBoardDryLife();
-			return;
-		}
-		if (PreferencesGui.getLifeAutomata().equals(Automata.HIGHLIFE.toString())) {
-			iterateBoardHighLife();
-			return;
-		}
-		if (PreferencesGui.getLifeAutomata().equals(Automata.LIVEFREEORDIE.toString())) {
-			iterateBoardLiveFreeOrDie();
-			return;
-		}
-		if (PreferencesGui.getLifeAutomata().equals(Automata.MAZE.toString())) {
-			iterateBoardMaze();
-			return;
-		}
-		if (PreferencesGui.getLifeAutomata().equals(Automata.MOVE.toString())) {
-			iterateBoardMove();
-			return;
-		}
-		if (PreferencesGui.getLifeAutomata().equals(Automata.SERVIETTES.toString())) {
-			iterateBoardServiettes();
-		}
+        Automata lifeAutomata = PreferencesGui.getLifeAutomata();
+        switch (lifeAutomata) {
+            case ASSIMILATION -> iterateBoardAssimilation();
+            case CONWAY -> iterateBoardConway();
+            case CORAL -> iterateBoardCoral();
+            case DRYLIFE -> iterateBoardDryLife();
+            case HIGHLIFE -> iterateBoardHighLife();
+            case LIVEFREEORDIE -> iterateBoardLiveFreeOrDie();
+            case MAZE -> iterateBoardMaze();
+            case MOVE -> iterateBoardMove();
+            case SERVIETTES -> iterateBoardServiettes();
+        }
 	}
 
 	private void generateBoard(int rows, int cols) {

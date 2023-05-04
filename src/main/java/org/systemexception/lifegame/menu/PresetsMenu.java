@@ -49,7 +49,7 @@ public class PresetsMenu extends JMenu {
                 if (inputStream == null) {
                     throw new IOException("Missing presets folder");
                 }
-				FileOutputStream fileOutputStream = new FileOutputStream(new File(TEMP_LIFE_PRESET));
+				FileOutputStream fileOutputStream = new FileOutputStream(TEMP_LIFE_PRESET);
 				int read;
 				byte[] bytes = new byte[1024];
 				while ((read = inputStream.read(bytes)) != -1) {

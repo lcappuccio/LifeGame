@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+import java.util.Objects;
 
 public class PreferencesGui extends JFrame {
 
@@ -25,10 +26,10 @@ public class PreferencesGui extends JFrame {
 	private static int cellSize = 5;
     private static int cellLifeProbability = 50;
 	private static String colourTheme = Themes.BW.toString();
-    private static String lifeAutomata = Automata.CONWAY.toString();
+    private static Automata lifeAutomata = Automata.CONWAY;
     private static String boardSize = BoardSizes.MEDIUM.toString();
 	private final JComboBox<String> prefsThemeSelector;
-    private final JComboBox<String> prefsAutomataSelector;
+    private final JComboBox<Automata> prefsAutomataSelector;
 	private final JSpinner prefsCellSpinner;
     private final JSpinner prefsLifeProbabilitySpinner;
 
@@ -48,15 +49,15 @@ public class PreferencesGui extends JFrame {
 		PreferencesGui.colourTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
 	}
 
-	public static String getLifeAutomata() {
+	public static Automata getLifeAutomata() {
 		return lifeAutomata;
 	}
 
 	private void setLifeAutomata() {
-		PreferencesGui.lifeAutomata = String.valueOf(prefsAutomataSelector.getSelectedItem());
+		PreferencesGui.lifeAutomata = Automata.valueOf(Objects.requireNonNull(prefsAutomataSelector.getSelectedItem()).toString());
 	}
 
-	public static void setLifeAutomata(String automata) {
+	public static void setLifeAutomata(Automata automata) {
 		PreferencesGui.lifeAutomata = automata;
 	}
 
@@ -135,20 +136,20 @@ public class PreferencesGui extends JFrame {
 		return objectJComboBox;
 	}
 
-	private JComboBox<String> getAutomataJComboBox() {
+	private JComboBox<Automata> getAutomataJComboBox() {
 
-		JComboBox<String> objectJComboBox = new JComboBox<>();
+		JComboBox<Automata> objectJComboBox = new JComboBox<>();
 
-		objectJComboBox.addItem(Automata.ASSIMILATION.toString());
-		objectJComboBox.addItem(Automata.CONWAY.toString());
-		objectJComboBox.addItem(Automata.CORAL.toString());
-		objectJComboBox.addItem(Automata.DRYLIFE.toString());
-		objectJComboBox.addItem(Automata.HIGHLIFE.toString());
-		objectJComboBox.addItem(Automata.LIVEFREEORDIE.toString());
-		objectJComboBox.addItem(Automata.MAZE.toString());
-		objectJComboBox.addItem(Automata.MOVE.toString());
-		objectJComboBox.addItem(Automata.SERVIETTES.toString());
-		objectJComboBox.setSelectedItem(Automata.CONWAY.toString());
+		objectJComboBox.addItem(Automata.ASSIMILATION);
+		objectJComboBox.addItem(Automata.CONWAY);
+		objectJComboBox.addItem(Automata.CORAL);
+		objectJComboBox.addItem(Automata.DRYLIFE);
+		objectJComboBox.addItem(Automata.HIGHLIFE);
+		objectJComboBox.addItem(Automata.LIVEFREEORDIE);
+		objectJComboBox.addItem(Automata.MAZE);
+		objectJComboBox.addItem(Automata.MOVE);
+		objectJComboBox.addItem(Automata.SERVIETTES);
+		objectJComboBox.setSelectedItem(Automata.CONWAY);
 		return objectJComboBox;
 	}
 

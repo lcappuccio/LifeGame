@@ -38,7 +38,7 @@ public class BoardTest {
         sut.setCellAt(2, 0, false);
         sut.setCellAt(2, 1, true);
         sut.setCellAt(2, 2, false);
-        PreferencesGui.setLifeAutomata(Automata.CONWAY.toString());
+        PreferencesGui.setLifeAutomata(Automata.CONWAY);
         sut.iterateBoard();
         assertTrue(sut.getCellAt(1, 0));
         assertTrue(sut.getCellAt(1, 1));
@@ -50,7 +50,7 @@ public class BoardTest {
     public void testAssimilationIteration() {
         sut = new Board(100, 100);
         int cellsCounterBefore = sut.getCellAliveCount();
-        PreferencesGui.setLifeAutomata(Automata.ASSIMILATION.toString());
+        PreferencesGui.setLifeAutomata(Automata.ASSIMILATION);
         sut.iterateBoard();
         int cellsCounterAfter = sut.getCellAliveCount();
         assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
@@ -60,7 +60,7 @@ public class BoardTest {
     public void testDryLifeIteration() {
         sut = new Board(100, 100);
         int cellsCounterBefore = sut.getCellAliveCount();
-        PreferencesGui.setLifeAutomata(Automata.DRYLIFE.toString());
+        PreferencesGui.setLifeAutomata(Automata.DRYLIFE);
         sut.iterateBoard();
         int cellsCounterAfter = sut.getCellAliveCount();
         assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
@@ -70,7 +70,7 @@ public class BoardTest {
     public void testHighLifeIteration() {
         sut = new Board(100, 100);
         int cellsCounterBefore = sut.getCellAliveCount();
-        PreferencesGui.setLifeAutomata(Automata.HIGHLIFE.toString());
+        PreferencesGui.setLifeAutomata(Automata.HIGHLIFE);
         sut.iterateBoard();
         int cellsCounterAfter = sut.getCellAliveCount();
         assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
@@ -80,7 +80,7 @@ public class BoardTest {
     public void testLiveFreeOrDieIteration() {
         sut = new Board(100, 100);
         int cellsCounterBefore = sut.getCellAliveCount();
-        PreferencesGui.setLifeAutomata(Automata.LIVEFREEORDIE.toString());
+        PreferencesGui.setLifeAutomata(Automata.LIVEFREEORDIE);
         sut.iterateBoard();
         int cellsCounterAfter = sut.getCellAliveCount();
         assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
@@ -90,7 +90,7 @@ public class BoardTest {
     public void testCoralIteration() {
         sut = new Board(100, 100);
         int cellsCounterBefore = sut.getCellAliveCount();
-        PreferencesGui.setLifeAutomata(Automata.CORAL.toString());
+        PreferencesGui.setLifeAutomata(Automata.CORAL);
         sut.iterateBoard();
         int cellsCounterAfter = sut.getCellAliveCount();
         assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
@@ -100,7 +100,7 @@ public class BoardTest {
     public void testMazeIteration() {
         sut = new Board(100, 100);
         int cellsCounterBefore = sut.getCellAliveCount();
-        PreferencesGui.setLifeAutomata(Automata.MAZE.toString());
+        PreferencesGui.setLifeAutomata(Automata.MAZE);
         sut.iterateBoard();
         int cellsCounterAfter = sut.getCellAliveCount();
         assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
@@ -110,7 +110,7 @@ public class BoardTest {
     public void testMoveIteration() {
         sut = new Board(100, 100);
         int cellsCounterBefore = sut.getCellAliveCount();
-        PreferencesGui.setLifeAutomata(Automata.MOVE.toString());
+        PreferencesGui.setLifeAutomata(Automata.MOVE);
         sut.iterateBoard();
         int cellsCounterAfter = sut.getCellAliveCount();
         assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));
@@ -120,7 +120,7 @@ public class BoardTest {
     public void testServiettesIteration() {
         sut = new Board(100, 100);
         int cellsCounterBefore = sut.getCellAliveCount();
-        PreferencesGui.setLifeAutomata(Automata.SERVIETTES.toString());
+        PreferencesGui.setLifeAutomata(Automata.SERVIETTES);
         sut.iterateBoard();
         int cellsCounterAfter = sut.getCellAliveCount();
         assertFalse(compareCounters(cellsCounterAfter, cellsCounterBefore));

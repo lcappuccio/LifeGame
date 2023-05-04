@@ -360,7 +360,7 @@ public class MainGui {
 				try {
 					openFile(selectedFile);
 				} catch (IOException exception) {
-					exception.getMessage();
+					LOGGER.severe(exception.getMessage());
 				}
 			}
 		});
