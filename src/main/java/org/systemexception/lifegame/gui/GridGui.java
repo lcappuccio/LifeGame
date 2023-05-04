@@ -11,9 +11,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.geom.Rectangle2D;
 import java.util.List;
 
-public class GridGui extends JComponent {
+public class GridGui extends JPanel {
 
 	private final int gridRows;
     private final int gridCols;
@@ -30,7 +31,7 @@ public class GridGui extends JComponent {
 		this.gridRows = gridRows;
 		this.gridCols = gridCols;
 		this.board = new Board(gridRows, gridCols);
-		this.addMouseListener(new MouseListener() {
+        this.addMouseListener(new MouseListener() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
                 int i = e.getX() / cellSize;
@@ -62,7 +63,7 @@ public class GridGui extends JComponent {
 		});
 		totalLiveCells = board.getCellAliveCount();
 		setColours(colourTheme);
-	}
+    }
 
 	public GridGui(int cellSize, int gridRows, int gridCols, List<List<String>> savedBoard, String
 			colourTheme) {
@@ -97,7 +98,7 @@ public class GridGui extends JComponent {
 	public void iterateBoard() {
 		board.iterateBoard();
 		totalLiveCells = board.getCellAliveCount();
-		this.repaint();
+		repaint(0, 0, 0, getWidth(), getHeight());
 	}
 
 	public int getTotalLiveCells() {
@@ -147,10 +148,14 @@ public class GridGui extends JComponent {
 
 	@Override
 	public void paintComponent(Graphics graphics) {
+        Graphics2D graphics2D = (Graphics2D) graphics;
+        graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
+        Rectangle2D rectangle2D = new Rectangle2D.Double();
         for (int i = 0; i < gridRows; i++) {
 			for (int j = 0; j <gridCols; j++) {
-                graphics.setColor(board.getCellAt(i, j) ? colorLight : colorDark);
-                graphics.fillRect(cellSize * i, cellSize * j, cellSize, cellSize);
+                graphics2D.setColor(board.getCellAt(i, j) ? colorLight : colorDark);
+                rectangle2D.setRect(cellSize * i, cellSize * j, cellSize, cellSize);
+                graphics2D.fill(rectangle2D);
             }
 		}
 		totalLiveCells = board.getCellAliveCount();
