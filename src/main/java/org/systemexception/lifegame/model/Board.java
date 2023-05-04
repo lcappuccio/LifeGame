@@ -272,6 +272,50 @@ public class Board {
 		this.board = boardIteration;
 	}
 
+    private void iterateHighOrDryLife(final int aliveLowerBound, final int aliveUpperBound, final int alivelowerEqual,
+                                      final int aliveUpperEqual) {
+        liveCellCounter = 0;
+        copyBoard();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                // Cell dies
+                int surroungingLiveCells = countSurroungingLiveCells(i, j);
+                if ((surroungingLiveCells < aliveLowerBound ||
+                        surroungingLiveCells > aliveUpperBound) && board[i][j]) {
+                    boardIteration[i][j] = false;
+                }
+                // Cell becomes alive
+                if ((surroungingLiveCells == alivelowerEqual ||
+                        surroungingLiveCells == aliveUpperEqual) && !board[i][j]) {
+                    boardIteration[i][j] = true;
+                }
+                updateLiveCellCounter(boardIteration, i, j);
+            }
+        }
+        this.board = boardIteration;
+    }
+
+    private void iterateConwayOrMaze(final int aliveLowerBound, final int aliveUpperBound, final int alivelowerEqual) {
+        liveCellCounter = 0;
+        copyBoard();
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[i].length; j++) {
+                // Cell dies
+                int surroungingLiveCells = countSurroungingLiveCells(i, j);
+                if ((surroungingLiveCells < aliveLowerBound ||
+                        surroungingLiveCells > aliveUpperBound) && board[i][j]) {
+                    boardIteration[i][j] = false;
+                }
+                // Cell becomes alive
+                if (surroungingLiveCells == alivelowerEqual && !board[i][j]) {
+                    boardIteration[i][j] = true;
+                }
+                updateLiveCellCounter(boardIteration, i, j);
+            }
+        }
+        this.board = boardIteration;
+    }
+
 	private void updateLiveCellCounter(boolean[][] board, int i, int j) {
 		if (board[i][j]) {
 			liveCellCounter++;
@@ -299,49 +343,5 @@ public class Board {
 				board[j][i] = cellState;
 			}
 		}
-	}
-
-	private void iterateHighOrDryLife(final int aliveLowerBound, final int aliveUpperBound, final int alivelowerEqual,
-	                                  final int aliveUpperEqual) {
-		liveCellCounter = 0;
-		copyBoard();
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				// Cell dies
-                int surroungingLiveCells = countSurroungingLiveCells(i, j);
-                if ((surroungingLiveCells < aliveLowerBound ||
-						surroungingLiveCells > aliveUpperBound) && board[i][j]) {
-					boardIteration[i][j] = false;
-				}
-				// Cell becomes alive
-				if ((surroungingLiveCells == alivelowerEqual ||
-						surroungingLiveCells == aliveUpperEqual) && !board[i][j]) {
-					boardIteration[i][j] = true;
-				}
-				updateLiveCellCounter(boardIteration, i, j);
-			}
-		}
-		this.board = boardIteration;
-	}
-
-	private void iterateConwayOrMaze(final int aliveLowerBound, final int aliveUpperBound, final int alivelowerEqual) {
-		liveCellCounter = 0;
-		copyBoard();
-		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
-				// Cell dies
-                int surroungingLiveCells = countSurroungingLiveCells(i, j);
-                if ((surroungingLiveCells < aliveLowerBound ||
-						surroungingLiveCells > aliveUpperBound) && board[i][j]) {
-					boardIteration[i][j] = false;
-				}
-				// Cell becomes alive
-				if (surroungingLiveCells == alivelowerEqual && !board[i][j]) {
-					boardIteration[i][j] = true;
-				}
-				updateLiveCellCounter(boardIteration, i, j);
-			}
-		}
-		this.board = boardIteration;
 	}
 }
