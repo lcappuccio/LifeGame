@@ -37,7 +37,7 @@ public class PreferencesGui extends JFrame {
 		return cellSize;
 	}
 
-	private void setCellSize() {
+	private synchronized void setCellSize() {
 		cellSize = Integer.parseInt(prefsCellSpinner.getValue().toString());
 	}
 
@@ -45,7 +45,7 @@ public class PreferencesGui extends JFrame {
 		return colourTheme;
 	}
 
-	private void setColorTheme() {
+	private synchronized void setColorTheme() {
 		PreferencesGui.colourTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
 	}
 
@@ -53,7 +53,7 @@ public class PreferencesGui extends JFrame {
 		return lifeAutomata;
 	}
 
-	private void setLifeAutomata() {
+	private synchronized void setLifeAutomata() {
 		PreferencesGui.lifeAutomata = Automata.valueOf(Objects.requireNonNull(prefsAutomataSelector.getSelectedItem()).toString());
 	}
 
@@ -65,7 +65,7 @@ public class PreferencesGui extends JFrame {
 		return cellLifeProbability;
 	}
 
-	private void setCellLifeProbability() {
+	private synchronized void setCellLifeProbability() {
 		PreferencesGui.cellLifeProbability = Integer.parseInt(prefsLifeProbabilitySpinner.getValue().toString());
 	}
 
@@ -96,7 +96,7 @@ public class PreferencesGui extends JFrame {
 	public PreferencesGui() {
 		setResizable(false);
 		setTitle(LifeGameMenu.MENU_ITEM_PREFERENCES);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25, WINDOW_WIDTH, WINDOW_HEIGHT);
 		JPanel prefsWindow = new JPanel();
 		prefsWindow.setBorder(new EmptyBorder(5, 5, 5, 5));
