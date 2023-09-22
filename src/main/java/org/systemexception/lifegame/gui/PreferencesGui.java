@@ -20,10 +20,10 @@ public class PreferencesGui extends JFrame {
 	private static final int WINDOW_WIDTH = 250;
     private static final int WINDOW_HEIGHT = 240;
     private static final int MIN_CELL_SIZE = 1;
-    private static final int MAX_CELL_SIZE = 10;
+    private static final int MAX_CELL_SIZE = 4;
     private static final int MIN_CELL_LIFE_PROBABILITY = 0;
     private static final int MAX_CELL_LIFE_PROBABILITY = 100;
-	private static int cellSize = 5;
+	private static int cellSize = 2;
     private static int cellLifeProbability = 50;
 	private static String colourTheme = Themes.BW.toString();
     private static Automata lifeAutomata = Automata.CONWAY;
@@ -37,15 +37,15 @@ public class PreferencesGui extends JFrame {
 		return cellSize;
 	}
 
-	private void setCellSize() {
-		PreferencesGui.cellSize = Integer.parseInt(prefsCellSpinner.getValue().toString());
+	private synchronized void setCellSize() {
+		cellSize = Integer.parseInt(prefsCellSpinner.getValue().toString());
 	}
 
 	public static String getColorTheme() {
 		return colourTheme;
 	}
 
-	private void setColorTheme() {
+	private synchronized void setColorTheme() {
 		PreferencesGui.colourTheme = String.valueOf(prefsThemeSelector.getSelectedItem());
 	}
 
@@ -53,7 +53,7 @@ public class PreferencesGui extends JFrame {
 		return lifeAutomata;
 	}
 
-	private void setLifeAutomata() {
+	private synchronized void setLifeAutomata() {
 		PreferencesGui.lifeAutomata = Automata.valueOf(Objects.requireNonNull(prefsAutomataSelector.getSelectedItem()).toString());
 	}
 
@@ -65,7 +65,7 @@ public class PreferencesGui extends JFrame {
 		return cellLifeProbability;
 	}
 
-	private void setCellLifeProbability() {
+	private synchronized void setCellLifeProbability() {
 		PreferencesGui.cellLifeProbability = Integer.parseInt(prefsLifeProbabilitySpinner.getValue().toString());
 	}
 
@@ -96,7 +96,7 @@ public class PreferencesGui extends JFrame {
 	public PreferencesGui() {
 		setResizable(false);
 		setTitle(LifeGameMenu.MENU_ITEM_PREFERENCES);
-		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
 		setBounds(MainGui.windowPositionX + 25, MainGui.windowPositionY + 25, WINDOW_WIDTH, WINDOW_HEIGHT);
 		JPanel prefsWindow = new JPanel();
 		prefsWindow.setBorder(new EmptyBorder(5, 5, 5, 5));

@@ -3,8 +3,7 @@ package org.systemexception.lifegame.gui;
 import org.junit.Test;
 import org.systemexception.lifegame.model.Board;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class GridGuiTest {
 
@@ -33,7 +32,7 @@ public class GridGuiTest {
 		int innerCellSize = sut.getCellSize();
 		GridGui innerSut = new GridGui(5, gridRows, gridCols, "B & W");
 		int cellSizeNew = innerSut.getCellSize();
-		assertTrue(innerCellSize != cellSizeNew);
+		assertNotEquals(innerCellSize, cellSizeNew);
 	}
 
 }
