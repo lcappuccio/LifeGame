@@ -153,11 +153,14 @@ public class GridGui extends JPanel {
         graphics2D.setRenderingHint(RenderingHints.KEY_COLOR_RENDERING, RenderingHints.VALUE_COLOR_RENDER_SPEED);
         graphics2D.setRenderingHint(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_SPEED);
         Rectangle2D rectangle2D = new Rectangle2D.Double();
+        boolean[][] boardStateChange = board.getBoardStateChange();
         for (int i = 0; i < gridRows; i++) {
 			for (int j = 0; j <gridCols; j++) {
-                graphics2D.setColor(board.getCellAt(i, j) ? colorLight : colorDark);
-                rectangle2D.setRect(cellSize * i, cellSize * j, cellSize, cellSize);
-                graphics2D.fill(rectangle2D);
+                if (boardStateChange[i][j] || MainGui.lblCountIteration.getText().equals("0")) {
+                    graphics2D.setColor(board.getCellAt(i, j) ? colorLight : colorDark);
+                    rectangle2D.setRect(cellSize * i, cellSize * j, cellSize, cellSize);
+                    graphics2D.fill(rectangle2D);
+                }
             }
 		}
 	}
